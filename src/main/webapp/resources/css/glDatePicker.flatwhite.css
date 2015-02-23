@@ -1,0 +1,165 @@
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.ttf) format('truetype');
+}
+
+.gldp-flatwhite {
+	position: absolute;
+	font-family: 'Helvetica', 'Nanum Gothic';
+}
+
+/* Core style for every cell */
+.gldp-flatwhite .core {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	position: relative;
+	float: left;
+	padding: 0;
+	margin: 0;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+	color: #222;
+	background: #ffffff;
+}
+
+/* Cell border */
+.gldp-flatwhite .border {
+	border-style: solid;
+	border-width: 0;
+	border-color: #fff;
+}
+
+/* Month/Year text and select */
+.gldp-flatwhite .monyear,
+.gldp-flatwhite .monyear select {
+	font-size: 16px !important;
+	font-weight: bold;
+	background: #e0e7f1;
+}
+
+/* Month/Year text */
+.gldp-flatwhite .monyear span {
+	margin: 0 5px 0 5px;
+}
+
+/* Prev/Next arrows */
+.gldp-flatwhite .prev-arrow,
+.gldp-flatwhite .next-arrow {
+	color: #ccc;
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.gldp-flatwhite .prev-arrow:active,
+.gldp-flatwhite .next-arrow:active {
+	color: #000;
+}
+
+.gldp-flatwhite .prev-arrow-off,
+.gldp-flatwhite .next-arrow-off {
+	color: #000;
+	opacity: 0.15;
+}
+
+/* Days of the week */
+.gldp-flatwhite .dow {
+	color: #222;
+	font-weight: bold;
+	cursor: disabled !important;
+	background: #eee;
+}
+
+/* Weekdays */
+.gldp-flatwhite .mon,
+.gldp-flatwhite .tue,
+.gldp-flatwhite .wed,
+.gldp-flatwhite .thu,
+.gldp-flatwhite .fri {
+	font-weight: bold;
+}
+
+/* Weekend days */
+.gldp-flatwhite .sat
+ {
+	color: #0678cf;
+	font-weight: bold;
+}
+.gldp-flatwhite .sun {
+	color: #cf0646;
+	font-weight: bold;
+}
+
+/* Selectable days that are outside of current month being shown */
+.gldp-flatwhite .outday {
+	color: #eee !important;
+}
+
+/* Hover */
+.gldp-flatwhite .mon:hover,
+.gldp-flatwhite .tue:hover,
+.gldp-flatwhite .wed:hover,
+.gldp-flatwhite .thu:hover,
+.gldp-flatwhite .fri:hover,
+.gldp-flatwhite .sat:hover,
+.gldp-flatwhite .sun:hover {
+	background: #fff;
+}
+
+/* Non-Selectable days */
+.gldp-flatwhite .noday {
+	color: #bbb;
+	font-weight: normal;
+	cursor: wait !important;
+	background: #ddd;
+}
+
+/* Currently selected day */
+.gldp-flatwhite .selected {
+	color: #fff;
+	font-weight: bold;
+	border-color: #1d65aa;
+	background: #258ccc;
+}
+
+/* Today */
+.gldp-flatwhite .today {
+	color: #fff;
+	font-weight: bold;
+	border-color: #258ccc;
+	background: #1d65aa;
+}
+
+/* Special */
+.gldp-flatwhite .special {
+	color: #fff;
+	font-weight: bold;
+	border-color: #444;
+	background: #666;
+}

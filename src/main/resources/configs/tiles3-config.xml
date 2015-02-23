@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+  <definition name="mainDef" template="/WEB-INF/pages/layouts/mainTemplate.jsp">
+    <put-attribute name="header" value="/WEB-INF/pages/layouts/inc/user/mainHeader.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/pages/layouts/inc/user/footer.jsp" />
+  </definition>
+  <definition name="userDef" template="/WEB-INF/pages/layouts/userTemplate.jsp">
+    <put-attribute name="header" value="/WEB-INF/pages/layouts/inc/user/header.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/pages/layouts/inc/user/footer.jsp" />
+  </definition>
+  <definition name="adminDef" template="/WEB-INF/pages/layouts/adminTemplate.jsp">
+    <put-attribute name="left" value="/WEB-INF/pages/layouts/inc/admin/left.jsp" />
+    <put-attribute name="header" value="/WEB-INF/pages/layouts/inc/admin/header.jsp" />
+  </definition>
+  <definition name="adminLoginDef" template="/WEB-INF/pages/layouts/adminLoginTemplate.jsp">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/adminLogin.jsp" />
+  </definition>
+  <definition name="mailDef" template="/WEB-INF/pages/layouts/mailTemplate.jsp">
+    <put-attribute name="body" value="/WEB-INF/pages/views/mailing/sendMail.jsp" />
+  </definition>
+  <definition name="blankDef" template="/WEB-INF/pages/layouts/blankTemplate.jsp"/>
+  <definition name="guideDef" template="/WEB-INF/pages/layouts/guideTemplate.jsp"/>
+  <definition name="introductionDef" template="/WEB-INF/pages/layouts/introductionTemplate.jsp"/>
+  
+  <definition name="surveyAnswerForm" extends="blankDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/common/surveyAnswerForm.jsp" />
+  </definition>
+  
+  <definition name="adminReLogin" extends="adminLoginDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/adminReLogin.jsp" />
+  </definition> 
+  
+  <definition name="error" template="/WEB-INF/pages/views/common/error.jsp" />
+  <definition name="teaser" template="/WEB-INF/pages/views/user/teaser.jsp" />
+  <definition name="answerSuccess" template="/WEB-INF/pages/views/common/answerSuccess.jsp" />
+  
+  <definition name="noIp" extends="blankDef">
+	  <put-attribute name="body" value="/WEB-INF/pages/views/common/noIp.jsp" />
+  </definition>
+
+   
+  <!-- 회원 -->
+  <definition name="guide/*" extends="guideDef">
+	  <put-attribute name="body" value="/WEB-INF/pages/views/user/guide/{1}.jsp" />
+  </definition>
+  
+    <definition name="introduction/popup/*" extends="introductionDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/user/popup/{1}.jsp" />
+  </definition>
+  
+  <definition name="user/sub/*/*" extends="userDef">
+    <put-attribute name="header" value="/WEB-INF/pages/layouts/inc/user/subHeader.jsp" />
+    <put-attribute name="body" value="/WEB-INF/pages/views/user/{1}/{2}.jsp" />
+  </definition> 
+  
+   <definition name="user/*/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/user/{1}/{2}.jsp" />
+  </definition> 
+  
+  <!-- 회원 -->
+  
+  <!-- 회원메인 -->
+  <definition name="user/*" extends="mainDef">
+   <put-attribute name="body" value="/WEB-INF/pages/views/user/{1}.jsp" />
+  </definition> 
+  <!-- //회원메인 -->
+  
+  <!-- 관리자 -->
+  <definition name="admin/*/*" extends="adminDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/{1}/{2}.jsp" />
+  </definition> 
+  <!-- 관리자 -->
+
+  <!-- 관리자 메인 -->
+  <definition name="admin/*" extends="adminDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/main.jsp" />
+  </definition>  
+  <!-- 관리자 메인 -->
+  
+  <!-- 엑셀 출력 -->  
+  <definition name="excel/*" template="/WEB-INF/pages/layouts/excelTemplate.jsp">
+		<put-attribute name="body" value="/WEB-INF/pages/views/excel/{1}.jsp" />
+	</definition>
+  <!-- //엑셀 출력 -->  
+</tiles-definitions>

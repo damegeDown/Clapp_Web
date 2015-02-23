@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.CustomerDAO">
+  <!-- 이메일 문의 목록 -->
+  <select id="getServiceInquiryList" parameterType="serviceInquiryEntity" resultType="serviceInquiryEntity" >
+    SELECT 
+      si.SERVICE_INQUIRY_KEY,
+      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', INQUIRY_CATEGORY) INQUIRY_CATEGORY,
+      si.INQUIRY_EMAIL,
+      si.INQUIRY_NAME,
+      si.INQUIRY_PHONE_NUMBER,
+      si.INQUIRY_TITLE,
+      si.INQUIRY_CONTENTS,
+      si.INQUIRY_INSERT_NAME,
+      si.INQUIRY_INSERT_DATE,
+      ANSWER_INSERT_DATE,
+      IF(ANSWER_INSERT_DATE is null,'답변 대기','답변 완료')  ANSWER_INSERT_YN,
+      IF(ANSWER_INSERT_NAME is null,'-',ANSWER_INSERT_NAME)  ANSWER_INSERT_NAME
+    FROM 
+      SERVICE_INQUIRY si
+        LEFT OUTER JOIN
+          SERVICE_INQUIRY_ANSWER sia
+            ON si.SERVICE_INQUIRY_KEY = sia.SERVICE_INQUIRY_KEY
+    WHERE
+      INQUIRY_INSERT_DATE IS NOT NULL
+       <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       <choose>
+          <when test="searchKey == 1">
+          AND
+          (si.INQUIRY_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d'))
+          </when>
+          <otherwise>
+          AND
+          (ANSWER_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d'))
+          </otherwise>
+        </choose>
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        <choose>
+          <when test="searchKey1 == 1">
+            AND si.INQUIRY_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+          </when>
+          <otherwise>
+            AND ANSWER_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+          </otherwise>
+        </choose>
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        AND
+         INQUIRY_EMAIL = #{searchValue1}
+      </if>
+      <if test="searchValue2 != '' and searchValue2 != null">
+        AND
+         INQUIRY_CATEGORY = #{searchValue2}
+      </if>
+      <if test="searchValue3 != '' and searchValue3 != null">
+        AND
+         IF(ANSWER_INSERT_DATE is null,'답변 대기','답변 완료') = #{searchValue3}
+      </if>
+    GROUP BY
+      si.SERVICE_INQUIRY_KEY 
+    ORDER BY
+      INQUIRY_INSERT_DATE DESC
+    LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //이메일 문의 목록 -->
+  
+  <!-- 이메일 문의 카운트 -->
+  <select id="getServiceInquiryCount" parameterType="serviceInquiryEntity" resultType="int">
+    SELECT
+      b.totalCount,
+      b.answerCount,
+      b.totalCount - b.answerCount notAnswerCount
+    FROM (
+      SELECT 
+        COUNT(*) totalCount,
+        COUNT(IF(a.ANSWER_INSERT_DATE IS NOT NULL , a.SERVICE_INQUIRY_KEY, NULL))answerCount
+      FROM(
+      SELECT
+        si.SERVICE_INQUIRY_KEY,
+        sa.ANSWER_INSERT_DATE
+      FROM 
+        SERVICE_INQUIRY si
+      LEFT OUTER JOIN
+        SERVICE_INQUIRY_ANSWER sa ON si.SERVICE_INQUIRY_KEY = sa.SERVICE_INQUIRY_KEY
+        WHERE
+      INQUIRY_INSERT_DATE IS NOT NULL
+       <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       <choose>
+          <when test="searchKey == 1">
+          AND
+          (si.INQUIRY_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d'))
+          </when>
+          <otherwise>
+          AND
+          (ANSWER_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d'))
+          </otherwise>
+        </choose>
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        <choose>
+          <when test="searchKey1 == 1">
+            AND si.INQUIRY_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+          </when>
+          <otherwise>
+            AND ANSWER_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+          </otherwise>
+        </choose>
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        AND
+         INQUIRY_EMAIL = #{searchValue1}
+      </if>
+      <if test="searchValue2 != '' and searchValue2 != null">
+        AND
+         INQUIRY_CATEGORY = #{searchValue2}
+      </if>
+      <if test="searchValue3 != '' and searchValue3 != null">
+        AND
+         IF(ANSWER_INSERT_DATE is null,'답변 대기','답변 완료') = #{searchValue3}
+      </if>
+      GROUP BY  si.SERVICE_INQUIRY_KEY
+      ) a
+    )b
+  </select>
+  <!-- //이메일 문의 카운트 -->
+  
+  <!-- 이메일 문의 누적 카운트 -->
+  <select id="getInquiryCount" parameterType="serviceInquiryEntity" resultType="serviceInquiryEntity">
+		SELECT
+		  b.totalCount,
+		  b.answerCount,
+		  b.totalCount - b.answerCount notAnswerCount
+		FROM (
+		  SELECT 
+		    COUNT(*) totalCount,
+		    COUNT(IF(a.ANSWER_INSERT_DATE IS NOT NULL , a.SERVICE_INQUIRY_KEY, NULL))answerCount
+		  FROM(
+		  SELECT
+		    si.SERVICE_INQUIRY_KEY,
+		    sa.ANSWER_INSERT_DATE
+		  FROM 
+		    SERVICE_INQUIRY si
+		  LEFT OUTER JOIN
+		    SERVICE_INQUIRY_ANSWER sa ON si.SERVICE_INQUIRY_KEY = sa.SERVICE_INQUIRY_KEY
+		  GROUP BY  si.SERVICE_INQUIRY_KEY
+		  ) a
+		)b
+  </select>
+  <!-- //이메일 문의 누적 카운트 -->
+  
+    <!-- 이메일 문의 누적 검색 카운트 -->
+  <select id="getInquirySearchCount" parameterType="serviceInquiryEntity" resultType="serviceInquiryEntity">
+    SELECT
+      b.totalCount,
+      b.answerCount,
+      b.totalCount - b.answerCount notAnswerCount
+    FROM (
+      SELECT 
+        COUNT(*) totalCount,
+        COUNT(IF(a.ANSWER_INSERT_DATE IS NOT NULL , a.SERVICE_INQUIRY_KEY, NULL))answerCount
+      FROM(
+      SELECT
+        si.SERVICE_INQUIRY_KEY,
+        sa.ANSWER_INSERT_DATE
+      FROM 
+        SERVICE_INQUIRY si
+      LEFT OUTER JOIN
+        SERVICE_INQUIRY_ANSWER sa ON si.SERVICE_INQUIRY_KEY = sa.SERVICE_INQUIRY_KEY
+        WHERE
+      INQUIRY_INSERT_DATE IS NOT NULL
+       <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       <choose>
+          <when test="searchKey == 1">
+          AND
+          (si.INQUIRY_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d'))
+          </when>
+          <otherwise>
+          AND
+          (ANSWER_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d'))
+          </otherwise>
+        </choose>
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        <choose>
+          <when test="searchKey1 == 1">
+            AND si.INQUIRY_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+          </when>
+          <otherwise>
+            AND ANSWER_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+          </otherwise>
+        </choose>
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        AND
+         INQUIRY_EMAIL = #{searchValue1}
+      </if>
+      <if test="searchValue2 != '' and searchValue2 != null">
+        AND
+         INQUIRY_CATEGORY = #{searchValue2}
+      </if>
+      <if test="searchValue3 != '' and searchValue3 != null">
+        AND
+         IF(ANSWER_INSERT_DATE is null,'답변 대기','답변 완료') = #{searchValue3}
+      </if>
+      GROUP BY  si.SERVICE_INQUIRY_KEY
+      ) a
+    )b
+  </select>
+  <!-- //이메일 문의 누적 검색 카운트 -->
+  
+  <!-- 이메일 문의 상세 -->
+  <select id="getServiceInquiryDetail" parameterType="serviceInquiryEntity" resultType="serviceInquiryEntity">
+    SELECT 
+      SERVICE_INQUIRY_KEY,
+      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', INQUIRY_CATEGORY) INQUIRY_CATEGORY,
+      INQUIRY_EMAIL,
+      INQUIRY_NAME,
+      INQUIRY_PHONE_NUMBER,
+      INQUIRY_TITLE,
+      INQUIRY_CONTENTS,
+      INQUIRY_INSERT_NAME,
+      INQUIRY_INSERT_DATE,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH
+   FROM
+	 SERVICE_INQUIRY si
+  LEFT OUTER JOIN
+	 ADMINISTRATION_FILE af on si.service_inquiry_key = af.file_target_key and af.file_target = #{fileTarget}
+  WHERE 
+      SERVICE_INQUIRY_KEY = #{serviceInquiryKey}
+  </select>
+  <!-- 이메일 문의 상세 -->
+  
+  <!-- 이메일 문의 답변 등록 -->
+  <insert id="insertServiceInquiryAnswer" parameterType="serviceInquiryEntity" useGeneratedKeys="true" keyProperty="serviceInquiryKey">
+      INSERT INTO SERVICE_INQUIRY_ANSWER (
+        SERVICE_INQUIRY_KEY,
+        ANSWER_TITLE,
+        ANSWER_CONTENTS,
+        ANSWER_INSERT_NAME,
+        ANSWER_INSERT_DATE
+        ) VALUES (
+         #{serviceInquiryKey},
+         #{answerTitle},
+         #{answerContents},
+         #{answerInsertName},
+         NOW()
+        )
+  </insert>
+  <!-- //이메일 문의 답변 등록 -->
+  
+  <!-- 이메일 문의 답변 목록 -->
+  <select id="getServiceInquiryAnswerList" parameterType="serviceInquiryEntity" resultType="serviceInquiryEntity">
+    SELECT 
+      SERVICE_INQUIRY_KEY,
+      ANSWER_TITLE,
+      ANSWER_CONTENTS,
+      ANSWER_INSERT_NAME,
+      ANSWER_INSERT_DATE
+    FROM 
+      SERVICE_INQUIRY_ANSWER
+    WHERE 
+      SERVICE_INQUIRY_KEY = #{serviceInquiryKey}
+  </select>
+  <!-- //이메일 문의 답변 목록 -->
+  
+  <!-- 유선 상담 내역 목록 -->
+  <select id="getCabledAdviceList" parameterType="cabledAdviceEntity" resultType="cabledAdviceEntity" >
+    SELECT 
+      CABLED_ADVICE_KEY,
+      FN_GET_COMMON_CODE_NAME('CABLED_ADVICE', ADVICE_CATEGORY) ADVICE_CATEGORY,
+      ADVICE_ACCEPT_DATE,
+      ADVICE_INQUIRY_NAME,
+      ADVICE_EMAIL,
+      ADVICE_PHONE_NUMBER,
+      ADVICE_TITLE,
+      ADVICE_CONTENTS,
+      ADVICE_COMLETE_DATE,
+      ADVICE_INSERT_NAME,
+      ADVICE_INSERT_DATE
+    FROM 
+      CABLED_ADVICE
+    WHERE
+      ADVICE_ACCEPT_DATE IS NOT NULL
+      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       AND
+         ADVICE_ACCEPT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         ADVICE_INQUIRY_NAME = #{searchValue}
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        AND
+         ADVICE_EMAIL = #{searchValue1}
+      </if>
+      <if test="searchValue2 != '' and searchValue2 != null">
+        AND
+         ADVICE_PHONE_NUMBER = #{searchValue2}
+      </if>
+      <if test="searchValue3 != '' and searchValue3 != null">
+        AND
+         ADVICE_CATEGORY = #{searchValue3}
+      </if>
+    ORDER BY
+      ADVICE_ACCEPT_DATE DESC
+    LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //유선 상담 내역 목록 -->
+  
+  <!-- 유선 상담 내역 카운트 -->
+  <select id="getCabledAdviceCount" parameterType="cabledAdviceEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      CABLED_ADVICE
+    WHERE
+      ADVICE_ACCEPT_DATE IS NOT NULL
+      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       AND
+         ADVICE_ACCEPT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         ADVICE_INQUIRY_NAME = #{searchValue}
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        AND
+         ADVICE_EMAIL = #{searchValue1}
+      </if>
+      <if test="searchValue2 != '' and searchValue2 != null">
+        AND
+         ADVICE_PHONE_NUMBER = #{searchValue2}
+      </if>
+      <if test="searchValue3 != '' and searchValue3 != null">
+        AND
+         ADVICE_CATEGORY = #{searchValue3}
+      </if>
+  </select>
+  <!-- //유선 상담 내역 카운트 -->
+
+  <!-- 유선 상담 누적 카운트 -->
+  <select id="getAdviceCount" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      CABLED_ADVICE
+     WHERE
+      ADVICE_ACCEPT_DATE IS NOT NULL
+  </select>
+  <!-- //유선 상담 누적 카운트 -->
+  
+  <!-- 유선 상담 내역 상세 -->
+  <select id="getCabledAdviceDetail" parameterType="cabledAdviceEntity" resultType="cabledAdviceEntity">
+    SELECT 
+      CABLED_ADVICE_KEY,
+      FN_GET_COMMON_CODE_NAME('CABLED_ADVICE', ADVICE_CATEGORY) ADVICE_CATEGORY,
+      ADVICE_ACCEPT_DATE,
+      ADVICE_INQUIRY_NAME,
+      ADVICE_EMAIL,
+      ADVICE_PHONE_NUMBER,
+      ADVICE_TITLE,
+      ADVICE_CONTENTS,
+      ADVICE_COMLETE_DATE,
+      ADVICE_INSERT_NAME,
+      ADVICE_INSERT_DATE
+    FROM 
+      CABLED_ADVICE
+    WHERE
+      CABLED_ADVICE_KEY = #{cabledAdviceKey}
+  </select>
+  <!-- //유선 상담 내역 상세 -->
+  
+  <!-- 유선 상담 등록 -->
+  <insert id="insertCabledAdvice" parameterType="cabledAdviceEntity" useGeneratedKeys="true" keyProperty="cabledAdviceKey">
+      INSERT INTO CABLED_ADVICE (
+        ADVICE_CATEGORY,
+        ADVICE_ACCEPT_DATE,
+        ADVICE_INQUIRY_NAME,
+        ADVICE_EMAIL,
+        ADVICE_PHONE_NUMBER,
+        ADVICE_TITLE,
+        ADVICE_CONTENTS,
+        ADVICE_INSERT_NAME,
+        ADVICE_INSERT_DATE
+        ) VALUES (
+         #{adviceCategory},
+         DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %h:%i'),
+         #{adviceInquiryName},
+         #{adviceEmail},
+         #{advicePhoneNumber},
+         #{adviceTitle},
+         #{adviceContents},
+         #{adviceInsertName},
+         NOW()
+        )
+  </insert>
+  <!-- //유선 상담 등록-->
+  
+  <!-- 유선 상담 등록 완료 -->
+  <update id="modifyCabledAdvice" parameterType="cabledAdviceEntity">
+    UPDATE CABLED_ADVICE SET 
+      ADVICE_CATEGORY = #{adviceCategory},
+      ADVICE_ACCEPT_DATE = DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %h:%i'),,
+      ADVICE_INQUIRY_NAME = #{adviceInquiryName},
+      ADVICE_EMAIL = #{adviceEmail},
+      ADVICE_PHONE_NUMBER = #{advicePhoneNumber},
+      ADVICE_TITLE = #{adviceTitle},
+      ADVICE_CONTENTS = #{adviceContents},
+      ADVICE_COMLETE_DATE = NOW()
+    WHERE
+      CABLED_ADVICE_KEY = #{cabledAdviceKey}
+  </update>
+  <!-- //유선 상담 등록 완료 -->
+  
+  <!-- 공지사항 목록-->
+  <select id="getBoardNoticeList" parameterType="boardNoticeEntity" resultType="boardNoticeEntity" >
+	  SELECT 
+	    BOARD_NOTICE_KEY,
+	    NOTICE_TITLE,
+	    NOTICE_CONTENTS,
+	    FN_GET_COMMON_CODE_NAME('NOTICE_OPEN', NOTICE_OPEN) NOTICE_OPEN,
+	    NOTICE_OPEN_DATE,
+	    NOTICE_INSERT_NAME,
+	    NOTICE_INSERT_DATE,
+	    NOTICE_REMOVE_DATE
+	  FROM 
+	    BOARD_NOTICE
+	  WHERE
+	    NOTICE_REMOVE_DATE IS NULL
+      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       AND
+         NOTICE_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         NOTICE_OPEN = #{searchValue}
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        <choose>
+          <when test="searchKey == 1">
+            AND NOTICE_TITLE LIKE CONCAT('%', #{searchValue1}, '%')
+          </when>
+          <when test="searchKey == 2">
+            AND NOTICE_CONTENTS LIKE CONCAT('%', #{searchValue1}, '%')
+          </when>
+          <when test="searchKey == 3">
+            AND
+            ( NOTICE_TITLE LIKE CONCAT('%', #{searchValue1}, '%')
+              OR NOTICE_CONTENTS LIKE CONCAT('%', #{searchValue1}, '%')
+            )
+          </when>
+          <otherwise>
+            AND
+            ( NOTICE_TITLE LIKE CONCAT('%', #{searchValue1}, '%')
+              OR NOTICE_CONTENTS LIKE CONCAT('%', #{searchValue1}, '%')
+              OR NOTICE_INSERT_NAME LIKE CONCAT('%', #{searchValue1}, '%')
+            )
+          </otherwise>
+        </choose>
+      </if>
+    ORDER BY
+      NOTICE_INSERT_DATE DESC
+    LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //공지사항 목록-->
+  
+  <!-- 공지사항 카운트-->
+  <select id="getBoardNoticeCount" parameterType="boardNoticeEntity" resultType="int">
+    SELECT 
+     COUNT(*)
+   FROM
+     BOARD_NOTICE
+   WHERE
+     NOTICE_REMOVE_DATE IS NULL
+     <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+      AND
+        NOTICE_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+     </if>
+     <if test="searchValue != '' and searchValue != null">
+       AND
+        NOTICE_OPEN = #{searchValue}
+     </if>
+     <if test="searchValue1 != '' and searchValue1 != null">
+       <choose>
+         <when test="searchKey == 1">
+           AND NOTICE_TITLE LIKE CONCAT('%', #{searchValue1}, '%')
+         </when>
+         <when test="searchKey == 2">
+           AND NOTICE_CONTENTS LIKE CONCAT('%', #{searchValue1}, '%')
+         </when>
+         <when test="searchKey == 3">
+           AND
+           ( NOTICE_TITLE LIKE CONCAT('%', #{searchValue1}, '%')
+             OR NOTICE_CONTENTS LIKE CONCAT('%', #{searchValue1}, '%')
+           )
+         </when>
+         <otherwise>
+           AND
+           ( NOTICE_TITLE LIKE CONCAT('%', #{searchValue1}, '%')
+             OR NOTICE_CONTENTS LIKE CONCAT('%', #{searchValue1}, '%')
+             OR NOTICE_INSERT_NAME LIKE CONCAT('%', #{searchValue1}, '%')
+           )
+         </otherwise>
+       </choose>
+     </if>
+  </select>
+  <!-- //공지사항 카운트-->
+  
+  <!-- 공지사항 상세-->
+    <select id="getBoardNoticeDetail" parameterType="boardNoticeEntity" resultType="boardNoticeEntity" >
+    SELECT 
+      BOARD_NOTICE_KEY,
+      NOTICE_TITLE,
+      NOTICE_CONTENTS,
+      NOTICE_OPEN,
+      NOTICE_OPEN_DATE,
+      NOTICE_INSERT_NAME,
+      NOTICE_INSERT_DATE,
+      NOTICE_REMOVE_DATE
+    FROM 
+      BOARD_NOTICE
+    WHERE
+      BOARD_NOTICE_KEY = #{boardNoticeKey}
+  </select>
+  <!-- //공지사항 상세-->
+  
+  <!-- 공지사항 등록 -->
+  <insert id="insertBoardNotice" parameterType="boardNoticeEntity" useGeneratedKeys="true" keyProperty="boardNoticeKey">
+    INSERT INTO BOARD_NOTICE (
+     NOTICE_TITLE,
+     NOTICE_CONTENTS,
+     NOTICE_OPEN,
+     NOTICE_OPEN_DATE,
+     NOTICE_INSERT_NAME,
+     NOTICE_INSERT_DATE
+      ) VALUES (
+       #{noticeTitle},
+       #{noticeContents},
+       #{noticeOpen},
+       DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i'),
+       #{noticeInsertName},
+       NOW()
+      )
+  </insert>
+  <!-- //공지사항 등록-->
+  
+  <!-- 공지사항 수정-->
+  <update id="modifyBoardNotice" parameterType="boardNoticeEntity">
+    UPDATE BOARD_NOTICE SET 
+      NOTICE_TITLE = #{noticeTitle},
+      NOTICE_CONTENTS = #{noticeContents},
+      NOTICE_OPEN = #{noticeOpen},
+      NOTICE_OPEN_DATE =  DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i')
+    WHERE
+      BOARD_NOTICE_KEY = #{boardNoticeKey}
+  </update>
+  <!-- //공지사항 수정-->
+  
+  <!-- 공지사항 삭제-->
+  <update id="removeBoardNotice" parameterType="boardNoticeEntity">
+    UPDATE BOARD_NOTICE SET 
+      NOTICE_REMOVE_DATE = NOW()
+    WHERE
+      BOARD_NOTICE_KEY = #{boardNoticeKey}
+  </update>
+  <!-- //공지사항 삭제-->
+  
+  <!-- 도움말 목록-->
+  <select id="getBoardQnaList" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
+    SELECT 
+      BOARD_QNA_KEY,
+      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
+      QNA_QUESTION,
+      QNA_ANSWER,
+      QNA_TOP10_OPEN,
+      QNA_INSERT_NAME,
+      QNA_INSERT_DATE,
+      QNA_REMOVE_DATE
+    FROM 
+      BOARD_QNA
+    WHERE
+      QNA_REMOVE_DATE IS NULL
+      <if test="qnaTop10Open != '' and qnaTop10Open != null">
+        AND QNA_TOP10_OPEN = #{qnaTop10Open}
+      </if>
+       <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       AND
+         QNA_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         QNA_CATEGORY = #{searchValue}
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        <choose>
+          <when test="searchKey == 1">
+            AND QNA_QUESTION LIKE CONCAT('%', #{searchValue1}, '%')
+          </when>
+          <when test="searchKey == 2">
+            AND QNA_ANSWER LIKE CONCAT('%', #{searchValue1}, '%')
+          </when>
+          <when test="searchKey == 3">
+            AND
+            ( QNA_QUESTION LIKE CONCAT('%', #{searchValue1}, '%')
+              OR QNA_ANSWER LIKE CONCAT('%', #{searchValue1}, '%')
+            )
+          </when>
+          <otherwise>
+            AND
+            ( QNA_QUESTION LIKE CONCAT('%', #{searchValue1}, '%')
+              OR QNA_ANSWER LIKE CONCAT('%', #{searchValue1}, '%')
+              OR QNA_INSERT_NAME LIKE CONCAT('%', #{searchValue1}, '%')
+            )
+          </otherwise>
+        </choose>
+      </if>
+    ORDER BY
+      QNA_INSERT_DATE DESC
+    LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //도움말 목록-->
+  
+  <!-- 도움말 카운트-->
+  <select id="getBoardQnaCount" parameterType="boardQnaEntity" resultType="int">
+    SELECT 
+     COUNT(*)
+   FROM
+     BOARD_QNA
+   WHERE
+      QNA_REMOVE_DATE IS NULL
+       <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+       AND
+         QNA_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         QNA_CATEGORY = #{searchValue}
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        <choose>
+          <when test="searchKey == 1">
+            AND QNA_QUESTION LIKE CONCAT('%', #{searchValue1}, '%')
+          </when>
+          <when test="searchKey == 2">
+            AND QNA_ANSWER LIKE CONCAT('%', #{searchValue1}, '%')
+          </when>
+          <when test="searchKey == 3">
+            AND
+            ( QNA_QUESTION LIKE CONCAT('%', #{searchValue1}, '%')
+              OR QNA_ANSWER LIKE CONCAT('%', #{searchValue1}, '%')
+            )
+          </when>
+          <otherwise>
+            AND
+            ( QNA_QUESTION LIKE CONCAT('%', #{searchValue1}, '%')
+              OR QNA_ANSWER LIKE CONCAT('%', #{searchValue1}, '%')
+              OR QNA_INSERT_NAME LIKE CONCAT('%', #{searchValue1}, '%')
+            )
+          </otherwise>
+        </choose>
+      </if>
+  </select>
+  <!-- //도움말 카운트-->
+  
+  <!-- 도움말 상세-->
+  <select id="getBoardQnaDetail" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
+    SELECT 
+      BOARD_QNA_KEY,
+      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
+      QNA_QUESTION,
+      QNA_ANSWER,
+      QNA_TOP10_OPEN,
+      QNA_INSERT_NAME,
+      QNA_INSERT_DATE,
+      QNA_REMOVE_DATE
+    FROM 
+      BOARD_QNA
+    WHERE
+      BOARD_QNA_KEY = #{boardQnaKey}
+  </select>
+  <!-- //도움말 상세-->
+  
+  <!-- 도움말 등록 -->
+  <insert id="insertBoardQna" parameterType="boardQnaEntity" useGeneratedKeys="true" keyProperty="boardQnaKey">
+    INSERT INTO BOARD_QNA (
+     QNA_CATEGORY,
+     QNA_QUESTION,
+     QNA_ANSWER,
+     QNA_TOP10_OPEN,
+     QNA_INSERT_NAME,
+     QNA_INSERT_DATE
+      ) VALUES (
+       #{qnaCategory},
+       #{qnaQuestion},
+       #{qnaAnswer},
+       #{qnaTop10Open},
+       #{qnaInsertName},
+       NOW()
+      )
+  </insert>
+  <!-- //도움말 등록-->
+  
+  <!-- 도움말 수정-->
+  <update id="modifyBoardQna" parameterType="boardQnaEntity">
+    UPDATE BOARD_QNA SET 
+      QNA_CATEGORY = #{qnaCategory},
+      QNA_QUESTION = #{qnaQuestion},
+      QNA_ANSWER = #{qnaAnswer},
+      QNA_TOP10_OPEN = #{qnaTop10Open}
+    WHERE
+      BOARD_QNA_KEY = #{boardQnaKey}
+  </update>
+  <!-- //도움말 수정-->
+  
+  <!-- 도움말 삭제-->
+  <update id="removeBoardQna" parameterType="boardQnaEntity">
+    UPDATE BOARD_QNA SET 
+      QNA_REMOVE_DATE = NOW()
+    WHERE
+      BOARD_QNA_KEY = #{boardQnaKey}
+  </update>
+  <!-- //도움말 삭제-->
+
+  <!-- 도움말 TOP10 OPEN -->
+  <update id="qnaTop10Open" parameterType="boardQnaEntity">
+    UPDATE 
+      BOARD_QNA 
+    SET 
+        QNA_TOP10_OPEN = 'Y'
+      WHERE
+        BOARD_QNA_KEY IN (${boardQnaKeyList})
+  </update>
+  <!-- //도움말 TOP10 Close -->
+  
+  <!-- 도움말 TOP10 OPEN -->
+  <update id="qnaTop10Close" parameterType="boardQnaEntity">
+    UPDATE 
+      BOARD_QNA 
+    SET 
+        QNA_TOP10_OPEN = 'N'
+      WHERE
+        BOARD_QNA_KEY IN (${boardQnaKeyList})
+  </update>
+  <!-- //도움말 TOP10 Close -->
+  
+  <!-- 도움말 TOP10 카운트 -->
+  <select id="getCountExposedBoardQna" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      BOARD_QNA
+     WHERE
+        QNA_REMOVE_DATE IS NULL
+     AND
+        QNA_TOP10_OPEN = 'Y'
+  </select>
+  <!-- //도움말 TOP10 카운트 -->
+  <!-- 상담등록 -->
+  <insert id="insertInquiry" parameterType="serviceInquiryEntity" useGeneratedKeys="true" keyProperty="serviceInquiryKey">
+	INSERT 
+		INTO
+	SERVICE_INQUIRY (
+		inquiry_category,
+		inquiry_email,
+		inquiry_name,
+		inquiry_phone_number,
+		inquiry_contents,
+		inquiry_insert_name,
+		inquiry_insert_date,
+		inquiry_title
+	) VALUES  (
+		#{inquiryCategory},
+		#{inquiryEmail},
+		#{inquiryName},
+		#{inquiryPhoneNumber},
+		#{inquiryContents},
+		#{inquiryInsertName},
+		NOW(),
+		#{inquiryTitle}
+	)
+		
+  </insert>
+  <!-- 상담등록 -->
+    <!-- 사용자 공지사항 목록-->
+  <select id="getBoardNoticeUserList" parameterType="boardNoticeEntity" resultType="boardNoticeEntity" >
+    SELECT 
+      BOARD_NOTICE_KEY,
+      NOTICE_TITLE,
+      NOTICE_CONTENTS,
+      FN_GET_COMMON_CODE_NAME('NOTICE_OPEN', NOTICE_OPEN) NOTICE_OPEN,
+      NOTICE_OPEN_DATE,
+      NOTICE_INSERT_NAME,
+      NOTICE_INSERT_DATE,
+      NOTICE_REMOVE_DATE
+    FROM 
+      BOARD_NOTICE
+    WHERE
+      NOTICE_REMOVE_DATE IS NULL
+    ORDER BY
+      NOTICE_INSERT_DATE DESC
+    LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //사용자 공지사항 목록-->
+
+  <!-- 공지사항 상세-->
+    <select id="getBoardNoticeUserDetail" parameterType="boardNoticeEntity" resultType="boardNoticeEntity" >
+    SELECT 
+      bn.BOARD_NOTICE_KEY,
+      bn.NOTICE_TITLE,
+      bn.NOTICE_CONTENTS,
+      bn.NOTICE_OPEN,
+      bn.NOTICE_OPEN_DATE,
+      bn.NOTICE_INSERT_NAME,
+      bn.NOTICE_INSERT_DATE,
+      bn.NOTICE_REMOVE_DATE
+      <include refid="getNoticeNextNPrev"/>
+    FROM 
+      BOARD_NOTICE bn
+    WHERE
+      bn.BOARD_NOTICE_KEY = #{boardNoticeKey}
+  </select>
+  <!-- //공지사항 상세-->
+  
+  <!-- 다음글 이전글 -->
+  <sql id="getNoticeNextNPrev">
+    , ( SELECT MIN(bnn.BOARD_NOTICE_KEY)
+        FROM   BOARD_NOTICE AS bnn
+        WHERE  bnn.NOTICE_REMOVE_DATE IS NULL
+        AND    bnn.BOARD_NOTICE_KEY <![CDATA[ > ]]> bn.BOARD_NOTICE_KEY
+      ) AS noticeNextPage
+    , ( SELECT MAX(bnn.BOARD_NOTICE_KEY)
+        FROM   BOARD_NOTICE AS bnn
+        WHERE  bnn.NOTICE_REMOVE_DATE IS NULL
+        AND    bnn.BOARD_NOTICE_KEY <![CDATA[ < ]]> bn.BOARD_NOTICE_KEY
+     ) AS noticePrevPage
+  </sql>
+  <!-- //다음글 이전글 -->
+  
+  <!-- 사용자 공지사항 카운트-->
+  <select id="getBoardNoticeUserCount" parameterType="boardNoticeEntity" resultType="int">
+    SELECT 
+     COUNT(*)
+   FROM
+     BOARD_NOTICE
+   WHERE
+     NOTICE_REMOVE_DATE IS NULL
+  </select>
+  <!-- //사용자 공지사항 카운트-->
+  
+  <!-- 사용자 도움말 목록-->
+  <select id="getBoardQnaUserList" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
+    SELECT 
+      BOARD_QNA_KEY,
+      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
+      QNA_QUESTION,
+      QNA_ANSWER,
+      QNA_TOP10_OPEN,
+      QNA_INSERT_NAME,
+      QNA_INSERT_DATE,
+      QNA_REMOVE_DATE
+    FROM 
+      BOARD_QNA
+    WHERE
+      QNA_REMOVE_DATE IS NULL
+      <if test="qnaTop10Open != '' and qnaTop10Open != null">
+        AND QNA_TOP10_OPEN = #{qnaTop10Open}
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         QNA_CATEGORY = #{searchValue}
+      </if>
+    ORDER BY
+      QNA_INSERT_DATE DESC
+    LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- // 사용자 도움말 목록-->
+
+  <!-- 사용자 도움말 카운트-->
+  <select id="getBoardQnaUserCount" parameterType="boardQnaEntity" resultType="int">
+    SELECT 
+     COUNT(*)
+   FROM
+     BOARD_QNA
+   WHERE
+      QNA_REMOVE_DATE IS NULL
+  </select>
+  <!-- //사용자 도움말 카운트-->
+</mapper>

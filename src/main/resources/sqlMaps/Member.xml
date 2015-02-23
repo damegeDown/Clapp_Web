@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.MemberDAO">
+  <!-- 관리자 로그인 -->
+  <select id="doLogin" parameterType="adminEntity" resultType="adminEntity">
+    SELECT 
+      *
+    FROM
+      ADMIN_MASTER am,
+      ADMIN_PERMISSION ap
+    WHERE
+      am.admin_master_key = ap.admin_master_key
+    AND
+      ADMIN_ID = #{adminId}
+    AND
+      ADMIN_PASSWORD = #{adminPassword}
+  </select>
+  <!-- //관리자 로그인 -->
+  
+  <!-- 관리자 정보 -->
+  <select id="getAdminDetail" parameterType="adminEntity" resultType="adminEntity">
+    SELECT 
+      AM.ADMIN_ID,
+      (select access_ip_address from ADMIN_ACCESS_IP aai where AM.admin_id = aai.insert_admin_id limit 1) accessIpAddress,
+      AM.ADMIN_PASSWORD,
+      AM.ADMIN_NAME,
+      AM.ADMIN_COMPANY_NAME,
+      AM.ADMIN_TEAM_NAME,
+      AM.ADMIN_INSERT_DATE,
+      AM.ADMIN_GRANT,
+      AP.*
+    FROM
+      ADMIN_MASTER AM,
+      ADMIN_PERMISSION AP
+    WHERE
+      AM.ADMIN_MASTER_KEY = AP.ADMIN_MASTER_KEY
+    AND
+      AM.ADMIN_MASTER_KEY = #{adminMasterKey}
+  </select>
+  <!-- //관리자 정보 --> 
+  
+  <!-- 관리자 카운트 -->
+  <select id="getAdminCount" parameterType="adminEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      ADMIN_MASTER
+    WHERE
+      ADMIN_REMOVE_DATE IS NULL
+    <choose>
+        <when test="searchValue != '' and searchValue != null">
+          AND
+            ADMIN_GRANT = #{searchValue}
+        </when>
+    </choose>
+  </select>
+  <!-- //관리자 카운트 -->
+  
+  <!-- 관리자 리스트 -->
+  <select id="getAdminList" parameterType="adminEntity" resultType="adminEntity">
+    SELECT
+      ADMIN_MASTER_KEY,
+      ADMIN_ID,
+      ADMIN_NAME,
+      ADMIN_COMPANY_NAME,
+      ADMIN_TEAM_NAME,
+      ADMIN_INSERT_DATE,
+      ADMIN_GRANT
+    FROM
+      ADMIN_MASTER
+    WHERE
+      ADMIN_REMOVE_DATE IS NULL
+    <choose>
+        <when test="searchValue != '' and searchValue != null">
+          AND
+            ADMIN_GRANT  LIKE CONCAT('%', #{searchValue}, '%')
+        </when>
+    </choose>
+    ORDER BY
+      ADMIN_INSERT_DATE DESC
+    LIMIT 
+      #{rowStartNumber}, #{pageGroupSize}
+    
+  </select>
+  <!-- //관리자 리스트 -->
+  
+  <!-- 관리자 등록 -->
+  <insert id="insertAdmin" parameterType="adminEntity" useGeneratedKeys="true" keyProperty="adminMasterKey">
+    INSERT INTO
+      ADMIN_MASTER
+        (
+          ADMIN_ID,
+          ADMIN_PASSWORD,
+          ADMIN_NAME,
+          ADMIN_COMPANY_NAME,
+          ADMIN_TEAM_NAME,
+          ADMIN_INSERT_DATE,
+          ADMIN_GRANT
+        ) VALUES (
+          #{adminId},
+          #{adminPassword},
+          #{adminName},
+          #{adminCompanyName},
+          #{adminTeamName},
+          NOW(),
+          #{adminGrant}
+        )
+  </insert>
+  <!-- //관리자 등록 -->
+  <insert id="insertAdminPermission" parameterType="adminEntity">
+    INSERT INTO 
+      ADMIN_PERMISSION
+        (
+          ADMIN_MASTER_KEY,
+          PERMISSION_MASTER,
+          PERMISSION_USER,
+          PERMISSION_PAYMENT,
+          PERMISSION_PRODUCT,
+          PERMISSION_DEVICE,
+          PERMISSION_TREND,
+          PERMISSION_ECRM,
+          PERMISSION_CUSTOMER
+        ) VALUES (
+          ${adminMasterKey},
+          #{permissionMaster},
+          #{permissionUser},
+          #{permissionPayment},
+          #{permissionProduct},
+          #{permissionDevice},
+          #{permissionTrend},
+          #{permissionEcrm},
+          #{permissionCustomer}
+        )
+  </insert>
+  
+  <!-- 관리자 수정 -->
+  <update id="modifyAdmin" parameterType="adminEntity">
+    UPDATE
+      ADMIN_MASTER
+    SET
+      ADMIN_ID = #{adminId},
+      ADMIN_PASSWORD = #{adminPassword},
+      ADMIN_NAME = #{adminName},
+      ADMIN_COMPANY_NAME = #{adminCompanyName},
+      ADMIN_TEAM_NAME = #{adminTeamName},
+      ADMIN_MODIFY_DATE = NOW(),
+      ADMIN_GRANT = #{adminGrant}
+    WHERE
+      ADMIN_MASTER_KEY = ${adminMasterKey}
+  </update>
+  <!-- 관리자 권한 수정 -->
+  <update id="modifyAdminPermission" parameterType="adminEntity">
+    UPDATE
+      ADMIN_PERMISSION
+    SET
+      PERMISSION_MASTER = #{permissionMaster},
+      PERMISSION_USER = #{permissionUser},
+      PERMISSION_PAYMENT = #{permissionPayment},
+      PERMISSION_PRODUCT = #{permissionProduct},
+      PERMISSION_DEVICE = #{permissionDevice},
+      PERMISSION_TREND = #{permissionTrend},
+      PERMISSION_ECRM = #{permissionEcrm},
+      PERMISSION_CUSTOMER = #{permissionCustomer}
+    WHERE
+      ADMIN_MASTER_KEY = ${adminMasterKey}
+  </update>
+  
+  <!-- 관리자 아이디 체크 -->
+  <select id="doAdminIdCheck" parameterType="String" resultType="int">
+    SELECT
+      COUNT(*) COUNT
+    FROM
+      ADMIN_MASTER
+    WHERE
+      ADMIN_ID = #{adminId}
+    
+  </select>
+  
+  <!-- 관리자 삭제 -->
+  <update id="removeAdmin" parameterType="adminEntity">
+    UPDATE
+      ADMIN_MASTER
+    SET
+      admin_remove_date = NOW()
+    WHERE
+      admin_master_key = #{adminMasterKey}
+  </update>
+  
+  <!-- 회원 검색 조건 -->
+  <sql id="searchMemberList">
+   <choose>
+      <!-- 일반회원 -->
+     <when test="userType == 1">
+      <if test="searchValue != '' and searchValue != null">
+         AND
+           UM.USER_ID = #{searchValue}
+       </if>
+       <if test="searchValue1 != '' and searchValue1 != null">
+         AND
+           UM.USER_NAME = #{searchValue1}
+       </if>
+       <if test="searchValue2 != '' and searchValue2 != null">
+            AND UM.USER_CELL_PHONE_NUMBER = #{searchValue2}
+       </if>
+       <if test="searchValue3 != '' and searchValue3 != null">
+         AND
+           USER_AGE_GROUP = #{searchValue3}
+       </if>
+       <if test="userAreaType != '' and userAreaType != null">
+         AND
+           UM.USER_AREA_TYPE = #{userAreaType}
+       </if>
+       <if test="userArea != '' and userArea != null">
+         AND
+           UM.USER_AREA = #{userArea}
+       </if>
+       <if test="userAreaDetail != '' and userAreaDetail != null">
+         AND
+           UM.USER_AREA_DETAIL = #{userAreaDetail}
+       </if>
+       <if test="searchValue4 != '' and searchValue4 != null">
+         AND
+           UD.USER_JOB_TYPE = #{searchValue4}
+       </if>
+      </when>
+      <!-- 기업회원 -->
+      <otherwise>
+       <if test="searchValue != '' and searchValue != null">
+         AND
+           UM.USER_ID = #{searchValue}
+       </if>
+       <if test="searchValue1 != '' and searchValue1 != null">
+         AND
+           UD.USER_COMPANY_NAME = #{searchValue1}
+       </if>
+       <if test="searchValue2 != '' and searchValue2 != null">
+         AND
+           USER_COMPANY_GROUP_TYPE = #{searchValue2}
+       </if>
+       <if test="searchValue3 != '' and searchValue3 != null">
+         AND
+           UD.USER_COMPANY_NUMBER = #{searchValue3}
+       </if>
+       <if test="searchValue4 != '' and searchValue4 != null">
+         AND
+           UM.USER_NAME = #{searchValue4}
+       </if>
+       <if test="searchValue5 != '' and searchValue5 != null">
+            AND UM.USER_CELL_PHONE_NUMBER = #{searchValue5}
+       </if> 
+       <if test="searchValue6 != '' and searchValue6 != null">
+         AND
+           UD.USER_COMPANY_BUSINESS_TYPE = #{searchValue6}
+       </if>
+       <if test="userAreaType != '' and userAreaType != null">
+         AND
+           UM.USER_AREA_TYPE = #{userAreaType}
+       </if>
+       <if test="userArea != '' and userArea != null">
+         AND
+           UM.USER_AREA = #{userArea}
+       </if>
+       <if test="userAreaDetail != '' and userAreaDetail != null">
+         AND
+           UM.USER_AREA_DETAIL = #{userAreaDetail}
+       </if>
+      </otherwise>
+     </choose>
+  </sql>
+   <!-- 회원 리스트 -->
+  <select id="getMemberList" parameterType="memberEntity" resultType="memberEntity">
+    SELECT 
+      UM.USER_MASTER_KEY,
+      UM.USER_ID,
+      UM.USER_NAME,
+      UM.USER_JOIN_DATE,
+      <!-- UM.USER_PASSWORD, --> 
+      UM.USER_CELL_PHONE_NUMBER,
+      UM.USER_MAIL_RECEPTION_YN,
+      UM.USER_AREA_TYPE,
+      UM.USER_AREA,
+      UM.USER_AREA_DETAIL,
+      UM.USER_LAST_LOGIN_DATE,
+      FN_GET_COMMON_CODE_NAME('USER_AGE_GROUP', UD.USER_AGE_GROUP ) USER_AGE_GROUP,
+      UD.USER_JOB_TYPE,
+      UD.USER_COMPANY_NAME,
+      FN_GET_COMMON_CODE_NAME('USER_COMPANY_GROUP_TYPE', UD.USER_COMPANY_GROUP_TYPE ) USER_COMPANY_GROUP_TYPE,
+      UD.USER_COMPANY_NUMBER,
+      UD.USER_COMPANY_BUSINESS_TYPE
+    FROM
+      USER_MASTER UM,USER_DETAIL UD
+    WHERE
+      UM.USER_TYPE = ${userType}
+    AND
+      UM.USER_MASTER_KEY = UD.USER_MASTER_KEY
+    <include refid="searchMemberList" />
+    ORDER BY
+      UM.USER_JOIN_DATE DESC 
+    LIMIT 
+      #{rowStartNumber}, #{pageGroupSize}
+  </select>
+  <!-- //회원 리스트 -->
+  
+  <!-- 회원 카운트 -->
+  <select id="getMemberCount" parameterType="memberEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      USER_MASTER UM,USER_DETAIL UD
+    WHERE 
+      USER_TYPE = ${userType}
+    AND
+      UM.USER_MASTER_KEY = UD.USER_MASTER_KEY
+    <include refid="searchMemberList" />
+    ORDER BY
+      UM.USER_JOIN_DATE DESC 
+  </select>
+  <!-- //회원 카운트 -->
+  
+  <!-- 누적 회원 카운트 -->
+  <select id="getMemberCountByType" parameterType="String" resultType="int">
+    SELECT 
+     COUNT(*)
+    FROM
+     USER_MASTER
+    WHERE 
+     USER_TYPE = #{value}
+  </select>
+  <!-- //누적 회원 카운트 -->
+  
+  <!-- 회원 상세 -->
+  <select id="getMemberDetail" parameterType="memberEntity" resultType="memberEntity">
+    SELECT 
+      UM.USER_MASTER_KEY,
+      UM.USER_ID,
+      UM.USER_NAME,
+      UM.USER_TYPE,
+      UM.USER_JOIN_DATE,
+      <!-- UM.USER_PASSWORD, -->
+      UM.USER_CELL_PHONE_NUMBER,
+      UM.USER_MAIL_RECEPTION_YN,
+      UM.USER_AREA_TYPE,
+      UM.USER_AREA,
+      UM.USER_AREA_DETAIL,
+      UM.USER_LAST_LOGIN_DATE,
+      UM.USER_STAFF,
+      FN_GET_COMMON_CODE_NAME('USER_AGE_GROUP', UD.USER_AGE_GROUP ) USER_AGE_GROUP,
+      UD.USER_JOB_TYPE,
+      UD.USER_COMPANY_NAME,
+      UD.USER_COMPANY_GROUP_TYPE,
+      FN_GET_COMMON_CODE_NAME('USER_COMPANY_GROUP_TYPE', UD.USER_COMPANY_GROUP_TYPE ) USER_COMPANY_GROUP_TYPE_TEXT,
+      UD.USER_COMPANY_NUMBER,
+      UD.USER_COMPANY_BUSINESS_TYPE
+      <!-- todo 보유티켓수, 유료상품 이용현황 -> 이용중(Monthly Silver, 상품 적용기간 0000/00/00 ~ 0000/00/00 -->
+    FROM
+      USER_MASTER UM, USER_DETAIL UD
+    WHERE
+      UM.USER_MASTER_KEY = #{userMasterKey}
+    AND
+      UM.USER_MASTER_KEY = UD.USER_MASTER_KEY 
+  </select>
+  <!-- //회원 상세 -->
+  
+  <!-- 회원 수정 -->
+  <update id="modifyMember" parameterType="memberEntity">
+    UPDATE USER_MASTER UM, USER_DETAIL UD SET 
+    	UM.USER_MAIL_RECEPTION_YN = #{userMailReceptionYn}
+      <if test="userPassword != '' and userPassword != null">
+      	,UM.USER_PASSWORD = #{userPassword}
+      </if> 
+      <if test="userAreaType != '' and userAreaType != null"> 
+      	,UM.USER_AREA_TYPE = #{userAreaType}
+      </if>
+      <if test="userArea != '' and userArea != null">
+      	,UM.USER_AREA = #{userArea}
+      </if>
+      <if test="userAreaDetail != '' and userAreaDetail != null">
+      	,UM.USER_AREA_DETAIL = #{userAreaDetail}
+      </if>
+      <if test="userCellPhoneNumber != '' and userCellPhoneNumber != null">
+      	,UM.USER_CELL_PHONE_NUMBER = #{userCellPhoneNumber}
+      </if>
+      <if test="userMailReceptionDate != '' and userMailReceptionDate != null">
+      	,UM.USER_MAIL_RECEPTION_DATE = #{userMailReceptionDate}
+      </if>
+      <if test="userStaff != '' and userStaff != null">
+      	,UM.USER_STAFF = #{userStaff}
+      </if>
+      <if test="userCompanyNumber != '' and userCompanyNumber != null">
+      	,UD.USER_COMPANY_NUMBER = #{userCompanyNumber}
+      </if>
+      <if test="userCompanyBusinessType != '' and userCompanyBusinessType != null">
+      	,UD.USER_COMPANY_BUSINESS_TYPE = #{userCompanyBusinessType}
+      </if>
+      <if test="userAgeGroup != '' and userAgeGroup != null">
+      	,UD.USER_AGE_GROUP = #{userAgeGroup}
+      </if>
+      <if test="userJobType != '' and userJobType != null">
+      	,UD.USER_JOB_TYPE = #{userJobType}
+      </if>
+      <if test="userCompanyNumber != '' and userCompanyNumber != null">
+      	,UD.USER_COMPANY_NUMBER = #{userCompanyNumber}
+      </if>
+         <if test="userCompanyGroupType != '' and userCompanyGroupType != null">
+      	,UD.USER_COMPANY_GROUP_TYPE = #{userCompanyGroupType}
+      </if>
+      <if test="userCompanyBusinessType != '' and userCompanyBusinessType != null">
+      	,UD.USER_COMPANY_BUSINESS_TYPE = #{userCompanyBusinessType}
+      </if>
+    WHERE
+      UM.USER_MASTER_KEY = UD.USER_MASTER_KEY 
+    AND
+      UM.USER_MASTER_KEY = #{userMasterKey} 
+  </update>
+  <!-- //회원 수정 -->
+  
+  <!-- 회원 탈퇴 -->
+  <delete id="removeMember" parameterType="memberEntity">
+    DELETE 
+      UM,UD 
+    FROM 
+      USER_MASTER UM, USER_DETAIL UD
+    WHERE
+      UM.USER_MASTER_KEY = UD.USER_MASTER_KEY 
+    AND
+      UM.USER_MASTER_KEY = #{userMasterKey}
+  </delete>
+  <!-- //회원 탈퇴 -->
+ 
+  <!-- 회원 아이디 검색 -->
+  <select id="searchUserId" parameterType="memberEntity" resultType="memberEntity">
+    SELECT  
+      user_master_key,
+      user_id,
+      user_name,
+      FN_GET_COMMON_CODE_NAME('USER_TYPE', user_type) user_type
+    FROM
+      USER_MASTER
+    WHERE
+      user_id LIKE '%${userId}%'
+  </select>
+  <select id="searchUserIdArr" parameterType="memberEntity" resultType="String">
+      SELECT  
+        user_id
+      FROM
+        USER_MASTER
+      WHERE
+        1 = 1
+    
+  </select> 
+  <!-- //회원 아이디 검색 -->
+  
+  <insert id="insertAccessLog" parameterType="memberEntity">
+      INSERT INTO
+        ACCESS_LOGS
+      (
+        logs_access_admin_id,
+        logs_access_reason,
+        logs_access_type,
+        logs_access_date
+      ) VALUES (
+        #{adminId},
+        #{logsAccessReason},
+        1,
+        NOW()
+        
+      )
+  </insert>
+  <!-- 관리자 IP -->
+  <select id="ipCheck" parameterType="adminEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      ADMIN_ACCESS_IP
+    WHERE
+      access_ip_address = #{accessIpAddress}
+  </select>
+  <!-- //관리자 IP -->
+  <!-- 관리자 IP 등록-->
+  <insert id="insertAccessIp" parameterType="adminEntity">
+    INSERT INTO
+      ADMIN_ACCESS_IP
+        (
+          ACCESS_IP_ADDRESS,
+          INSERT_ADMIN_ID,
+          INSERT_DATE
+        ) VALUES (
+          #{accessIpAddress},
+          #{adminId},
+          NOW()
+        )
+  </insert>
+  <!-- // 관리자 IP 등록 -->
+  <!-- 관리자 IP 수정 -->
+  <update id="modifyAccessIp" parameterType="adminEntity">
+    UPDATE
+      ADMIN_ACCESS_IP 
+    SET
+      ACCESS_IP_ADDRESS = #{accessIpAddress}
+    WHERE
+      INSERT_ADMIN_ID = #{adminId}
+  </update>
+  <!-- 관리자 IP 수정-->
+  
+  <!-- 회원 등록 -->
+  <insert id="insertMember" parameterType="memberEntity" useGeneratedKeys="true" keyProperty="userMasterKey">
+    INSERT INTO
+        USER_MASTER 
+        (
+          USER_ID,
+          USER_PASSWORD,
+          USER_NAME,
+          USER_CELL_PHONE_NUMBER,
+          USER_TYPE,
+          USER_AREA_TYPE,
+          USER_AREA,
+          USER_AREA_DETAIL,
+          USER_MAIL_RECEPTION_YN,
+          USER_JOIN_DATE,
+          USER_LOGIN_COUNT
+          
+          ) VALUES (
+          #{userId},
+          #{userPassword},
+          #{userName},
+          #{userCellPhoneNumber},
+          #{userType},
+          #{userAreaType},
+          #{userArea},
+          #{userAreaDetail},
+          <choose>
+            <when test="userMailReceptionYn != '' and userMailReceptionYn != null">
+              #{userMailReceptionYn},
+            </when>
+            <otherwise>
+              "N",
+            </otherwise>
+          </choose>
+          NOW(),
+          #{userLoginCount}
+        )
+    </insert>
+    <!-- //회원 등록 -->
+
+    <!-- 회원 디테일 등록 -->
+    <insert id="insertMemberDetail" parameterType="memberEntity">
+    INSERT INTO
+       USER_DETAIL
+       (
+         USER_MASTER_KEY,
+         USER_COMPANY_NAME,
+         USER_COMPANY_GROUP_TYPE,
+         USER_COMPANY_NUMBER,
+         USER_COMPANY_BUSINESS_TYPE,
+         USER_AGE_GROUP,
+         USER_JOB_TYPE
+         ) VALUES (
+         #{userMasterKey},
+         #{userCompanyName},
+         #{userCompanyGroupType},
+         #{userCompanyNumber},
+         <choose>
+           <when test='userCompanyBusinessType == "기타"'>
+             #{userJobText},
+           </when>
+           <otherwise>
+             #{userCompanyBusinessType},
+           </otherwise>
+         </choose>
+             #{userAgeGroup},
+          <choose>
+           <when test='userJobType == "기타"'>
+             #{userJobText}
+           </when>
+           <otherwise>
+             #{userJobType}
+           </otherwise>
+         </choose>
+       )
+    </insert>
+    <!-- //회원 디테일 등록 -->
+    <!-- 회원 정보 -->
+    <select id="getUserInfo" parameterType="memberEntity" resultType="memberEntity">
+    	SELECT 
+    		* 
+    	FROM 
+    		USER_MASTER 
+    	WHERE 
+    		user_master_key = #{userMasterKey}
+    </select>
+    <!-- //회원 정보 -->
+    <!--  회원 로그인 -->
+	<select id="doUserLogin" parameterType="memberEntity" resultType="memberEntity">
+		SELECT
+			* 
+		FROM
+			USER_MASTER um, 
+			USER_DETAIL ud
+		WHERE
+			um.user_master_key = ud.user_master_key
+	    AND 
+    		user_id = #{userId}
+	</select>
+    <!--  //회원 로그인 --> 
+    
+  <!-- 회원 접속 상태 On -->
+  <update id="userLoginState" parameterType="memberEntity">
+    UPDATE
+      USER_MASTER 
+    SET
+      USER_LOGIN_STATE = '1',
+      USER_LOGIN_COUNT = USER_LOGIN_COUNT + 1
+    WHERE
+      USER_ID = #{userId}
+  </update>
+  <!-- //회원 접속 상태 On-->
+  
+  <!-- 회원 접속 상태 Off -->
+  <update id="userLoginStateOff" parameterType="memberEntity">
+    UPDATE
+      USER_MASTER 
+    SET
+      USER_LOGIN_STATE = '0'
+    WHERE
+      USER_ID = #{userId}
+  </update>
+  <!-- //회원 접속 상태 Off-->
+  
+      <!-- 비밀번호 찾기를 위한 회원 검색 -->
+    <select id="passwordFind" parameterType="memberEntity" resultType="memberEntity">
+      SELECT
+       USER_ID, 
+       USER_NAME
+      FROM 
+        USER_MASTER 
+      WHERE 
+        user_id = #{userId}
+    </select> 
+    <!-- //비밀번호 찾기를 위한 회원 검색 -->
+    
+    <!-- 비밀번호 변경 -->
+    <update id="modifyPassword" parameterType="formUserInfoEntity">
+    	UPDATE 
+    		USER_MASTER	 
+    	SET 
+    		user_password =#{userPassword} 
+    	WHERE 
+    		user_master_key = #{userMasterKey}
+    </update>
+    <!-- //비밀번호 변경 -->
+    <!-- 회원 인증번호 입력 -->
+    <update id="setUserKey" parameterType="memberEntity">
+    UPDATE 
+    	USER_MASTER
+   	SET
+   		user_key = #{userKey}
+   	WHERE
+   		user_master_key = #{userMasterKey}
+    </update>
+    <!-- //회원 인증번호 입력 -->
+    
+  <!-- 전화번호 중복 검사 -->
+  <select id="searchPhoneNum" parameterType="memberEntity" resultType="integer">
+    SELECT 
+      count(*)
+    FROM 
+      USER_MASTER 
+    WHERE 
+      USER_CELL_PHONE_NUMBER = #{userCellPhoneNumber}
+  </select> 
+    <!-- //전화번호 중복 검사 -->
+    
+  <!-- 아이디 찾기를 위한 회원 이름,전화번호 검색 -->
+    <select id="userIdFind" parameterType="memberEntity" resultType="memberEntity">
+      SELECT 
+       USER_ID
+      FROM 
+        USER_MASTER 
+      WHERE 
+        USER_NAME = #{userName}
+        AND USER_CELL_PHONE_NUMBER = #{userCellPhoneNumber}
+    </select> 
+    <!-- // 아이디 찾기를 위한 회원 이름,전화번호 검색 -->
+  <update id="passwordGenerate" parameterType="memberEntity">
+    UPDATE
+      USER_MASTER
+    SET
+      USER_PASSWORD = #{userPassword}
+    WHERE
+      USER_ID = #{userId}
+  </update>
+  <!-- 회원가입 아이디 중복확인 -->
+  <select id ="redundancyCheck" parameterType="memberEntity" resultType="Integer">
+    SELECT
+      count(*) as redundancyCheckId
+    FROM 
+      USER_MASTER 
+    WHERE 
+      user_id = #{userId}
+      or
+      0 <![CDATA[<]]> (select 
+                         count(*)
+                       from
+                         DROP_OUT_USER
+                       where drop_out_user_id = #{userId})
+  </select>
+  <!-- //회원가입 아이디 중복확인 -->
+  <!-- 회원 정보 -->
+    <select id="getUserProductInfo" parameterType="memberEntity" resultType="ticketEntity">
+    	SELECT 
+    		* 
+    	FROM 
+    		USER_TICKET_MASTER 
+    	WHERE 
+    		user_master_key = #{userMasterKey}
+    	AND
+    		ticket_avilable_amount > 0
+    	AND
+    		left(ticket_end_expiration_date,10) >= left(now(), 10)
+    	AND
+    		product_master_key != 1
+    </select>
+    <!-- //회원 정보 -->
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.CommonDAO">
+  <!-- 공통코드 블러오기 -->
+  <select id="getCommonCodeList" parameterType="commonCodeEntity" resultType="commonCodeEntity">
+		SELECT
+			*
+		FROM
+			VIEW_COMMON_CODE
+		WHERE
+			1 = 1
+		<if test="codeMasterCode != '' and codeMasterCode != null">
+			and
+			code_master_code = #{codeMasterCode}
+		</if>
+		<if test="commonCodeReferense != '' and commonCodeReferense != null">
+			and
+		  common_code_referense = #{commonCodeReferense}
+		</if>
+	</select>
+	<select id="searchCompanyName" resultType="String">
+  	SELECT 
+  		user_company_name 
+  	FROM 
+  		USER_DETAIL 
+  	WHERE
+  		user_company_name IS NOT NULL
+  	GROUP BY 
+  		user_company_name
+  </select>
+  <select id="searchCompanyNumber" parameterType="memberEntity" resultType="String">
+  	SELECT 
+  		user_company_number
+  	FROM  
+  		USER_DETAIL 
+  	WHERE
+  		user_company_number IS NOT NULL
+  	AND
+  		user_company_name = #{userCompanyName}
+  	 LIMIT 1
+  </select>
+  
+  <select id="getMobileMaker" resultType="ticketEntity">
+  	SELECT
+  		manufacturer
+  	FROM
+  		VIEW_DEVICES
+  	GROUP BY
+  		manufacturer
+  </select>
+
+   <select id="getDevice" resultType="ticketEntity">
+  	SELECT
+  		prod_name
+  	FROM
+  		VIEW_DEVICES
+  	GROUP BY
+  		prod_name
+  </select>
+  
+  <select id="getProduct" resultType="productEntity">
+  	SELECT
+  		*
+  	FROM
+  		PRODUCT_MASTER
+  </select>
+</mapper>

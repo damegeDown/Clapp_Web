@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.PaymentDAO">
+	<sql id="searchPaymentWebList">
+		<!-- 기간검색 -->
+		<if test="searchKey != '' and searchKey != null">
+			AND
+	   		${searchKey} between #{startDate} and #{endDate}
+  	</if>
+  	<!-- 결제여부 -->
+		<if test="searchValue != '' and searchValue != null">
+			AND
+				payment_state = #{searchValue}
+		</if>
+		<!-- 회원구분 -->
+		<if test="searchValue1 != '' and searchValue1 != null">
+			AND
+				um.user_type = #{searchValue1}
+		</if>
+		<!-- 회원아이디 -->
+		<if test="searchValue2 != '' and searchValue2 != null">
+			AND
+				um.user_id  LIKE CONCAT('%', #{searchValue2}, '%')
+		</if>
+		<!-- 계산서 발행여부 -->
+		<if test="searchValue3 != '' and searchValue3 != null">
+			AND
+				pd.payment_bill_request_state = #{searchValue3}
+		</if>
+		<!-- 결제자명 -->
+		<if test="searchValue4 != '' and searchValue4 != null">
+			AND
+				pm.payment_name  LIKE CONCAT('%', #{searchValue2}, '%')
+		</if>
+		<!-- 신청상품 -->
+		<if test="searchValue5 != '' and searchValue5 != null">
+			AND
+				pm.payment_product_name = #{searchValue5}
+		</if>
+		<!-- 결제방법 -->
+		<if test="(searchValue6 != '' and searchValue6 != null) or (searchValue7 != '' and searchValue7 != null) or (searchValue8 != '' and searchValue8 != null) ">
+			AND
+				pm.payment_type in  
+		   <foreach item="item" index="index" collection="searchValueArr"
+			      open="(" separator="," close=")">${item}</foreach>
+		</if>
+	</sql>
+  <select id="getPaymentWebListCount" parameterType="paymentEntity" resultType="int">
+    SELECT
+      COUNT(pm.payment_master_key)
+    FROM
+      PAYMENT_MASTER pm
+    INNER JOIN
+      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key 
+    WHERE
+    	1 = 1 
+   	<include refid="searchPaymentWebList"/>
+  </select>
+  <select id="getPaymentWebList" parameterType="paymentEntity" resultType="paymentEntity">
+  	 
+	     SELECT
+	        pm.payment_master_key,
+	        pm.payment_oid,
+			pm.payment_tid,
+	        pm.payment_state,
+	        FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',pm.payment_state) payment_state_text,
+	        DATE_FORMAT(pm.payment_date,'%d %b %y') payment_date,
+	        FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE',pm.payment_type) paymentTypeText,
+	        pm.payment_approval_date, 
+	        pm.payment_name,  
+	        pm.payment_user_id,
+	        pm.payment_product_name,
+	        pm.payment_product_price,
+	        pm.payment_ticket_amount,
+	        FN_GET_VAT_EXCEPT_AMOUNT(pm.payment_total_price) payment_not_vat_total_price,
+	        pm.payment_total_price,
+	        FN_GET_COMMON_CODE_NAME('BILL_STATE',pd.payment_bill_request_state) payment_bill_request_state,
+	        (select ifnull(user_company_number,'-') from USER_DETAIL ud where um.user_master_key = ud.user_master_key) user_company_number
+	    FROM
+	      PAYMENT_MASTER pm
+	    INNER JOIN
+	      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key 
+	    LEFT OUTER JOIN 
+				USER_MASTER um on pm.payment_user_id = um.user_id
+	    WHERE
+	      	1 = 1
+	    <include refid="searchPaymentWebList"/>
+  </select>
+	<select id="getPaymentWebDetail" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			pm.payment_user_id,
+			pm.payment_name,
+			pm.payment_master_key,
+			pm.payment_oid,
+			pm.payment_tid,
+			FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',pm.payment_state) payment_state_text,
+			pm.payment_type,
+			pm.payment_date,
+			FN_GET_VAT_EXCEPT_AMOUNT(pm.payment_total_price) payment_not_vat_total_price,
+			pm.payment_total_price,
+			pm.payment_product_name,
+			pm.payment_ticket_amount,
+			pm.payment_approval_date,
+			pd.payment_installment,
+			pd.payment_card_company_code,
+			FN_GET_SECRET_CARD_NUMBER(pd.payment_card_number) payment_card_number,
+			pd.payment_installment,
+			pd.payment_card_company_code,
+			FN_GET_SECRET_CELL_NUMBER(pd.payment_cellphone_number) payment_cellphone_number,
+			pd.payment_mobile_agency,
+			pd.payment_account_number,
+			pd.payment_account_holder,
+			pd.payment_bank_code,
+			FN_GET_COMMON_CODE_NAME('BILL_STATE',pd.payment_bill_request_state) payment_bill_request_state,
+			pd.payment_purpose_type,
+			pd.payment_bill_request_date,
+			pd.payment_bill_publication_date,
+			pd.payment_bill_email,
+			pd.payment_bill_memo 
+		FROM
+			PAYMENT_MASTER pm, 
+			PAYMENT_DETAIL pd
+		WHERE	
+			pm.payment_master_key = pd.payment_master_key
+		AND
+			pm.payment_master_key = #{paymentMasterKey}
+		
+	</select>
+	<select id="getPaymentLogsList" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			*
+		FROM
+			PAYMENT_LOGS
+		where
+			payment_master_key = #{paymentMasterKey}
+	</select>
+	<update id="cancelPayment" parameterType="paymentEntity">
+		UPDATE 
+			PAYMENT_MASTER 
+		SET
+			payment_total_price = 0,
+			payment_state = 3,
+			payment_cancel_reason = #{paymentCancelReason},
+			payment_cancel_person = #{paymentCancelPerson},
+			payment_cancel_date = NOW()
+		WHERE
+			payment_master_key = #{paymentMasterKey}
+	</update>
+	<update id="insertRequestBill" parameterType="paymentEntity">
+		UPDATE 
+			PAYMENT_DETAIL
+		SET
+			payment_bill_request_state = '3',
+			payment_bill_publication_date = NOW()
+		WHERE
+			payment_master_key = #{paymentMasterKey}
+	</update>
+	<select id="getSearchResult" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			COUNT(*) sumCount,
+			FN_GET_VAT_EXCEPT_AMOUNT(SUM(payment_total_price)) sumTotalPrice
+		FROM
+			PAYMENT_MASTER
+		WHERE
+			payment_state = 1
+	</select>
+	
+	
+	<sql id="searchPaymentContractList">
+		<!-- 기간검색 -->
+		<if test="searchKey != '' and searchKey != null">
+			AND
+			<choose>
+				<when test="searchKey == 'contract_bill_publication_date'">
+		   		${searchKey} between #{startDate} and #{endDate}
+		   	</when>
+		   	<otherwise>
+		   		(cm.contract_start_date between #{startDate} and #{endDate} 
+		   			OR
+		   		 cm.contract_end_date between #{startDate} and #{endDate}) 
+		   	</otherwise>
+	   	</choose>
+  	</if>
+  	<!-- 신청상품 -->
+		<if test="searchValue != '' and searchValue != null">
+			AND
+				cm.contract_product_name = #{searchValue}
+		</if>
+		<!-- 회원 아이디 -->
+		<if test="searchValue1 != '' and searchValue1 != null">
+			AND
+				cu.contract_user_id = #{searchValue1}
+		</if>
+		<!-- 이용현황 -->
+		<if test="searchValue2 != '' and searchValue2 != null">
+			AND
+				cm.contract_state = #{searchValue2}
+		</if>
+		<!-- 기업명 -->
+		<if test="searchValue3 != '' and searchValue3 != null">
+			AND
+				cm.contract_company_name LIKE '%${searchValue3}%'
+		</if>
+		<!-- 결제자명 -->
+		<if test="searchValue4 != '' and searchValue4 != null">
+			AND
+				cm.contract_company_number = #{searchValue4}
+		</if>
+	</sql>
+	
+	<select id="getPaymentContractListCount" parameterType="paymentEntity" resultType="int">
+    SELECT 
+    	COUNT(a.contract_master_key)
+    FROM(
+	    SELECT
+	      COUNT(cm.contract_master_key) contract_master_key
+	   	FROM
+				CONTRACT_MASTER cm,
+				CONTRACT_USER cu 
+			WHERE
+				 1 = 1
+	   	<include refid="searchPaymentContractList"/>
+	   	GROUP BY cm.contract_master_key
+	   	) a
+	    
+  </select>
+	<select id="getPaymentContractList" parameterType="paymentEntity" resultType="paymentEntity">
+	SELECT
+			SUM(a.contract_not_vat_total_price) search_total_price,
+			a.*
+		FROM(
+		SELECT
+			cu.contract_user_id,
+			cm.contract_master_key,
+			cm.contract_start_date,
+			cm.contract_end_date,
+			cm.contract_bill_publication_date,
+			cm.contract_total_price,
+			FN_GET_VAT_EXCEPT_AMOUNT(cm.contract_total_price) contract_not_vat_total_price,
+			cm.contract_payment_method,
+			cm.contract_company_name,
+			cm.contract_company_number,
+			cm.contract_product_name, 
+			cm.contract_ticket_amount,
+			cm.contract_expiration_date,
+			cm.contract_state,
+			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
+			cm.contract_use_close_reason,
+			cm.contract_operator_name,
+			cm.contract_insert_date,
+			cm.contract_use_close_date
+		FROM
+			CONTRACT_MASTER cm,
+			CONTRACT_USER cu
+		WHERE
+			cm.contract_master_key = cu.contract_master_key
+		<include refid="searchPaymentContractList"/>
+		GROUP BY cm.contract_master_key
+		) a
+		GROUP BY
+			a.contract_master_key
+	</select>
+	<select id="getSearchContractResult" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			COUNT(*) sum_count,
+			FN_GET_VAT_EXCEPT_AMOUNT(SUM(contract_total_price)) sum_total_price
+		FROM
+			CONTRACT_MASTER
+		 
+	</select>
+	<insert id="insertContract" parameterType="paymentEntity" useGeneratedKeys="true" keyProperty="contractMasterKey">
+		INSERT INTO
+			CONTRACT_MASTER (
+			  contract_tid,
+			  contract_start_date,
+			  contract_end_date,
+			  contract_bill_publication_date,
+			  contract_total_price,
+			  contract_payment_method,
+			  contract_company_name,
+			  contract_company_number,
+			  contract_product_name,
+			  contract_ticket_amount,
+			  contract_expiration_date,
+			  contract_state,
+			  contract_use_stop_reason,
+			  contract_use_close_reason,
+			  contract_operator_name,
+			  contract_insert_date
+			) VALUES (
+			  #{contractTid},
+			  #{contractStartDate},
+			  #{contractEndDate},
+			  #{contractBillPublicationDate},
+			  #{contractTotalPrice},
+			  #{contractPaymentMethod},
+			  #{contractCompanyName},
+			  #{contractCompanyNumber},
+			  #{contractProductName},
+			  #{contractTicketAmount},
+			  #{contractExpirationDate},
+			  1,
+			  #{contractUseStopReason},
+			  #{contractUseCloseReason},
+			  #{contractOperatorName},
+			  NOW()
+			)
+	</insert>
+	<update id="modifyContract" parameterType="paymentEntity">
+		UPDATE 
+			CONTRACT_MASTER 
+				SET 
+					contract_start_date = #{contractStartDate},
+				  contract_end_date = #{contractEndDate},
+				  contract_bill_publication_date = #{contractBillPublicationDate},
+				  contract_total_price = #{contractTotalPrice}, 
+				  contract_payment_method = #{contractPaymentMethod}, 
+				  contract_company_name = #{contractCompanyName}, 
+				  contract_company_number = #{contractCompanyNumber}, 
+				  contract_product_name = #{contractProductName}, 
+				  contract_ticket_amount = #{contractTicketAmount},
+				  contract_expiration_date = #{contractExpirationDate},
+				  contract_state = #{contractState},
+				  contract_use_stop_reason = #{contractUseStopReason}, 
+				  contract_use_close_reason = #{contractUseCloseReason}
+		 	WHERE
+		 		contract_master_key = #{contractMasterKey}
+	</update>
+	<insert id="insertContractUser" parameterType="paymentEntity">
+		INSERT INTO
+			CONTRACT_USER (
+				contract_master_key,
+				contract_user_id
+			) VALUES (
+				#{contractMasterKey},
+				#{contractUserId}
+			)
+	</insert>
+	<select id="getPaymentContractDetail" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			cm.contract_master_key,
+			cm.contract_start_date,
+			cm.contract_end_date,
+			cm.contract_bill_publication_date,
+			cm.contract_total_price,
+			FN_GET_VAT_EXCEPT_AMOUNT(cm.contract_total_price) contract_not_vat_total_price,
+			cm.contract_payment_method,
+			cm.contract_company_name,
+			cm.contract_company_number,
+			cm.contract_product_name, 
+			cm.contract_ticket_amount,
+			cm.contract_expiration_date,
+			cm.contract_state,
+			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
+			cm.contract_use_close_reason,
+			cm.contract_operator_name,
+			cm.contract_insert_date
+		FROM
+			CONTRACT_MASTER cm
+		WHERE
+			cm.contract_master_key = #{contractMasterKey}
+	</select>
+	<select id="getPaymentContractUserDetail" parameterType="paymentEntity" resultType="String">
+		SELECT
+			contract_user_id
+		FROM
+			CONTRACT_USER
+		WHERE
+			contract_master_key = #{contractMasterKey}
+	</select>
+	<delete id="removeContractUser" parameterType="paymentEntity">
+		DELETE 
+			FROM 
+				CONTRACT_USER
+			WHERE
+				contract_master_key = #{contractMasterKey}
+	</delete>
+	<update id="modifyContractState" parameterType="paymentEntity">
+		UPDATE
+			CONTRACT_MASTER
+			 	SET
+			 	contract_state = 4,<!-- #{contractState} -->
+			 	contract_use_close_date = NOW()
+			WHERE
+				contract_master_key = #{contractMasterKey}
+	</update>
+	<select id="getPaymentWebReport" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+		  pm.payment_product_name,
+		  pm.payment_date,
+		  FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE', pm.payment_type) paymentTypeText,
+		  COUNT(pm.payment_master_key) payment_count,
+		  FN_GET_VAT_EXCEPT_AMOUNT(SUM(pm.payment_total_price)) paymentNotVatTotalPrice,
+		  SUM(pm.payment_total_price) paymentTotalPrice
+		FROM 
+			PAYMENT_MASTER pm,
+			PAYMENT_DETAIL pd
+		WHERE
+			pm.payment_master_key = pd.payment_master_key
+		AND
+			pm.payment_state = 2
+		AND	
+			DATE_FORMAT(pm.payment_date, '%Y/%m/%d')  LIKE '${searchValue}%'
+		GROUP BY
+		<choose>
+				<when test="searchKey == 'date'">
+					left(pm.payment_date, 10)
+				</when>
+				<when test="searchKey == 'device'">
+	  				pm.payment_product_name
+				</when>
+				<otherwise>
+					pm.payment_type
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="getPaymentContractReport" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			cm.contract_start_date,
+			cm.contract_product_name,
+			cm.contract_company_name,
+			COUNT(cm.contract_master_key) payment_count,
+			SUM(cm.contract_total_price) contract_total_price,
+			FN_GET_VAT_EXCEPT_AMOUNT(SUM(cm.contract_total_price)) contract_not_vat_total_price
+		FROM
+			CONTRACT_MASTER cm,
+			CONTRACT_USER cu
+		WHERE
+			cm.contract_master_key = cu.contract_master_key
+		AND
+			cm.contract_state = 1
+		AND	
+			cm.contract_start_date LIKE '${searchValue}%'
+		GROUP BY
+		<choose>
+				<when test="searchKey == 'date'">
+					left(cm.contract_start_date, 10)
+				</when>
+				<when test="searchKey == 'device'">
+	  				cm.contract_product_name
+				</when>
+				<otherwise>
+					cm.contract_company_name
+				</otherwise>
+			</choose>
+	</select> 
+	
+	<insert id="insertPayment" parameterType="paymentEntity"  useGeneratedKeys="true" keyProperty="paymentMasterKey">
+		INSERT INTO
+			PAYMENT_MASTER
+		(
+			payment_oid,
+			payment_tid,
+			user_master_key,
+			payment_state,
+			payment_date,
+			payment_approval_date,
+			payment_type,
+			payment_user_id,
+			payment_name,
+			payment_company_number,
+			product_master_key,
+			payment_product_name,
+			payment_product_price,
+			payment_use_time,
+			payment_ticket_amount,
+			payment_total_price,
+			payment_start_date,
+			payment_end_date
+		) VALUES (
+			#{paymentOid},
+			#{paymentTid},
+			#{userMasterKey},
+			#{paymentState},
+			#{paymentDate},
+					NOW(),
+			#{paymentType},
+			#{paymentUserId},
+			#{paymentName},
+			#{paymentCompanyNumber},
+			#{productMasterKey},
+			#{paymentProductName},
+			#{paymentProductPrice},
+			#{paymentUseTime},
+			#{paymentTicketAmount},
+			${paymentTotalPrice},
+			#{paymentStartDate},
+			#{paymentEndDate}
+		)
+		
+	</insert>
+	
+	<insert id="insertPaymentDetail" parameterType="paymentEntity">
+		INSERT INTO
+			PAYMENT_DETAIL
+			(
+				payment_master_key,
+				payment_card_number,
+				payment_installment,
+				payment_card_company_code,
+				payment_cellphone_number,
+				payment_mobile_agency,
+				payment_account_number,
+				payment_account_holder,
+				payment_bank_code,
+				payment_bank_name,
+				payment_bill_receipt_number,
+				payment_bill_request_state,
+				payment_purpose_type,
+				payment_bill_request_date,
+				payment_bill_publication_date,
+				payment_bill_email,
+				payment_bill_memo
+			) VALUES (
+			    #{paymentMasterKey},
+				#{paymentCardNumber},
+				#{paymentInstallment},
+				#{paymentCardCompanyCode},
+				#{paymentCellphoneNumber},
+				#{paymentMobileAgency},
+				#{paymentAccountNumber},
+				#{paymentAccountHolder},
+				#{paymentBankCode},
+				#{paymentBankName},
+				#{paymentBillReceiptNumber},
+				#{paymentBillRequestState},
+				#{paymentPurposeType},
+				#{paymentBillRequestDate},
+				#{paymentBillPublicationDate},
+				#{paymentBillEmail},
+				#{paymentBillMemo}
+			)
+	</insert>
+	<!-- 결제 정보 -->
+	<select id="getPaymentInfo" parameterType="paymentEntity" resultType="paymentEntity">
+	SELECT
+		pm.payment_master_key,
+		pm.payment_oid,
+		pm.payment_tid,
+		pm.user_master_key,
+		pm.payment_state,
+		pm.payment_date,
+		pm.payment_approval_date,
+		FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE', pm.payment_type) payment_type_text,
+		pm.payment_type,
+		pm.payment_user_id,
+		pm.payment_name,
+		pm.payment_company_number,
+		pm.product_master_key,
+		pm.payment_product_name,
+		pm.payment_product_price,
+		pm.payment_use_time,
+		pm.payment_ticket_amount,
+		pm.payment_total_price,
+		pm.payment_cancel_reason,
+		pm.payment_cancel_person,
+		pm.payment_cancel_date,
+		pd.*
+	FROM
+		PAYMENT_MASTER pm,
+		PAYMENT pd
+	WHERE
+		pm.payment_master_key = pd.payment_master_key
+	AND
+	<choose>
+		<when test="paymentMasterKey !=null or paymentMasterKey != 0">
+			pm.payment_master_key = #{paymentMasterKey}
+		</when>
+		<otherwise>
+			pm.payment_oid = #{oid} AND pm.payment_tid = #{tid}
+		</otherwise>
+	</choose>
+	</select>
+	<!-- 결제 정보 -->
+	
+	<insert id="insPayment" parameterType="paymentEntity">
+		INSERT INTO
+			PAYMENT(
+				payment_master_key,
+				pay_state_cd,
+				pay_type_cd,
+				pay_dt,
+				mid,
+				oid,
+				tid,
+				amount,
+				product_info,
+				finance_code,
+				finance_name,
+				buyer,
+				buyer_id,
+				buyer_email,
+				buyer_phone,
+				card_num,
+				card_acquirer,
+				card_install_month,
+				is_card_interest,
+				cash_receipt_self_yn,
+				cash_receipt_num,
+				cash_receipt_kind,
+				payer,
+				account_num,
+				cas_tamount,
+				cas_camount,
+				cas_flag,
+				cas_seq_no,
+				reg_dt
+			) VALUES(
+				#{paymentMasterKey},
+				#{payStateCd},
+				#{payTypeCd},
+				#{payDt},
+				#{mid},
+				#{oid},
+				#{tid},
+				#{amount},
+				#{productInfo},
+				#{financeCode},
+				#{financeName},
+				#{buyer},
+				#{buyerId},
+				#{buyerEmail},
+				#{buyerPhone},
+				#{cardNum},
+				#{cardAcquirer},
+				#{cardInstallMonth},
+				#{isCardInterest},
+				#{cashReceiptSelfYn},
+				#{cashReceiptNum},
+				#{cashReceiptKind},
+				#{payer},
+				#{accountNum},
+				#{casTamount},
+				#{casCamount},
+				#{casFlag},
+				#{casSeqNo},
+				NOW()
+			)
+	</insert>
+	<update id="updPayment" parameterType="paymentEntity">
+		UPDATE PAYMENT
+		SET	 pay_state_cd	 = #{payStateCd}
+			,pay_dt			 = #{payDt}
+			,payer			 = #{payer}
+			,cas_tamount	 = #{casTamount}
+			,cas_camount	 = #{casCamount}
+			,cas_flag		 = #{casFlag}
+			,cas_seq_no		 = #{casSeqNo}
+			,cash_receipt_self_yn = #{cashReceiptSelfYn}
+			,cash_receipt_num = #{cashReceiptNum}
+			,cash_receipt_kind = #{cashReceiptKind}
+		WHERE oid = #{oid} AND tid = #{tid}
+	</update>
+	<update id="updPaymentMaster" parameterType="paymentEntity">
+		UPDATE PAYMENT_MASTER
+		SET	 payment_state	 = #{payStateCd}
+			,payment_date			 = #{payDt}
+			,payment_name			 = #{payer}
+		WHERE payment_oid = #{oid} AND payment_tid = #{tid}
+	</update>
+	<select id="getAvailableTicket" parameterType="paymentEntity">
+		SELECT
+			SUM(a.paymentTicketAmount + a.serviceApplyTicketAmount) paymentTicketAmount
+		FROM (
+			SELECT
+			    SUM(ticket_avilable_amount) paymentTicketAmount,
+			    SUM(service_apply_ticket_amount) serviceApplyTicketAmount
+			FROM
+				PAYMENT_MASTER pm
+			LEFT OUTER JOIN
+				APPLY_SERVICE_USER AS as ON pm.usre_master_key = as.user_master_key
+			INNER JOIN
+				TICKET_PRODUCT_APPLY_SERVICE AS tp ON as.ticket_product_service_key = tp.ticket_product_service_key
+			
+				
+			WHERE
+				user_master_key = #{userMasterKey}
+			AND
+				LEFT(now(), 10) BETWEEN LEFT(payment_start_date,10) AND LEFT(payment_end_date,10)
+			AND
+				payment_state  = 1
+		) a
+	</select>
+	<!-- 결제내역 카운트 -->
+	<select id="getPaymentListCount" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			COUNT(a.payment_state) paymentCount,
+			COUNT(IF(a.payment_state = 1, 1, null)) paymentFinishCount,
+			COUNT(IF(a.payment_state = 2, 1, null)) paymentWaitCount
+		FROM (
+			SELECT
+				payment_date,
+				payment_state,
+				FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',payment_state) paymentStateText,
+				payment_product_name,
+				payment_type,
+				FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE', payment_type) paymentTypeText,
+				payment_tid,
+				payment_total_price
+			FROM 
+				PAYMENT_MASTER
+			WHERE
+				user_master_key = #{userMasterKey}
+			
+			UNION ALL
+			
+			SELECT
+				cm.contract_insert_date,
+				cm.contract_state,
+				FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state) paymentStateText,
+				cm.contract_product_name,
+				0,
+				cm.contract_payment_method,
+				0,
+				cm.contract_total_price
+			FROM
+				CONTRACT_MASTER cm,
+				CONTRACT_USER cu 
+			WHERE
+				cm.contract_master_key = cu.contract_master_key
+			AND
+				cu.user_master_key = #{userMasterKey}
+		) a
+		WHERE
+			1 = 1
+		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+			AND
+				(
+				  a.payment_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+				)
+		</if>
+		<if test="searchValue != '' and searchValue != null">
+			AND
+			 a.payment_product_name = #{searchValue}
+		</if>
+		<if test="searchValue1 != '' and searchValue1 != null">
+			AND
+			 a.payment_type = #{searchValue1}
+		</if>
+		<if test="searchValue2 != '' and searchValue2 != null">
+			AND
+			 a.payment_state = #{searchValue2}
+		</if>
+	</select>
+	<!-- 결제내역 카운트 -->
+	<!-- 결제내역 리스트 -->
+	<select id="getPaymentList" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			a.* 
+		FROM (
+			SELECT
+				payment_date,
+				payment_state,
+				FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',payment_state) paymentStateText,
+				payment_product_name,
+				payment_type,
+				FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE', payment_type) paymentTypeText,
+				payment_tid,
+				payment_total_price
+			FROM 
+				PAYMENT_MASTER
+			WHERE
+				user_master_key = #{userMasterKey}
+			
+			UNION ALL
+			
+			SELECT
+				cm.contract_insert_date,
+				cm.contract_state,
+				FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state) paymentStateText,
+				cm.contract_product_name,
+				0,
+				cm.contract_payment_method,
+				0,
+				cm.contract_total_price
+			FROM
+				CONTRACT_MASTER cm,
+				CONTRACT_USER cu 
+			WHERE
+				cm.contract_master_key = cu.contract_master_key
+			AND
+				cu.user_master_key = #{userMasterKey}
+		) a
+		WHERE
+			1 = 1
+		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+			AND
+				(
+				  a.payment_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+				)
+		</if>
+		<if test="searchValue != '' and searchValue != null">
+			AND
+			 a.payment_product_name = #{searchValue}
+		</if>
+		<if test="searchValue1 != '' and searchValue1 != null">
+			AND
+			 a.payment_type = #{searchValue1}
+		</if>
+		<if test="searchValue2 != '' and searchValue2 != null">
+			AND
+			 a.payment_state = #{searchValue2}
+		</if>
+		LIMIT 
+     	 #{rowStartNumber}, #{pageListSize}
+	</select>
+	<!-- 결제내역 리스트 -->
+	<!-- 구매하려는 상품이 현재 상용중인 상품에 속하는지 확인 -->
+ 	<select id="getProductInfo" parameterType="paymentEntity" resultType="int">
+	    SELECT
+	        COUNT(user_ticket_master_key)
+	    FROM 
+	        USER_TICKET_MASTER
+	    WHERE
+	    	user_master_key = #{userMasterKey}
+	   	AND
+	   		(
+	   			product_master_key = #{productMasterKey}
+	   				OR
+	   			product_master_key = 1	
+	   		)
+	 </select>
+	<!-- //구매하려는 상품이 현재 상용중인 상품에 속하는지 확인 -->
+	
+</mapper>

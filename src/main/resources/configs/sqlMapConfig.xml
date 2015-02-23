@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <settings>
+    <setting name="mapUnderscoreToCamelCase" value="true" />
+  </settings>
+  <typeAliases>
+    <typeAlias alias="adminEntity" type="kr.co.clapp.entities.AdminEntity"/>
+    <typeAlias alias="popupEntity" type="kr.co.clapp.entities.PopupEntity"/>
+    <typeAlias alias="memberEntity" type="kr.co.clapp.entities.MemberEntity"/>
+    <typeAlias alias="commonCodeEntity" type="kr.co.clapp.entities.CommonCodeEntity"/>
+    <typeAlias alias="statisticsEntity" type="kr.co.clapp.entities.StatisticsEntity"/>
+    <typeAlias alias="dropOutUserEntity" type="kr.co.clapp.entities.DropOutUserEntity"/>
+    <typeAlias alias="deviceEntity" type="kr.co.clapp.entities.DeviceEntity"/>
+    <typeAlias alias="ticketEntity" type="kr.co.clapp.entities.TicketEntity"/>
+    <typeAlias alias="administrationFileEntity" type="kr.co.clapp.entities.AdministrationFileEntity"/>
+    <typeAlias alias="paymentEntity" type="kr.co.clapp.entities.PaymentEntity"/>
+    <typeAlias alias="boardEntity" type="kr.co.clapp.entities.BoardEntity"/>
+    <typeAlias alias="ecrmEntity" type="kr.co.clapp.entities.EcrmEntity"/>
+    <typeAlias alias="serviceInquiryEntity" type="kr.co.clapp.entities.ServiceInquiryEntity"/>
+    <typeAlias alias="cabledAdviceEntity" type="kr.co.clapp.entities.CabledAdviceEntity"/>
+    <typeAlias alias="boardNoticeEntity" type="kr.co.clapp.entities.BoardNoticeEntity"/>
+    <typeAlias alias="boardQnaEntity" type="kr.co.clapp.entities.BoardQnaEntity"/>
+    <typeAlias alias="productEntity" type="kr.co.clapp.entities.ProductEntity"/>
+    <typeAlias alias="formUserInfoEntity" type="kr.co.clapp.entities.validation.FormUserInfoEntity"/>
+    <typeAlias alias="formInquireInfoEntity" type="kr.co.clapp.entities.validation.FormInquireInfoEntity"/>
+    <typeAlias alias="smsEntity" type="kr.co.clapp.entities.SmsEntity"/>
+  </typeAliases>
+</configuration>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.PopupDAO">
+	<!-- 팝업 리스트 -->
+	<select id="getPopupList" parameterType="popupEntity" resultType="popupEntity">
+		SELECT
+			POPUP_KEY,
+			POPUP_TITLE,
+			POPUP_START_DATE,
+			POPUP_END_DATE,
+			IF((POPUP_OPEN) = 'Y','진행','종료') POPUP_OPEN,
+			(SELECT COUNT(*)
+       FROM   POPUP
+       WHERE  POPUP_OPEN = 'Y'
+       ) AS POPUP_COUNT
+		FROM
+			POPUP
+   	WHERE
+   	  POPUP_INSERT_DATE IS NOT NULL
+    <choose>
+        <when test="searchValue != '' and searchValue != null">
+          AND
+            POPUP_OPEN = #{searchValue}
+        </when>
+    </choose>
+		ORDER BY
+		  POPUP_INSERT_DATE DESC	
+		LIMIT  
+      #{rowStartNumber}, #{pageGroupSize}
+	</select>
+	<!-- //팝업 리스트 -->
+	
+	<!-- 팝업 카운트 -->
+  <select id="getPopupCount" parameterType="popupEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      POPUP
+    WHERE
+      POPUP_INSERT_DATE IS NOT NULL
+    <choose>
+        <when test="searchValue != '' and searchValue != null">
+          AND
+            POPUP_OPEN = #{searchValue}
+        </when>
+    </choose>
+  </select>
+  <!-- //팝업 카운트 -->
+  
+  <!-- 팝업 상세 -->
+    <select id="getPopupDetail" parameterType="popupEntity" resultType="popupEntity">
+    SELECT 
+      POPUP_KEY,
+      POPUP_TITLE,
+      POPUP_START_DATE,
+      POPUP_END_DATE,
+      POPUP_SIZE_WIDTH,
+      POPUP_SIZE_HEIGHT,
+      POPUP_POSITION_TOP,
+      POPUP_POSITION_LEFT,
+      POPUP_CONTENTS
+    FROM
+      POPUP
+    WHERE
+      POPUP_KEY = #{popupKey}
+  </select>
+  <!-- //팝업 상세 -->
+  
+  <!-- 팝업 등록 -->
+    <insert id="insertPopup" parameterType="popupEntity">
+      INSERT INTO POPUP (
+          POPUP_TITLE,
+          POPUP_START_DATE,
+          POPUP_END_DATE,
+          POPUP_SIZE_WIDTH,
+          POPUP_SIZE_HEIGHT,
+          POPUP_POSITION_TOP,
+          POPUP_POSITION_LEFT,
+         <!--  POPUP_OPEN, -->
+          POPUP_CONTENTS,
+          POPUP_INSERT_DATE 
+      ) VALUES (
+          #{popupTitle},
+          #{popupStartDate},
+          #{popupEndDate},
+          #{popupSizeWidth},
+          #{popupSizeHeight},
+          #{popupPositionTop},
+          #{popupPositionLeft},
+        <!--   #{popupOpen}, -->
+          #{popupContents},
+          NOW()
+          )
+    </insert>
+  <!-- //팝업 등록 -->
+  
+  <!-- 팝업 수정 -->
+    <update id="modifyPopup" parameterType="popupEntity">
+      UPDATE POPUP SET 
+          POPUP_TITLE = #{popupTitle},
+          POPUP_START_DATE = #{popupStartDate},
+          POPUP_END_DATE = #{popupEndDate},
+          POPUP_SIZE_WIDTH = #{popupSizeWidth},
+          POPUP_SIZE_HEIGHT = #{popupSizeHeight},
+          POPUP_POSITION_TOP = #{popupPositionTop},
+          POPUP_POSITION_LEFT= #{popupPositionLeft},
+         <!--  POPUP_OPEN, -->
+          POPUP_CONTENTS =#{popupContents}
+      WHERE
+      POPUP_KEY = #{popupKey} 
+    </update>
+  <!-- //팝업 수정 -->
+  
+    <!-- 팝업 종료 -->
+    <update id="endPopup" parameterType="popupEntity">
+      UPDATE POPUP SET 
+          POPUP_END_DATE = NOW(),
+          POPUP_OPEN = 'N'
+      WHERE
+       POPUP_KEY = #{popupKey} 
+    </update>
+  <!-- //팝업 종료 -->
+  <!-- 메인 팝업 -->
+  <select id="getPopupMain" parameterType="popupEntity" resultType="popupEntity">
+	SELECT
+		*
+	FROM
+		POPUP
+   	WHERE
+   	  POPUP_INSERT_DATE IS NOT NULL
+   	AND
+   	  POPUP_OPEN = 'Y'
+   	AND
+   		NOW() BETWEEN POPUP_START_DATE AND POPUP_END_DATE
+	ORDER BY
+	  POPUP_INSERT_DATE DESC	
+	</select>
+  <!--/ 메인 팝업 -->
+</mapper>

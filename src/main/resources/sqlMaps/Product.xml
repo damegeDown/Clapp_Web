@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.ProductDAO">
+  <!-- 티켓 사용 내역 목록 -->
+	<select id="getProductTypeInfo" parameterType="productEntity" resultType="productEntity">
+		SELECT 
+			PRODUCT_MASTER_KEY,
+			PRODUCT_NAME,
+			PRODUCT_EXPLAIN,
+			PRODUCT_PRICE,
+			PRODUCT_EXPIRATION_DATE,
+			PRODUCT_PRICE_EXPLAIN,
+			PRODUCT_USE_TIME,
+			PRODUCT_TICKET_AMOUNT,
+			PRODUCT_TICKET_EXPLAIN,
+			PRODUCT_TYPE,
+			INSERT_DATE
+		FROM
+		  PRODUCT_MASTER
+		WHERE PRODUCT_TYPE = #{productType}
+	</select>
+  <!-- //티켓 사용 내역 목록 -->
+  <!-- 상품 정보 -->
+	<select id="getProductInfo" parameterType="productEntity" resultType="productEntity">
+		SELECT
+			product_master_key,
+			product_name,
+			product_explain,
+			product_price,
+			product_use_time,
+			product_expiration_date,
+			product_price_explain,
+			product_use_time,
+			product_ticket_amount,
+			product_ticket_explain,
+			product_type,
+			insert_date
+		FROM
+			PRODUCT_MASTER
+		WHERE
+			product_master_key = #{productMasterKey}
+	</select>
+  <!-- //상품 정보 -->
+  <!-- 상품 정보 -->
+	<select id="getProductList" parameterType="productEntity" resultType="productEntity">
+		SELECT
+			product_master_key,
+			product_name,
+			product_explain,
+			product_price,
+			product_use_time,
+			product_expiration_date,
+			product_price_explain,
+			product_use_time,
+			product_ticket_amount,
+			product_ticket_explain,
+			product_type,
+			insert_date
+		FROM
+			PRODUCT_MASTER
+		 
+	</select>
+  <!-- //상품 정보 -->
+</mapper>

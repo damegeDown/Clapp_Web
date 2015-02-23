@@ -1,0 +1,171 @@
+package kr.co.clapp.service.ticket.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import kr.co.clapp.constants.CommonCode;
+import kr.co.clapp.dao.TicketDAO;
+import kr.co.clapp.entities.MemberEntity;
+import kr.co.clapp.entities.PageEntity;
+import kr.co.clapp.entities.TicketEntity;
+import kr.co.clapp.service.ticket.TicketService;
+import kr.co.digigroove.commons.messages.Messages;
+import kr.co.digigroove.commons.utils.StringUtils;
+
+@Service
+@Transactional(readOnly=true)
+public class TicketServiceImpl implements TicketService {
+  @Autowired
+  private TicketDAO ticketDAO;
+  @Autowired
+  private Messages messages;
+  /**
+   * 티켓 사용 내역 관리 목록
+   */
+  @Override
+  public TicketEntity getUserTicketUsedList(TicketEntity ticketEntity) throws Exception {
+	ticketEntity.setPageParams();
+	if(ticketEntity.getSortListSize() == 0) ticketEntity.setSortListSize(PageEntity.PAGE_LIST_SIZE_PARAM);
+	ticketEntity.setPageSize(ticketEntity.getSortListSize(), PageEntity.PAGE_GROUP_SIZE_PARAM);
+	ticketEntity.setDataSize(ticketDAO.getUserTicketUsedCount(ticketEntity));
+	List<TicketEntity> userTicketUsedListResult = ticketDAO.getUserTicketUsedList(ticketEntity);
+	ticketEntity.setUserTicketUsedList(userTicketUsedListResult);
+    return ticketEntity;
+}
+  /**
+   * 티켓 적용 서비스 목록
+   */
+  @Override
+  public TicketEntity getTicketProductServiceList(TicketEntity ticketEntity) throws Exception {
+	ticketEntity.setPageParams();
+	if(ticketEntity.getSortListSize() == 0) ticketEntity.setSortListSize(PageEntity.PAGE_LIST_SIZE_PARAM);
+	ticketEntity.setPageSize(ticketEntity.getSortListSize(), PageEntity.PAGE_GROUP_SIZE_PARAM);
+	ticketEntity.setDataSize(ticketDAO.getTicketProductServiceCount(ticketEntity));
+	List<TicketEntity> ticketProductServiceListResult = ticketDAO.getTicketProductServiceList(ticketEntity);
+	ticketEntity.setTicketProductServiceList(ticketProductServiceListResult);
+    return ticketEntity;
+	}
+  /**
+   * 티켓 적용 서비스 신규 적용(등록)
+   */
+  @Override
+  @Transactional(readOnly = false, rollbackFor = Exception.class)
+  public int insertTicketProductService(TicketEntity ticketEntity) throws Exception{
+	int selectResult = 0;  
+	int result = ticketDAO.insertTicketProductService(ticketEntity);
+	  if(result > 0 ){
+		  selectResult = ticketDAO.selectUserType(ticketEntity);
+	  }
+	  return result > 0 ? selectResult : result;
+  }
+  /**
+   * 이달의 티켓 사용 개수 카운트
+   * @param ticketEntity
+   * @return
+   * @throws Exception
+   */
+  @Override
+  public TicketEntity getTicketSum(TicketEntity ticketEntity) throws Exception {
+	TicketEntity ticketSum = ticketDAO.getTicketSum(ticketEntity);
+	return ticketSum;
+  }
+  /**
+   * 티켓 적용 서비스 유저 타입 카운트
+   * @param ticketEntity
+   * @return
+   * @throws Exception
+   */
+  @Override
+  public int getUserTypeCount(TicketEntity ticketEntity) throws Exception {
+	int userTypeCount = ticketDAO.getUserTypeCount(ticketEntity);
+	return userTypeCount;
+  }
+  
+  /**
+   * 사용자 티켓발급
+   */
+  @Override
+  public int insertUserTicketMaster(TicketEntity ticketEntity) throws Exception {
+	  int result = ticketDAO.insertUserTicketMaster(ticketEntity);
+	  return result;
+  }
+  /**
+   * 사용가능 티켓 
+   */
+	@Override 
+	public int getAvailableTicket(TicketEntity ticketEntity) {
+		ticketEntity =ticketDAO.getAvailableTicket(ticketEntity);
+		int result = 0;
+		if(!StringUtils.isEmpty(ticketEntity)){
+			result = ticketEntity.getTicketAvilableAmount();
+		}
+		return result;
+	}
+	/**
+	 * 사용자 티켓 사용 우선순위 위인 티켓키
+	 */
+	@Override
+	public List<TicketEntity> getPrioritieTicketKey(MemberEntity memberEntity) {
+		return ticketDAO.getPrioritieTicketKey(memberEntity);
+	}
+	/**
+	 * 사용자 티켓 차감 처리
+	 */
+	@Override
+	@Transactional(readOnly = false, rollbackFor = Exception.class)
+	public int doUsedTicket(TicketEntity ticketEntity) {
+		return ticketDAO.doUsedTicket(ticketEntity);
+	}
+	/**
+	 * 사용자 티켓 사용 히스토리 입력
+	 */
+	@Override
+	@Transactional(readOnly = false, rollbackFor = Exception.class)
+	public int insertUsedTicketHistory(TicketEntity ticketEntity) {
+		return ticketDAO.insertUsedTicketHistory(ticketEntity);
+	}
+	/**
+	 * 이용현황 상품 정보 
+	 */
+	@Override
+	public TicketEntity selectTicketInfo(TicketEntity ticketEntity) {
+		ticketEntity.setTicketHistoryList(ticketDAO.selectTicketHistoryList(ticketEntity));
+		return ticketEntity;
+	}
+	/**
+	 * 이용현황
+	 */
+	@Override 
+	public TicketEntity selectTicketUsedHistory(TicketEntity ticketParam) { 
+		TicketEntity ticketInfo = new TicketEntity();
+		ticketInfo = ticketDAO.selectTicketUsedHistoryCount(ticketParam);
+		ticketParam.setPageParams();
+		ticketParam.setPageSize(ticketParam.getSearchListSize(), PageEntity.PAGE_GROUP_SIZE_PARAM);
+		ticketParam.setDataSize(ticketInfo.getHistoryCount());
+		ticketParam.setReservationWaitCount(ticketInfo.getReservationWaitCount());
+		ticketParam.setReservationFinishCount(ticketInfo.getReservationFinishCount());
+		if(CommonCode.ZERO < ticketInfo.getHistoryCount()) {
+			ticketParam.setHistoryList(ticketDAO.selectTicketUsedHistory(ticketParam));
+		}
+		return ticketParam;
+	}
+	@Override
+	public TicketEntity getMyHistory(TicketEntity ticketParam) {
+		TicketEntity ticketInfo = new TicketEntity();
+		ticketInfo = ticketDAO.selectTicketInfo(ticketParam);
+		ticketParam.setPageParams();
+		ticketParam.setPageSize(ticketParam.getSearchListSize(), PageEntity.PAGE_GROUP_SIZE_PARAM);
+		ticketParam.setDataSize(ticketDAO.getMyHistoryCount(ticketParam));
+		if(!StringUtils.isEmpty(ticketInfo)) {
+			ticketParam.setTicketAvilableAmount(ticketInfo.getTicketAvilableAmount());
+			ticketParam.setExpirationDate(ticketInfo.getExpirationDate());
+		}
+		if(CommonCode.ZERO < ticketParam.getDataSize()) {
+			ticketParam.setHistoryList(ticketDAO.getMyHistory(ticketParam));
+		}
+		return ticketParam;
+	} 
+}

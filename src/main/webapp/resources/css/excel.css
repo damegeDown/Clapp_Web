@@ -1,0 +1,6 @@
+@CHARSET "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@font-face{font-family:NanumGothic;src:url('../font/NanumGothic.eot');src:local(※), url('../font/NanumGothic.woff') format('woff');} 
+
+th { background-color : #fafafa}
+th,td { border: 1px solid #666; text-align:center; padding:12px 0 13px; verticall-align:middle;}

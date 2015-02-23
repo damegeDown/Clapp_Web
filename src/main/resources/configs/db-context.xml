@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="#{dbConfig['db_driver']}" />
+    <property name="url" value="#{dbConfig['url']}" />
+    <property name="username" value="#{dbConfig['username']}" />
+    <property name="password" value="#{dbConfig['password']}" />
+    <property name="validationQuery" value="select 1" />
+  </bean>
+
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+
+  <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+  <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="configLocation" value="classpath:configs/sqlMapConfig.xml" />
+    <property name="mapperLocations" value="classpath:sqlMaps/**/*.xml" />
+  </bean>
+  <bean id="MemberDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.MemberDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="PopupDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.PopupDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="CommonDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.CommonDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="StatisticsDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.StatisticsDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="DropOutUserDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.DropOutUserDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="DeviceDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.DeviceDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="TicketDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.TicketDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="AdministrationFileDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.AdministrationFileDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="PaymentDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.PaymentDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="BoardDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.BoardDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="EcrmDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.EcrmDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="MailingDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.MailingDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="CustomerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	  <property name="mapperInterface" value="kr.co.clapp.dao.CustomerDAO" />
+	  <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="ProductDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.ProductDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="SmsDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.SmsDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+</beans>

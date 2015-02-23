@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.StatisticsDAO">
+	<!-- 사이트 현황 -->
+	<select id="getSiteReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+		SELECT
+			SUM(a.joinMember) joinMember,
+			SUM(a.joinCompanyMember) joinCompanyMember,
+			SUM(a.loginCount) loginCount,
+			SUM(a.loginCompanyCount) loginCompanyCount,
+	        SUM(a.leaveMember) leavemember,
+			SUM(a.receptionMail) receptionMail,
+			SUM(a.refusalMail) refusalMail,
+			a.user_join_date statisticsDate,
+			sum(a.mailInquery) mailInquery,
+			WEEKDAY(a.user_join_date) day_of_week,
+			FN_GET_DAY_OF_WEEK(DAYNAME(a.user_join_date)) day_name 
+		FROM (
+			SELECT
+				COUNT(IF(user_type = 1, um.user_master_key, null)) joinMember,
+				COUNT(IF(user_type = 2, um.user_master_key, null)) joinCompanyMember,
+				SUM(IF(user_type = 1, um.user_master_key, 0)) loginCount,
+				SUM(IF(user_type = 2, um.user_master_key, 0)) loginCompanyCount,
+				0 leaveMember,
+				COUNT(IF(user_mail_reception_yn = 'Y', um.user_master_key, null)) receptionMail,
+				COUNT(IF(user_mail_reception_yn = 'N', um.user_master_key, null)) refusalMail,
+				user_join_date,
+				(select count(*) from SERVICE_INQUIRY where  left(inquiry_insert_date,10) = left(um.user_join_date,10)) mailInquery
+			FROM
+				USER_MASTER um,
+				USER_DETAIL ud
+			WHERE
+				um.user_master_key = ud.user_master_key
+			<if test="searchValue != '' and searchValue != null">
+				AND
+				DATE_FORMAT(user_join_date, '%Y/%m/%d')  LIKE '${searchValue}%' 
+					
+			</if>
+			GROUP BY LEFT(um.user_join_date,10)
+			UNION ALL
+			SELECT
+				0 joinMember,
+				0 joinCompanyMember,
+				0 loginCount,
+				0 loginCompanyCount,
+				COUNT(drop_out_user_id) leaveMember,
+				0 receptionMail,
+				0 refusalMail,
+				drop_out_date user_join_date,
+				0 mailInquery
+			FROM
+				DROP_OUT_USER dou
+			<if test="searchValue != '' and searchValue != null">
+				WHERE
+					DATE_FORMAT(drop_out_date, '%Y/%m/%d')  LIKE '${searchValue}%'
+			</if>
+			GROUP BY
+				dou.drop_out_date
+		) a 
+		WHERE	(a.joinMember > 0 OR a.leaveMember > 0)
+		GROUP BY LEFT(a.user_join_date,10)
+	</select> 
+	<!-- 회원가입현황 -->
+	<select id="getJoinMemberReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+	  SELECT
+			a.joinMember,
+			a.joinCompanyMember,
+			a.statisticsDate,
+			a.statisticsTime,
+			a.day_of_week,
+			FN_GET_DAY_OF_WEEK(a.day_name) day_name,
+			accrueMember,
+			accrueCompany
+		FROM (
+			SELECT
+				COUNT(IF(user_type = 1, um.user_master_key, null)) joinMember,
+				COUNT(IF(user_type = 2, um.user_master_key, null)) joinCompanyMember,
+				LEFT(user_join_date, 10) statisticsDate,
+				RIGHT(LEFT(user_join_date, 13),2) statisticsTime,
+				WEEKDAY(LEFT(user_join_date, 10)) day_of_week,
+				DAYNAME(LEFT(user_join_date, 10)) day_name,
+				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 1) accrueMember,
+				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 2) accrueCompany
+			FROM
+				USER_MASTER um,
+				USER_DETAIL ud
+			WHERE
+				um.user_master_key = ud.user_master_key
+			AND 
+				DATE_FORMAT(user_join_date, '%Y/%m/%d')  BETWEEN #{startDate} AND #{endDate}
+			GROUP BY
+			<choose>
+				<when test="searchKey == 1">
+					statisticsDate
+				</when>
+				<when test="searchKey == 2">
+				  day_name
+				</when>
+				<otherwise>
+				  statisticsTime
+				</otherwise>
+			</choose>
+		) a
+		GROUP BY
+			<choose>
+			<when test="searchKey == 1">
+				statisticsDate
+			</when>
+			<when test="searchKey == 2">
+			  day_name
+			</when>
+			<otherwise>
+			  statisticsTime
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 로그인 현황 -->
+	<select id="getLoginCountReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+	 SELECT
+		a.loginCount,
+		a.loginCompanyCount,
+		a.statisticsDate,
+		a.statisticsTime,
+		a.day_of_week,
+		FN_GET_DAY_OF_WEEK(a.day_name) day_name
+	FROM (
+		SELECT
+			SUM(IF(user_type = 1, um.user_login_count, 0)) loginCount,
+			SUM(IF(user_type = 2, um.user_login_count, 0)) loginCompanyCount,
+			LEFT(user_join_date, 10) statisticsDate,
+			RIGHT(LEFT(user_join_date, 13),2) statisticsTime,
+			WEEKDAY(LEFT(user_join_date, 10)) day_of_week,
+			DAYNAME(LEFT(user_join_date, 10)) day_name
+		FROM
+			USER_MASTER um,
+			USER_DETAIL ud
+		WHERE
+			um.user_master_key = ud.user_master_key
+		AND
+			DATE_FORMAT(user_join_date, '%Y/%m/%d')  BETWEEN #{startDate} AND #{endDate}
+		GROUP BY
+			<choose>
+				<when test="searchKey == 1">
+					LEFT(user_join_date, 10)
+				</when>
+				<when test="searchKey == 2">
+				  day_name
+				</when>
+				<otherwise>
+				  statisticsTime
+				</otherwise>
+			</choose>
+	) a
+	 WHERE (logincount > 0 OR loginCompanyCount > 0)
+	</select>
+	<!-- 회원 탈퇴 현황 -->
+	<select id="getDropOutMemberReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+		SELECT
+			COUNT(*) drop_out_count,
+			LEFT(drop_out_date, 7) drop_out_date,
+			<!-- FN_GET_COMMON_CODE_NAME('DROP_OUT_REASON',drop_out_reason ) drop_out_reason, -->
+			drop_out_reason,
+			(SELECT COUNT(*) FROM DROP_OUT_USER) sum_drop_out_count
+		FROM
+			DROP_OUT_USER
+		WHERE
+			DATE_FORMAT(drop_out_date, '%Y/%m/%d') LIKE '${searchValue}%'
+		GROUP BY	
+			<choose>
+				<when test="searchKey eq 'date'">
+					LEFT(drop_out_date, 7)
+				</when>
+				<otherwise>
+					drop_out_reason
+				</otherwise>
+			</choose> 
+	
+	</select>
+	<!-- 수시 발송용 / 타켓 메일 -->
+	<select id="getMailReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+		SELECT
+			COUNT(IF(mail_type = 1 , mail_master_key, null)) joinMember,							<!-- 일반가입 -->		 
+			COUNT(IF(mail_type = 2 , mail_master_key, null))joinCompanyMember, 		<!-- 기업/단체가입 -->
+			COUNT(IF(mail_type = 3 , mail_master_key, null)) leaveMember,						<!-- 회원탈퇴 -->
+			COUNT(IF(mail_type = 4 , mail_master_key, null)) tempPassword,		  		<!-- 임시비번발송 -->
+			COUNT(IF(mail_type = 6 , mail_master_key, null)) payCredit,							<!-- 유료(신용,핸드폰) -->
+			COUNT(IF(mail_type = 7 , mail_master_key, null)) payVirtuarAccount, 		<!-- 유료(가상계좌) -->
+			COUNT(IF(mail_type = 8 , mail_master_key, null)) revokePayment,					<!-- 결제 취소 -->	
+			COUNT(IF(mail_type = 9 , mail_master_key, null)) depositTimeOut,				<!-- 계좌입금 기한종료 -->		
+			COUNT(IF(mail_type = 11 , mail_master_key, null)) jnlpSync,							<!-- JNLP 공유 -->
+			COUNT(IF(mail_type = 12 , mail_master_key, null)) jnlpReservation,				<!-- JNLP 예약 -->
+			COUNT(IF(mail_type = 13 , mail_master_key, null)) jnlpModifyReservation, <!-- JNLP 예약 변경 -->
+			COUNT(IF(mail_type = 14 , mail_master_key, null)) jnlpCancleReservation, <!-- JNLP 예약 취소 -->
+			COUNT(IF(mail_type = 16 , mail_master_key, null)) targetAll,							<!-- 타켓메일 전체 -->
+			COUNT(IF(mail_type = 17 , mail_master_key, null)) targetGeneral,					<!-- 타켓 일반 -->
+			COUNT(IF(mail_type = 18 , mail_master_key, null)) targetCompany,				<!-- 타켓 기업 /단체 -->
+			LEFT(mail_send_date, 10) statisticsDate,
+			WEEKDAY(mail_send_date) day_of_week,
+			FN_GET_DAY_OF_WEEK(DAYNAME(mail_send_date)) day_name 
+		FROM
+			MAIL_MASTER
+		<choose>
+		<when test="searchValue != '' and searchValue != null">
+			WHERE	
+				DATE_FORMAT(mail_send_date, '%Y/%m/%d') LIKE '${searchValue}%'
+		</when>
+		</choose>
+		GROUP BY
+			statisticsDate 
+	</select> 
+	 
+	<select id="getUsedTicketReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+		SELECT
+			SUM(a.usedTicketMember) sumUsedTicketMember,
+			SUM(a.usedTicketCompanyMember) sumUsedTicketCompanyMember,
+			usedTicketMember,
+			usedTicketCompanyMember,
+			left(a.history_end_used_time,10) history_end_used_time,
+			a.history_used_ticket_amount,
+			usedTicketCompanyMember / (usedTicketMember+usedTicketCompanyMember) * 100 aveUsedTicket,
+			usedTicketMember + usedTicketCompanyMember sumDayTotal,
+			a.device_model_ename,
+			a.device_key,
+			a.day_of_week,
+			FN_GET_DAY_OF_WEEK(a.day_name) day_name
+		FROM (
+			SELECT 
+				COUNT(if(um.user_type = 1,um.user_type,NULL)) usedTicketMember,
+				COUNT(if(um.user_type = 2,um.user_type,NULL)) usedTicketCompanyMember,
+				history_end_used_time,
+				history_used_ticket_amount,
+				di.device_model_ename,
+				di.device_key,
+				WEEKDAY(history_end_used_time) day_of_week,
+				DAYNAME(history_end_used_time) day_name  
+			FROM 
+				USER_MASTER um,
+				USER_TICKET_MASTER utm,
+				USER_TICKET_USED_HISTORY uth,
+				DEVICE di
+			WHERE
+				um.user_master_key = utm.user_master_key
+			AND
+				utm.user_ticket_master_key = uth.user_ticket_master_key
+			AND
+				uth.device_key = di.device_key
+			AND
+				history_used_state = 2
+			<if test="searchValue != '' and searchValue != null">
+			AND	
+				DATE_FORMAT(history_end_used_time, '%Y/%m/%d') LIKE '${searchValue}%'
+			</if>	
+			GROUP BY 
+				<choose>
+					<when test="searchKey == 'date'">
+						history_end_used_time
+					</when>
+					<when test="searchKey == 'time'">
+						history_used_ticket_amount
+					</when>
+					<otherwise>
+					   di.device_key 
+					</otherwise>
+				</choose>
+				  
+		) a
+		GROUP BY 
+		  <choose>
+		  	<when test="searchKey == 'date'">
+					history_end_used_time
+				</when>
+				<when test="searchKey == 'time'">
+					history_used_ticket_amount
+				</when>
+				<otherwise>
+				   a.device_key 
+				</otherwise>
+			</choose>	
+</select>
+<select id="getTicketProductReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+	SELECT	
+		FN_GET_COMMON_CODE_NAME("SERVICE_APPLY",tp.service_apply_reason ) sreviceReason,
+		tp.ticket_product_service_key,
+		COUNT(IF(tp.service_target_type = 1,tp.service_target_type,null)) serviceTargetAll,
+		COUNT(IF(tp.service_target_type = 2,tp.service_target_type,null)) serviceTargetGeneral,
+		COUNT(IF(tp.service_target_type = 3,tp.service_target_type,null)) serviceTargetCompany,
+		COUNT(IF(tp.service_target_type = 4,tp.service_target_type,null)) serviceTargetUnit,
+		SUM(IF(tp.service_target_type = 1,tp.service_apply_ticket_amount,0)) serviceAmountAll,
+		SUM(IF(tp.service_target_type = 2,tp.service_apply_ticket_amount,0)) serviceAmountGeneral,
+		SUM(IF(tp.service_target_type = 3,tp.service_apply_ticket_amount,0)) serviceAmountCompany,
+		SUM(IF(tp.service_target_type = 4,tp.service_apply_ticket_amount,0)) serviceAmountUnit,
+		COUNT(tp.service_target_type) dayOfTargetTotal,
+		SUM(tp.service_apply_ticket_amount) dayOfAmountTotal,
+		tp.service_apply_date statisticsDate,
+		WEEKDAY(tp.service_apply_date) day_of_week,
+		FN_GET_DAY_OF_WEEK(DAYNAME(tp.service_apply_date)) day_name 
+	FROM
+		TICKET_PRODUCT_APPLY_SERVICE tp,
+		APPLY_SERVICE_USER asu 
+	WHERE
+		tp.ticket_product_service_key = asu.ticket_product_service_key 
+	<if test="searchValue != '' and searchValue != null">
+	AND	
+		DATE_FORMAT(service_apply_date, '%Y/%m/%d') LIKE '${searchValue}%'
+	</if>	
+	GROUP BY
+		 <choose>
+	  	<when test="searchKey == 'date'">
+				left(tp.service_apply_date,10) 
+			</when>
+			<when test="searchKey == 'reason'">
+				tp.service_apply_reason 
+			</when>
+			 
+		</choose>	
+</select>
+<select id="getMailInquiryReport" resultType="statisticsEntity" parameterType="statisticsEntity">
+	SELECT
+		'문의건수' inquiry_text,
+		COUNT(si.service_inquiry_key) inquiry_count
+	FROM
+		SERVICE_INQUIRY si 
+	<if test="searchValue != '' and searchValue != null">
+	WHERE	
+		inquiry_insert_date LIKE '${searchValue}%'
+	</if>	
+	UNION ALL
+	SELECT
+		'답변건수' inquiry_text,
+		COUNT(si.service_inquiry_key) inquiry_count
+	FROM
+		SERVICE_INQUIRY si,
+		SERVICE_INQUIRY_ANSWER sa
+	WHERE
+		si.service_inquiry_key = sa.service_inquiry_key
+	<if test="searchValue != '' and searchValue != null">
+	AND	
+		DATE_FORMAT(answer_insert_date, '%Y/%m/%d') LIKE '${searchValue}%'
+	</if>	
+	UNION ALL
+	SELECT
+		'미답변건수',
+		COUNT(si.service_inquiry_key) 
+	FROM
+		SERVICE_INQUIRY si,
+		SERVICE_INQUIRY_ANSWER sa
+	WHERE
+		si.service_inquiry_key != sa.service_inquiry_key
+	<if test="searchValue != '' and searchValue != null">
+	AND	
+		answer_insert_date  LIKE '${searchValue}%'
+	</if>	
+</select>
+
+<select id="getCableAdviceReprot" resultType="statisticsEntity" parameterType="statisticsEntity">
+	SELECT
+		FN_GET_COMMON_CODE_NAME('CABLED_ADVICE',advice_category) adviceType,
+		COUNT(cabled_advice_key) adviceCount ,
+		(SELECT COUNT(*) FROM CABLED_ADVICE) adviceTotal
+	FROM
+		CABLED_ADVICE
+	GROUP BY
+		advice_category
+</select>
+</mapper>

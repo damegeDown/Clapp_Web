@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.BoardDAO">
+  <!-- 트렌드 게시판 목록 -->
+  <select id="getBoardTrandList" parameterType="boardEntity" resultType="boardEntity">
+		SELECT 
+			BOARD_TRAND_KEY,
+			FN_GET_COMMON_CODE_NAME('TRAND_CATEGORY', TRAND_CATEGORY) TRAND_CATEGORY,
+			TRAND_TITLE,
+			TRAND_CONTENTS,
+			TRAND_ORIGIN,
+			TRAND_ORIGIN_LINK,
+			TRAND_INSERT_NAME,
+			TRAND_INSERT_DATE
+		FROM 
+	    BOARD_TRAND
+	  WHERE
+	    TRAND_REMOVE_DATE IS NULL
+	    <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+	     AND
+	       (
+	        TRAND_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+	        )
+	    </if>
+	    <if test="searchValue != '' and searchValue != null">
+	      AND
+	       TRAND_CATEGORY = #{searchValue}
+	    </if>
+	    <if test="searchValue1 != '' and searchValue1 != null">
+	      AND
+	       TRAND_ORIGIN = #{searchValue1}
+	    </if>
+	    <if test="searchValue2 != '' and searchValue2 != null">
+	      <choose>
+	        <when test="searchKey == 1">
+	          AND TRAND_TITLE LIKE CONCAT('%', #{searchValue2}, '%')
+	        </when>
+	        <when test="searchKey == 2">
+	          AND TRAND_CONTENTS LIKE CONCAT('%', #{searchValue2}, '%')
+	        </when>
+	        <when test="searchKey == 3">
+	          AND
+	          ( TRAND_TITLE LIKE CONCAT('%', #{searchValue2}, '%')
+	            OR TRAND_CONTENTS LIKE CONCAT('%', #{searchValue2}, '%')
+	          )
+	        </when>
+	        <otherwise>
+	          AND
+	          ( TRAND_TITLE LIKE CONCAT('%', #{searchValue2}, '%')
+	            OR TRAND_CONTENTS LIKE CONCAT('%', #{searchValue2}, '%')
+	            OR TRAND_ORIGIN LIKE CONCAT('%', #{searchValue2}, '%')
+	            OR TRAND_ORIGIN_LINK LIKE CONCAT('%', #{searchValue2}, '%')
+	            OR TRAND_INSERT_NAME LIKE CONCAT('%', #{searchValue2}, '%')
+	          )
+	        </otherwise>
+	      </choose>
+	    </if>
+	  ORDER BY
+	    TRAND_INSERT_DATE DESC
+	  LIMIT  
+	    #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //트렌드 게시판 목록 -->
+  
+  <!-- 트렌드 게시판 카운트 -->
+  <select id="getBoardTrandCount" parameterType="boardEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      BOARD_TRAND
+    WHERE
+      TRAND_REMOVE_DATE IS NULL
+    <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+        AND
+        (
+          TRAND_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+        )
+    </if>
+    <if test="searchValue != '' and searchValue != null">
+      AND
+       TRAND_CATEGORY = #{searchValue}
+    </if>
+    <if test="searchValue1 != '' and searchValue1 != null">
+      AND
+       TRAND_ORIGIN = #{searchValue1}
+    </if>
+    <if test="searchValue2 != '' and searchValue2 != null">
+      <choose>
+        <when test="searchKey == 1">
+          AND TRAND_TITLE LIKE CONCAT('%', #{searchValue2}, '%')
+        </when>
+        <when test="searchKey == 2">
+          AND TRAND_CONTENTS LIKE CONCAT('%', #{searchValue2}, '%')
+        </when>
+        <when test="searchKey == 3">
+          AND
+          ( TRAND_TITLE LIKE CONCAT('%', #{searchValue2}, '%')
+            OR TRAND_CONTENTS LIKE CONCAT('%', #{searchValue2}, '%')
+          )
+        </when>
+        <otherwise>
+          AND
+          ( TRAND_TITLE LIKE CONCAT('%', #{searchValue2}, '%')
+            OR TRAND_CONTENTS LIKE CONCAT('%', #{searchValue2}, '%')
+            OR TRAND_ORIGIN LIKE CONCAT('%', #{searchValue2}, '%')
+            OR TRAND_ORIGIN_LINK LIKE CONCAT('%', #{searchValue2}, '%')
+            OR TRAND_INSERT_NAME LIKE CONCAT('%', #{searchValue2}, '%')
+          )
+        </otherwise>
+      </choose>
+    </if>
+  </select>
+  <!-- //트렌드 게시판 카운트 -->
+  
+  <!-- 트렌드 게시판 상세 -->
+  <select id="getBoardTrandDetail" parameterType="boardEntity" resultType="boardEntity">
+    SELECT 
+	    bt.BOARD_TRAND_KEY,
+	    FN_GET_COMMON_CODE_NAME('TRAND_CATEGORY', TRAND_CATEGORY) TRAND_CATEGORY,
+	    bt.TRAND_TITLE,
+	    bt.TRAND_CONTENTS,
+	    bt.TRAND_ORIGIN,
+	    bt.TRAND_ORIGIN_LINK,
+	    bt.TRAND_INSERT_NAME,
+	    bt.TRAND_INSERT_DATE,
+	    af.FILE_KEY,
+	    af.FILE_TARGET_KEY,
+	    af.FILE_TARGET,
+	    af.FILE_NAME,
+	    af.FILE_SAVED_NAME,
+	    af.FILE_PATH,
+	    af.FILE_SIZE,
+	    af.FILE_EXTENSION,
+	    af.FILE_WIDTH,
+	    af.FILE_HEIGHT 
+    FROM 
+      BOARD_TRAND bt
+    LEFT OUTER JOIN
+      ADMINISTRATION_FILE af 
+        ON bt.BOARD_TRAND_KEY = af.file_target_key 
+          AND af.file_target = 'boardTrand' 
+          <if test="fileType != null and fileType != ''">
+            AND af.file_type = #{fileType}
+          </if>
+    WHERE 
+      bt.BOARD_TRAND_KEY = #{boardTrandKey}
+    GROUP BY
+      bt.BOARD_TRAND_KEY
+  </select>
+  <!-- //트렌드 게시판 상세 -->
+  
+  <!-- 트렌드 게시판 등록 -->
+    <insert id="insertBoardTrand" parameterType="boardEntity" useGeneratedKeys="true" keyProperty="boardTrandKey">
+      INSERT INTO BOARD_TRAND (
+        TRAND_CATEGORY,
+        TRAND_TITLE,
+        TRAND_CONTENTS,
+        TRAND_ORIGIN,
+        TRAND_ORIGIN_LINK,
+        TRAND_INSERT_NAME,
+        TRAND_INSERT_DATE
+        ) VALUES (
+         #{trandCategory},
+         #{trandTitle},
+         #{trandContents},
+         #{trandOrigin},
+         #{trandOriginLink},
+         #{trandInsertName},
+         NOW()
+        )
+    </insert>
+  <!-- //트렌드 게시판 등록 -->
+  
+  <!-- 트렌드 게시판 수정 -->
+    <update id="modifyBoardTrand" parameterType="boardEntity">
+      UPDATE BOARD_TRAND SET 
+        TRAND_CATEGORY = #{trandCategory},
+        TRAND_TITLE = #{trandTitle},
+        TRAND_CONTENTS = #{trandContents},
+        TRAND_ORIGIN = #{trandOrigin},
+        TRAND_ORIGIN_LINK = #{trandOriginLink}
+      WHERE
+        BOARD_TRAND_KEY = #{boardTrandKey}
+    </update>
+  <!-- //트렌드 게시판 수정 -->
+  
+  <!-- 트렌드 게시판 삭제 -->
+    <update id="removeBoardTrand" parameterType="boardEntity">
+      UPDATE BOARD_TRAND SET 
+        TRAND_REMOVE_DATE = NOW()
+      WHERE
+        BOARD_TRAND_KEY = #{boardTrandKey}
+    </update>
+  <!-- //트렌드 게시판 삭제-->
+  
+  <!-- 소셜 블로그 게시판 목록 -->
+  <select id="getBoardSocialBlogList" parameterType="boardEntity" resultType="boardEntity">
+	  SELECT 
+	    BOARD_SOCIAL_BLOG_KEY,
+	    SOCIAL_LINK,
+	    SOCIAL_BLOG_TITLE,
+	    SOCIAL_BLOG_CONTENT,
+	    SOCIAL_BLOG_INSERT_NAME,
+	    SOCIAL_BLOG_INSERT_DATE,
+	    SOCIAL_BLOG_REMOVE_DATE,
+	    FACEBOOK_FLAG,
+	    TWITTER_FLAG,
+	    BLOG_FLAG,
+	    FACEBOOK_LINK,
+	    TWITTER_LINK,
+	    BLOG_LINK
+	  FROM 
+	    BOARD_SOCIAL_BLOG
+	  WHERE
+	    SOCIAL_BLOG_REMOVE_DATE IS NULL
+	     <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+	        AND
+	        (
+	          SOCIAL_BLOG_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+	        )
+	    </if>
+	       <if test="searchValue != '' and searchValue != null">
+	      <choose>
+	        <when test="searchKey == 1">
+	          AND SOCIAL_BLOG_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+	        </when>
+	        <when test="searchKey == 2">
+	          AND SOCIAL_BLOG_CONTENT LIKE CONCAT('%', #{searchValue}, '%')
+	        </when>
+	        <when test="searchKey == 3">
+	          AND
+	          ( SOCIAL_BLOG_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+	            OR SOCIAL_BLOG_CONTENT LIKE CONCAT('%', #{searchValue}, '%')
+	          )
+	        </when>
+	        <otherwise>
+	          AND
+	          ( SOCIAL_BLOG_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+	            OR SOCIAL_BLOG_CONTENT LIKE CONCAT('%', #{searchValue}, '%')
+	            OR SOCIAL_BLOG_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+	          )
+	        </otherwise>
+	      </choose>
+	    </if>
+	    ORDER BY
+	      SOCIAL_BLOG_INSERT_DATE DESC
+	    LIMIT  
+	      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //소셜 블로그 게시판 목록 -->
+  
+  <!-- 소셜 블로그 게시판 카운트 -->
+  <select id="getBoardSocialBlogCount" parameterType="boardEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      BOARD_SOCIAL_BLOG
+    WHERE
+      SOCIAL_BLOG_REMOVE_DATE IS NULL
+      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+        AND
+        (
+          SOCIAL_BLOG_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+        )
+      </if>
+      <if test="searchValue != '' and searchValue != null">
+	      <choose>
+	        <when test="searchKey == 1">
+	          AND SOCIAL_BLOG_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+	        </when>
+	        <when test="searchKey == 2">
+	          AND SOCIAL_BLOG_CONTENT LIKE CONCAT('%', #{searchValue}, '%')
+	        </when>
+	        <when test="searchKey == 3">
+	          AND
+	          ( SOCIAL_BLOG_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+	            OR SOCIAL_BLOG_CONTENT LIKE CONCAT('%', #{searchValue}, '%')
+	          )
+	        </when>
+	        <otherwise>
+	          AND
+	          ( SOCIAL_BLOG_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+	            OR SOCIAL_BLOG_CONTENT LIKE CONCAT('%', #{searchValue}, '%')
+	            OR SOCIAL_BLOG_INSERT_NAME LIKE CONCAT('%', #{searchValue}, '%')
+	          )
+	        </otherwise>
+	      </choose>
+      </if>
+  </select> 
+  <!-- //소셜 블로그 게시판 카운트 -->
+
+  <!-- 소셜 블로그 게시판 상세 -->
+  <select id="getBoardSocialBlogDetail" parameterType="boardEntity" resultType="boardEntity">
+    SELECT 
+	    bsb.BOARD_SOCIAL_BLOG_KEY,
+	    bsb.SOCIAL_LINK,
+	    bsb.SOCIAL_BLOG_TITLE,
+	    bsb.SOCIAL_BLOG_CONTENT,
+	    bsb.SOCIAL_BLOG_INSERT_NAME,
+	    bsb.SOCIAL_BLOG_INSERT_DATE,
+	    bsb.SOCIAL_BLOG_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT 
+    FROM 
+      BOARD_SOCIAL_BLOG bsb
+    LEFT OUTER JOIN
+      ADMINISTRATION_FILE af 
+        ON bsb.BOARD_SOCIAL_BLOG_KEY = af.file_target_key 
+          AND af.file_target = 'boardSocialBlog' 
+          <if test="fileType != null and fileType != ''">
+            AND af.file_type = #{fileType}
+          </if>
+	  WHERE 
+	    bsb.BOARD_SOCIAL_BLOG_KEY = #{boardSocialBlogKey}
+	  GROUP BY
+      bsb.BOARD_SOCIAL_BLOG_KEY
+  </select>
+  <!-- //소셜 블로그 게시판 상세 -->
+  
+  <!-- 소셜 블로그 게시판 수정 -->
+  <update id="modifyBoardSocialBlog" parameterType="boardEntity">
+    UPDATE BOARD_SOCIAL_BLOG SET 
+      SOCIAL_BLOG_TITLE = #{socialBlogTitle},
+      SOCIAL_BLOG_CONTENT = #{socialBlogContent}
+    WHERE
+      BOARD_SOCIAL_BLOG_KEY = #{boardSocialBlogKey}
+  </update>
+  <!-- //소셜 블로그 게시판 수정 -->
+   <!-- 소셜 블로그 게시판 수정 -->
+  <update id="modifyBoardSocialBlogFlag" parameterType="boardEntity">
+    UPDATE BOARD_SOCIAL_BLOG SET 
+      facebook_flag = #{facebookFlag},
+      twitter_flag = #{twitterFlag},
+      blog_flag = #{blogFlag},
+      facebook_link = #{facebookLink},
+      twitter_link = #{twitterLink},
+      blog_link = #{blogLink}
+    WHERE
+      BOARD_SOCIAL_BLOG_KEY = #{boardSocialBlogKey}
+  </update>
+  <!-- //소셜 블로그 게시판 수정 -->
+  <!-- 소셜 블로그 게시판 등록 -->
+    <insert id="insertBoardSocialBlog" parameterType="boardEntity" useGeneratedKeys="true" keyProperty="boardSocialBlogKey">
+      INSERT INTO BOARD_SOCIAL_BLOG (
+		    SOCIAL_LINK,
+		    SOCIAL_BLOG_TITLE,
+		    SOCIAL_BLOG_CONTENT,
+		    SOCIAL_BLOG_INSERT_NAME,
+		    SOCIAL_BLOG_INSERT_DATE
+      ) VALUES (
+        #{socialLink},
+        #{socialBlogTitle},
+        #{socialBlogContent},
+        #{socialBlogInsertName},
+        NOW()
+      )
+    </insert>
+  <!-- //소셜 블로그 게시판 등록 -->
+  
+  <!-- 소셜 블로그 게시판 삭제 -->
+    <update id="removeBoardSocialBlog" parameterType="boardEntity">
+      UPDATE BOARD_SOCIAL_BLOG SET 
+        SOCIAL_BLOG_REMOVE_DATE = NOW()
+      WHERE
+        BOARD_SOCIAL_BLOG_KEY = #{boardSocialBlogKey}
+    </update>
+  <!-- //소셜 블로그 게시판 삭제-->
+  
+  <!-- 사용자 트렌드 리뷰 목록-->
+  <select id="getBoardTrandUserList" parameterType="boardEntity" resultType="boardEntity">
+    SELECT 
+      bt.BOARD_TRAND_KEY,
+      FN_GET_COMMON_CODE_NAME('TRAND_CATEGORY', bt.TRAND_CATEGORY) TRAND_CATEGORY_NAME,
+      bt.TRAND_TITLE,
+      bt.TRAND_CONTENTS,
+      bt.TRAND_ORIGIN,
+      bt.TRAND_ORIGIN_LINK,
+      bt.TRAND_INSERT_NAME,
+      bt.TRAND_INSERT_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME
+    FROM 
+      BOARD_TRAND bt
+    LEFT OUTER JOIN
+      ADMINISTRATION_FILE af 
+        ON bt.BOARD_TRAND_KEY = af.file_target_key 
+          AND af.file_target = 'boardTrand' 
+            AND af.file_type = 2
+      where TRAND_REMOVE_DATE IS NULL 
+      <if test="trandCategory != null and trandCategory != ''">
+        AND
+        TRAND_CATEGORY = #{trandCategory}
+      </if>
+      order by TRAND_INSERT_DATE DESC
+      LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //사용자 트렌드 리뷰 목록-->
+  
+  <!-- 사용자 트렌드 리뷰 카운트-->
+    <select id="getBoardTrandUserCount" parameterType="boardEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      BOARD_TRAND
+    WHERE
+      TRAND_REMOVE_DATE IS NULL
+    AND
+      TRAND_CATEGORY = #{trandCategory}
+    </select>
+   <!-- //사용자 트렌드 리뷰 카운트-->
+   
+   <!-- 사용자 트렌드 리뷰 상세-->
+  <select id="getTrandReviewDetail" parameterType="boardEntity" resultType="boardEntity">
+    SELECT 
+      bt.BOARD_TRAND_KEY,
+      FN_GET_COMMON_CODE_NAME('TRAND_CATEGORY', bt.TRAND_CATEGORY) TRAND_CATEGORY_NAME,
+      bt.TRAND_TITLE,
+      bt.TRAND_CONTENTS,
+      bt.TRAND_ORIGIN,
+      bt.TRAND_ORIGIN_LINK,
+      bt.TRAND_INSERT_NAME,
+      bt.TRAND_INSERT_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME
+      <include refid="getTrandNextNPrev"/>
+    FROM 
+      BOARD_TRAND bt
+    LEFT OUTER JOIN
+      ADMINISTRATION_FILE af 
+        ON bt.BOARD_TRAND_KEY = af.file_target_key 
+          AND af.file_target = 'boardTrand' 
+            AND af.file_type = 1
+     WHERE 
+      bt.BOARD_TRAND_KEY = #{boardTrandKey}
+  </select>
+  <!-- //사용자 트렌드 리뷰 상세-->
+  
+  <!-- 다음글 이전글 -->
+  <sql id="getTrandNextNPrev">
+		, ( SELECT MIN(btt.BOARD_TRAND_KEY)
+		    FROM   BOARD_TRAND AS btt
+		    WHERE  btt.trand_remove_date IS NULL
+		    AND    btt.TRAND_CATEGORY = bt.TRAND_CATEGORY
+		    AND    btt.BOARD_TRAND_KEY <![CDATA[ > ]]> bt.BOARD_TRAND_KEY
+		  ) AS trandNextPage
+	  , ( SELECT MAX(btt.BOARD_TRAND_KEY)
+        FROM   BOARD_TRAND AS btt
+        WHERE  btt.trand_remove_date IS NULL
+        AND    btt.TRAND_CATEGORY = bt.TRAND_CATEGORY
+        AND    btt.BOARD_TRAND_KEY <![CDATA[ < ]]> bt.BOARD_TRAND_KEY
+     ) AS trandPrevPage
+  </sql>
+  <!-- //다음글 이전글 -->
+  
+  <!-- 사용자 소셜 블로그 목록-->
+  <select id="getBoardSocialBlogUserList" parameterType="boardEntity" resultType="boardEntity">
+    SELECT 
+      bsb.BOARD_SOCIAL_BLOG_KEY,
+      bsb.SOCIAL_LINK,
+      bsb.SOCIAL_BLOG_TITLE,
+      bsb.SOCIAL_BLOG_CONTENT,
+      bsb.SOCIAL_BLOG_INSERT_DATE,
+      DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%Y년 %m월 %d일') AS socialBlogInsertYearDay,
+      DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%Y-%m-%d %h:%i') AS socialBlogInsertTime,
+      DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%Y') AS socialBlogInsertYear,
+      DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%m.%d') AS socialBlogInsertDay,
+      bsb.SOCIAL_BLOG_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      bsb.FACEBOOK_FLAG,
+      bsb.TWITTER_FLAG,
+      bsb.BLOG_FLAG,
+      bsb.FACEBOOK_LINK,
+      bsb.TWITTER_LINK,
+      bsb.BLOG_LINK
+      
+    FROM 
+      BOARD_SOCIAL_BLOG bsb
+    LEFT OUTER JOIN
+      ADMINISTRATION_FILE af 
+        ON bsb.BOARD_SOCIAL_BLOG_KEY = af.file_target_key 
+          AND af.file_target = 'boardSocialBlog' 
+            AND af.file_type = 2
+      where bsb.SOCIAL_BLOG_REMOVE_DATE IS NULL 
+      order by bsb.SOCIAL_BLOG_INSERT_DATE DESC
+      LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //사용자 소셜 블로그 목록-->
+  
+  <!-- 사용자 소셜 블로그 카운트-->
+  <select id="getBoardSocialBlogUserCount" parameterType="boardEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      BOARD_SOCIAL_BLOG
+    WHERE
+      SOCIAL_BLOG_REMOVE_DATE IS NULL
+   </select>
+   <!-- //사용자 소셜 블로그 카운트-->
+   
+   <!-- 사용자 소셜블로그 상세 -->
+  <select id="getSocialBlogDetail" parameterType="boardEntity" resultType="boardEntity">
+    SELECT 
+      bsb.BOARD_SOCIAL_BLOG_KEY,
+      bsb.SOCIAL_LINK,
+      bsb.SOCIAL_BLOG_TITLE,
+      bsb.SOCIAL_BLOG_CONTENT,
+      bsb.SOCIAL_BLOG_INSERT_DATE,
+      bsb.SOCIAL_BLOG_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME
+      <include refid="getSocialNextNPrev"/>
+    FROM 
+      BOARD_SOCIAL_BLOG bsb
+    LEFT OUTER JOIN
+      ADMINISTRATION_FILE af 
+        ON bsb.BOARD_SOCIAL_BLOG_KEY = af.file_target_key 
+          AND af.file_target = 'boardSocialBlog' 
+            AND af.file_type = 2
+      where bsb.BOARD_SOCIAL_BLOG_KEY = #{boardSocialBlogKey}
+  </select>
+  <!-- //사용자 소셜 블로그 상세-->
+  
+  <!-- 다음글 이전글 -->
+  <sql id="getSocialNextNPrev">
+    , ( SELECT MIN(bsbb.BOARD_SOCIAL_BLOG_KEY)
+        FROM   BOARD_SOCIAL_BLOG AS bsbb
+        WHERE  bsbb.SOCIAL_BLOG_REMOVE_DATE IS NULL
+        AND    bsbb.BOARD_SOCIAL_BLOG_KEY <![CDATA[ > ]]> bsb.BOARD_SOCIAL_BLOG_KEY
+      ) AS trandNextPage
+    , ( SELECT MAX(bsbb.BOARD_SOCIAL_BLOG_KEY)
+        FROM   BOARD_SOCIAL_BLOG AS bsbb
+        WHERE  bsbb.SOCIAL_BLOG_REMOVE_DATE IS NULL
+        AND    bsbb.BOARD_SOCIAL_BLOG_KEY <![CDATA[ < ]]> bsb.BOARD_SOCIAL_BLOG_KEY
+     ) AS trandPrevPage
+  </sql>
+  <!-- //다음글 이전글 -->
+
+</mapper>

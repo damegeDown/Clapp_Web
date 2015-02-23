@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.DeviceDAO">
+  <!-- 디바이스 리스트 -->
+  <select id="getDeviceList" parameterType="deviceEntity" resultType="deviceEntity">
+  SELECT 
+    DEVICE_KEY,
+    DEVICE_MODEL_ENAME,
+    DEVICE_MODEL_KNAME,
+    FN_GET_COMMON_CODE_NAME('DEVICE_MAKER_CODE', DEVICE_MAKER_CODE) DEVICE_MAKER_CODE,
+    FN_GET_COMMON_CODE_NAME('DEVICE_OS_CODE', DEVICE_OS_CODE) DEVICE_OS_CODE,
+    DEVICE_VERSION,
+    DEVICE_TOP10_OPEN,
+    DEVICE_OPEN,
+    DEVICE_INSERT_NAME,
+    DEVICE_INSERT_DATE,
+    DEVICE_REMOVE_DATE,
+    (SELECT 
+      COUNT(*)
+    FROM
+      DEVICE
+      WHERE
+        DEVICE_REMOVE_DATE IS NULL
+      ) AS DEVICE_COUNT
+  FROM 
+    DEVICE
+  WHERE 
+    DEVICE_REMOVE_DATE IS NULL
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         DEVICE_MODEL_ENAME = #{searchValue} OR DEVICE_MODEL_KNAME = #{searchValue}
+      </if>
+      <if test="deviceTop10Open != '' and deviceTop10Open != null">
+        AND DEVICE_TOP10_OPEN = #{deviceTop10Open}
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        AND
+          DEVICE_MAKER_CODE = #{searchValue1}
+      </if>
+     <if test="searchValue2 != '' and searchValue2 != null">
+        AND
+          DEVICE_OS_CODE = #{searchValue2}
+      </if>
+      <if test="searchValue3 != '' and searchValue3 != null">
+        AND
+          DEVICE_VERSION = #{searchValue3}
+      </if>
+    ORDER BY
+    <choose>
+      <when test="deviceSort == 2">
+        DEVICE_MODEL_KNAME ASC
+      </when>
+      <when test="deviceSort == 3">
+        DEVICE_MAKER_CODE ASC
+      </when>
+      <when test="deviceSort == 4">
+        DEVICE_VERSION DESC
+      </when>
+      <otherwise>
+       DEVICE_INSERT_DATE DESC
+      </otherwise>
+    </choose>
+    LIMIT  
+      #{rowStartNumber}, #{pageListSize}
+  </select>
+  <!-- //디바이스 리스트 -->
+  
+  <!-- 디바이스 카운트 -->
+  <select id="getDeviceCount" parameterType="deviceEntity" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      DEVICE
+     WHERE
+        DEVICE_REMOVE_DATE IS NULL
+      <if test="searchValue != '' and searchValue != null">
+        AND
+         DEVICE_MODEL_ENAME = #{searchValue} OR DEVICE_MODEL_KNAME = #{searchValue}
+      </if>
+      <if test="searchValue1 != '' and searchValue1 != null">
+        AND
+          DEVICE_MAKER_CODE = #{searchValue1}
+      </if>
+     <if test="searchValue2 != '' and searchValue2 != null">
+        AND
+          DEVICE_OS_CODE = #{searchValue2}
+      </if>
+      <if test="searchValue3 != '' and searchValue3 != null">
+        AND
+          DEVICE_VERSION = #{searchValue3}
+      </if>
+  </select>
+  <!-- //디바이스 카운트 -->
+  
+  <!-- 등록된 디바이스 카운트 -->
+  <select id="getInsertDeviceCount"  resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      DEVICE
+    WHERE
+      DEVICE_REMOVE_DATE IS NULL
+  </select>
+  <!-- //등록된 디바이스 카운트 -->
+  
+  <!-- 디바이스 상세 -->
+  <select id="getDeviceDetail" parameterType="deviceEntity" resultType="deviceEntity">
+	  SELECT 
+	    de.DEVICE_KEY,
+      de.DEVICE_MODEL_ENAME,
+      de.DEVICE_MODEL_KNAME,
+      de.DEVICE_MAKER_CODE,
+      de.DEVICE_OS_CODE,
+      de.DEVICE_VERSION,
+      de.DEVICE_TOP10_OPEN,
+      de.DEVICE_OPEN,
+      de.DEVICE_INSERT_NAME,
+      de.DEVICE_INSERT_DATE,
+      de.DEVICE_MODIFY_DATE,
+      (SELECT COUNT(*) FROM DEVICE WHERE DEVICE_TOP10_OPEN = 'Y') DEVICE_TOP10_COUNT,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT 
+     <!--  GROUP_CONCAT(CONVERT(af.FILE_TARGET_KEY,CHAR)) FILE_TARGET_KEY_TEXT,
+      GROUP_CONCAT(CONVERT(af.FILE_TARGET,CHAR)) FILE_TARGET_TEXT,
+      GROUP_CONCAT(CONVERT(af.FILE_NAME,CHAR)) FILE_NAME_TEXT,
+      GROUP_CONCAT(CONVERT(af.FILE_PATH,CHAR)) FILE_PATH_TEXT,
+      GROUP_CONCAT(CONVERT(af.FILE_SIZE,CHAR)) FILE_SIZE_TEXT,
+      GROUP_CONCAT(CONVERT(af.FILE_EXTENSION,CHAR)) FILE_EXTENSION_TEXT,
+      GROUP_CONCAT(CONVERT(af.FILE_WIDTH,CHAR)) FILE_WIDTH_TEXT,
+      GROUP_CONCAT(CONVERT(af.FILE_HEIGHT,CHAR)) FILE_HEIGHT_TEXT,
+      (SELECT COUNT(*) FROM DEVICE WHERE device_top10_open = 'Y') DEVICE_TOP10_COUNT  -->
+	FROM 
+      DEVICE de
+    LEFT OUTER JOIN
+    	ADMINISTRATION_FILE af 
+    		ON de.device_key = af.file_target_key 
+    			AND af.file_target = 'DEVICE' 
+    			<if test="fileType != null and fileType != ''">
+    				AND af.file_type = #{fileType}
+    			</if>
+  WHERE 
+    de.DEVICE_KEY = #{deviceKey}
+	GROUP BY
+		de.DEVICE_KEY  
+  </select>
+  <!-- //디바이스 상세 -->
+  
+  <!-- 디바이스 수정 -->
+    <update id="modifyDevice" parameterType="deviceEntity">
+      UPDATE DEVICE SET 
+        DEVICE_MODEL_ENAME = #{deviceModelEname},
+        DEVICE_MODEL_KNAME = #{deviceModelKname},
+        DEVICE_MAKER_CODE = #{deviceMakerCode},
+        DEVICE_OS_CODE = #{deviceOsCode},
+        DEVICE_VERSION = #{deviceVersion},
+        DEVICE_TOP10_OPEN = #{deviceTop10Open},
+        DEVICE_MODIFY_DATE = NOW()
+      WHERE
+        DEVICE_KEY = #{deviceKey}
+    </update>
+  <!-- //디바이스 수정 -->
+  
+  <!-- 디바이스 등록 -->
+    <insert id="insertDevice" parameterType="deviceEntity" useGeneratedKeys="true" keyProperty="deviceKey">
+      INSERT INTO DEVICE (
+	      DEVICE_MODEL_ENAME,
+	      DEVICE_MODEL_KNAME,
+	      DEVICE_MAKER_CODE,
+	      DEVICE_OS_CODE,
+	      DEVICE_VERSION,
+	      DEVICE_TOP10_OPEN,
+	      <!-- DEVICE_OPEN, -->
+	      DEVICE_INSERT_NAME,
+	      DEVICE_INSERT_DATE
+      ) VALUES (
+          #{deviceModelEname},
+          #{deviceModelKname},
+          #{deviceMakerCode},
+          #{deviceOsCode},
+          #{deviceVersion},
+          #{deviceTop10Open},
+          #{deviceInsertName},
+          NOW()
+          )
+    </insert>
+  <!-- //디바이스 등록 -->
+  
+  <!-- 디바이스 삭제 -->
+  <update id="removeDevice" parameterType="deviceEntity">
+    UPDATE 
+      DEVICE SET 
+        DEVICE_REMOVE_DATE = NOW()
+      WHERE
+        DEVICE_KEY = #{deviceKey}
+  </update>
+  <!-- //디바이스 삭제 -->
+  
+  <!-- 디바이스 TOP10 OPEN -->
+  <update id="deviceTop10Open" parameterType="deviceEntity">
+    UPDATE 
+      DEVICE 
+    SET 
+        DEVICE_TOP10_OPEN = 'Y'
+      WHERE
+        DEVICE_KEY IN (${deviceKeyList})
+  </update>
+  <!-- //디바이스 TOP10 Close -->
+    <update id="deviceTop10Close" parameterType="deviceEntity">
+    UPDATE 
+      DEVICE 
+    SET 
+        DEVICE_TOP10_OPEN = 'N'
+      WHERE
+        DEVICE_KEY IN (${deviceKeyList})
+  </update>
+  <!-- //디바이스 TOP10 Close -->
+  
+  <!-- 디바이스 TOP10 카운트 -->
+  <select id="getCountExposedDevice" resultType="int">
+    SELECT 
+      COUNT(*)
+    FROM
+      DEVICE
+     WHERE
+        DEVICE_REMOVE_DATE IS NULL
+     AND
+        DEVICE_TOP10_OPEN = 'Y'
+  </select>
+  <!-- //디바이스 TOP10 카운트 -->
+  
+  <!-- 사용자 디바이스 목록 -->
+  <select id="getDeviceUserList" parameterType="deviceEntity" resultType="deviceEntity">
+    SELECT 
+      de.DEVICE_KEY,
+      de.DEVICE_MODEL_ENAME,
+      FN_GET_COMMON_CODE_NAME('DEVICE_MAKER_CODE', DEVICE_MAKER_CODE) DEVICE_MAKER_CODE,
+      FN_GET_COMMON_CODE_NAME('DEVICE_OS_CODE', DEVICE_OS_CODE) DEVICE_OS_CODE,
+      de.DEVICE_VERSION,
+      de.DEVICE_TOP10_OPEN,
+      de.DEVICE_OPEN,
+      de.DEVICE_INSERT_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME
+    FROM 
+      DEVICE de
+    LEFT OUTER JOIN
+      ADMINISTRATION_FILE af 
+        ON de.device_key = af.file_target_key 
+          AND af.file_target = 'DEVICE' 
+            AND af.file_type = 2
+    WHERE 
+      de.DEVICE_REMOVE_DATE IS NULL
+        <if test="searchValue != null and searchValue != '' ">
+        AND
+         DEVICE_MODEL_ENAME = #{searchValue}  OR FN_GET_COMMON_CODE_NAME('DEVICE_MAKER_CODE', DEVICE_MAKER_CODE) = #{searchValue} OR FN_GET_COMMON_CODE_NAME('DEVICE_OS_CODE', DEVICE_OS_CODE) = #{searchValue}
+      </if>
+      order by 
+        <choose>
+	        <when test="searchKey != null and searchKey != '' and searchKey1 != null and searchKey1 != '' ">
+	         ${searchKey} ${searchKey1}
+	        </when>
+	        <otherwise>
+	         DEVICE_INSERT_DATE DESC
+	        </otherwise>
+        </choose>
+<!--     LIMIT  
+      #{rowStartNumber}, #{pageListSize} -->
+  </select>
+  <!-- //사용자 디바이스 목록 -->
+</mapper>

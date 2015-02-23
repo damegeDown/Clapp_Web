@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.EcrmDAO">
+  <!-- 메일 통계 -->
+  <select id="getMailReport" parameterType="ecrmEntity" resultType="ecrmEntity">
+  SELECT
+  	  mm.mail_title,
+  	  mm.mail_content,
+		mm.mail_sort,
+		FN_GET_COMMON_CODE_NAME("MAIL_SORT", mm.mail_sort) mail_sort_text,
+		mm.mail_type,	
+		mm.mail_target, 
+		mm.mail_send_date,
+		FN_GET_COMMON_CODE_NAME("MAIL_TARGET", mm.mail_target) mail_target_text,
+		FN_GET_COMMON_CODE_NAME("MAIL_TYPE", mm.mail_type) mail_type_text,
+		count(if(left(NOW(),10) = left(mail_send_date,10), mm.mail_master_key, null)) toDaySend,
+		count(if(left(NOW(),10) = left(mail_open_date,10), mm.mail_master_key, null)) toDayOpen,
+		count(if(left(mail_send_date, 10) BETWEEN DATE_SUB(left(NOW(), 10), INTERVAL 7 DAY) and left(mail_send_date, 10), mm.mail_master_key, null)) toDaySend7Ago,
+		count(if(left(mail_send_date, 10) BETWEEN DATE_SUB(left(NOW(), 10), INTERVAL 30 DAY) and left(mail_send_date, 10), mm.mail_master_key, null)) toDaySend30Ago,
+		count(mm.mail_master_key) totalSendCount,
+		count(if(mm.mail_state = 1, mm.mail_master_key, null)) sendSuccessCount,
+		count(if(mm.mail_state = 2, mm.mail_master_key, null)) sendFaillCount,
+		count(if(mr.mail_open = 'Y', mm.mail_master_key, null)) mailOpenCount,
+		count(if(mr.mail_click = 'Y', mm.mail_master_key, null)) mailClickCount,
+		WEEKDAY(mail_send_date) dayOfWeek,
+		FN_GET_DAY_OF_WEEK(DAYNAME(mail_send_date)) dayName 
+	FROM
+		MAIL_MASTER mm,
+		MAIL_RECEPTION mr
+	WHERE
+		mm.mail_send_date like '${searchValue}%'
+	AND
+		mm.mail_master_key = mr.mail_master_key
+	AND
+		mm.mail_state = 1 
+	AND
+		mm.mail_section = #{mailSection}
+	GROUP BY
+		mail_type
+		<if test="searchKey != null and searchKey != ''">
+		ORDER BY 
+			${searchKey} DESC
+		</if>
+  </select>
+  <!-- //메일 통계-->
+  <!-- 메일 템플릿 -->
+  <select id="getMailTemp" parameterType="ecrmEntity" resultType="ecrmEntity">
+  		SELECT
+  			mail_temp_key,
+  			mail_temp_sort,
+  			mail_temp_type,
+  			mail_temp_title,
+  			mail_temp_contents,
+  			insert_date
+  		FROM
+  			MAIL_TEMP
+  		WHERE
+  			mail_temp_type = #{mailType}
+  </select>
+  <insert id="setMailMaster" parameterType="ecrmEntity" useGeneratedKeys="true" keyProperty="mailMasterKey">
+  	  INSERT INTO
+  	  		MAIL_MASTER	
+	  	  		(
+	  	  			mail_send_address,
+	  	  			mail_title,
+	  	  			mail_content,
+	  	  			mail_section,
+	  	  			mail_sort,
+	  	  			mail_type,
+	  	  			mail_state,
+	  	  			mail_send_date,
+	  	  			mail_target,
+	  	  			mail_send_start_date,
+	  	  			mail_send_end_date
+	  	  		) VALUES (
+	  	  			#{mailSendAddress},
+	  	  			#{mailTitle},
+	  	  			#{mailContent},
+	  	  			#{mailSection},
+	  	  			#{mailSort},
+	  	  			#{mailType},
+	  	  			#{mailState},
+	  	  			NOW(),
+	  	  			#{mailTarget},
+	  	  			#{mailSendStartDate},
+	  	  			#{mailSendEndDate}
+	  	  		)
+  </insert>
+  <insert id="setMailReception" parameterType="ecrmEntity">
+  	  INSERT INTO
+  	  		MAIL_RECEPTION
+	  	  		(
+	  	  			mail_master_key,
+	  	  			mail_reception_address
+	  	  		) VALUES (
+	  	  			#{mailMasterKey},
+	  	  			#{mailReceptionAddress}
+	  	  		)
+  </insert>
+  <update id="setMailOpen" parameterType="ecrmEntity">
+  		UPDATE
+  			MAIL_RECEPTION
+  		SET
+  			mail_open = 'Y',
+  			mail_open_date = NOW()
+  		WHERE
+  			mail_open = 'N'
+  	 	AND
+  			mail_master_key = #{mailMasterKey}
+  </update>
+  <select id="getSurveyList" parameterType="ecrmEntity" resultType="ecrmEntity">
+  	  SELECT
+			a.survey_master_key,
+			a.survey_title,
+			a.survey_noti,
+			a.survey_send_type,
+			a.survey_send_date,
+			a.survey_start_date,
+			a.survey_end_date,
+			if(a.answerCnt = 0, 0, a.answerCount)  answerCount,
+			a.groupCount,
+			a.dayOfWeek,
+			FN_GET_DAY_OF_WEEK(a.dayName) dayName
+			
+		from(
+		SELECT
+			sm.survey_master_key,
+			sm.survey_title,
+			sm.survey_noti,
+			sm.survey_send_type,
+			sm.survey_send_date,
+			sm.survey_start_date,
+			sm.survey_end_date,
+			count(*) answerCount,
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					SURVEY_RECEIVER
+				WHERE
+					sm.survey_master_key = survey_master_key
+			) groupCount,
+			WEEKDAY(sm.survey_send_date) dayOfWeek,
+			DAYNAME(sm.survey_send_date) dayName,
+			count(sa.survey_answer_key) answerCnt
+		FROM
+			SURVEY_MASTER sm
+		left outer join
+			SURVEY_QUESTION as sq on sm.survey_master_key = sq.survey_master_key
+		left outer join
+			SURVEY_ANSWER as sa on sq.survey_question_key = sa.survey_question_key
+		WHERE
+			sm.survey_send_date LIKE '2015%'
+		GROUP BY
+			sm.survey_send_date,sq.survey_master_key,sa.survey_question_key
+		) a
+		group by a.survey_master_key
+  </select>
+  <select id="getSurveyInfo" parameterType="ecrmEntity" resultType="ecrmEntity">
+  	  SELECT
+  	  		survey_master_key,
+  	  		survey_title,
+  	    survey_noti,
+  	    survey_start_date,
+  	    survey_end_date,
+  	    (
+	  	    SELECT 
+	  	    		COUNT(*) 
+	  	    	FROM 
+	  	    		SURVEY_ANSWER 
+	  	    	WHERE 
+	  	    		survey_master_key = sm.survey_master_key
+	  	  ) answerCount
+  	  FROM
+  	  		SURVEY_MASTER sm
+  	  	WHERE
+  	  		survey_master_key = #{surveyMasterKey}
+  </select>
+  <select id="getSurveyQuestion" parameterType="ecrmEntity" resultType="ecrmEntity">
+  	  SELECT
+  	    *
+  	  FROM
+  	  		SURVEY_QUESTION
+  	  	WHERE
+  	  		survey_master_key = #{surveyMasterKey}
+  </select>
+  <select id="getSurveyAnswerCount" parameterType="ecrmEntity" resultType="int">
+  	   SELECT
+  	   		distinct
+			count(*) answerCount
+		FROM
+			SURVEY_ANSWER
+		WHERE
+			survey_question_key IN (
+				SELECT
+					survey_question_key
+				FROM 
+					SURVEY_QUESTION
+				WHERE
+					survey_question_key in (select survey_question_key FROM SURVEY_QUESTION WHERE survey_master_key = #{surveyMasterKey})
+			)
+		GROUP BY
+			survey_question_key
+  </select>
+  <select id="getSurveyAnswer" parameterType="ecrmEntity" resultType="ecrmEntity">
+  	 select 
+		a.survey_question_key,
+		a.survey_answer_contents,
+		sum(a.surveyAnswerPoint_1) surveyAnswer1Point,
+		sum(a.surveyAnswerPoint_2) surveyAnswer2Point,
+		sum(a.surveyAnswerPoint_3) surveyAnswer3Point,
+		sum(a.surveyAnswerPoint_4) surveyAnswer4Point,
+		sum(a.surveyAnswerPoint_5) surveyAnswer5Point,
+		sum(a.surveyAnswerPoint_6) surveyAnswer6Point,
+		sum(a.surveyAnswerPoint_7) surveyAnswer7Point,
+		sum(a.surveyAnswerPoint_8) surveyAnswer8Point,
+		sum(a.surveyAnswerPoint_9) surveyAnswer9Point,
+		sum(a.surveyAnswerPoint_10) surveyAnswer10Point,
+		a.user_id,
+		count(*) answerCount
+	from(
+	SELECT
+		survey_question_key,
+		survey_answer_contents,
+		if(survey_answer_point=1, count(survey_answer_point), 0) as surveyAnswerPoint_1,
+		if(survey_answer_point=2, count(survey_answer_point), 0) as surveyAnswerPoint_2,
+		if(survey_answer_point=3, count(survey_answer_point), 0) as surveyAnswerPoint_3,
+		if(survey_answer_point=4, count(survey_answer_point), 0) as surveyAnswerPoint_4,
+		if(survey_answer_point=5, count(survey_answer_point), 0) as surveyAnswerPoint_5,
+		if(survey_answer_point=6, count(survey_answer_point), 0) as surveyAnswerPoint_6,
+		if(survey_answer_point=7, count(survey_answer_point), 0) as surveyAnswerPoint_7,
+		if(survey_answer_point=8, count(survey_answer_point), 0) as surveyAnswerPoint_8,
+		if(survey_answer_point=9, count(survey_answer_point), 0) as surveyAnswerPoint_9,
+		if(survey_answer_point=10, count(survey_answer_point), 0)as surveyAnswerPoint_10,
+		user_id,
+		count(*) answerCount
+	FROM
+		SURVEY_ANSWER
+	WHERE
+		survey_question_key IN (
+			SELECT
+				survey_question_key
+			FROM
+				SURVEY_QUESTION
+			WHERE
+				survey_question_key in (select survey_question_key FROM SURVEY_QUESTION WHERE survey_master_key = #{surveyMasterKey})
+		)
+	GROUP BY
+		survey_question_key,
+		survey_answer_contents,
+		survey_answer_point
+	) a
+	group by a.survey_question_key, a.survey_answer_contents
+  	 
+  </select>
+  <select id="getSurveyReport" parameterType="ecrmEntity" resultType="ecrmEntity">
+  	  SELECT
+  	    sq.survey_question_key,
+  	    sq.survey_master_key,
+  	    sq.survey_question_type,
+  	    sq.survey_sort,
+  	    sq.survey_start_point,
+  	    sq.survey_end_point,
+  	    sq.survey_point_type,
+  	    sa.survey_answer_key,
+  	    sa.user_id,
+  	    sa.survey_answer_contents,
+  	    sa.survey_answer_point
+  	  FROM
+  	  		SURVEY_QUESTION sq
+  	  	LEFT OUTER JOIN
+  	  		SURVEY_ANSWER sa ON sq.survey_question_key = sa.survey_question_key
+  	  	WHERE
+  	  		sq.survey_master_key = #{surveyMasterKey}
+  	  	GROUP BY
+			survey_question_key, user_id, survey_answer_contents, survey_answer_point
+  </select>
+  <insert id="insertSurveyMaster" parameterType="ecrmEntity" useGeneratedKeys="true" keyProperty="surveyMasterKey">
+  		INSERT INTO
+  			SURVEY_MASTER
+  		(
+  			survey_title,
+  			survey_noti,
+  			survey_start_date,
+  			survey_end_date,
+  			survey_send_type,
+  			survey_send_date 
+  		) VALUES (
+  			#{surveyTitle},
+  			#{surveyNoti},
+  			#{surveyStartDate},
+  			#{surveyEndDate},
+  			#{surveySendType},
+  			NOW() 
+  		)
+  </insert>
+  <insert id="insertSurveyQuestion" parameterType="ecrmEntity">
+  		INSERT  
+  			INTO SURVEY_QUESTION
+  		(
+  		  survey_master_key,
+  		  survey_question_type,
+  		  survey_question_title,
+  		  survey_sort,
+  		  survey_start_point,
+  		  survey_end_point,
+  		  survey_point_type
+  		) VALUES 
+		( 
+			#{surveyMasterKey}
+			, #{surveyQuestionType}
+			, #{surveyQuestionTitle}
+			, #{surveySort}
+			, #{surveyStartPoint}
+			, #{surveyEndPoint}
+			, #{surveyPointType}
+		)
+  </insert>
+  <insert id="insertSurveyAnswer" parameterType="ecrmEntity">
+  		INSERT  
+  			INTO SURVEY_ANSWER
+  		(
+  		  survey_question_key,
+  		  user_id,
+  		  survey_answer_contents,
+  		  survey_answer_point
+  		) VALUES 
+		( 
+			#{surveyQuestionKey}
+			, #{userId}
+			, #{surveyAnswerContents}
+			, #{surveyAnswerPoint}
+		)
+  </insert>
+  <insert id="insertSurveyReceiver" parameterType="ecrmEntity">
+  		INSERT
+  			INTO SURVEY_RECEIVER
+  		(
+  			survey_master_key,
+  			user_id
+  		) 
+		SELECT #{surveyMasterKey}, user_id FROM USER_MASTER <if test="targetType > 0">WHERE user_type = #{targetType}</if>
+  </insert>
+</mapper>
