@@ -136,4 +136,8 @@ public interface TicketDAO {
 	 */
 	List<TicketEntity> selectTicketHistoryList(TicketEntity ticketEntity);
 	
+	int modifyServiceTicketMaster(TicketEntity ticketEntity);
+	
+	int insertServiceTicketHistory(TicketEntity ticketEntity);
+	
 }

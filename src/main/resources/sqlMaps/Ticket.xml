@@ -273,7 +273,7 @@
 	</insert>
 	<!-- //티켓 적용서비스 신규 적용 -->
 
-	<!-- 신규 적용을 위한 타입 검색 -->
+	<!-- 서비스 티켓 적용 -->
 	<insert id="selectUserType" parameterType="ticketEntity">
 		INSERT INTO APPLY_SERVICE_USER 
 			(
@@ -305,8 +305,78 @@
 			GROUP BY UM.USER_MASTER_KEY
 			)
 	</insert>
-	<!-- //신규 적용을 위한 타입 검색 -->
-	
+	<!-- //서비스 티켓 적용 -->
+	<update id="modifyServiceTicketMaster" parameterType="ticketEntity">
+		UPDATE
+			USER_TICKET_MASTER 
+		SET 
+			ticket_amount = ticket_amount + ${serviceApplyTicketAmount},
+			ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount}
+		WHERE
+			user_master_key in (
+				SELECT 
+					user_master_key
+				FROM 
+				 	USER_MASTER
+				WHERE
+					<if test="serviceTargetType == 2">
+					  USER_TYPE = '1'
+					</if>
+					<if test="serviceTargetType == 3">
+					  USER_TYPE = '2'
+					</if>
+					<if test="serviceTargetType == 4" >
+					    user_id in
+					  <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
+			             #{userIdArr}
+			          </foreach>
+			        </if>
+			)
+	</update>
+	<insert id="insertServiceTicketHistory" parameterType="ticketEntity">
+		INSERT INTO
+			USER_TICKET_HISTORY 
+			(
+				user_ticket_master_key,
+				user_master_key,
+				product_master_key,
+				product_name,
+				ticket_avilable_amount,
+				ticket_start_expiration_date,
+				ticket_end_expiration_date,
+				ticket_apply_date,
+				insert_date
+			)  (
+				SELECT 
+					utm.user_ticket_master_key,
+					utm.user_master_key,
+					utm.product_master_key,
+					#{serviceApplyReason},
+					#{serviceApplyTicketAmount},
+					utm.ticket_start_expiration_date,
+					utm.ticket_end_expiration_date,
+					DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %h:%i'),
+					NOW()
+				FROM 
+				 	USER_TICKET_MASTER utm,
+				 	USER_MASTER um
+				WHERE
+					utm.user_master_key = um.user_master_key
+				AND 
+					<if test="serviceTargetType == 2">
+					  um.USER_TYPE = '1'
+					</if>
+					<if test="serviceTargetType == 3">
+					  um.USER_TYPE = '2'
+					</if>
+					<if test="serviceTargetType == 4" >
+					   um.user_id in
+					  <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
+			             #{userIdArr}
+			          </foreach>
+			         </if>
+			)
+	</insert>
 	<select id="getUserTypeCount" parameterType="ticketEntity" resultType="int">
 		SELECT
 		  COUNT(*)
@@ -677,7 +747,7 @@
 			SELECT
 				ticket_apply_date ticketApplyDate,
 				'적립' statusText,
-				ticket_avilable_amount historyUsedTicketAmountText,
+				CONCAT('+',ticket_avilable_amount) historyUsedTicketAmountText,
 				ticket_start_expiration_date ticketStartExpirationDate,
 				ticket_end_expiration_date ticketEndExpirationDate,
 				product_name productName,
@@ -777,7 +847,7 @@
     SELECT
     	user_ticket_history_key,
     	user_master_key,
-    	product_master_key,
+    	product_master_key, 
     	product_name,
     	ticket_avilable_amount,
     	ticket_start_expiration_date,
@@ -789,6 +859,8 @@
     	USER_TICKET_HISTORY
     WHERE
     	user_master_key = #{userMasterKey}
+    AND
+    	product_master_key > 1
   </select>
   <!-- //자신이 티켓정보 히스토리를 불러온다 -->
 </mapper>

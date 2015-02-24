@@ -105,7 +105,7 @@
 								<span class="subPGPOCBold">무료</span><span class="subPGPOCMedium">(신규 가입시 제공)</span>
 							</div>
 							<div class="subPGPOCBtnSubTitle">
-								<span>1시간 사용 (4티켓 제공: 유효기간 : 90일)</span>
+								<span>30분 사용 (2티켓 제공: 유효기간 : 30일)</span>
 							</div>
 							<a href="${contextPath}/members/memberJoin">
 								<div class="subPGPOCBtnImg">
