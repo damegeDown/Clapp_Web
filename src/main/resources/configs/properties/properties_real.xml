@@ -16,7 +16,7 @@
 
   <util:properties id="mailConfig">
     <prop key="serviceUrl">http://www.clapp.co.kr:8080</prop>
-    <prop key="emailSender">admin@clapp.co.kr</prop>
+    <prop key="emailSender">support@clapp.co.kr</prop>
     <prop key="emailSenderName">클앱고객센터</prop>
     <prop key="emailForm">mailForm.jsp</prop>
 	<prop key="emailTemp">mailTemp.jsp</prop>

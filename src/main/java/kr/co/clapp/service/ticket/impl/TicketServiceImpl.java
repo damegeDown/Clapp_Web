@@ -58,6 +58,10 @@ public class TicketServiceImpl implements TicketService {
 	int result = ticketDAO.insertTicketProductService(ticketEntity);
 	  if(result > 0 ){
 		  selectResult = ticketDAO.selectUserType(ticketEntity);
+		  /** update ticket for user_ticket_master */
+		  ticketDAO.modifyServiceTicketMaster(ticketEntity);
+		  /** insert ticket for user_ticket_history*/
+		 // ticketDAO.insertServiceTicketHistory(ticketEntity);
 	  }
 	  return result > 0 ? selectResult : result;
   }

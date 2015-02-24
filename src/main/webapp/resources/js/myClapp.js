@@ -23,10 +23,10 @@ var SearchUtils = (function() {
  		 } else if(term == "toDay") {
  			$(".dateTerm").val(toDay);
  		 } else {
- 			 d.setDate(day + 7);
+ 			 d.setDate(day - 7);
  			 var after7Day =   d.getFullYear() +"/"+ (d.getMonth() + 1) +"/"+ d.getDate();
- 			 $("input[name=startDate]").val(toDay);
- 			 $("input[name=endDate]").val(after7Day);
+ 			 $("input[name=endDate]").val(toDay);
+ 			 $("input[name=startDate]").val(after7Day);
  		 }
  	 };
  	 return {
