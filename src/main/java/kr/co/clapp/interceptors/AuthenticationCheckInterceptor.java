@@ -27,7 +27,7 @@ public class AuthenticationCheckInterceptor  extends HandlerInterceptorAdapter {
 			sessionType = CommonCode.Session.ADMIN_LOGIN_SESSION;
 		}
 		
-		String url = request.getRequestURL().toString();
+		String url = request.getRequestURL().toString();  
 		if ( request.getQueryString() != null )
 		url = url + "?" + request.getQueryString();
 		
