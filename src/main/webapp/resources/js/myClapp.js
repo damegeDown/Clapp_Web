@@ -22,7 +22,7 @@ var SearchUtils = (function() {
  			 $(".dateTerm").val('');
  		 } else if(term == "toDay") {
  			$(".dateTerm").val(toDay);
- 		 } else {
+ 		 } else {  
  			 d.setDate(day - 7);
  			 var after7Day =   d.getFullYear() +"/"+ (d.getMonth() + 1) +"/"+ d.getDate();
  			 $("input[name=endDate]").val(toDay);
