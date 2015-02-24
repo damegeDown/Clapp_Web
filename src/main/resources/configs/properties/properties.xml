@@ -11,7 +11,7 @@
   </util:properties>
  
 	<util:properties id="fileConfig">
-		<prop key="filePath">/Users/sewoong-wi/Documents/workspace/JavaProject/Clapp/data/</prop>
+		<prop key="filePath">/Users/sewoong-wi/Documents/workspace/JavaProject/Clapp_Web/data/</prop>
 	</util:properties>
 
 	<util:properties id="mailConfig">
