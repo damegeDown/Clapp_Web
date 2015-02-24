@@ -20,7 +20,7 @@
     <prop key="emailSenderName">디지그루브 관리자</prop>
     <prop key="emailForm">mailForm.jsp</prop>
 	<prop key="emailTemp">mailTemp.jsp</prop>
-	<prop key="apiEmailTemp">apiMailTemp.jsp</prop>
+	<prop key="apiEmailTemp">apiMailTemp.jsp</prop>    
   </util:properties>
 
   <util:properties id="pay_prop">
@@ -50,5 +50,8 @@
 		<prop key="blogId">dnltpdnd</prop>
 		<prop key="blogTags">Clapp</prop>
 		<prop key="blogCategory">Clapp Category</prop>
+	</util:properties>
+	<util:properties id="smsConfig">
+		<prop key="sendNo">1661-7083</prop>
 	</util:properties>
 </beans>
