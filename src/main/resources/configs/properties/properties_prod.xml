@@ -51,4 +51,7 @@
 		<prop key="blogTags">Clapp</prop>
 		<prop key="blogCategory">Clapp Category</prop>
 	</util:properties>
+	<util:properties id="smsConfig">
+		<prop key="sendNo">1661-7083</prop>
+	</util:properties>
 </beans>
