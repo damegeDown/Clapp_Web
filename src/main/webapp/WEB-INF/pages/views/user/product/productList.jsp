@@ -689,6 +689,6 @@ var goPayment = function(key) {
 var autoJnlpDownload = function(){ 
 	var orgFileName = "CLAPP_INFO.pdf";
     location.href = contextPath + "/common/fileDownload?path=download&orgFileName="+orgFileName;
-	
+	  
 };
 </script>
