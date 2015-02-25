@@ -2,6 +2,7 @@ package kr.co.clapp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import kr.co.clapp.constants.CommonCode;
@@ -18,6 +19,7 @@ import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.service.payment.PaymentService;
 import kr.co.clapp.service.sms.SmsService;
 import kr.co.clapp.service.ticket.TicketService;
+import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.StringUtils;
 
@@ -56,7 +58,8 @@ public class ApiController {
 	public ApiEntity doLogin(
 			HttpSession session,
 			@RequestParam(required = false, value = "email") String email,
-			@RequestParam(required = false, value = "password") String password
+			@RequestParam(required = false, value = "password") String password,
+			HttpServletRequest request
 			) {
 		ApiEntity apiEntity = new ApiEntity();
 		ResponseEntity result = new ResponseEntity();
@@ -65,6 +68,7 @@ public class ApiController {
 		try {
 			memberEntity.setUserId(email);
 			memberEntity.setUserPassword(password);
+			
 			result = memberService.doUserLogin(memberEntity, result, session);
 			
 			apiEntity.setResultState(result.getResultCode()); //로그인 결과
@@ -85,7 +89,7 @@ public class ApiController {
 			apiEntity.setResultState(ResultCode.ERROR);
 		}
 		
-		return apiEntity;
+ 		return apiEntity;
 	}
 	
 	/**
@@ -134,7 +138,8 @@ public class ApiController {
 	public ApiEntity doUsedTicket (
 			HttpSession session,
 			@RequestParam(required = false, value = "user_id") int user_id,
-			@RequestParam(required = false, value = "reservation_time") int reservation_time
+			@RequestParam(required = false, value = "reservation_time") int reservation_time,
+			HttpServletRequest request
 			){
 		ApiEntity apiEntity = new ApiEntity();
 		MemberEntity memberEntity = new MemberEntity();
@@ -148,6 +153,11 @@ public class ApiController {
 		int ticketLen = 0;
 		
 		try {
+			/** 외부 아이피 접근시 차단 */
+			if(!Utils.checkRemoteIp(request)) { 
+				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
+				return apiEntity;
+			}
 			/** 사용우선순위가 위인 티켓 키를 가져온다 */
 			memberEntity.setUserMasterKey(user_id);
 			ticketList = ticketService.getPrioritieTicketKey(memberEntity);
@@ -221,7 +231,8 @@ public class ApiController {
 	public ApiEntity doReturnTicket(
 			HttpSession session,
 			@RequestParam(required = false, value = "user_id") int user_id,
-			@RequestParam(required = false, value = "reservation_time") int reservation_time
+			@RequestParam(required = false, value = "reservation_time") int reservation_time,
+			HttpServletRequest request
 			) {
 		ApiEntity apiEntity = new ApiEntity();
 		MemberEntity memberEntity = new MemberEntity();
@@ -230,6 +241,11 @@ public class ApiController {
 		int ticketAvilableAmount = 0;
 		int usedTicketAmount = 0;
 		try {
+			/** 외부 아이피 접근시 차단 */
+			if(!Utils.checkRemoteIp(request)) { 
+				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
+				return apiEntity;
+			}
 			memberEntity.setUserMasterKey(user_id);
 			/** 넘어온 예약시간을 티켓수로 환산한다.*/
 			reservationTicketAmount= (reservation_time / CommonCode.TICKET_TIME) * 2;

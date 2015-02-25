@@ -1,6 +1,5 @@
 package kr.co.clapp.controller.admin.member;
 
-import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class MemberController {
 			@RequestParam(required = false, value = "chkGrant", defaultValue = "N") String chkGrant,
 			Model model, HttpServletRequest request) throws Exception {
 		
-		String ip = Utils.getLocalServerIp(request);
+		String ip = Utils.getRomoteIp(request);
 		
 		model.addAttribute("ipAddress", ip);
 		model.addAttribute("chkGrant", chkGrant); 

@@ -20,7 +20,6 @@ import kr.co.digigroove.commons.messages.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -152,19 +151,19 @@ public class IntroductionRestController {
 	  AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
 	  try {
 		String resultCode = ResultCode.FAIL;
-		String resultMessage = messages.getMessage("insert.fail");
-//		if(customerService.insertInquiry(inquiryEntity) > CommonCode.ZERO) {
-//		  resultCode = ResultCode.SUCCESS; 
-//		  resultMessage = messages.getMessage("insert.success"); 
-//		  result.setResultURL("/introduction/supportInquireComplete");
-//		  // 파일 업로드
-//		  if(req.getFileNames().hasNext()) { 
-//			  administrationFileEntity.setFileTargetKey(inquiryEntity.getServiceInquiryKey());
-//			  administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_INQUIRY);
-//			  administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
-//			  this.saveFileForFormData(req, administrationFileEntity);
-//		  }
-//		}
+		String resultMessage = messages.getMessage("insert.fail");  
+		if(customerService.insertInquiry(inquiryEntity) > CommonCode.ZERO) {
+		  resultCode = ResultCode.SUCCESS; 
+		  resultMessage = messages.getMessage("insert.success"); 
+		  result.setResultURL("/introduction/supportInquireComplete");
+		  // 파일 업로드
+		  if(req.getFileNames().hasNext()) { 
+			  administrationFileEntity.setFileTargetKey(inquiryEntity.getServiceInquiryKey());
+			  administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_INQUIRY);
+			  administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+			  this.saveFileForFormData(req, administrationFileEntity);
+		  }
+		}
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
