@@ -45,9 +45,9 @@
 						<span class="taButtonStart" id="doAutoClappBtn" style="cursor: pointer;">
 								<img src="${contextPath }/resources/images/at_cta_kv_tas.png" onMouseOver="this.src='${contextPath }/resources/images/at_cta_kv_tas_r.png';" onMouseOut="this.src='${contextPath }/resources/images/at_cta_kv_tas.png';" alt="테스트 자동화 시작" />
 						</span>
-						<%-- <a href="#" class="taButtonDemo">
+						 <%-- <a href="#" class="taButtonDemo">
 								<img src="${contextPath }/resources/images/at_cta_kv_demo.png" onMouseOver="this.src='${contextPath }/resources/images/at_cta_kv_demo_r.png';" onMouseOut="this.src='${contextPath }/resources/images/at_cta_kv_demo.png';" alt="데모 체험" />
-						</a> --%>
+						</a>  --%>
 					</div>
 				</div>
 			</div>
