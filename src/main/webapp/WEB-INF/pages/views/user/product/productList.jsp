@@ -212,16 +212,41 @@
 					<div class="subPGPOCBtnBox">
 						<div class="subPGPHCBtn">
 							<div class="subPGPHCBtnTitle">
-								<span class="subPGPHCBold">￦ 130,000</span><span class="subPGPHCMedium">월 (계정당)</span>
+								<span class="subPGPHCBold">1개월  ￦130,000</span><span class="subPGPHCMedium">월 (계정당)</span>
 							</div>
 							<div class="subPGPHCBtnSubTitle">
 								<span>5시간 사용 (20티켓 제공)</span>
 							</div>
 							<a href="#" onclick="goPayment(3)">
-								<div class="subPGPOCBtnImg">
-									<img src="${contextPath }/resources/images/buttons_purchase.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase.png';" alt="" />
+								<div class="subPGPOCBtnImg1">
+									<img src="${contextPath }/resources/images/buttons_purchase2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase2.png';" alt="" />
 								</div>
 							</a>
+							
+							<div class="subPGPHCBtnTitle">
+								<span class="subPGPHCBold">3개월  ￦ 351,000</span><span class="subPGPHCMedium">월 (계정당)</span>
+							</div>
+							<div class="subPGPHCBtnSubTitle">
+								<span>15시간 사용 (60티켓 제공)</span>
+							</div>
+							<a href="#" onclick="goPayment(4)">
+								<div class="subPGPOCBtnImg1">
+									<img src="${contextPath }/resources/images/buttons_purchase2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase2.png';" alt="" />
+								</div>
+							</a>
+							
+							<div class="subPGPHCBtnTitle">
+								<span class="subPGPHCBold">6개월  ￦ 702,000</span><span class="subPGPHCMedium">월 (계정당)</span>
+							</div>
+							<div class="subPGPHCBtnSubTitle">
+								<span>30시간 사용 (120티켓 제공)</span>
+							</div>
+							<a href="#" onclick="goPayment(5)">
+								<div class="subPGPOCBtnImg1">
+									<img src="${contextPath }/resources/images/buttons_purchase2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase2.png';" alt="" />
+								</div>
+							</a>
+							
 						</div>
 					</div>
 				</div><!-- .subPGPHCBox End -->
@@ -266,18 +291,43 @@
 						</div>
 					</div>
 					<div class="subPGPOCBtnBox">
-						<div class="subPGPFCBtn">
-							<div class="subPGPFCBtnTitle">
-								<span class="subPGPFCBold">￦ 400,000</span><span class="subPGPFCMedium">월 (계정당)</span>
+						<div class="subPGPHCBtn">
+							<div class="subPGPHCBtnTitle">
+								<span class="subPGPHCBold">1개월  ￦400,000</span><span class="subPGPHCMedium">월 (계정당)</span>
 							</div>
-							<div class="subPGPFCBtnSubTitle">
+							<div class="subPGPHCBtnSubTitle">
 								<span>20시간 사용 (80티켓 제공)</span>
 							</div>
 							<a href="#" onclick="goPayment(6)">
-								<div class="subPGPOCBtnImg">
-									<img src="${contextPath }/resources/images/buttons_purchase.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase.png';" alt="" />
+								<div class="subPGPOCBtnImg1">
+									<img src="${contextPath }/resources/images/buttons_purchase2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase2.png';" alt="" />
 								</div>
 							</a>
+							
+							<div class="subPGPHCBtnTitle">
+								<span class="subPGPHCBold">3개월  ￦ 1,080,000</span><span class="subPGPHCMedium">월 (계정당)</span>
+							</div>
+							<div class="subPGPHCBtnSubTitle">
+								<span>60시간 사용 (240티켓 제공)</span>
+							</div>
+							<a href="#" onclick="goPayment(7)">
+								<div class="subPGPOCBtnImg1">
+									<img src="${contextPath }/resources/images/buttons_purchase2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase2.png';" alt="" />
+								</div>
+							</a>
+							
+							<div class="subPGPHCBtnTitle">
+								<span class="subPGPHCBold">6개월  ￦ 2,160,000</span><span class="subPGPHCMedium">월 (계정당)</span>
+							</div>
+							<div class="subPGPHCBtnSubTitle">
+								<span>120시간 사용 (480티켓 제공)</span>
+							</div>
+							<a href="#" onclick="goPayment(8)">
+								<div class="subPGPOCBtnImg1">
+									<img src="${contextPath }/resources/images/buttons_purchase2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_purchase2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_purchase2.png';" alt="" />
+								</div>
+							</a>
+							
 						</div>
 					</div>
 				</div><!-- .subPGPHCBox End -->
@@ -622,7 +672,7 @@
 	<div id="annual"></div>
 	<div id="enterprize"></div>
 <script>
-var goPayment = function(key) {
+var goPayment = function(key) { 
 	var usedProductKey = '${ticketInfo.productMasterKey}';
 	var goProductKey = key;
 	if(usedProductKey != '' && usedProductKey != goProductKey) {

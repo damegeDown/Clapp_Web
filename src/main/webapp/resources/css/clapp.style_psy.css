@@ -7768,7 +7768,7 @@ select::-ms-expand {
 }
 .subPGTabBox{
   display: block;
-  width: 960px;
+  width: 950px;
   height: inherit;
   margin:0 auto;
 }
@@ -8082,7 +8082,7 @@ select::-ms-expand {
 .subPGPOCBtnImg{
   display: block;
   width: 98px;
-  height: 114px;
+  height: auto;
   position: relative;
   margin-top: 13px;
   margin-left: 80px;
@@ -8092,6 +8092,21 @@ select::-ms-expand {
   width: inherit;
   height: inherit;
   position: absolute;
+}
+.subPGPOCBtnImg1{
+  display: block;
+  width: 98px;
+  height: auto;
+  position: relative;
+  margin-top: 13px;
+  margin-left: 80px;
+}
+.subPGPOCBtnImg1 img{
+  display: block;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  margin-top: -37px;
 }
 .subPGPOCBtnImg span{
   display: block;
@@ -8228,18 +8243,24 @@ select::-ms-expand {
   display: block;
   width: inherit;
   height: 25px;
-  padding-top: 21px;
+  margin-top: -5px;
   padding-left: 36px;
 }
 .subPGPHCBold{
   display: inline;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #39976a;
+}
+.subPGPHCBold1{
+  display: inline;
+  font-size: 15px;
   font-weight: 700;
   color: #39976a;
 }
 .subPGPHCMedium{
   display: inline;
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: -0.3px;
   color: #39976a;
   padding-left: 4px;
@@ -8247,13 +8268,14 @@ select::-ms-expand {
 .subPGPHCBtnSubTitle{
   display: block;
   width: inherit;
-  height: 15px;
+  height: 30px;
   padding-top: 4px;
   padding-left: 57px;
 }
 .subPGPHCBtnSubTitle span{
   display: block;
-  font-size: 14px;
+  font-size: 12px;
+  margin-top: -10px;
   color: #606060;
   letter-spacing: -0.3px;
 }
