@@ -154,10 +154,13 @@ public class ApiController {
 		
 		try {
 			/** 외부 아이피 접근시 차단 */
-			if(!Utils.checkRemoteIp(request)) { 
+			if(!Utils.checkRemoteIp(request)) {
 				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
 				return apiEntity;
 			}
+			logger.debug("getLocalServerIp : " , Utils.getLocalServerIp(request));
+			logger.debug("getRomoteIp : " , Utils.getRomoteIp(request));
+			
 			/** 사용우선순위가 위인 티켓 키를 가져온다 */
 			memberEntity.setUserMasterKey(user_id);
 			ticketList = ticketService.getPrioritieTicketKey(memberEntity);
