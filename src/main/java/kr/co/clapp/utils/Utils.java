@@ -36,22 +36,28 @@ public class Utils {
 	 */
 	public static String getLocalServerIp(HttpServletRequest request)
 	{
-	try
-	{    
-	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
-	   {
-	       NetworkInterface intf = en.nextElement();
-	       for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
-	       {
-	           InetAddress inetAddress = enumIpAddr.nextElement();
-	           if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
-	           {
-	           	return inetAddress.getHostAddress().toString();
-	           }
-	       }
-	   }
-	}
-	catch (Exception ex) {}
+		try { 
+			return InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//	try
+//	{    
+//	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+//	   {
+//	       NetworkInterface intf = en.nextElement();
+//	       for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+//	       {
+//	           InetAddress inetAddress = enumIpAddr.nextElement();
+//	           if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
+//	           {
+//	           	return inetAddress.getHostAddress().toString();
+//	           }
+//	       }
+//	   }
+//	}
+//	catch (Exception ex) {}
 	return null;
 	}
 	/**
