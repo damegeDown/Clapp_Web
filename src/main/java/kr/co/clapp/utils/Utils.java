@@ -36,12 +36,7 @@ public class Utils {
 	 */
 	public static String getLocalServerIp(HttpServletRequest request)
 	{
-		try { 
-			return InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			return "58.180.17.145";
 //	try
 //	{    
 //	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
@@ -58,7 +53,7 @@ public class Utils {
 //	   }
 //	}
 //	catch (Exception ex) {}
-	return null;
+//	return null;
 	}
 	/**
 	 * 접속한 아이피와 서버아이피를 비교한다.
