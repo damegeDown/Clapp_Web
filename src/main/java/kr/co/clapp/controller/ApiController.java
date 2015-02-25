@@ -153,8 +153,8 @@ public class ApiController {
 		int ticketLen = 0;
 		
 		try {
-			logger.debug("getLocalServerIp : " , Utils.getLocalServerIp(request));
-			logger.debug("getRomoteIp : " , Utils.getRomoteIp(request));
+			logger.debug("getLocalServerIp : " + Utils.getLocalServerIp(request));
+			logger.debug("getRomoteIp : " + Utils.getRomoteIp(request));
 			
 			/** 외부 아이피 접근시 차단 */
 			if(!Utils.checkRemoteIp(request)) {
