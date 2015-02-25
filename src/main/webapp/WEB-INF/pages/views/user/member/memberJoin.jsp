@@ -30,10 +30,7 @@
    <div class="subJoinMembershipContainer">
      <div class="subJoinMembershipBox">
        <div class="subJoinMemberSelectBox">
-         <p class="subJoinMemberSelectTitle">
-         개인 사용자로 CLAPP을 이용하시려면 일반 가입을,<br />
-         사업체나 법인 또는 공식 단체 라면 기업/단체 가입을 선택해 주세요.
-         </p>
+					<img src="${contextPath }/resources/images/clapp_join.jpg" style="margin-top: -35px; margin-left: 10px;" />
          <div class="subJoinMemberSelectBox2">
            <div class="subJoinIndividual">
              <a href="${contextPath }/members/memberJoinTerms?userType=1"><img src="${contextPath }/resources/images/join_step01_person.png"onmouseover="this.src='${contextPath }/resources/images/join_step01_person_r.png';" onMouseOut="this.src='${contextPath }/resources/images/join_step01_person.png';" alt="일반 가입" /></a>

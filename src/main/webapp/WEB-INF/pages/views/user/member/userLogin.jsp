@@ -135,4 +135,7 @@ $(function() {
                     <span class="clappJoinforLogin"><a href="${contextPath}/members/passwordFind">비밀번호를 분실하셨나요?</a></span>
         </div>
       </div>
+          <div class="loginContentBottomBox">
+            <a href="${contextPath}/members/memberJoin"><img src="${contextPath }/resources/images/event_login.jpg" /></a>
+          </div>
     </div> <!-- .loginContentBottomContainer End -->

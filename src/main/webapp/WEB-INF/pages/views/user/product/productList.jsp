@@ -24,9 +24,9 @@
 						<a href="#all" class="subPGTab01">
 								<span>All</span>
 						</a>
-						<a href="#free" class="subPGTab02">
+<!-- 						<a href="#free" class="subPGTab02">
 								<span>Free</span>
-						</a>
+						</a> -->
 						<a href="#basic" class="subPGTab03">
 								<span>Basic</span>
 						</a>
@@ -69,8 +69,14 @@
 				</div><!-- .subPGInfoBox End -->
 			</div><!-- .subPGInfoBg End -->
 		</div><!-- .subPGInfoContainer End -->
-
+		<c:if test = "${userLoginSession.userMasterKey eq null}"> 
 		<div class="subPGProductOneContainer">
+          <div align="center" style="padding-top: 30px;">
+            <a href="${contextPath}/members/memberJoin"><img src="${contextPath }/resources/images/event_product.jpg" /></a>
+          </div>
+		</div><!-- .subPGProductTwoContainer End -->
+
+<%-- 		<div class="subPGProductOneContainer">
 			<div class="subPGPOCBg">
 				<div class="subPGPOCBox">
 					<div class="subPGPOCKindBox">
@@ -116,8 +122,8 @@
 					</div>
 				</div><!-- .subPGPOCBox End -->
 			</div><!-- .subPGPOCBg End -->
-		</div><!-- .subPGProductOneContainer End -->
-
+		</div><!-- .subPGProductOneContainer End --> --%>
+		</c:if>
 		<div class="subPGProductTwoContainer">
 			<div class="subPGPTCBg">
 				<div class="subPGPTCBox">
@@ -628,5 +634,11 @@ var goPayment = function(key) {
 		return false;
 	}
 	location.href = contextPath+"/myClapp/payment?productMasterKey="+key
+};
+//소개서 다운로드 링크
+var autoJnlpDownload = function(){ 
+	var orgFileName = "CLAPP_소개서_20150216.pdf";
+    location.href = contextPath + "/common/fileDownload?path=download&orgFileName="+orgFileName;
+	
 };
 </script>
