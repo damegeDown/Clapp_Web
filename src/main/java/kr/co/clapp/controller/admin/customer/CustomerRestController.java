@@ -6,9 +6,11 @@ import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.entities.BoardNoticeEntity;
 import kr.co.clapp.entities.BoardQnaEntity;
 import kr.co.clapp.entities.CabledAdviceEntity;
+import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.ResponseEntity;
 import kr.co.clapp.entities.ServiceInquiryEntity;
 import kr.co.clapp.service.customer.CustomerService;
+import kr.co.clapp.service.mailing.MailingService;
 import kr.co.digigroove.commons.messages.Messages;
 
 import org.slf4j.Logger;
@@ -33,6 +35,8 @@ public class CustomerRestController {
 	@Autowired 
 	 private CustomerService customerService;
 	
+	@Autowired
+	private MailingService mailingService;
 	
 //	
 //	public List<SavedFileEntity> saveFileForFormData(MultipartHttpServletRequest req, AdministrationFileEntity administrationFileEntity) {
@@ -64,6 +68,7 @@ public class CustomerRestController {
 	@RequestMapping(value = "/insertServiceInquiryAnswer",  method = RequestMethod.POST)
 	public ResponseEntity insertServiceInquiryAnswer(ServiceInquiryEntity serviceInquiryEntity) {
       ResponseEntity result = new ResponseEntity();
+      MemberEntity memberEntity = new MemberEntity();
 	  try {
 		String resultCode = ResultCode.FAIL;
 		String resultMessage = messages.getMessage("insert.fail");
@@ -71,6 +76,17 @@ public class CustomerRestController {
 		  resultCode = ResultCode.SUCCESS;
 		  resultMessage = messages.getMessage("insert.success"); 
 		  result.setResultURL("/admin/customer/serviceInquiryList");
+		  memberEntity.setUserId(serviceInquiryEntity.getInquiryEmail());
+		  memberEntity.setUserName(serviceInquiryEntity.getInquiryInsertName()); 
+		  memberEntity.setInquiryContents(serviceInquiryEntity.getInquiryContents()); 
+		  memberEntity.setAnswerContents(serviceInquiryEntity.getAnswerContents()); 
+		  if(mailingService.sendInquiryAnswerMail(memberEntity) > CommonCode.ZERO) {
+	    		// 메일 발송 성공
+	    		//ecrmEntity.setMailState(CommonCode.SUCCESS_NO);
+	    	} else {
+	    		// 메일 발송 실패
+	    		//ecrmEntity.setMailState(CommonCode.FAIL_NO);
+	    	}
 		}
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 

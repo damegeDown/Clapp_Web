@@ -79,4 +79,10 @@ public interface MailingService {
    * @return
    */
   int sendDefaultMail(FormRecruitInfoEntity formRecruitInfoEntity);
+	/**
+	 * 문의메일답변
+	 * @param memberEntity
+	 * @return
+	 */
+	int sendInquiryAnswerMail(MemberEntity memberEntity);
 }

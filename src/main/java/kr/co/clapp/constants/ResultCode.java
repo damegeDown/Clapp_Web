@@ -50,4 +50,6 @@ public class ResultCode {
 	public final static String IS_REQUIRED = "isRequired";
 	/** 잘못된 값임 */
 	public final static String IS_INVALID = "isInvalid";
+	/** 잘못된 값임 */
+	public final static String IP_NOT_EQUALS = "ipNotEquals";
 }

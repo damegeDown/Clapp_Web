@@ -55,6 +55,13 @@ public class MemberEntity extends PageEntity implements Serializable{
 	private String userCompanyNumber;							//사업장등록번호(구분이 기업일때만 입력)
 	private String userCompanyBusinessType;						//업종(텍스트로 입력)
 	
+	/**
+	 * etc
+	 */
+	private String inquiryContents;
+	private String answerContents;
+	
+	
 	public int getUserMasterKey() {
 		return userMasterKey;
 	}
@@ -308,6 +315,22 @@ public class MemberEntity extends PageEntity implements Serializable{
 
 	public void setUserStaff(String userStaff) {
 		this.userStaff = userStaff;
+	}
+
+	public String getInquiryContents() {
+		return inquiryContents;
+	}
+
+	public void setInquiryContents(String inquiryContents) {
+		this.inquiryContents = inquiryContents;
+	}
+
+	public String getAnswerContents() {
+		return answerContents;
+	}
+
+	public void setAnswerContents(String answerContents) {
+		this.answerContents = answerContents;
 	}
 	
 	

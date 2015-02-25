@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
 	int checkFlag = 0;
 	//adminEntity.setAdminPassword(HashUtils.encryptSHA256(adminEntity.getAdminPassword()));
 	
-	adminEntity.setAccessIpAddress(Utils.getLocalServerIp(request));
+	adminEntity.setAccessIpAddress(Utils.getRomoteIp(request));
 	checkFlag = memberDAO.ipCheck(adminEntity);
 	
 	adminEntity.setAdminPassword(adminEntity.getAdminPassword());
@@ -136,7 +136,7 @@ public class MemberServiceImpl implements MemberService {
 	if(result > CommonCode.ZERO) {
 		result = memberDAO.insertAdminPermission(adminEntity);
 		if(result > CommonCode.ZERO) {
-			//adminEntity.setAccessIpAddress(Utils.getLocalServerIp());
+			//adminEntity.setAccessIpAddress(Utils.getRomoteIp());
 			result = memberDAO.insertAccessIp(adminEntity);
 		}
 	}
@@ -159,7 +159,7 @@ public class MemberServiceImpl implements MemberService {
 	if(result > CommonCode.ZERO) {
 		result = memberDAO.modifyAdminPermission(adminEntity);
 		if(result > CommonCode.ZERO) {
-			//adminEntity.setAccessIpAddress(Utils.getLocalServerIp());
+			//adminEntity.setAccessIpAddress(Utils.getRomoteIp());
 			result = memberDAO.modifyAccessIp(adminEntity);
 		}
 	}

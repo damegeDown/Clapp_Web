@@ -566,5 +566,63 @@ public class MailingServiceImpl implements MailingService {
 		  } 
 		  return result;
 	}
+	@Override
+	@Transactional(readOnly=false)
+	public int sendInquiryAnswerMail(MemberEntity memberEntity) {
+		 MailSendEntity mailSendInfo = new MailSendEntity();
+		  Map<String, Object> emailData = new ConcurrentHashMap<String,Object>();
+		  EcrmEntity ecrmEntity = new EcrmEntity();
+		  int result = CommonCode.ZERO;
+		  try {
+			String sendMailStartDates = DateUtils.getToday(CommonCode.DatePattern.DASH_TIME);
+			Date mailSendStartDate = DateUtils.getDate(sendMailStartDates, CommonCode.DatePattern.DASH_TIME);
+		    // Info
+		    mailSendInfo.setSubject("[Clapp] 고객문의 답변 메일입니다..");
+		    mailSendInfo.setEmailForm(emailTemp);
+		   // String[] recipient = {memberEntity.getUserId()};
+		    String[] recipient = {memberEntity.getUserId()};
+		    mailSendInfo.setRecipient(recipient);
+			String userName = memberEntity.getUserName(); 
+			String inquiry = memberEntity.getInquiryContents();
+			String answer = memberEntity.getAnswerContents();
+		    ecrmEntity.setMailType(CommonCode.MailType.MAIL_INQUIRY);
+			String mailContents = this.getMailTemp(ecrmEntity)
+											.getMailTempContents()
+												.replace("$userName", userName)
+												.replace("$userId", recipient[0])
+												.replace("$nowDate", sdf.format(new Date()))
+												.replace("$contextPath", serviceURL)
+												.replace("$inquiry", inquiry)
+												.replace("$answer", answer);
+			
+		    ecrmEntity = this.getMailTemp(ecrmEntity);
+		    //ecrmEntity
+	  		ecrmEntity.setMailSendStartDate(mailSendStartDate); 
+	  		ecrmEntity.setMailContent(mailContents);
+	      	ecrmEntity.setMailState(CommonCode.SUCCESS_NO);
+	        ecrmEntity.setMailReceptionAddress(mailSendInfo.getRecipient()[0]);
+	        ecrmEntity.setMailSection(CommonCode.MailType.MAIL_ANY_TIME); 
+	        ecrmEntity.setMailSort(CommonCode.MailType.MAIL_SORT_CUSTOMER);
+	        ecrmEntity.setMailType(CommonCode.MailType.MAIL_INQUIRY);
+	        ecrmEntity.setMailTarget(CommonCode.MailTarget.MAIL_TARGET_NULL);
+	        //insert mail_master
+	        int masterKey = this.setMailMaster(ecrmEntity, mailSendInfo);
+	        mailContents = mailContents.replace("$masterKey" , String.valueOf(masterKey));
+			// Data
+	        emailData.put("userId", recipient[0]);
+	        emailData.put("userName", userName);
+	        emailData.put("contents", ecrmEntity);
+	        emailData.put("masterKey", masterKey);
+			result =  sendMail(mailSendInfo, emailData);
+	        
+		  } catch (IOException e) {
+		    logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } catch (MessagingException e) {
+		    logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } catch (Exception e) {
+			logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } 
+		  return result;
+	}
 	 
 }
