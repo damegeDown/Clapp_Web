@@ -782,7 +782,7 @@
 			SELECT
 				reserve_time,
 				'차감' ,
-				CONCAT('-',use_point),
+				use_point,
 				start_dttm,
 				end_dttm,
 			   (SELECT CONCAT(product_name, '<![CDATA[ <br/><br/> ]]>', '(', vd.prod_name , ' / ' , LEFT(ticket_start_expiration_date,16), ' ~ ', LEFT(RIGHT(ticket_end_expiration_date, 8),5), ')') FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id),
