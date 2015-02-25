@@ -37,7 +37,7 @@ public class Utils {
 	public static String getLocalServerIp(HttpServletRequest request)
 	{
 	try
-	{ 
+	{    
 	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
 	   {
 	       NetworkInterface intf = en.nextElement();
