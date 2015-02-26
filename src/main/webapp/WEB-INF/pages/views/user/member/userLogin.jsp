@@ -108,7 +108,7 @@ $(function() {
       <div class="loginContentTopBox">
         <div class="loginContentTopLeft">
           <div class="loginTopLeft1">
-            <input type="text" class="loginID" name="userId" onblur='check(this)'  placeholder="아이디 (이메일 주소)"  />
+            <input type="text" class="loginID" name="userId"   placeholder="아이디 (이메일 주소)"  />
           </div>
           <div class="loginTopLeft2">
             <input type="password" class="loginPW" name="userPassword"     placeholder="비밀번호 입력"  onkeydown="Enter_Check(event)" />
