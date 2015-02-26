@@ -18,9 +18,9 @@ wcs_do();
     <div class="GnbNavContainer">
       <ul>
         <li class="mGnbLi1 gnbLine">
-          <a class="gnbLink" href="${contextPath}/mobileTesting/mobileTestingMain">클앱 테스팅12</a>
+          <a class="gnbLink" href="${contextPath}/mobileTesting/mobileTestingMain">클앱 테스팅</a>
           <ul class="mGnbSub1" style="display: none;">
-            <li class="mGnbSub1-1"><a href="${contextPath}/mobileTesting/mobileTestingMain">클앱 테스팅12</a></li>
+            <li class="mGnbSub1-1"><a href="${contextPath}/mobileTesting/mobileTestingMain">클앱 테스팅</a></li>
             <li class="mGnbSub1-1"><a href="${contextPath}/mobileTesting/mobileTestingMain/#merit">특·장점</a></li>
             <li class="mGnbSub1-2"><a href="${contextPath}/mobileTesting/mobileTestingMain/#introduction">도입 사례</a></li>
             <li class="mGnbSub1-3"><a href="${contextPath}/mobileTesting/mobileTestingMain/#function">주요 기능</a></li>
