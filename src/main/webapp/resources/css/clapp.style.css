@@ -7187,7 +7187,7 @@ body {
 .smisCRadio:checked + .smisLable:before {
   content: "\2022";
   color: #1484c9;
-  font-family: Nanum Gothic,Dotum,돋움,Helvetica,AppleSDGothicNeo,sans-serif;
+  font-family: arial,Nanum Gothic,Dotum,돋움,Helvetica,AppleSDGothicNeo,sans-serif;
   font-size: 45px;
   line-height: 26px;
   text-align: center;

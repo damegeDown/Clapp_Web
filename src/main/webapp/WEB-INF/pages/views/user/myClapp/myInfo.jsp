@@ -51,14 +51,26 @@
 						</c:choose>							
 					</span>
 				</div>
+				
 				<div class="smisRight">
 					<span class="smisName">
-						<span style="float:left">${userInfo.userName }</span>
+					<c:choose>
+						<c:when test="${userInfo.userType eq 2 }">
+							<span style="float:left">${userInfo.userCompanyName }</span>
+							<span class="smisCorpMessage">
+								&nbsp;(이직 또는 퇴사 등으로 변경 원할 시, 고객지원 전화 또는 1:1문의 요망)
+							</span>
+						</c:when>
+						<c:otherwise>
+							<span style="float:left">${userInfo.userName }</span>
+						</c:otherwise>
+						</c:choose>
+<%-- 						<span style="float:left">${userInfo.userName }</span>
 						<c:if test="${userInfo.userType eq 2 }">
 							<span class="smisCorpMessage">
 								&nbsp;(이직 또는 퇴사 등으로 변경 원할 시, 고객지원 전화 또는 1:1문의 요망)
 							</span>
-						</c:if>
+						</c:if> --%>
 					</span>
 				</div>
 			</div>
@@ -100,7 +112,7 @@
 					<span class="smisTitle">담당자명</span>
 				</div>
 				<div class="smisRight">
-					<input type="text" class="smisRepName" name="userStaff"  value="${userInfo.userStaff }"/>
+					<input type="text" class="smisRepName" name="userName"  value="${userInfo.userName }"/>
 				</div>
 			</div>
 			</c:if>

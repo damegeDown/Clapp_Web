@@ -250,6 +250,11 @@ public class MyClappRestController {
 		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
 		EcrmEntity ecrmEntity = new EcrmEntity();
 		try {
+			if(userInfo.getUserType().equals(CommonCode.USER_MEMBER)){
+				dropOutUserEntity.setUserName(userInfo.getUserName());
+			} else {
+				dropOutUserEntity.setUserName(userInfo.getUserCompanyName());
+			}
 			dropOutUserEntity.setUserMasterKey(userInfo.getUserMasterKey());
 			dropOutUserEntity.setDropOutUserId(userInfo.getUserId());
 			dropOutUserEntity.setDropOutReason("-");
@@ -260,7 +265,7 @@ public class MyClappRestController {
 			if(memberService.insertDropOutUser(dropOutUserEntity) > CommonCode.ZERO){
 				result.setResultCode(CommonCode.SUCCESS);
 				result.setResultURL("/myClapp/dropOutComplet");
-				session.invalidate();
+//				session.invalidate();
 				if(mailingService.sendDropOutMemberMail(dropOutUserEntity) > CommonCode.ZERO) { 
 		  	    	  // 메일 발송 성공
 			      ecrmEntity.setMailState(CommonCode.SUCCESS_NO);

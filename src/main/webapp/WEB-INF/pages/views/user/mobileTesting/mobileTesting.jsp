@@ -449,7 +449,7 @@
             </div>
             <div class="sMTSL1LBottom">
               <div class="sMSL1LBLeft">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox1" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[0].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[0].deviceMakerCode}</span>
@@ -457,7 +457,7 @@
                 </div>
               </div>
               <div class="sMSL1LBRight">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[1].fileTarget}&fileName=${deviceEntity.deviceList[1].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[1].fileTarget}&fileName=${deviceEntity.deviceList[1].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox2" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[1].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[1].deviceMakerCode}</span>
@@ -469,7 +469,7 @@
           <div class="subMTSliderL1CotentBoxRight">
             <div class="sMTSL1RTop">
               <div class="sMSL1RTLeft">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[2].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[2].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox3" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[2].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[2].deviceMakerCode}</span>
@@ -477,7 +477,7 @@
                 </div>
               </div>
               <div class="sMSL1RTRight">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[3].fileTarget}&fileName=${deviceEntity.deviceList[3].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[3].fileTarget}&fileName=${deviceEntity.deviceList[3].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox4" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[3].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[3].deviceMakerCode}</span>
@@ -487,7 +487,7 @@
             </div>
             <div class="sMTSL1RBottom">
               <div class="sMSL1RBLeft">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[4].fileTarget}&fileName=${deviceEntity.deviceList[4].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[4].fileTarget}&fileName=${deviceEntity.deviceList[4].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox5" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[4].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[4].deviceMakerCode}</span>
@@ -520,7 +520,7 @@
             </div>
             <div class="sMTSL2LBottom">
               <div class="sMSL2LBLeft">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[5].fileTarget}&fileName=${deviceEntity.deviceList[5].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[5].fileTarget}&fileName=${deviceEntity.deviceList[5].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox6" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[5].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[5].deviceMakerCode}</span>
@@ -528,7 +528,7 @@
                 </div>
               </div>
               <div class="sMSL2LBRight">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[6].fileTarget}&fileName=${deviceEntity.deviceList[6].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[6].fileTarget}&fileName=${deviceEntity.deviceList[6].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox7" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[6].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[6].deviceMakerCode}</span>
@@ -540,7 +540,7 @@
           <div class="subMTSliderL2CotentBoxRight">
             <div class="sMTSL2RTop">
               <div class="sMSL2RTLeft">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[7].fileTarget}&fileName=${deviceEntity.deviceList[7].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[7].fileTarget}&fileName=${deviceEntity.deviceList[7].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox8" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[7].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[7].deviceMakerCode}</span>
@@ -548,7 +548,7 @@
                 </div>
               </div>
               <div class="sMSL2RTRight">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[8].fileTarget}&fileName=${deviceEntity.deviceList[8].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[8].fileTarget}&fileName=${deviceEntity.deviceList[8].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox9" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[8].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[8].deviceMakerCode}</span>
@@ -558,7 +558,7 @@
             </div>
             <div class="sMTSL2RBottom">
               <div class="sMSL2RBLeft">
-                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[9].fileTarget}&fileName=${deviceEntity.deviceList[9].fileSavedName}" style="max-width:240px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[9].fileTarget}&fileName=${deviceEntity.deviceList[9].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
                 <div class="mtSliderTextBox10" style="display: none;">
                   <span class="mtsliderText1">${deviceEntity.deviceList[9].deviceModelEname}</span>
                   <span class="mtsliderText2">${deviceEntity.deviceList[9].deviceMakerCode}</span>
