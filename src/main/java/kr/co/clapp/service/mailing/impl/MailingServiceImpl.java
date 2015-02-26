@@ -278,11 +278,11 @@ public class MailingServiceImpl implements MailingService {
 		// Info 
 	    mailSendInfo.setSubject("[Clapp] 회원탈퇴 되었습니다.");
 		mailSendInfo.setEmailForm(emailTemp);
-		//String[] recipient = {dropOutUserEntity.getDropOutUserId()};
-		String[] recipient = {"dnltpdnd@naver.com"};
-		//String userName = dropOutUserEntity.getUserName();
-		String userName = "위세웅"; 
+		String[] recipient = {dropOutUserEntity.getDropOutUserId()};
+//		String[] recipient = {"hijin0115@naver.com"};
 		mailSendInfo.setRecipient(recipient);
+		String userName = dropOutUserEntity.getUserName(); 
+//		String userName = "엄성재";
 
 		ecrmEntity.setMailType(CommonCode.MailType.MAIL_DROPOUT_MEMBER);
 		String mailContents = this.getMailTemp(ecrmEntity)
@@ -291,6 +291,7 @@ public class MailingServiceImpl implements MailingService {
 											.replace("$userId", recipient[0])
 											.replace("$nowDate", sdf.format(new Date()))
 											.replace("$contextPath", serviceURL);
+		ecrmEntity = this.getMailTemp(ecrmEntity);
 		//ecrmEntity
 		ecrmEntity.setMailSendStartDate(mailSendStartDate); 
 		ecrmEntity.setMailContent(mailContents);
@@ -316,7 +317,6 @@ public class MailingServiceImpl implements MailingService {
 	  } catch (ParseException e) {
 		logger.error("MailingServiceImpl.insertDropOut:ParseException:Faild" , e);
 	  }
-	  
 	  return result;
 	}
 	/**

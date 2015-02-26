@@ -174,7 +174,7 @@
     <img src="${contextPath }/resources/images/buttons_send.png" onclick="inquirySubmit()"  onmouseover="this.src='${contextPath }/resources/images/buttons_send_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_send.png';" alt="보내기" /></a>
     <%-- <input type="image" src="${contextPath }/resources/images/buttons_send.png"data-flag="off"/> --%>
   </div>
-  <div class="submitBtn"  data-action="${contextPath }/introduction/rest/insertSupportInquire" data-msg="등록" style="display:none"></div> 
+  <div class="submitBtn"  data-action="${contextPath }/introduction/rest/insertSupportInquire/myInquiry" data-msg="등록" style="display:none"></div> 
   
 </div>
 </form>
