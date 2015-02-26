@@ -6051,7 +6051,7 @@ body {
   height: inherit;
   display: block;
   margin: 0 auto;
-  padding-top: 50px;
+  padding: 50px 0;
 }
 .subMyClappTitleSmallLine {
   width: 2px;

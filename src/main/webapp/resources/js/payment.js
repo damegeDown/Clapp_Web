@@ -90,12 +90,12 @@ $.fn.Common = {
 	  $("#searchUserIdForm").delegate(".selectUserId", "click", function() {
 		var _this = $(this).find("td");
 	    var userName = _this.eq(1).html();
-	    var userId = _this.eq(2).html();
+	    var userId = _this.eq(2).text();
 	    var userKey = _this.eq(2).find("input[name=userKey]").val();
 	    var userType = _this.eq(3).html();
 	    var dataId = $("input[name=dataId]").val();
 	    $("input[name=contractUserIdArr][data-id="+dataId+"]").val(userId);
-	    $("input[name=userMastreKeyrArr][data-id="+dataId+"]").val(userKey);
+	    $("input[name=userMasterKeyArr][data-id="+dataId+"]").val(userKey);
 	    enableScreen("#searchUserIdForm");
 	  });
 	}

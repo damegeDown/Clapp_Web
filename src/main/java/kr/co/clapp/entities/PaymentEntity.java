@@ -96,7 +96,6 @@ public class PaymentEntity extends PageEntity implements Serializable {
   private List<?> contractUserIdArr;			 //계약자 아이디
   private List<?> userMasterKeyArr;			 //계약자 키
 
-  
   private int searchCount;					 //겸색 갯수
   private int searchTotalPrice;				 //검색 금액
   private int sumCount;					     //누적 갯수
