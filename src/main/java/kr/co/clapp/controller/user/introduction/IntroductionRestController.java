@@ -9,7 +9,7 @@ import kr.co.clapp.entities.AdministrationFileEntity;
 import kr.co.clapp.entities.BoardEntity;
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
+import kr.co.clapp.entities.ServiceInquiryEntity;   
 import kr.co.clapp.service.board.BoardService;
 import kr.co.clapp.service.customer.CustomerService;
 import kr.co.clapp.service.file.AdministrationFileService;
