@@ -126,7 +126,7 @@ $(function() {
           <div class="subMTDeviceCTBDeviceList">
             <div class="subMTDeviceCTBDeviceImgBox">
               <div class="subMTDeviceCTBDeviceImg ">
-                <img src="${contextPath}/common/imgView?fileType=${deviceList.fileTarget}&fileName=${deviceList.fileSavedName}" style="max-width:110px;"/>
+                <img src="${contextPath}/common/imgView?fileType=${deviceList.fileTarget}&fileName=${deviceList.fileSavedName}" style="max-width:110px; max-height: 110px;"/>
               </div><!-- .subMTDeviceCTBDeviceImg -->
             </div><!-- .subMTDeviceCTBDeviceImgBox -->
             <div class="subMTDeviceCTBDeviceNameBox">

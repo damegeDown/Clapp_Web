@@ -103,14 +103,14 @@
                 </span>
               </div>
               <div class="subCICHBSub02Phone">
-                <img src="${contextPath}/resources/images/itr_introduce_contactus_phone.png" alt="phone" />
+                <img src="${contextPath}/resources/images/itr_introduce_contactus_customer.png" alt="phone" />
                 <div class="subCICHBSub02PhoneText">
                   <span class="subCICHBSub02PhoneTxt">고객 지원</span>
                   <span class="subCICHBSub02PhoneNum">1661-7083</span>
                 </div>
               </div>
               <div class="subCICHBSub02Headset">
-                <img src="${contextPath}/resources/images/itr_introduce_contactus_customer.png" alt="tel" />
+                <img src="${contextPath}/resources/images/itr_introduce_contactus_phone.png" alt="tel" />
                 <div class="subCICHBSub02HeadsetText">
                   <span class="subCICHBSub02PhoneTxt">영업 · 제휴</span>
                   <span class="subCICHBSub02PhoneNum">02-3460-8536</span>
