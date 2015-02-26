@@ -26,8 +26,8 @@
 	    	 	 	<c:forEach  items="${userList }" var="user" varStatus="i">
 		    	 	 <tr class="trUserId">
 		    	 	   <th>회원 ID</th>
-		    	 	   <td>
-		    	 	     <input type="hidden" name="userMastreKeyrArr" data-flag="off" data-id="${i.index + 1 }"/>
+		    	 	   <td> 
+		    	 	     <input type="text" name="userMasterKeyArr" data-flag="off" data-id="${i.index + 1 }"/>
 		    	 	     <input type="text" name="contractUserIdArr" value="${user}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="${i.index + 1 }"/>
 		    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 		    	 	     <c:if test="${i.index >= 1 }">
@@ -41,6 +41,7 @@
 	    	 	 <tr class="trUserId">
 	    	 	   <th>회원 ID</th>
 	    	 	   <td>
+	    	 	   	 <input type="text" name="userMasterKeyArr" data-flag="off" data-id="${i.index + 1 }"/>
 	    	 	     <input type="text" name="contractUserIdArr" value="${paymentInfo.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="1"/>
 	    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 	    	 	   </td>
@@ -88,11 +89,12 @@
     	 	 <tr>
     	 	   <th>신청상품</th>
     	 	   <td>
-    	 	   	<select class="sel-w180" name="contractProductName">
+    	 	   <input type="text" name="contractProductName" value="${paymentInfo.contractProductName}"/>
+    	 	   	<select class="sel-w180" name="productMasterKey">
 		          <c:forEach items="${productInfo.productList }" var="code">
-								<option value="${code.productMasterKey }" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
-							</c:forEach>
-	          </select>
+					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
+				 </c:forEach>
+	           </select>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>적용티켓</th>
@@ -144,6 +146,12 @@
 		var availableTags = tagsArr;
 		$( "#tags" ).autocomplete({
 			source: availableTags
+		});
+		$("select[name=productMasterKey]").change(function() {
+			var productName = $("select option[value="+$(this).val()+"]").text();
+			var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
+			$("input[name=contractProductName]").val(productName);
+			$("input[name=contractExpirationDate]").val(applyDate);
 		});
 	});
 	$(function() {

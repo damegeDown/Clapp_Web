@@ -113,18 +113,18 @@ public class PaymentServiceImpl implements PaymentService {
 	paymentEntity.setContractTid(tid);
 	result = paymentDAO.insertContract(paymentEntity);
 	List<String> userIdArr = null;
-	List<Integer> userKeyArr = null;
+	List<String> userKeyArr = null;
 	
 	if(result > CommonCode.ZERO) {
 	  userIdArr = (List<String>) paymentEntity.getContractUserIdArr();
-	  userKeyArr = (List<Integer>) paymentEntity.getUserMasterKeyArr();
+	  userKeyArr = (List<String>) paymentEntity.getUserMasterKeyArr();
 	  for(int i = 0; i < userIdArr.size(); i++) {
 		paymentEntity.setContractUserId(userIdArr.get(i));
-		paymentEntity.setUserMasterKey(userKeyArr.get(i));
+		paymentEntity.setUserMasterKey(Integer.parseInt(userKeyArr.get(i))); 
 		paymentEntity.setContractTid(tid);
 		result = paymentDAO.insertContractUser(paymentEntity);
 		/**티켓저장*/
-		ticketInfo.setUserMasterKey(userKeyArr.get(i));
+		ticketInfo.setUserMasterKey(Integer.parseInt(userKeyArr.get(i)));
 		ticketInfo.setProductMasterKey(paymentEntity.getProductMasterKey());	//상품키 
 		ticketInfo.setProductName(paymentEntity.getContractProductName());		//상품이름	
 		ticketInfo.setPaymentTid(tid);															//tid 
@@ -133,6 +133,7 @@ public class PaymentServiceImpl implements PaymentService {
 		ticketInfo.setTicketStartExpirationDate(paymentEntity.getContractStartDate());	//사용가능기한-시작
 		ticketInfo.setTicketEndExpirationDate(paymentEntity.getContractEndDate());	//사용가능기한-종료
 		ticketInfo.setExpirationDate(paymentEntity.getContractExpirationDate());	//유효기간(일로 표시)
+		ticketInfo.setTicketApplyDate(DateUtils.getDate());
 		/** 티켓 히스토리에 저장*/
 		ticketDAO.insertUserTicketHistory(ticketInfo);
 		this.insertUserTicketMaster(ticketInfo);

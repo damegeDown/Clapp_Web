@@ -280,6 +280,7 @@
 			  contract_payment_method,
 			  contract_company_name,
 			  contract_company_number,
+			  product_master_key,
 			  contract_product_name,
 			  contract_ticket_amount,
 			  contract_expiration_date,
@@ -295,9 +296,10 @@
 			  #{contractBillPublicationDate},
 			  #{contractTotalPrice},
 			  #{contractPaymentMethod},
-			  #{contractCompanyName},
+			   #{contractCompanyName},
 			  #{contractCompanyNumber},
-			  #{contractProductName},
+			  #{productMasterKey},
+			   (SELECT product_name FROM PRODUCT_MASTER where product_master_key = #{productMasterKey} limit 1),
 			  #{contractTicketAmount},
 			  #{contractExpirationDate},
 			  1,
@@ -331,9 +333,11 @@
 		INSERT INTO
 			CONTRACT_USER (
 				contract_master_key,
+				user_master_key,
 				contract_user_id
 			) VALUES (
 				#{contractMasterKey},
+				#{userMasterKey},
 				#{contractUserId}
 			)
 	</insert>
