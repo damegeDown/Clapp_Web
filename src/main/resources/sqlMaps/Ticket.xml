@@ -811,6 +811,8 @@
 			AND
 			 a.statusText = #{searchValue} 
 		</if>
+		ORDER BY
+			ticketEndExpirationDate DESC
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
