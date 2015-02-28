@@ -13,7 +13,7 @@
 		<property name="username" value="support@clapp.co.kr"/>
 		<property name="password" value="medi8536!"/>
 		<property name="port" value="465"/> -->
-		<property name="javaMailProperties"> 
+		<property name="javaMailProperties">   
 			<props>
 				<prop key="mail.smtp.auth">true</prop>  
 				<prop key="mail.smtp.starttls.required">true</prop>
