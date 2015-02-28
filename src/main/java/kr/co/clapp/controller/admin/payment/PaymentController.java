@@ -175,7 +175,7 @@ public class PaymentController {
   @RequestMapping(value = "/paymentContractDetail")
   public String paymentContractDetail(PaymentEntity paymentEntity, Model model) {
 	
-	List<String> userList = new ArrayList<String>();
+	List<PaymentEntity> userList = new ArrayList<PaymentEntity>();
 	PaymentEntity paymentInfo = new PaymentEntity();
 	//계약 상세
 	paymentInfo = paymentService.getPaymentContractDetail(paymentEntity);
@@ -203,7 +203,7 @@ public class PaymentController {
   @RequestMapping(value = "/paymentContractEdit")
   public String paymentContractEdit(PaymentEntity paymentEntity, Model model) {
 	
-	List<String> userList = new ArrayList<String>();
+	List<PaymentEntity> userList = new ArrayList<PaymentEntity>();
 	PaymentEntity paymentInfo = new PaymentEntity();
 	ProductEntity productInfo = new ProductEntity();
 	//계약 상세

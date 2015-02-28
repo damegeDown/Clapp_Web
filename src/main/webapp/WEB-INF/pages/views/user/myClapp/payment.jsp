@@ -277,6 +277,10 @@ var PaymentUtils = (function() {
 		location.href = contextPath+"/myClapp/payment?productMasterKey="+key;
 	};
 	var doPayment = function() {
+		if('${userLoginSession.userType == 2}') {
+			alert("기업회원은 CLAPP으로 문의 바랍니다.");
+			return false;
+		}
 		// 암호화된 Hashdata 가져오기
 		$('#LGD_PAYINFO').ajaxSubmit ({
 			type : 'POST',

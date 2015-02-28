@@ -35,7 +35,7 @@ public interface PaymentService {
 
   PaymentEntity getPaymentContractDetail(PaymentEntity paymentEntity);
 
-  List<String> getPaymentContractUserDetail(PaymentEntity paymentEntity);
+  List<PaymentEntity> getPaymentContractUserDetail(PaymentEntity paymentEntity);
 
   int modifyContractState(PaymentEntity paymentEntity);
 

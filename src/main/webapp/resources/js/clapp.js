@@ -425,7 +425,7 @@ $(document).ready(function(){
 
 //클앱 자동화 다운로드 클릭 
 var autoJnlpDownload = function(){ 
-	var orgFileName = "Clapp_Automation.exe";
+	var orgFileName = "Clapp_Automation.zip";
     location.href = "/common/fileDownload?path=download&orgFileName="+orgFileName;
     closePopup('#popCertification');
 	

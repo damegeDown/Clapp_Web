@@ -23,7 +23,7 @@
 	    	 	 	<c:forEach  items="${userList }" var="user" varStatus="i">
 		    	 	 <tr class="trUserId">
 		    	 	   <th>회원 ID</th>
-		    	 	   <td>${user}</td>
+		    	 	   <td>${user.contractUserId}</td>
 	    	 	 		</tr>
 	    	 	 	</c:forEach>
 	    	 	 </c:when>
