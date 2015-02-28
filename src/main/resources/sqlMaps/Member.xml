@@ -439,6 +439,8 @@
       USER_MASTER
     WHERE
       user_id LIKE '%${userId}%'
+    AND
+    	user_type > 1
   </select>
   <select id="searchUserIdArr" parameterType="memberEntity" resultType="String">
       SELECT  

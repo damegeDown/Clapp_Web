@@ -140,4 +140,6 @@ public interface TicketDAO {
 	
 	int insertServiceTicketHistory(TicketEntity ticketEntity);
 	
+	int removeUserTicketHistory(TicketEntity ticketParam);
+	
 }

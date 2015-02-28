@@ -822,7 +822,7 @@
   <insert id="insertUserTicketHistory" parameterType="ticketEntity" >
   	INSERT INTO
   		USER_TICKET_HISTORY (
-  			user_ticket_master_key,
+  			target_key,
   			user_master_key,
   			product_master_key,
   			product_name,
@@ -832,7 +832,7 @@
   			ticket_apply_date,
   			insert_date
   		) VALUES (
-	  		#{userTicketMasterKey},
+	  		#{targetKey},
 	  		#{userMasterKey},
 	        #{productMasterKey},
 	        #{productName},
@@ -844,6 +844,15 @@
   		)
   </insert>
   <!--  // 사용자 티켓 히스토리에 저장 -->
+  <!-- 사용자 티켓 히스토리 삭제 -->
+  <delete id="removeUserTicketHistory" parameterType="ticketEntity" >
+	DELETE 
+			FROM 
+				USER_TICKET_HISTORY
+			WHERE
+				target_key = #{targetKey}
+  </delete>
+  <!-- //사용자 티켓 히스토리 삭제 -->
   <!-- 자신이 티켓정보 히스토리를 불러온다 -->
   <select id="selectTicketHistoryList" parameterType="ticketEntity" resultType="ticketentity">
     SELECT

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <div class="sub-content">
 	<form id="paymentForm">
+		<input type="hidden" name="contractTid" value="${paymentInfo.contractTid}" data-flag="off"/>
 		<c:if test="${paymentInfo.contractMasterKey > 0}">
 		<input type="hidden" name="contractMasterKey" value="${paymentInfo.contractMasterKey}" data-flag="off"/>
 		</c:if>
@@ -27,21 +28,21 @@
 		    	 	 <tr class="trUserId">
 		    	 	   <th>회원 ID</th>
 		    	 	   <td> 
-		    	 	     <input type="text" name="userMasterKeyArr" data-flag="off" data-id="${i.index + 1 }"/>
-		    	 	     <input type="text" name="contractUserIdArr" value="${user}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="${i.index + 1 }"/>
+		    	 	     <input type="text" name="userMasterKeyArr" value="${user.userMasterKey }" data-flag="off" data-id="${i.index + 1 }"/>
+		    	 	     <input type="text" name="contractUserIdArr" value="${user.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="${i.index + 1 }"/>
 		    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 		    	 	     <c:if test="${i.index >= 1 }">
 		    	 	     	<input type="button" class="btn removeUserIdBtn" value="-"/>
 		    	 	     </c:if>
 		    	 	   </td>
-	    	 	 		</tr>
+	    	 	 		</tr> 
 	    	 	 	</c:forEach>
 	    	 	 </c:when>
 	    	 	 <c:otherwise>
 	    	 	 <tr class="trUserId">
 	    	 	   <th>회원 ID</th>
 	    	 	   <td>
-	    	 	   	 <input type="text" name="userMasterKeyArr" data-flag="off" data-id="${i.index + 1 }"/>
+	    	 	   	 <input type="text" name="userMasterKeyArr"   data-flag="off" data-id="${i.index + 1 }"/>
 	    	 	     <input type="text" name="contractUserIdArr" value="${paymentInfo.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="1"/>
 	    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 	    	 	   </td>
@@ -89,7 +90,7 @@
     	 	 <tr>
     	 	   <th>신청상품</th>
     	 	   <td>
-    	 	   <input type="text" name="contractProductName" value="${paymentInfo.contractProductName}"/>
+    	 	   <input type="hidden" name="contractProductName" value="${paymentInfo.contractProductName}"/>
     	 	   	<select class="sel-w180" name="productMasterKey">
 		          <c:forEach items="${productInfo.productList }" var="code">
 					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>

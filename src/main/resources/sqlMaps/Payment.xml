@@ -344,6 +344,7 @@
 	<select id="getPaymentContractDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
 			cm.contract_master_key,
+			cm.contract_tid,
 			cm.contract_start_date,
 			cm.contract_end_date,
 			cm.contract_bill_publication_date,
@@ -359,15 +360,16 @@
 			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
 			cm.contract_use_close_reason,
 			cm.contract_operator_name,
-			cm.contract_insert_date
+			cm.contract_insert_date 
 		FROM
-			CONTRACT_MASTER cm
+			CONTRACT_MASTER cm 
 		WHERE
 			cm.contract_master_key = #{contractMasterKey}
 	</select>
-	<select id="getPaymentContractUserDetail" parameterType="paymentEntity" resultType="String">
+	<select id="getPaymentContractUserDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
-			contract_user_id
+			contract_user_id,
+			user_master_key
 		FROM
 			CONTRACT_USER
 		WHERE
@@ -828,4 +830,23 @@
 	 </select>
 	<!-- //구매하려는 상품이 현재 상용중인 상품에 속하는지 확인 -->
 	
+	<select id="getUserMasterKeyList" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			cu.user_master_key
+		FROM
+			CONTRACT_MASTER cm,
+			CONTRACT_USER cu
+		WHERE
+			cm.contract_master_key = cu.contract_master_key
+		AND
+			cm.contract_master_key = #{contractMasterKey}
+	</select>
+	<select id="getContractInfo" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			*
+		FROM
+			CONTRACT_MASTER
+		WHERE
+			contract_master_key = #{contractMasterKey}
+	</select>
 </mapper>
