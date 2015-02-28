@@ -25,7 +25,7 @@
 	<table class="board-list-r">
 		<thead> 
 			<tr>
-				<th rowspan="2">날짜(요일)\메일분류</th>
+				<th rowspan="2">날짜(요일)</th>
 				<th colspan="12">수시 발송용</th>
 				<th colspan="3">타켓 메일</th>
 			</tr>
