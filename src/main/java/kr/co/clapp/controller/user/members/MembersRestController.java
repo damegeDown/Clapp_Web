@@ -100,7 +100,7 @@ public class MembersRestController {
   	EcrmEntity ecrmEntity = new EcrmEntity();
   	try {
   	  String resultCode = ResultCode.NO_RESULT;
-  	  String resultMessage = messages.getMessage("notFound");
+  	  String resultMessage = messages.getMessage("notFound2");
   	  memberEntity = memberService.passwordFind(memberEntity); 
   	  if(!StringUtils.isEmpty(memberEntity)){
 	    	if(mailingService.sendTempPasswordMail(memberEntity) > CommonCode.ZERO) {
@@ -119,7 +119,7 @@ public class MembersRestController {
   	} catch (Exception e) {
   	  logger.error("MembersRestController.userIdFind:Faild" , e);
   	  result.setResultCode(ResultCode.NO_RESULT);
-  	  result.setResultMSG(messages.getMessage("notFound"));
+  	  result.setResultMSG(messages.getMessage("notFound2"));
   	}
   	return result;
     }

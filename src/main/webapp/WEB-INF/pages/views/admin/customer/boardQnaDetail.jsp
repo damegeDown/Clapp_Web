@@ -33,7 +33,7 @@
        </tr>
        <tr>
        <th>등록 일시</th>
-        <td><fmt:formatDate var="qnaInsertDate" pattern="yyyy/MM/dd HH:mm" value="${boardQnaDetail.qnaInsertDate }" /></td> 
+        <td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardQnaDetail.qnaInsertDate }" /></td>
         </tr>
        <tr>
         <th>TOP 10 노출 여부</th>

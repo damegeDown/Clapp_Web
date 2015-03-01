@@ -96,7 +96,7 @@
   </table>
   </div>
   <div class="btn-area">
-    <a href="${contextPath }/admin/customer/boardNoticeDetail" class="floatR btn-bottom-orenge">등록</a>
+    <a href="${contextPath }/admin/customer/boardNoticeModify" class="floatR btn-bottom-orenge">등록</a>
   </div>
   <div class="paging-area">
      <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/customer/boardNoticeList" pageNavigationEntity="${boardNoticeEntity}" />
