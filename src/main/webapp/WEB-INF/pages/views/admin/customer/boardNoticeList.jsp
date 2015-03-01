@@ -17,9 +17,11 @@
            <span class="span-w50" style="padding-left: 30px;">노출 여부</span>
            <select class="sel-w107" name="searchValue">
              <option value="">전체</option>
-             <c:forEach items="${noticeOpenCode }" var="code">
+             <option value="노출">노출</option>
+             <option value="대기">대기</option>
+<%--              <c:forEach items="${noticeOpenCode }" var="code">
             <option value="${code.commonCode }" <c:if test="${boardNoticeEntity.searchValue eq code.commonCode }">selected</c:if>>${code.commonName }</option>
-            </c:forEach>
+            </c:forEach> --%>
           </select>
         </div>
         <div class="marT-5">
@@ -77,10 +79,10 @@
         <td>${boardNoticeEntity.dataSize-(boardNoticeEntity.pageListSize*(boardNoticeEntity.currentPage-1))-i.index}</td> 
         <td style="cursor:pointer" class="noticeTitle" data-key="${boardNoticeList.boardNoticeKey }">${boardNoticeList.noticeTitle}</td>
         <td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardNoticeList.noticeInsertDate }" /></td>
-        <td>${boardNoticeList.noticeOpen }  
-          <c:if test="${boardNoticeList.noticeOpen eq '대기'}"> <br>  
+        <td>${boardNoticeList.noticeOpenYn}  
+           <c:if test="${boardNoticeList.noticeOpenYn eq '대기'}"> <br>  
 	          <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardNoticeList.noticeOpenDate }" />
-	        </c:if>
+	        </c:if> 
 	      </td>
         <td>
             <a href="#" class="btnSmall-bottom-gray removeNotice" data-id="${boardNoticeList.boardNoticeKey}" >삭제</a>

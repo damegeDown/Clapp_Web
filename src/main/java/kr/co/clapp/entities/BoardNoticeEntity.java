@@ -15,7 +15,7 @@ public class BoardNoticeEntity extends PageEntity implements Serializable{
 	private int boardNoticeKey;
 	private String noticeTitle;									//공지사항 제목
 	private String noticeContents;								//공지사항 내용
-	private String noticeOpen;									//공지사항 노출여부
+	private String noticeOpenYn;									//공지사항 노출여부
 	private Date noticeOpenDate;								//노출 일시
 	private String noticeInsertName;							//등록자
 	private Date noticeInsertDate;								//등록일
@@ -44,11 +44,11 @@ public class BoardNoticeEntity extends PageEntity implements Serializable{
 	public void setNoticeContents(String noticeContents) {
 		this.noticeContents = noticeContents;
 	}
-	public String getNoticeOpen() {
-		return noticeOpen;
+	public String getNoticeOpenYn() {
+		return noticeOpenYn;
 	}
-	public void setNoticeOpen(String noticeOpen) {
-		this.noticeOpen = noticeOpen;
+	public void setNoticeOpenYn(String noticeOpenYn) {
+		this.noticeOpenYn = noticeOpenYn;
 	}
 	public Date getNoticeOpenDate() {
 		return noticeOpenDate;
