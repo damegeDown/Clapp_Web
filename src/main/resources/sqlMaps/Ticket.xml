@@ -646,6 +646,8 @@
 			AND
 		  	vr.status = #{searchValue2}
 		</if>
+		ORDER BY
+			vr.start_dttm desc
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
@@ -708,7 +710,7 @@
 		
 			SELECT
 				reserve_time,
-				'사용' ,
+				'차감' ,
 				use_point,
 				start_dttm,
 				end_dttm,
@@ -825,7 +827,7 @@
 			 a.statusText = #{searchValue} 
 		</if>
 		ORDER BY
-			ticketEndExpirationDate DESC
+			ticketApplyDate DESC
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
@@ -883,8 +885,8 @@
     	USER_TICKET_HISTORY
     WHERE
     	user_master_key = #{userMasterKey}
-    AND 
-    	product_master_key > 1
+    <!-- AND 
+    	product_master_key > 1 -->
     ORDER BY
     	ticket_start_expiration_date desc
   </select>

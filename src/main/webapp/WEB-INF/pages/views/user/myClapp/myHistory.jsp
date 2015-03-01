@@ -36,6 +36,7 @@
 </div> <!-- .subMyClappTitleContainer End -->
 <div class="subMyClappContentContainerT2">
 <form id="historyForm">
+<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentBox">
 		<div class="subMyClappTitleSmallLine"></div>
 		<span class="subMyClappSmallTitle">상세 내역 조회</span>
@@ -149,3 +150,11 @@
 	</div>
 </form>
 </div>	
+<script>
+$(function() {
+ 	if("${ticketHistoryInfo.searchKey}") {
+ 		var term = "${ticketHistoryInfo.searchKey}";
+ 		SearchUtils.setDataTerm('', term);
+ 	}
+});
+</script>

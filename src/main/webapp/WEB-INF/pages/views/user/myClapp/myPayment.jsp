@@ -37,6 +37,7 @@
 </div> <!-- .subMyClappTitleContainer End -->
 <div class="subMyClappContentContainerT2">
 <form id="paymentForm">
+<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentBox">
 		<div class="subMyClappTitleSmallLine"></div>
 		<span class="subMyClappSmallTitle">상세 내역 조회</span>
@@ -165,3 +166,11 @@
 	</div>
 	</form>
 </div>	
+<script>
+$(function() {
+ 	if("${paymentInfo.searchKey}") {
+ 		var term = "${paymentInfo.searchKey}";
+ 		SearchUtils.setDataTerm('', term);
+ 	}
+});
+</script>

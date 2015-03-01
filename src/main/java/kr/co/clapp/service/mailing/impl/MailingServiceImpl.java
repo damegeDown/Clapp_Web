@@ -47,6 +47,8 @@ public class MailingServiceImpl implements MailingService {
 	private String serviceURL;
 	@Value("#{mailConfig['emailSender']}")
 	private String emailSender;
+	@Value("#{mailConfig['recruitSender']}")
+	private String recruitSender;
 	@Value("#{mailConfig['emailSenderName']}")
 	private String emailSenderName;
 	@Value("#{mailConfig['emailForm']}")
@@ -524,8 +526,9 @@ public class MailingServiceImpl implements MailingService {
 		    // Info
 		    mailSendInfo.setSubject(formRecruitInfoEntity.getName()+"_이력서");
 		    mailSendInfo.setEmailForm("mailSubTemp.jsp");
-		    String[] recipient = {formRecruitInfoEntity.getEmail()};
-		    mailSendInfo.setRecipient(recipient);
+		    String[] recipient = {recruitSender};
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(formRecruitInfoEntity.getEmail());//보내는 사람
 		    mailSendInfo.setFile(formRecruitInfoEntity.getFileName());
 		    mailSendInfo.setFileName("이력서");
 		    

@@ -75,6 +75,7 @@
 </div>
 <div class="subMyClappContentDetailsContainer">
 	<form id="reservationForm">
+	<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentDetailsBox">
 		<div class="subMyClappTitleSmallLine"></div>
 		<span class="subMyClappSmallTitle">상세 내역 조회</span>
@@ -198,9 +199,8 @@
 				<tr class="subMyClappPaidProductList2Select">
 					<td>${ticketHistoryInfo.dataSize-(ticketHistoryInfo.pageListSize*(ticketHistoryInfo.currentPage-1))-i.index}</td>
 					<td>
-						<fmt:formatDate value="${history.startDttm}" pattern="yyyy-MM-dd"/><br/>
-						<fmt:formatDate value="${history.startDttm}" pattern="HH:mm"/>
-						~ <fmt:formatDate value="${history.endDttm}" pattern="HH:mm"/>	
+						<fmt:formatDate value="${history.reserve_time}" pattern="yyyy-MM-dd HH:mm"/><br/>
+						 
 					</td>
 					<td>
 						<fmt:formatDate value="${history.startDttm}" pattern="yyyy-MM-dd"/><br/>
@@ -229,3 +229,11 @@
 	</div> <!-- .subMyClappContentResultBox End -->
 </form>
 </div>
+<script>
+$(function() {
+ 	if("${ticketHistoryInfo.searchKey}") {
+ 		var term = "${ticketHistoryInfo.searchKey}";
+ 		SearchUtils.setDataTerm('', term);
+ 	}
+});
+</script>
