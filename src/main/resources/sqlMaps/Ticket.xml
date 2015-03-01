@@ -358,9 +358,10 @@
 			)  (
 				SELECT  
 					#{ticketProductServiceKey},
-					utm.user_master_key, 
-					utm.product_master_key,
-					FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', #{serviceApplyReason}),
+					utm.user_master_key,  
+					#{productMasterKey},
+					#{serviceProductName},
+					<!-- FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', #{serviceApplyReason}), -->
 					#{serviceApplyTicketAmount},
 					date_add(utm.ticket_end_expiration_date, interval +1 day),
 					date_add(utm.ticket_end_expiration_date, interval +${expirationDate} day),
@@ -885,6 +886,8 @@
     	USER_TICKET_HISTORY
     WHERE
     	user_master_key = #{userMasterKey}
+    AND
+    	TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) > 0
     <!-- AND 
     	product_master_key > 1 -->
     ORDER BY
