@@ -14,8 +14,8 @@
     </div>
     <div class="subCISupportFAQOneContainer">
       <c:forEach items="${boardQnaEntity.boardQnaSelectedList }" var="boardQnaSelected" varStatus="j">
-      <div class="subCISupportFOCListArea" style="cursor: pointer;">
-        <div class="titleRow subCISupportFOCListSubjectClose">
+      <div class="subCISupportFOCListArea">
+        <div class="titleRow subCISupportFOCListSubjectClose" style="cursor: pointer;">
           <div class="subCISupportFOCLSC">
             <div class="subCISupportFOCLSCNo">
               <span>${j.index + 1}</span>
@@ -39,7 +39,7 @@
             <div class="subCISupportFOCLCOCont">
               <p>
               ${boardQnaSelected.qnaAnswer}
-              <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 서비스별 문의를 이용해 주세요.
+              <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.
               </p>
             </div><!-- .subCISupportFOCLCOCont End-->
           </div><!-- .subCISupportFOCLCO End -->
@@ -73,8 +73,8 @@
 
     <div class="subCISupportQAOneContainer">
         <c:forEach items="${boardQnaEntity.boardQnaList }" var="boardQnaList">
-      <div class="subCISupportQOCListArea" style="cursor: pointer;">
-        <div class="titleRow subCISupportQOCListSubjectClose">
+      <div class="subCISupportQOCListArea">
+        <div class="titleRow subCISupportQOCListSubjectClose" style="cursor: pointer;">
           <div class="subCISupportQOCLSC">
             <div class="titleText subCISupportQOCLSCTitle">
               <span>
@@ -97,7 +97,7 @@
             <div class="subCISupportQOCLCOCont" style="margin-left: -60px;">
               <p>
                 ${boardQnaList.qnaAnswer}
-                <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 서비스별 문의를 이용해 주세요.
+                <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.
               </p>
             </div><!-- .subCISupportQOCLCOCont End-->
           </div><!-- .subCISupportQOCLCO End -->
