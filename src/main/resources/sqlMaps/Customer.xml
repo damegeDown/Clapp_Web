@@ -424,7 +424,7 @@
 	    BOARD_NOTICE_KEY,
 	    NOTICE_TITLE,
 	    NOTICE_CONTENTS,
-	    FN_GET_COMMON_CODE_NAME('NOTICE_OPEN', NOTICE_OPEN) NOTICE_OPEN,
+	    if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기') as noticeOpenYn,
 	    NOTICE_OPEN_DATE,
 	    NOTICE_INSERT_NAME,
 	    NOTICE_INSERT_DATE,
@@ -437,10 +437,10 @@
        AND
          NOTICE_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
       </if>
-      <if test="searchValue != '' and searchValue != null">
+       <if test="searchValue != '' and searchValue != null">
         AND
-         NOTICE_OPEN = #{searchValue}
-      </if>
+         if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기')  = #{searchValue}
+      </if> 
       <if test="searchValue1 != '' and searchValue1 != null">
         <choose>
           <when test="searchKey == 1">
@@ -483,10 +483,10 @@
       AND
         NOTICE_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
      </if>
-     <if test="searchValue != '' and searchValue != null">
-       AND
-        NOTICE_OPEN = #{searchValue}
-     </if>
+       <if test="searchValue != '' and searchValue != null">
+        AND
+         if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기')  = #{searchValue}
+      </if> 
      <if test="searchValue1 != '' and searchValue1 != null">
        <choose>
          <when test="searchKey == 1">
@@ -795,8 +795,8 @@
       BOARD_NOTICE_KEY,
       NOTICE_TITLE,
       NOTICE_CONTENTS,
-      FN_GET_COMMON_CODE_NAME('NOTICE_OPEN', NOTICE_OPEN) NOTICE_OPEN,
       NOTICE_OPEN_DATE,
+      if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기') as noticeOpenYn,
       NOTICE_INSERT_NAME,
       NOTICE_INSERT_DATE,
       NOTICE_REMOVE_DATE
@@ -805,7 +805,7 @@
     WHERE
       NOTICE_REMOVE_DATE IS NULL
     AND 
-    	NOTICE_OPEN = 'Y'
+    	NOTICE_OPEN_DATE <![CDATA[ <= ]]> NOW()
     ORDER BY
       NOTICE_INSERT_DATE DESC
     LIMIT  
@@ -855,6 +855,8 @@
      BOARD_NOTICE
    WHERE
      NOTICE_REMOVE_DATE IS NULL
+    AND 
+    	NOTICE_OPEN_DATE <![CDATA[ <= ]]> NOW()
   </select>
   <!-- //사용자 공지사항 카운트-->
   
