@@ -20,6 +20,7 @@ var SearchUtils = (function() {
  		 $(_this).addClass("smccdtTabLiActive");
  		 if(term == "all") {
  			 $(".dateTerm").val('');
+ 			 $("select").not("select[name=searchListSize]").val("");
  		 } else if(term == "toDay") {
  			$(".dateTerm").val(toDay);
  		 } else {  
@@ -30,7 +31,7 @@ var SearchUtils = (function() {
  		 }
  	 };
  	 return {
- 		 setDataTerm : setDataTerm 
+ 		 setDataTerm : setDataTerm
  	 }
 })($);
 

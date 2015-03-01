@@ -93,7 +93,9 @@ public class MailingServiceImpl implements MailingService {
 		int sendResult = CommonCode.ZERO;
 		// Default Info
 		mailSendInfo.setIsHtml(true);
-		mailSendInfo.setSender(emailSender);
+		if( StringUtils.isEmpty(mailSendInfo.getSender())) {
+			mailSendInfo.setSender(emailSender);
+		}
 		mailSendInfo.setSenderName(emailSenderName);
 		// Default Data
 //		SimpleDateFormat sdf = new SimpleDateFormat(CommonCode.DatePattern.KOREAN, Locale.KOREAN);
@@ -579,9 +581,9 @@ public class MailingServiceImpl implements MailingService {
 		    // Info
 		    mailSendInfo.setSubject("[Clapp] 고객문의 답변 메일입니다..");
 		    mailSendInfo.setEmailForm(emailTemp);
-		   // String[] recipient = {memberEntity.getUserId()};
-		    String[] recipient = {memberEntity.getUserId()};
-		    mailSendInfo.setRecipient(recipient);
+		    String[] recipient = {emailSender};
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(memberEntity.getUserId());//보내는 사람
 			String userName = memberEntity.getUserName(); 
 			String inquiry = memberEntity.getInquiryContents();
 			String answer = memberEntity.getAnswerContents();

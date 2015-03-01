@@ -462,7 +462,7 @@
   <!-- 사용자 티켓 사용우선순위가 위인 티켓키와 사용가능 티켓 조회 -->
   <select id="getPrioritieTicketKey" parameterType="memberEntity" resultType="ticketEntity">
   	SELECT
-	   um.target_key,
+	   um.user_ticket_master_key,
 	   um.user_master_key,
 	   um.ticket_avilable_amount
 	FROM
@@ -523,7 +523,7 @@
   <!-- 자신이 소유한 티켓정보를 불러온다 -->
   <select id="selectTicketInfo" parameterType="ticketEntity" resultType="ticketentity">
     SELECT
-    	target_key,
+    	user_ticket_master_key,
     	user_master_key,
     	product_master_key,
     	product_name,

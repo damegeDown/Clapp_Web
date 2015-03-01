@@ -141,7 +141,7 @@
 			<div class="subMyClappContentDetailsSearchBottomSection">
 				<div class="smccdsbBox">
 					<input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700">
-					<input type="reset" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">
+					<input type="button" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">
 				</div>
 			</div>
 		</div>
