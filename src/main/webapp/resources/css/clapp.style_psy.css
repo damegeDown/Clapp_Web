@@ -1511,10 +1511,11 @@
 }
 .subTRReviewCHCImg{
   clear: both;
-  display: block;
+  display: table-cell;
   width: inherit;
   height: 80px;
   padding-top: 10px;
+  vertical-align: middle;
 }
 .subTRReviewCHCTextBox{
   width: 880px;
