@@ -809,6 +809,8 @@
 			AND
 			 a.payment_state = #{searchValue2}
 		</if>
+		ORDER BY
+			a.payment_date DESC
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>

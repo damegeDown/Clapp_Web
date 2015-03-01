@@ -47,6 +47,8 @@ public class MailingServiceImpl implements MailingService {
 	private String serviceURL;
 	@Value("#{mailConfig['emailSender']}")
 	private String emailSender;
+	@Value("#{mailConfig['recruitSender']}")
+	private String recruitSender;
 	@Value("#{mailConfig['emailSenderName']}")
 	private String emailSenderName;
 	@Value("#{mailConfig['emailForm']}")
@@ -93,7 +95,9 @@ public class MailingServiceImpl implements MailingService {
 		int sendResult = CommonCode.ZERO;
 		// Default Info
 		mailSendInfo.setIsHtml(true);
-		mailSendInfo.setSender(emailSender);
+		if( StringUtils.isEmpty(mailSendInfo.getSender())) {
+			mailSendInfo.setSender(emailSender);
+		}
 		mailSendInfo.setSenderName(emailSenderName);
 		// Default Data
 //		SimpleDateFormat sdf = new SimpleDateFormat(CommonCode.DatePattern.KOREAN, Locale.KOREAN);
@@ -522,8 +526,9 @@ public class MailingServiceImpl implements MailingService {
 		    // Info
 		    mailSendInfo.setSubject(formRecruitInfoEntity.getName()+"_이력서");
 		    mailSendInfo.setEmailForm("mailSubTemp.jsp");
-		    String[] recipient = {formRecruitInfoEntity.getEmail()};
-		    mailSendInfo.setRecipient(recipient);
+		    String[] recipient = {recruitSender};
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(formRecruitInfoEntity.getEmail());//보내는 사람
 		    mailSendInfo.setFile(formRecruitInfoEntity.getFileName());
 		    mailSendInfo.setFileName("이력서");
 		    
@@ -579,9 +584,9 @@ public class MailingServiceImpl implements MailingService {
 		    // Info
 		    mailSendInfo.setSubject("[Clapp] 고객문의 답변 메일입니다..");
 		    mailSendInfo.setEmailForm(emailTemp);
-		   // String[] recipient = {memberEntity.getUserId()};
-		    String[] recipient = {memberEntity.getUserId()};
-		    mailSendInfo.setRecipient(recipient);
+		    String[] recipient = {emailSender};
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(memberEntity.getUserId());//보내는 사람
 			String userName = memberEntity.getUserName(); 
 			String inquiry = memberEntity.getInquiryContents();
 			String answer = memberEntity.getAnswerContents();

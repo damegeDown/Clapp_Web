@@ -462,7 +462,7 @@
   <!-- 사용자 티켓 사용우선순위가 위인 티켓키와 사용가능 티켓 조회 -->
   <select id="getPrioritieTicketKey" parameterType="memberEntity" resultType="ticketEntity">
   	SELECT
-	   um.target_key,
+	   um.user_ticket_master_key,
 	   um.user_master_key,
 	   um.ticket_avilable_amount
 	FROM
@@ -523,7 +523,7 @@
   <!-- 자신이 소유한 티켓정보를 불러온다 -->
   <select id="selectTicketInfo" parameterType="ticketEntity" resultType="ticketentity">
     SELECT
-    	target_key,
+    	user_ticket_master_key,
     	user_master_key,
     	product_master_key,
     	product_name,
@@ -646,6 +646,8 @@
 			AND
 		  	vr.status = #{searchValue2}
 		</if>
+		ORDER BY
+			vr.start_dttm desc
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
@@ -708,7 +710,7 @@
 		
 			SELECT
 				reserve_time,
-				'사용' ,
+				'차감' ,
 				use_point,
 				start_dttm,
 				end_dttm,
@@ -825,7 +827,7 @@
 			 a.statusText = #{searchValue} 
 		</if>
 		ORDER BY
-			ticketEndExpirationDate DESC
+			ticketApplyDate DESC
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
@@ -883,8 +885,8 @@
     	USER_TICKET_HISTORY
     WHERE
     	user_master_key = #{userMasterKey}
-    AND 
-    	product_master_key > 1
+    <!-- AND 
+    	product_master_key > 1 -->
     ORDER BY
     	ticket_start_expiration_date desc
   </select>
