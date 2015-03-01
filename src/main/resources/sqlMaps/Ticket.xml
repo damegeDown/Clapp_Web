@@ -311,7 +311,12 @@
 			USER_TICKET_MASTER 
 		SET 
 			ticket_amount = ticket_amount + ${serviceApplyTicketAmount},
-			ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount}
+			ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount},
+			ticket_end_expiration_date = date_add(ticket_end_expiration_date, interval +${expirationDate} day)
+			<if test="userType == 2">
+				,product_name = #{serviceProductName}
+				,product_master_key = #{productMasterKey}
+			</if>
 		WHERE
 			user_master_key in (
 				SELECT 
@@ -319,6 +324,9 @@
 				FROM 
 				 	USER_MASTER
 				WHERE
+					<if test="serviceTargetType == 1">
+					  USER_TYPE = '1' OR '2'
+					</if>
 					<if test="serviceTargetType == 2">
 					  USER_TYPE = '1'
 					</if>
@@ -326,10 +334,11 @@
 					  USER_TYPE = '2'
 					</if>
 					<if test="serviceTargetType == 4" >
-					    user_id in
+					    <!-- user_id in
 					  <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
 			             #{userIdArr}
-			          </foreach>
+			          </foreach> -->
+			         	user_id = #{userId}
 			        </if>
 			)
 	</update>
@@ -337,7 +346,7 @@
 		INSERT INTO
 			USER_TICKET_HISTORY 
 			(
-				user_ticket_master_key,
+				target_key,
 				user_master_key,
 				product_master_key,
 				product_name,
@@ -347,14 +356,14 @@
 				ticket_apply_date,
 				insert_date
 			)  (
-				SELECT 
-					utm.user_ticket_master_key,
-					utm.user_master_key,
+				SELECT  
+					#{ticketProductServiceKey},
+					utm.user_master_key, 
 					utm.product_master_key,
-					#{serviceApplyReason},
+					FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', #{serviceApplyReason}),
 					#{serviceApplyTicketAmount},
-					utm.ticket_start_expiration_date,
-					utm.ticket_end_expiration_date,
+					date_add(utm.ticket_end_expiration_date, interval +1 day),
+					date_add(utm.ticket_end_expiration_date, interval +${expirationDate} day),
 					DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %h:%i'),
 					NOW()
 				FROM 
@@ -363,6 +372,9 @@
 				WHERE
 					utm.user_master_key = um.user_master_key
 				AND 
+					<if test="serviceTargetType == 1">
+					  um.USER_TYPE = '1' OR '2'
+					</if>
 					<if test="serviceTargetType == 2">
 					  um.USER_TYPE = '1'
 					</if>
@@ -370,10 +382,11 @@
 					  um.USER_TYPE = '2'
 					</if>
 					<if test="serviceTargetType == 4" >
-					   um.user_id in
+					   <!-- um.user_id in
 					  <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
 			             #{userIdArr}
-			          </foreach>
+			          </foreach> -->
+			          um.user_id = #{userId}
 			         </if>
 			)
 	</insert>
@@ -670,7 +683,7 @@
 			WHERE
 				user_master_key = #{userMasterKey}
 				
-			UNION ALL
+			<!-- UNION ALL
 			
 			SELECT
 				service_apply_date,
@@ -689,7 +702,7 @@
 			AND
 				ut.user_master_key = au.user_master_key
 			AND
-				ut.user_master_key = #{userMasterKey}
+				ut.user_master_key = #{userMasterKey} -->
 				
 			UNION ALL
 		
@@ -757,7 +770,7 @@
 			WHERE
 				user_master_key = #{userMasterKey}
 				 
-			UNION ALL
+			<!-- UNION ALL
 			SELECT
 				service_apply_date,
 				'적립' state,
@@ -776,7 +789,7 @@
 				ut.user_master_key = au.user_master_key
 			AND
 				ut.user_master_key = #{userMasterKey}
-				
+				 -->
 			UNION ALL
 		
 			SELECT
@@ -870,8 +883,10 @@
     	USER_TICKET_HISTORY
     WHERE
     	user_master_key = #{userMasterKey}
-    AND
+    AND 
     	product_master_key > 1
+    ORDER BY
+    	ticket_start_expiration_date desc
   </select>
   <!-- //자신이 티켓정보 히스토리를 불러온다 -->
 </mapper>
