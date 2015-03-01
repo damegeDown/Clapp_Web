@@ -76,25 +76,6 @@ public class TicketServiceImpl implements TicketService {
 		  
 		  List<String> userId = (List<String>) ticketEntity.getUserIdArr();
 		  
-//		  /** FREE 티켓 사용자가 아닐시 */
-//		 if(ticketInfo.getProductMasterKey() > 1) {
-//			 /** 기존 정보의 유효기간을 새로운 상품 만큼 늘린다.*/
-//			 endDate = Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), ticketParam.getExpirationDate());
-//			 ticketParam.setTicketEndExpirationDate(endDate);
-//			 /** 기존 티켓수를 새로운 상품 만큼 늘린다*/
-//			 ticket = ticketParam.getTicketAmount() + ticketInfo.getTicketAmount();
-//			 avilableTicket = ticketParam.getTicketAvilableAmount() + ticketInfo.getTicketAvilableAmount();
-//		 } else {
-//			 /** 기존 정보의 유효기간을 새로운 상품 만큼 늘린다.*/
-//			 endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
-//			 ticketParam.setTicketEndExpirationDate(endDate);
-//			 /** 기존 티켓수를 새로운 상품 만큼 늘린다*/
-//			 ticket = ticketParam.getTicketAmount();
-//			 avilableTicket = ticketParam.getTicketAvilableAmount();
-//		 }
-//		 ticketParam.setTicketAmount(ticket);
-//		 ticketParam.setTicketAvilableAmount(avilableTicket);
-		 
 		  /** 개별 계정 부여시 */
 		  if(ticketEntity.getServiceTargetType().equals("4")) {
 			  for(int i = 0; i < userId.size(); i++ ) {
