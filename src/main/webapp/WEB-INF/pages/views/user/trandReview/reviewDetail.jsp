@@ -51,7 +51,7 @@
             출처 : <a href="http://${trandReviewDetail.trandOriginLink }" target="new">${trandReviewDetail.trandOrigin }</a>
           </span>
         </div>
-        <div class="subTRIndustryCTBImg" style="display:table">
+        <div class="subTRIndustryCTBImg alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:428px; height:270px">
           		<img src="${contextPath}/common/imgView?fileType=${trandReviewDetail.fileTarget}&fileName=${trandReviewDetail.fileSavedName}" />
           	</div>

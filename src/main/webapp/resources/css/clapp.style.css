@@ -181,12 +181,13 @@ sub {
 }
 img {
   border: 0;
+}
+.alignCenter img {
   display:block;
   margin-left:auto;
   margin-right:auto;
   vertical-align:middle;
 }
-
 /**
  * Correct overflow not hidden in IE 9/10/11.
  */
@@ -910,7 +911,7 @@ body {
 /**************** Gnb End ****************/
 #wrapBgDevice {
   width: 100%;
-  height: 480px;
+  height: 300px;
   display: block;
   background: #1e2428;
   margin: 0 auto;
@@ -1981,7 +1982,7 @@ body {
   margin: 0 auto;
 }
 .mSliderContent1 {
-  width: 430px;
+  width: 480px;
   height: inherit;
   display: block;
   float: left;
@@ -2001,7 +2002,7 @@ body {
 }
 .mSliderContent2BoxTop, .mSliderContent2BoxBottom {
   width: inherit;
-  height: 240px;
+  height: 150px;
   display: block;
 }
 .mSliderContentItem2, .mSliderContentItem3 {
@@ -2034,7 +2035,7 @@ body {
 }
 .mSliderContent5BoxTop, .mSliderContent5BoxBottom {
   width: inherit;
-  height: 240px;
+  height: 150px;
   display: block;
 }
 .mSliderContentItem5, .mSliderContentItem6 {
@@ -2069,7 +2070,7 @@ body {
 }
 .mSliderContent6BoxTop, .mSliderContent6BoxBottom {
   width: inherit;
-  height: 240px;
+  height: 150px;
   display: block;
 }
 .mSliderContentItem9, .mSliderContentItem10 {
@@ -2102,12 +2103,12 @@ body {
   width: inherit;
   height: 68px;
   display: block;
-  margin-top: 90px;
+  margin-top: 40px;
 }
 .mSliderLeftArrow, .mSliderRightArrow {
   float: left;
   width: 50px;
-  height: 64px;
+  height: 64px; 
   display: block;
 }
 .mSliderLeftArrow a, .mSliderRightArrow a {
@@ -2233,7 +2234,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 1020px;
+  top: 840px;
   z-index: 10;
 }
 .mSliderTextBox2 {
@@ -2243,7 +2244,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 690px;
   z-index: 10;
 }
 .mSliderTextBox3 {
@@ -2253,7 +2254,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 690px;
   z-index: 10;
 }
 .mSliderTextBox4 {
@@ -2263,7 +2264,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 1020px;
+  top: 840px;
   z-index: 10;
 }
 .mSliderTextBox5 {
@@ -2358,7 +2359,7 @@ body {
   background: url('./../images/more_device.png') no-repeat;
   background-position: center center;
   margin-left: 193px;
-  margin-top: 96px;
+  margin-top: 65px;
 }
 .mDeviceMore:hover {
   width: 37px;

@@ -448,7 +448,7 @@
               <span class="subMTCNMore"><a href="${contextPath }/mobileTesting/testingDevice"></a></span>
             </div>
             <div class="sMTSL1LBottom">
-              <div class="sMSL1LBLeft" style="display:table">
+              <div class="sMSL1LBLeft alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
 	                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox1" style="display: none;">
@@ -472,7 +472,7 @@
           </div>
           <div class="subMTSliderL1CotentBoxRight">
             <div class="sMTSL1RTop">
-              <div class="sMSL1RTLeft" style="display:table">
+              <div class="sMSL1RTLeft alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
 	                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[2].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox3" style="display: none;">
@@ -482,7 +482,7 @@
 	                </div>
                 </div>
               </div>
-              <div class="sMSL1RTRight" style="display:table">
+              <div class="sMSL1RTRight alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
                 <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[3].fileTarget}&fileName=${deviceEntity.deviceList[3].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox4" style="display: none;">
@@ -494,7 +494,7 @@
               </div>
             </div>
             <div class="sMTSL1RBottom">
-              <div class="sMSL1RBLeft" style="display:table">
+              <div class="sMSL1RBLeft alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
                 	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[4].fileTarget}&fileName=${deviceEntity.deviceList[4].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox5" style="display: none;">
@@ -529,7 +529,7 @@
               <span class="subMTCNMore"><a href="${contextPath }/mobileTesting/testingDevice"></a></span>
             </div>
             <div class="sMTSL2LBottom">
-              <div class="sMSL2LBLeft" style="display:table">
+              <div class="sMSL2LBLeft alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
 	                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[5].fileTarget}&fileName=${deviceEntity.deviceList[5].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox6" style="display: none;">
@@ -539,7 +539,7 @@
 	                </div>
                 </div>
               </div>
-              <div class="sMSL2LBRight" style="display:table">
+              <div class="sMSL2LBRight alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
 	                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[6].fileTarget}&fileName=${deviceEntity.deviceList[6].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox7" style="display: none;">
@@ -553,7 +553,7 @@
           </div>
           <div class="subMTSliderL2CotentBoxRight">
             <div class="sMTSL2RTop">
-              <div class="sMSL2RTLeft" style="display:table">
+              <div class="sMSL2RTLeft alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
 	                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[7].fileTarget}&fileName=${deviceEntity.deviceList[7].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox8" style="display: none;">
@@ -563,7 +563,7 @@
 	                </div>
                 </div>
               </div>
-              <div class="sMSL2RTRight" style="display:table">
+              <div class="sMSL2RTRight alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
 	                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[8].fileTarget}&fileName=${deviceEntity.deviceList[8].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox9" style="display: none;">
@@ -575,7 +575,7 @@
               </div>
             </div>
             <div class="sMTSL2RBottom">
-              <div class="sMSL2RBLeft" style="display:table">
+              <div class="sMSL2RBLeft alignCenter" style="display:table">
           		<div style="display:table-cell;vertical-align:middle;width:240px">
 	                <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[9].fileTarget}&fileName=${deviceEntity.deviceList[9].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
 	                <div class="mtSliderTextBox10" style="display: none;">

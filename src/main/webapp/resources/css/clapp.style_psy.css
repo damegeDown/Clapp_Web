@@ -887,13 +887,14 @@
   margin-left: 10px;
 }
 .subMTDeviceCOBInput {
-  width: 228px;
+  width: 208px;
   height: 38px;
   padding-left: 10px;
   border: 1px solid #dbe1e7;
   background: #f6f7f8;
   font-size: 15px;
   color: #909090;
+  padding-right:20px;
 }
 .subMTDeviceContentTwoContainer {
   clear: both;
@@ -1794,7 +1795,7 @@
 	max-height : 270px;
 	max-width : 428px;
 	
-	height: 319px; */
+	/*height: 319px; */
 }
 .subTRIndustryViewContentTwoContainer {
   width: 960px;
