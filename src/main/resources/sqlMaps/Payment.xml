@@ -816,7 +816,7 @@
 	<!-- 구매하려는 상품이 현재 상용중인 상품에 속하는지 확인 -->
  	<select id="getProductInfo" parameterType="paymentEntity" resultType="int">
 	    SELECT
-	        COUNT(user_ticket_master_key)
+	        COUNT(*)
 	    FROM 
 	        USER_TICKET_MASTER
 	    WHERE

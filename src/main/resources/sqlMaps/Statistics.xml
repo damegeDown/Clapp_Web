@@ -241,8 +241,8 @@
 				DEVICE di
 			WHERE
 				um.user_master_key = utm.user_master_key
-			AND
-				utm.user_ticket_master_key = uth.user_ticket_master_key
+			<!-- AND
+				utm.user_ticket_master_key = uth.user_ticket_master_key -->
 			AND
 				uth.device_key = di.device_key
 			AND
