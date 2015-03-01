@@ -8146,7 +8146,7 @@ select::-ms-expand {
 }
 .subPGPOCBtnImg1 img{
   display: block;
-  width: inherit;
+  /* width: inherit; */
   height: inherit;
   position: absolute;
   margin-top: -37px;
