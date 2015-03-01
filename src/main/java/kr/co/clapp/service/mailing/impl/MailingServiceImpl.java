@@ -541,8 +541,10 @@ public class MailingServiceImpl implements MailingService {
 												.replace("$email", recipient[0])
 												.replace("$tel", formRecruitInfoEntity.getTel())
 												.replace("$depart", formRecruitInfoEntity.getDepart()) 
-												.replace("$file",  formRecruitInfoEntity.getFileName())
 												.replace("$nowDate", sdf.format(new Date()));
+//			if(!StringUtils.isEmpty(formRecruitInfoEntity.getFileName())) {
+//				mailContents.replace("$file",  formRecruitInfoEntity.getFileName());
+//			}
 			//ecrmEntity
 			ecrmEntity.setMailSendStartDate(mailSendStartDate); 
 			ecrmEntity.setMailContent(mailContents);

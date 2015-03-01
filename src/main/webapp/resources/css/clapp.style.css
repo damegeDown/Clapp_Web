@@ -172,9 +172,19 @@ sub {
 /**
  * Remove border when inside `a` element in IE 8/9/10.
  */
-
+.cell-wrapper {
+	display:table;
+} 
+.cell {
+	display:table-cell;
+	vertical-align:middle
+}
 img {
   border: 0;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  vertical-align:middle;
 }
 
 /**

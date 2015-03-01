@@ -107,7 +107,7 @@
       <div class="subInquiryContentRight">
         <input  type="text" id="fileName" class="sicFileInput" readonly  data-flag="off"/>
         <input type="button" value="찾아보기" class="sicFileBtn" />
-        <input type="file" class="sicFile" name="file" data-flag="off"  onChange="javascript: document.getElementById('fileName').value = this.value" />
+        <input type="file" class="sicFile" name="file" data-flag="off"  onChange="javascript: document.getElementById('fileName').value = this.value.replace('C:\\fakepath\\', '')" />
       </div>
     </div>
   </div>
