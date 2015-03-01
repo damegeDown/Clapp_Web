@@ -16,7 +16,7 @@
 			</p>
 		</div>
 		<div class="mtGuide05COCMainImg">
-			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_01.png" alt="" />
+			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_01.png" alt="" style="width: 400px;	height: 300px;" />
 		</div>
 	</div><!-- .mtGuide01COCMainBox End -->
 </div><!-- .mtGuide01ContentOneContainer End -->
@@ -137,12 +137,12 @@
 		</div>
 		<div class="mtGuide05CTCImgTwoBox02">
 			<div class="mtGuide05CTCThreeImg">
-				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_03.png" alt="" />
+				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_03.png" alt="" style="width: 440px;	height: 250px;"/>
 			</div>
 		</div>
 		<div class="mtGuide05CTCImgThreeBox03">
 			<div class="mtGuide05CTCThreeImg">
-				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_04.png" alt="" />
+				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_04.png" alt="" style="width: 340px;	height: 435px;"/>
 			</div>
 		</div>
 	</div>

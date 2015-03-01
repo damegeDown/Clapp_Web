@@ -104,8 +104,8 @@
 	</div>
 	<div class="mtGuide02CTCBox02">
 		<div class="mtGuide02CTCImgBox">
-			<div class="mtGuide02CTCImg">
-				<img src="${contextPath }/resources/images/popup_mtg_reserve_jnlp_01.png" alt="08" />
+			<div class="mtGuide02CTCImg">	
+				<img src="${contextPath }/resources/images/popup_mtg_reserve_jnlp_01.png" style="width: 390px; height: 500px;" alt="08" />
 			</div>
 		</div>
 	</div>
@@ -165,7 +165,7 @@
 	<div class="mtGuide02CHCBox02">
 		<div class="mtGuide02CHCImgBox">
 			<div class="mtGuide02CHCImg">
-				<img src="${contextPath }/resources/images/popup_mtg_reserve_jnlp_02.png" alt="05" />
+				<img src="${contextPath }/resources/images/popup_mtg_reserve_jnlp_02.png" style="width: 420px; height: 226px;" alt="05" />
 			</div>
 		</div>
 	</div>
