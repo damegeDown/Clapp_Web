@@ -62,7 +62,13 @@
 						<fmt:formatDate value="${history.ticketStartExpirationDate }" pattern="yyyy-MM-dd"/> 
 						~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd"/>	
 					</td>
-					<td>${history.expirationDate }일</td>
+					<td>
+						<c:choose>
+							<c:when test="${history.expirationDate < 1}">0</c:when>
+							<c:when test="${history.expirationDate > 0}">${history.expirationDate}</c:when>
+						</c:choose>
+						일
+					</td>
 					<td>${history.ticketAvilableAmount }티켓</td>
 					<%-- <td>${history.ticketAmount - ticketInfo.ticketAvilableAmount}티켓</td>
 					<td>${history.ticketAvilableAmount }티켓</td> --%>
@@ -199,8 +205,9 @@
 				<tr class="subMyClappPaidProductList2Select">
 					<td>${ticketHistoryInfo.dataSize-(ticketHistoryInfo.pageListSize*(ticketHistoryInfo.currentPage-1))-i.index}</td>
 					<td>
-						<fmt:formatDate value="${history.reserve_time}" pattern="yyyy-MM-dd HH:mm"/><br/>
-						 
+						<fmt:formatDate value="${history.startDttm}" pattern="yyyy-MM-dd"/><br/>
+						<fmt:formatDate value="${history.startDttm}" pattern="HH:mm"/>
+						~ <fmt:formatDate value="${history.reserveTime}" pattern="HH:mm"/>	
 					</td>
 					<td>
 						<fmt:formatDate value="${history.startDttm}" pattern="yyyy-MM-dd"/><br/>
