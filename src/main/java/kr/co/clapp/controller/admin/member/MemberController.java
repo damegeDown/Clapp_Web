@@ -146,8 +146,8 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
-		 DropOutUserEntity dropOutUserEntity = new DropOutUserEntity();
-		 MemberEntity memberEntity = new MemberEntity();
+//		 DropOutUserEntity dropOutUserEntity = new DropOutUserEntity();
+//		 MemberEntity memberEntity = new MemberEntity();
 //		 dropOutUserEntity.setDropOutUserId("dnltpdnd@naver.com");
 //		 dropOutUserEntity.setUserName("위세웅");
 //		 mailingService.sendDropOutMemberMail(dropOutUserEntity);

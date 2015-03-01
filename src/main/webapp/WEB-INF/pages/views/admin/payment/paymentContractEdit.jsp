@@ -36,13 +36,13 @@
 		    	 	     </c:if>
 		    	 	   </td>
 	    	 	 		</tr> 
-	    	 	 	</c:forEach>
+	    	 	 	</c:forEach> 
 	    	 	 </c:when>
 	    	 	 <c:otherwise>
 	    	 	 <tr class="trUserId">
 	    	 	   <th>회원 ID</th>
 	    	 	   <td>
-	    	 	   	 <input type="text" name="userMasterKeyArr"   data-flag="off" data-id="${i.index + 1 }"/>
+	    	 	   	 <input type="hidden" name="userMasterKeyArr"   data-flag="off" data-id="${i.index + 1 }"/>
 	    	 	     <input type="text" name="contractUserIdArr" value="${paymentInfo.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="1"/>
 	    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 	    	 	   </td>
