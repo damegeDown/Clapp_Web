@@ -94,7 +94,7 @@
 			<div class="subMyClappContentResultTotalSectionBox">
 				<div class="sccrtS1">
 					<ul class="sccrtSLists">
-						<li><span class="sccrtSTitle1">현재 잔여 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 건</span></li>
+						<li><span class="sccrtSTitle1">현재 잔여 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 티켓</span></li>
 						<li class="sccrtSListsLine"></li>
 						<li><span class="sccrtSTitle2">유효기간 : &nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.expirationDate }</span><span class="sccrtSQty2"> 일</span></li>
 					</ul>

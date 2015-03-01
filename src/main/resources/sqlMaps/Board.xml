@@ -477,7 +477,7 @@
       bsb.SOCIAL_BLOG_CONTENT,
       bsb.SOCIAL_BLOG_INSERT_DATE,
       DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%Y년 %m월 %d일') AS socialBlogInsertYearDay,
-      DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%Y-%m-%d %h:%i') AS socialBlogInsertTime,
+      DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%Y-%m-%d %H:%i') AS socialBlogInsertTime,
       DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%Y') AS socialBlogInsertYear,
       DATE_FORMAT(bsb.SOCIAL_BLOG_INSERT_DATE, '%m.%d') AS socialBlogInsertDay,
       bsb.SOCIAL_BLOG_REMOVE_DATE,

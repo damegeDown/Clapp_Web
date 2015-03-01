@@ -7,7 +7,7 @@
     <div class="wbcBox1">
       <div class="wbcBox1Con">
         <div class="wbcBox1BtLogo">
-          <img src="${contextPath }/resources/images/clapp_bt_logo.png" alt="CLAPP" />
+          <a href="${contextPath}/"><img src="${contextPath }/resources/images/clapp_bt_logo.png" alt="CLAPP" /></a>
         </div>
         <div class="wbcBox1BtCompanyInfo">
           <span class="wbcCompanyName">(주)메디오피아테크</span>

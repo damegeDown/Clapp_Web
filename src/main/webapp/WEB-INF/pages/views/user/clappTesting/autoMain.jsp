@@ -114,6 +114,7 @@
 			해당 시스템은 기본 Scenario를 통해 Test Automation을 제공합니다.<br />
 			지속적인 고도화를 통해 다양한 플랫폼(OS)에서 지원할 계획입니다.
 		</p>
+		<img src="${contextPath }/resources/images/at_two_c_bg2.png" alt="구성도" />
 	</div>
 </div> <!-- .subContentFourContainer End -->
 
@@ -307,17 +308,38 @@
 			</div>
 			<div class="subTAContentFiveItem2TextBox">
 				<div class="sTACEItemsText2Box">
-					<a href="#">
+					<a href="${contextPath}/autoGuide/autoGuide1" onClick="mtPopup(this.href); return false;">
 						<div class="sTACEItems2Text1Box">
 							<p class="sTACEItems2Text1">
-								Memory Leak 기본 가이드
+								Over View
 							</p>
 						</div>
 					</a>
-					<a href="#">
+					<a href="${contextPath}/autoGuide/autoGuide2" onClick="mtPopup(this.href); return false;">
 						<div class="sTACEItems2Text2Box">
 							<p class="sTACEItems2Text2">
-								Script 기본 가이드
+								프로그램 시작하기
+							</p>
+						</div>
+					</a>
+					<a href="${contextPath}/autoGuide/autoGuide3" onClick="mtPopup(this.href); return false;">
+						<div class="sTACEItems2Text3Box">
+							<p class="sTACEItems2Text3">
+								주요 기능
+							</p>
+						</div>
+					</a>
+					<a href="${contextPath}/autoGuide/autoGuide4" onClick="mtPopup(this.href); return false;">
+						<div class="sTACEItems2Text4Box">
+							<p class="sTACEItems2Text4">
+								Memory Leak Test
+							</p>
+						</div>
+					</a>
+					<a href="${contextPath}/autoGuide/autoGuide5" onClick="mtPopup(this.href); return false;">
+						<div class="sTACEItems2Text5Box">
+							<p class="sTACEItems2Text5">
+								Script Test
 							</p>
 						</div>
 					</a>

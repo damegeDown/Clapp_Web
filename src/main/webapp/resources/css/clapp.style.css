@@ -1173,7 +1173,9 @@ body {
   float: left;
   width: 160px;
   height: 160px;
-  display: block;
+  display: table-cell;
+  vertical-align: middle;
+  
 }
 .wrapArticleMainTitle {
   float: left;
@@ -6051,7 +6053,7 @@ body {
   height: inherit;
   display: block;
   margin: 0 auto;
-  padding: 50px 0;
+  padding-top: 50px;
 }
 .subMyClappTitleSmallLine {
   width: 2px;
