@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<<body style="overflow-X:hidden">
+<body style="overflow-X:hidden">
    <div class="mtGuide03ContentOneContainer">
 		<div class="mtGuide03COCMainBox">
 			<div class="mtGuide03COCMainTitle">
@@ -99,7 +99,7 @@
 	<div class="mtGuide03ContentThreeContainer">
 		<div class="mtGuide03CHCImgBox">
 			<div class="mtGuide03CHCImg">
-				<img src="${contextPath }/resources/images/popup_mtg_device_jnlp_01.png" alt="" />
+				<img src="${contextPath }/resources/images/popup_mtg_device_jnlp_01.png" alt="" style="width: 800px;	height: 430px;" />
 			</div>
 		</div><!-- .mtGuide01COCMainBox End -->
 	</div><!-- .mtGuide01ContentOneContainer End -->

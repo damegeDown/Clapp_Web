@@ -82,12 +82,12 @@
 		<div class="mtGuide04CTCBox02">
 			<div class="mtGuide04CTCImgBox01">
 				<div class="mtGuide04CTCImg">
-					<img src="${contextPath }/resources/images/popup_mtg_monitor_jnlp_01.png" alt="" />
+					<img src="${contextPath }/resources/images/popup_mtg_monitor_jnlp_01.png" alt="" style="width: 400px;	height: 423px;"/>
 				</div>
 			</div>
 			<div class="mtGuide04CTCImgBox02">
 				<div class="mtGuide04CTCImg">
-					<img src="${contextPath }/resources/images/popup_mtg_monitor_jnlp_02.png" alt="" />
+					<img src="${contextPath }/resources/images/popup_mtg_monitor_jnlp_02.png" alt="" style="width: 400px;	height: 200px; margin-top: 30px;" />
 				</div>
 			</div>
 		</div>
