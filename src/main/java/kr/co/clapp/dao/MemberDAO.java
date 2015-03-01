@@ -238,4 +238,6 @@ int redundancyCheck(MemberEntity memberEntity);
  */
 TicketEntity getUserProductInfo(MemberEntity userInfo);
 
+MemberEntity getUserInfoId(MemberEntity memberEntity);
+
 }

@@ -439,8 +439,10 @@
       USER_MASTER
     WHERE
       user_id LIKE '%${userId}%'
+    <if test="userType != '' and userType != null">
     AND
-    	user_type > 1
+    	user_type > #{userType}
+   	</if>
   </select>
   <select id="searchUserIdArr" parameterType="memberEntity" resultType="String">
       SELECT  
@@ -590,6 +592,16 @@
     		USER_MASTER 
     	WHERE 
     		user_master_key = #{userMasterKey}
+    </select>
+    <!-- //회원 정보 -->
+    <!-- 회원 정보 -->
+    <select id="getUserInfoId" parameterType="memberEntity" resultType="memberEntity">
+    	SELECT 
+    		* 
+    	FROM 
+    		USER_MASTER 
+    	WHERE 
+    		user_id = #{userId}
     </select>
     <!-- //회원 정보 -->
     <!--  회원 로그인 -->

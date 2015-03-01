@@ -19,17 +19,17 @@
       <tr class="trUserId" >
         <th>대상 회원 ID</th>
         <td>
-          <p class="serviceTargetRow">
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="1" />전체 (member_all)</label>
+          <p class="serviceTargetRow" style="margin-top:5px">
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="1" /> 전체 (member_all)</label>
           </p>
-          <p class="serviceTargetRow">
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="2" />일반 전체 (person_all)</label>
+          <p class="serviceTargetRow" style="margin-top:5px">
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="2" /> 일반 전체 (person_all)</label>
           </p>
-          <p>
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="3" />기업/단체 전체 (company_all)</label>
+          <p style="margin-top:5px">
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="3" /> 기업/단체 전체 (company_all)</label>
           </p>
-          <p>
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" />개별 계정 (개별 회원 또는 별도 계약건)</label>
+          <p style="margin-top:5px">
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (개별 회원 또는 별도 계약건)</label>
           </p>  
           <div class="addUser">
             <input type="text" style="margin-left: 18px;"class="inp-w301 test" name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
@@ -55,12 +55,12 @@
       <tr>
         <th>적용상품명</th>
         <td>
-          <select class="sel-w70" name="serviceProductName">
-            <option value="">선택</option>
-            <c:forEach items="${productTypeCode}" var="code">
-               <option value="${code.commonCode }">${code.commonName }</option>
-            </c:forEach>
-          </select>
+           <input type="hidden" name="serviceProductName"/>
+    	 	   	<select class="sel-w180" name="productMasterKey">
+		          <c:forEach items="${productInfo.productList }" var="code">
+					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>
+				 </c:forEach>
+	           </select>
           &nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함) 
         </td>
      </tr>
@@ -70,6 +70,10 @@
          <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;개 ( 반드시 1 계정당 발행될 티켓 수를 입력해 주세요 )
        </td>
      </tr>
+     <tr>
+	 	   <th>유효기간</th>
+	 	   <td><input type="text" name="expirationDate" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)</td>
+	 </tr>
      <tr>
        <th>적용사유</th>
        <td>
@@ -114,5 +118,12 @@
     //회원 아이디 함수
     $.fn.Common.init();
     $.fn.ticketProductServiceForm.init();
+    
+    $("select[name=productMasterKey]").change(function() {
+		var productName = $("select option[value="+$(this).val()+"]").text();
+		var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
+		$("input[name=serviceProductName]").val(productName);
+		$("input[name=expirationDate]").val(applyDate);
+	});
   });
 </script>

@@ -7,8 +7,10 @@ import java.util.List;
 
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.entities.CommonCodeEntity;
+import kr.co.clapp.entities.ProductEntity;
 import kr.co.clapp.entities.TicketEntity;
 import kr.co.clapp.service.common.CommonService;
+import kr.co.clapp.service.product.ProductService;
 import kr.co.clapp.service.ticket.TicketService;
 import kr.co.digigroove.commons.utils.StringUtils;
 
@@ -27,6 +29,8 @@ public class TicketController {
   
   @Autowired
   private TicketService ticketService;
+  @Autowired
+  private ProductService productService;
   
   @Autowired
   private CommonService commonService;
@@ -141,6 +145,7 @@ public class TicketController {
 	  	String navigation = "티켓 / 상품 적용 서비스 > 신규 적용";
 		String submitType = "등록";
 		String submitAction = "admin/ticket/rest/insertTicketProductService";
+		ProductEntity productInfo = new ProductEntity();
 		try {
 			//공통코드 
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
@@ -156,7 +161,10 @@ public class TicketController {
 			commonCodeEntity.setCodeMasterCode(CommonCode.PRODUCT_TYPE);
 			//공통코드 상품 타입 코드
 			List<CommonCodeEntity> productTypeCode = commonService.getCommonCodeList(commonCodeEntity);
+			//상품정보
+			productInfo = productService.getProductList(productInfo);
 			
+			model.addAttribute("productInfo", productInfo);
 			model.addAttribute("ticketEntity", ticketEntity);														
 			model.addAttribute("userTypeCode", userTypeCode);														//공통코드 유저 일반,기업/단체 구분 코드
 			model.addAttribute("serviceApplyReasonCode", serviceApplyReasonCode);									//공통코드 티켓 적용 사유 코드
