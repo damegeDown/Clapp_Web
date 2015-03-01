@@ -30,6 +30,7 @@ import kr.co.clapp.utils.ValidationResultUtils;
 import kr.co.digigroove.commons.entities.SavedFileEntity;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.FileUtils;
+import kr.co.digigroove.commons.utils.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -288,8 +289,9 @@ public class IntroductionController {
 	  try { 
 		resultEntity.setResultEntity(ValidationResultUtils.formValidationResult(formRecruitInfoEntity, RecruitPass.class));
 		if(resultEntity.getCode().equals(CommonCode.SUCCESS)) {
+			long fileSize = formRecruitInfoEntity.getFile().getSize();
 			// 파일 업로드
-			if(req.getFileNames().hasNext()) {
+			if(fileSize > 0) {
 				//파일 저장 정보 
 				List<SavedFileEntity> savedFileList = new ArrayList<SavedFileEntity>();
 				//넘어온 이미지를 저장.  
@@ -298,15 +300,15 @@ public class IntroductionController {
 				//파일 경로
 				String path = filePath + "reqruit";
 				Iterator<String> itr = req.getFileNames();
-				int i = 0;
+				int i = 0; 
 				while (itr.hasNext()) { fileList.add(req.getFile(itr.next())); }
 				if (fileList != null) {
 					for (MultipartFile file : fileList) {
 						savedFileList.add(FileUtils.saveFile(path, file));
 					}
-				}
 				String uploadFileName = savedFileList.get(0).getSavedFileName() ; 
 				formRecruitInfoEntity.setFileName(path + "/" + uploadFileName);
+				}
 			}
 			
 			 mailingService.sendDefaultMail(formRecruitInfoEntity);

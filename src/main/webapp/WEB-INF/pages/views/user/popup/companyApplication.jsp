@@ -7,11 +7,11 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <body>
   <div id="companyWrap">
-  <form:form id="requritForm" method="post"  action="${contextPath }/introduction/sendRequit" commandName="formRecruitInfoEntity" enctype="multipart/form-data">
+  <form:form id="requritForm" method="post"  action="${contextPath }/introduction/sendRequit" commandName="formRecruitInfoEntity" enctype="multipart/form-data" onsubmit="return fileCheck()">
     <div class="companyHeaderGraphicContainer">
       <div class="comapanyHeaderGraphicBgBox">
         <div class="companyHeaderGraphicBox">
-          <div class="companyHeaderGraphicLogo">
+          <div class="companyHeaderGraphicLogo"> 
             <span>입사지원 하기</span>
           </div>
           <div class="companyHeaderGraphicClose">
@@ -89,9 +89,9 @@
               <span class="companyContentOnebox01RowTit">이력서 첨부</span>
             </div>
             <div class="companyContentOnebox01RowContBox">
-              <input  type="text" id="fileName" class="companyContentOnebox01RowContInputRO" readonly />
+              <input  type="text" id="fileName" class="companyContentOnebox01RowContInputRO" readonly value="${formRecruitInfoEntity.fileName }"/>
               <input type="button" value="찾아보기" class="companyContentOnebox01RowContBtn" />
-              <input type="file" name="file" class="companyContentOnebox01RowContFile" onChange="javascript: document.getElementById('fileName').value = this.value" />
+              <input type="file" name="file" class="companyContentOnebox01RowContFile" onChange="javascript: document.getElementById('fileName').value = this.value.replace('C:\\fakepath\\', '')" />
             </div> 
           </div>
         </div>
@@ -130,3 +130,22 @@
     </form:form>
   </div>
 </body>
+<script language="javascript">
+<!--
+
+function fileCheck() {   
+  var file = $("input[name=file]").val();
+  var fileExt = file.substring(file.lastIndexOf('.')+1); //파일의 확장자를 구합니다.
+  var bSubmitCheck = true;
+   if(file != '' && fileExt.toUpperCase() != "PDF" && fileExt.toUpperCase() != "DOC" && fileExt.toUpperCase() != "DOCX"  && fileExt.toUpperCase() != "ZIP")
+   {
+                alert("pdf, doc, docx, zip 파일만 첨부 가능합니다.");
+                /* $("input[name=fileName]").val('');
+                $("input[name=file]").val(''); */
+                return false;
+   }
+   
+	return true;
+}
+//-->
+</script>
