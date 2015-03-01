@@ -53,7 +53,7 @@
 										<c:set var="target" value="_blank"/>
 									</c:if>
 									<a href="${link }" target="${target }">
-										<div class="subTRSocialCHCImgBox" style="display:table">
+										<div class="subTRSocialCHCImgBox alignCenter" style="display:table">
 											<div class="subTRSocialCHCImg" style="display:table-cell;vertical-align:middle;width:80px">
 												<img src="${contextPath}/common/imgView?fileType=${boardSocialBlogList.fileTarget}&fileName=${boardSocialBlogList.fileSavedName}" style="max-width:80px; max-height:80px"/>
 											</div>
@@ -126,7 +126,7 @@ $(function(){
 										"<div class='subTRSocialCHCListCols'>"+
 											"<div class='subTRSocialCHCListColsLinkBox'>"+
 												"<a href='"+link +"' target='"+target+"'>"+
-													"<div class='subTRSocialCHCImgBox' style='display:table'>"+
+													"<div class='subTRSocialCHCImgBox alignCenter' style='display:table'>"+
 														"<div class='subTRSocialCHCImg' style='display:table-cell;vertical-align:middle;width:80px'>"+
 														"<img src='${contextPath}/common/imgView?fileType="+resultList[i].fileTarget+"&fileName="+resultList[i].fileSavedName+"' style='max-width:80px;max-height:80px;'/>"+
 														"</div>"+

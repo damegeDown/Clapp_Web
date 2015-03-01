@@ -80,23 +80,23 @@ wcs_do();
   <div class="BGSlider">
     <div class="mSliderLayer1">
       <div class="mSliderContent1">
-        <div class="mSliderContentItem1" style="display:table">
-          <div style="display:table-cell;vertical-align:middle; ">
-	          <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width: 480px; max-height: 480px;"/>
+        <div class="mSliderContentItem1  alignCenter" style="display:table">
+          <div style="display:table-cell;vertical-align:middle;width:480px " >
+	          <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width: 300px; max-height: 300px;"/>
 	          <div class="mSliderTextBox1" style="display: none;">
 	            <span class="msliderText1">${deviceEntity.deviceList[0].deviceModelEname}</span>
 	            <span class="msliderText2">${deviceEntity.deviceList[0].deviceMakerCode}</span>
 	            <span class="msliderText3">${deviceEntity.deviceList[0].deviceOsCode}</span>
 	          </div>
           </div>
-        </div>
+        </div> 
         
       </div>
       <div class="mSliderContent2">
         <div class="mSliderContent2BoxTop">
-          <div class="mSliderContentItem2" style="display:table">
+          <div class="mSliderContentItem2 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[1].fileTarget}&fileName=${deviceEntity.deviceList[1].fileSavedName}" style="max-width:240px; max-height:240px;" />
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[1].fileTarget}&fileName=${deviceEntity.deviceList[1].fileSavedName}" style="max-width:150px; max-height:150px;" />
 	            <div class="mSliderTextBox2" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[1].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[1].deviceMakerCode}</span>
@@ -104,9 +104,9 @@ wcs_do();
 	            </div>
             </div> 
           </div>
-          <div class="mSliderContentItem3" style="display:table">
+          <div class="mSliderContentItem3 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-           	 <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[2].fileSavedName}" style="max-width:240px; max-height:240px;" />
+           	 <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[2].fileSavedName}" style="max-width:150px; max-height:150px;" />
             <div class="mSliderTextBox3" style="display: none;">
               <span class="msliderText1">${deviceEntity.deviceList[2].deviceModelEname}</span>
               <span class="msliderText2">${deviceEntity.deviceList[2].deviceMakerCode}</span>
@@ -116,9 +116,9 @@ wcs_do();
           </div>
         </div>
         <div class="mSliderContent2BoxBottom">
-          <div class="mSliderContentItem4" style="display:table">
+          <div class="mSliderContentItem4 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-	            <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[3].fileTarget}&fileName=${deviceEntity.deviceList[3].fileSavedName}"style="max-width:240px; max-height:240px;" />
+	            <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[3].fileTarget}&fileName=${deviceEntity.deviceList[3].fileSavedName}"style="max-width:150px; max-height:150px;" />
 	            <div class="mSliderTextBox4" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[3].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[3].deviceMakerCode}</span>
@@ -140,9 +140,9 @@ wcs_do();
     <div class="mSliderLayer2" style="display:none;">
       <div class="mSliderContent5">
         <div class="mSliderContent5BoxTop">
-          <div class="mSliderContentItem5" style="display:table">
+          <div class="mSliderContentItem5 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[4].fileTarget}&fileName=${deviceEntity.deviceList[4].fileSavedName}" style="max-width:240px; max-height:240px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[4].fileTarget}&fileName=${deviceEntity.deviceList[4].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox5" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[4].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[4].deviceMakerCode}</span>
@@ -150,9 +150,9 @@ wcs_do();
 	            </div>
             </div>
           </div>
-          <div class="mSliderContentItem6" style="display:table">
+          <div class="mSliderContentItem6 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[5].fileTarget}&fileName=${deviceEntity.deviceList[5].fileSavedName}"style="max-width:240px; max-height:240px;" />
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[5].fileTarget}&fileName=${deviceEntity.deviceList[5].fileSavedName}"style="max-width:150px; max-height:150px;" />
 	            <div class="mSliderTextBox6" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[5].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[5].deviceMakerCode}</span>
@@ -162,9 +162,9 @@ wcs_do();
           </div>
         </div>
         <div class="mSliderContent5BoxBottom">
-          <div class="mSliderContentItem7" style="display:table">
+          <div class="mSliderContentItem7 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[6].fileTarget}&fileName=${deviceEntity.deviceList[6].fileSavedName}" style="max-width:240px; max-height:240px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[6].fileTarget}&fileName=${deviceEntity.deviceList[6].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox7" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[6].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[6].deviceMakerCode}</span>
@@ -172,9 +172,9 @@ wcs_do();
 	            </div>
             </div>
           </div>
-          <div class="mSliderContentItem8" style="display:table">
+          <div class="mSliderContentItem8 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[7].fileSavedName}" style="max-width:240px; max-height:240px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[7].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox8" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[7].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[7].deviceMakerCode}</span>
@@ -187,9 +187,9 @@ wcs_do();
       </div>
       <div class="mSliderContent6">
         <div class="mSliderContent6BoxTop">
-          <div class="mSliderContentItem9" style="display:table">
+          <div class="mSliderContentItem9 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[8].fileTarget}&fileName=${deviceEntity.deviceList[8].fileSavedName}" style="max-width:240px; max-height:240px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[8].fileTarget}&fileName=${deviceEntity.deviceList[8].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox9" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[8].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[8].deviceMakerCode}</span>
@@ -197,9 +197,9 @@ wcs_do();
 	            </div>
             </div>
           </div>
-          <div class="mSliderContentItem10" style="display:table">
+          <div class="mSliderContentItem10 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-	            <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[9].fileTarget}&fileName=${deviceEntity.deviceList[9].fileSavedName}" style="max-width:240px; max-height:240px;"/>
+	            <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[9].fileTarget}&fileName=${deviceEntity.deviceList[9].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox10" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[9].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[9].deviceMakerCode}</span>
@@ -209,9 +209,9 @@ wcs_do();
           </div>
         </div>
         <div class="mSliderContent6BoxBottom">
-          <div class="mSliderContentItem11" style="display:table">
+          <div class="mSliderContentItem11 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[10].fileTarget}&fileName=${deviceEntity.deviceList[10].fileSavedName}" style="max-width:240px; max-height:240px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[10].fileTarget}&fileName=${deviceEntity.deviceList[10].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox11" style="display: none;">
 	              <span class="msliderText1">${deviceEntity.deviceList[10].deviceModelEname}</span>
 	              <span class="msliderText2">${deviceEntity.deviceList[10].deviceMakerCode}</span>
@@ -290,7 +290,7 @@ wcs_do();
       </div>
       <div class="article">
         <div class="wrapArticleContainer brownbg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.trandList[0].fileTarget}&fileName=${boardEntity.trandList[0].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -308,7 +308,7 @@ wcs_do();
     <div class="wrapASecTopRight">
       <div class="article artLine">
         <div class="wrapArticleContainerR brownbg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.trandList[1].fileTarget}&fileName=${boardEntity.trandList[1].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -324,7 +324,7 @@ wcs_do();
       </div>
       <div class="article">
         <div class="wrapArticleContainerR brownbg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.trandList[2].fileTarget}&fileName=${boardEntity.trandList[2].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -344,7 +344,7 @@ wcs_do();
     <div class="wrapASecMiddleLeft">
       <div class="article artLine">
         <div class="wrapArticleContainer navybg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.reviewList[0].fileTarget}&fileName=${boardEntity.reviewList[0].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -360,7 +360,7 @@ wcs_do();
       </div>
       <div class="article">
         <div class="wrapArticleContainer navybg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.reviewList[1].fileTarget}&fileName=${boardEntity.reviewList[1].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -391,7 +391,7 @@ wcs_do();
       </div>
       <div class="article">
         <div class="wrapArticleContainerR navybg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.reviewList[2].fileTarget}&fileName=${boardEntity.reviewList[2].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -424,7 +424,7 @@ wcs_do();
       </div>
       <div class="article">
         <div class="wrapArticleContainer purplebg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.caseList[0].fileTarget}&fileName=${boardEntity.caseList[0].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -442,7 +442,7 @@ wcs_do();
     <div class="wrapASecBottomRight">
       <div class="article artLine">
         <div class="wrapArticleContainerR purplebg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.caseList[1].fileTarget}&fileName=${boardEntity.caseList[1].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -458,7 +458,7 @@ wcs_do();
       </div>
       <div class="article">
         <div class="wrapArticleContainerR purplebg">
-          <div class="wrapArticleThumbnail" style="display:table">
+          <div class="wrapArticleThumbnail alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle">
             	<img src="${contextPath}/common/imgView?fileType=${boardEntity.caseList[2].fileTarget}&fileName=${boardEntity.caseList[2].fileSavedName}" style="max-width:160px;"/>
             </div>
@@ -493,7 +493,7 @@ wcs_do();
     <div class="wBgSnsArticles">
     <c:forEach items="${boardEntity.socialBlogList }" var="socialBlogList">
       <div class="SnsArticleBox SnsArticleLine">
-			<div class="SnsArticleThumbnail" style="display:table">
+			<div class="SnsArticleThumbnail alignCenter" style="display:table">
           	  <div style="display:table-cell;vertical-align:middle">
 	          	<img src="${contextPath}/common/imgView?fileType=${socialBlogList.fileTarget}&fileName=${socialBlogList.fileSavedName}" style="max-width:80px;"/>
 	          </div>
