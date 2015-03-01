@@ -25,67 +25,13 @@
 
 		<!-- //컨텐츠  -->
 		<div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 0px;width:630px	">
-			<div style="TEXT-ALIGN: left; PADDING-BOTTOM: 20px; LINE-HEIGHT: 21px; PADDING-LEFT: 25px; PADDING-RIGHT: 15px; FONT-FAMILY: gulim,굴림; COLOR: #444; FONT-SIZE: 12px; PADDING-TOP: 20px""><B>
-				<B><SPAN style="FONT-SIZE: 14px;"><font color="#3369d8">클앱 채용 </font>담당자님,</SPAN></B> 
-				<BR/><BR/> 
-				<strong><font color="#3369d8">$nowDate</font></strong>
-							에 신규 지원자가 접수 되었습니다.<BR>    
-							지원자의 이력서를 확인해 주시기 바랍니다.<BR>
-                      <BR>
-                      감사합니다.
+			<div style="margin:20px 0 ;TEXT-ALIGN: left; PADDING-BOTTOM: 20px; LINE-HEIGHT: 21px; PADDING-LEFT: 25px; PADDING-RIGHT: 15px; FONT-FAMILY: gulim, 굴림; COLOR: #444; FONT-SIZE: 12px; PADDING-TOP: 20px;BACKGROUND-COLOR: #f2f2f2;width:630px"><B>
+				<SPAN style="FONT-SIZE: 14px;">
+					${startDttm}에 단말기를 예약하셨습니다.<br/>
+					<a href="${serverUrl}/">홈페이지 접속</a>
+				</SPAN>
 			</div> 
 			<div style="clear:both"></div>
-			
-			<div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 15px; PADDING-TOP: 0px;width:665px">
-				<strong>&#8226; 지원자 이력서</strong>
-				<TABLE border="0" cellSpacing="0" cellPadding="0" style="width:100%">
-                <TBODY>
-                  <TR>
-                    <TD bgColor="#9dc1d9" height="2" width="150"></TD>
-                  <TD bgColor="#9dc1d9" width="1"></TD>
-                  <TD bgColor="#9dc1d9"></TD></TR>
-                  <TR>
-                    <TD 
-                style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" 
-                bgColor="#fbfbfb" height="38" align="center">이름</TD>
-                    <TD bgColor="#e2e2e2"></TD>
-                    <TD 
-                style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px; PADDING-TOP: 0px">$name</TD>
-                  </TR>
-                   <TR>
-                    <TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
-                  <TR>
-                    <TD 
-                style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" 
-                bgColor="#fbfbfb" height="38" align="center">이메일주소</TD>
-                    <TD bgColor="#e2e2e2"></TD>
-                    <TD 
-                style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px; PADDING-TOP: 0px">$email</TD>
-                  </TR>
-                   <TR>
-                    <TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
-                  <TR>
-                    <TD 
-                style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" 
-                bgColor="#fbfbfb" height="38" align="center">연락처</TD>
-                    <TD bgColor="#e2e2e2"></TD>
-                    <TD 
-                style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px; PADDING-TOP: 0px">$tel</TD>
-                  </TR>
-                   <TR>
-                    <TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
-                  <TR>
-                    <TD 
-                style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" 
-                bgColor="#fbfbfb" height="38" align="center">지원분야</TD>
-                    <TD bgColor="#e2e2e2"></TD>
-                    <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px; PADDING-TOP: 0px">$depart</TD>
-                  </TR>
-                  <TR><TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
-                  </TBODY></TABLE></TD></TR>
-              </TBODY>
-			</div>
-			<div style="height:75px; text-align:center; margin-top:20px"></div>
 		</div>
 		<!-- //컨텐츠  -->
 

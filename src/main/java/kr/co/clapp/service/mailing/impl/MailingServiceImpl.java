@@ -476,15 +476,26 @@ public class MailingServiceImpl implements MailingService {
 		    mailSendInfo.setEmailForm(apiEmailTemp);
 		    String[] recipient = {ecrmEntity.getMailReceptionAddress()};
 		    mailSendInfo.setRecipient(recipient);
-			String userName = ""; 
+		    String userName = ecrmEntity.getUserName(); 
+			String fromEmail = ecrmEntity.getFromEmail(); 
+			String prodName = ecrmEntity.getProdName(); 
+			String fileUrl = ecrmEntity.getFileUrl(); 
+			String memo = ecrmEntity.getMemo(); 
+			String startDttm = ecrmEntity.getStartDttm(); 
+			String testName = ecrmEntity.getTestName(); 
+			String serverUrl = ecrmEntity.getServerUrl(); 
 			
-			ecrmEntity.setMailType(CommonCode.MailType.MAIL_ISSUE);
-//			String mailContents = this.getMailTemp(ecrmEntity)
-//											.getMailTempContents()
-//												.replace("$userName", userName)
-//												.replace("$userId", recipient[0])
-//												.replace("$nowDate", sdf.format(new Date()));
-			String mailContents = ecrmEntity.getMailContent();
+			ecrmEntity.setMailType(ecrmEntity.getMailType());
+			String mailContents = this.getMailTemp(ecrmEntity)
+											.getMailTempContents()
+												.replace("$fromEmail", fromEmail)
+												.replace("$prodName", prodName)
+												.replace("$fileUrl", fileUrl)
+												.replace("$startDttm", startDttm)
+												.replace("$testName", testName)
+												.replace("$serverUrl", serverUrl)
+												.replace("$memo", memo);
+			//String mailContents = ecrmEntity.getMailContent();
 			//ecrmEntity
 			ecrmEntity.setMailSendStartDate(mailSendStartDate); 
 			ecrmEntity.setMailContent(mailContents);

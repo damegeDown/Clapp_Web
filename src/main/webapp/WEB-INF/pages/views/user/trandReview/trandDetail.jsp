@@ -50,10 +50,12 @@
             출처 : <a href="http://${trandReviewDetail.trandOriginLink }" target="new">${trandReviewDetail.trandOrigin }</a>
           </span>
         </div>
-        <div class="subTRIndustryCTBImg">
-          <img src="${contextPath}/common/imgView?fileType=${trandReviewDetail.fileTarget}&fileName=${trandReviewDetail.fileSavedName}" />
+        <div class="subTRIndustryCTBImg" style="display:table">
+          	<div style="display:table-cell;vertical-align:middle;width:428px; height:270px">
+          		<img src="${contextPath}/common/imgView?fileType=${trandReviewDetail.fileTarget}&fileName=${trandReviewDetail.fileSavedName}" />
+          	</div>
         </div>
-      </div><!-- .subTRIndustryContentOnebox End -->
+      </div><!-- .subTRIndustryContentOnebox End --> 
     </div> <!-- .subContentOneContainer End -->
 
     <div class="subTRIndustryViewContentTwoContainer">

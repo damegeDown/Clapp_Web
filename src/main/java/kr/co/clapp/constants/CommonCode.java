@@ -71,9 +71,15 @@ public class CommonCode {
 		public final static int MAIL_RESERVE_CANCEL_DIVICE = 13;  	// 디바이스 예약취소
 		public final static int MAIL_RESERVE_MODIFY_DIVICE = 14;  	// 디바이스 예약 변경
 		public final static int MAIL_ISSUE = 15;									// 이슈 발생시 (관리자)
-		public final static int MAIL_TARGET_ALL = 16;						// 타켓메일(전체)
-		public final static int MAIL_TARGET_GENERAL = 17;				// 타켓메일(일반)
-		public final static int MAIL_TARGET_COMPANY = 18;				// 타켓메일(기업)
+		public final static int MAIL_DEVICE_SYNC = 16;						// 디바이스 공유시 
+		public final static int MAIL_RESERVE_JNLP = 17;					// JNLP 예약시 
+		public final static int MAIL_RESERVE_AUTO = 18;					// 자동화 예약시 
+		public final static int MAIL_TEST_COMPLETE = 19;					// 자동화 테스트 완료시 
+		public final static int MAIL_SYSTEM_ERROR = 20;					// 시스템 에러시 
+		public final static int MAIL_RESERVE_NOT_USED = 21;			// 예약후 사용하지 않을시 
+		public final static int MAIL_TARGET_ALL = 22;						// 타켓메일(전체)
+		public final static int MAIL_TARGET_GENERAL = 23;				// 타켓메일(일반)
+		public final static int MAIL_TARGET_COMPANY = 24;				// 타켓메일(기업)
 		
 		public final static int MAIL_ANY_TIME = 1;			        			// 메일구분 - 수시
 		public final static int MAIL_TARGET = 2;		    		      		 	// 메일구분 - 타켓
