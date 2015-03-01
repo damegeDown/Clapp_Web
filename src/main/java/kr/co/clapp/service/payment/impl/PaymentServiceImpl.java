@@ -433,9 +433,12 @@ public class PaymentServiceImpl implements PaymentService {
 		 int result = 0;
 		 int ticket = 0;
 		 int avilableTicket = 0;
+		 int oriTicket = ticketEntity.getTicketAmount();
+		 int oriAvilableTicket = ticketEntity.getTicketAvilableAmount();
 		 Date endDate = null;
 		 TicketEntity ticketInfo = new TicketEntity();
-		 TicketEntity ticketParam = ticketEntity;
+		 TicketEntity ticketParam = new TicketEntity();
+		 ticketParam = ticketEntity;
 		 //소유한 티켓 정보를 불러온다.
 		 ticketInfo = ticketDAO.selectTicketInfo(ticketParam); 
 		 if(StringUtils.isEmpty(ticketInfo)) { 
@@ -462,7 +465,9 @@ public class PaymentServiceImpl implements PaymentService {
 			 result = ticketDAO.modifyUserTicketMaster(ticketParam);
 			 
 			 /** 티켓 히스토리에 저장 */
-			 if(result > CommonCode.ZERO) {
+			 if(result > CommonCode.ZERO) {  
+				 ticketParam.setTicketAmount(oriTicket);
+				 ticketParam.setTicketAvilableAmount(oriAvilableTicket);
 				 ticketEntity.setTicketStartExpirationDate(Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), 1));
 				 ticketEntity.setTicketEndExpirationDate(endDate);
 				 ticketDAO.insertUserTicketHistory(ticketEntity);
