@@ -70,7 +70,7 @@
          <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;개 ( 반드시 1 계정당 발행될 티켓 수를 입력해 주세요 )
        </td>
      </tr>
-     <tr>
+     <tr>  
 	 	   <th>유효기간</th>
 	 	   <td><input type="text" name="expirationDate" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)</td>
 	 </tr>
