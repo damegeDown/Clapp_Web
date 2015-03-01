@@ -133,7 +133,7 @@
       <div class="subInquiryContentRight">
         <input  type="text" id="fileName" class="sicFileInput" readonly  data-flag="off"/>
         <input type="button" value="찾아보기" class="sicFileBtn" />
-        <input type="file" class="sicFile" name="file" data-flag="off"  onChange="javascript: document.getElementById('fileName').value = this.value" />
+        <input type="file" class="sicFile" name="file" data-flag="off"  onChange="javascript: document.getElementById('fileName').value = this.value.replace('C:\\fakepath\\', '')" />
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@
 <br/>
 <div class="subInquiryContentSubContainer">
   <div class="subInquiryContentSubBox">
-    <p class="subInqP1">
+    <p class="subInqP1">  
       수집하는 개인정보의 항목 및 수집방법
     </p>
     <p class="subInqPSub1">

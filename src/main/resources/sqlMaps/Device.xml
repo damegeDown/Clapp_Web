@@ -259,7 +259,7 @@
       ADMINISTRATION_FILE af 
         ON de.device_key = af.file_target_key 
           AND af.file_target = 'DEVICE' 
-            AND af.file_type = 1
+            AND af.file_type = 2
     WHERE 
       de.DEVICE_REMOVE_DATE IS NULL
         <if test="searchValue != null and searchValue != '' ">
