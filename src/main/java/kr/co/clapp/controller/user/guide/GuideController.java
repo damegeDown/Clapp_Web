@@ -22,4 +22,14 @@ public class GuideController {
 		}
 		return "guide/"+guide;
 	}
+	
+	@RequestMapping(value="/autoGuide/{autoGuide}", method=RequestMethod.GET)
+	public String autoGuide(@PathVariable String autoGuide, Model model) {
+		try {
+			model.addAttribute("topMenu", autoGuide);
+		} catch (Exception e) {
+			logger.debug("GuideController.guide:fail : "+e);
+		}
+		return "autoGuide/"+autoGuide;
+	}
 }
