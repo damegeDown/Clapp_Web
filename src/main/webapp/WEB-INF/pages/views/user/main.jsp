@@ -81,7 +81,7 @@ wcs_do();
     <div class="mSliderLayer1">
       <div class="mSliderContent1">
         <div class="mSliderContentItem1" style="display:table">
-          <div style="display:table-cell;vertical-align:middle;width:480px">
+          <div style="display:table-cell;vertical-align:middle; ">
 	          <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width: 480px; max-height: 480px;"/>
 	          <div class="mSliderTextBox1" style="display: none;">
 	            <span class="msliderText1">${deviceEntity.deviceList[0].deviceModelEname}</span>
@@ -102,7 +102,7 @@ wcs_do();
 	              <span class="msliderText2">${deviceEntity.deviceList[1].deviceMakerCode}</span>
 	              <span class="msliderText3">${deviceEntity.deviceList[1].deviceOsCode}</span>
 	            </div>
-            </div>
+            </div> 
           </div>
           <div class="mSliderContentItem3" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
