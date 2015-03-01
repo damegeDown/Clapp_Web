@@ -1207,10 +1207,11 @@
 }
 .subTRReviewCOCImg{
   clear: both;
-  display: block;
+  display: table-cell;
   margin: 0;
   width: 160px;
   height: 160px;
+  vertical-align: middle;
 }
 .subTRReviewCOCTextBox{
   width: 320px;
@@ -1363,10 +1364,11 @@
 }
 .subTRReviewCTCImg{
   clear: both;
-  display: block;
+  display: table-cell;
   margin: 0;
   width: 160px;
   height: 160px;
+  vertical-align: middle;
 }
 .subTRReviewCTCTextBox{
   width: 320px;
@@ -1672,10 +1674,11 @@
 }
 .subTRIndusrtyContentImg{
   clear: both;
-  display: block;
+  display: table-cell;
   margin: 0;
   width: 160px;
   height: 160px;
+  vertical-align: middle;
 }
 .subTRIndusrtyContentTextBox{
   width: 320px;
@@ -1787,9 +1790,10 @@
   right: 0;
 }
 .subTRIndustryCTBImg img{
-  display: block;
-  width: 319px;
-  height: 319px;
+	max-height : 270px;
+	max-width : 428px;
+	
+	height: 319px; */
 }
 .subTRIndustryViewContentTwoContainer {
   width: 960px;

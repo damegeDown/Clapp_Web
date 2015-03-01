@@ -47,7 +47,7 @@ $(function() {
       <div class="subMTDeviceContentOnebox">
         <div class="subMTDeviceCOBTextBox">
           <p class="subMTDeviceCOBText">
-                        국내 출시되는 신규 디바이스 및 사용률 분석결과를 토대로 제공해 드리고 있습니다. <br/>
+                        국내 출시되는 신규 디바이스 및 사용율 분석결과를 토대로 제공해 드리고 있습니다. <br/>
             제공 디바이스는 아래 리스트를 참고해 주시기 바랍니다. ( <a href="${contextPath}/introduction/supportInquire?inquiryCategory=2"><u>디바이스 추가 요청</u></a> ) 
           </p>
         </div>

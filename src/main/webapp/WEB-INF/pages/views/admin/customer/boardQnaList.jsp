@@ -139,7 +139,7 @@
 		</table>
 		<div class="btn-area">
 			<a href="#" id="qnaTop10Open" class="floatL btn-bottom-orenge"><span>선택한 도움말 TOP 노출</span></a> 
-			<a href="${contextPath }/admin/customer/boardQnaDetail" class="floatR btn-bottom-orenge">도움말 등록</a>
+			<a href="${contextPath }/admin/customer/boardQnaModify" class="floatR btn-bottom-orenge">도움말 등록</a>
 		</div>
 		<div class="paging-area">
  		 <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/customer/boardQnaList" pageNavigationEntity="${boardQnaEntity}" />
