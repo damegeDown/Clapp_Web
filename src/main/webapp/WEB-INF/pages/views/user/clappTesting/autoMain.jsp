@@ -114,7 +114,7 @@
 			해당 시스템은 기본 Scenario를 통해 Test Automation을 제공합니다.<br />
 			지속적인 고도화를 통해 다양한 플랫폼(OS)에서 지원할 계획입니다.
 		</p>
-		<img src="${contextPath }/resources/images/at_two_c_bg2.png" alt="구성도" />
+		<img src="${contextPath }/resources/images/at_two_c_bg2.png" alt="구성도" style="margin-top:80px;"/>
 	</div>
 </div> <!-- .subContentFourContainer End -->
 
