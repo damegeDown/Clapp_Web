@@ -675,7 +675,7 @@
 var goPayment = function(key) { 
 	var userType = "${userLoginSession.userType}";
 	
-	if(userType == 1) {
+	if(userType == 2) {
 		var msg = "현재 (기업/단체) 고객님께서는 \n(${ticketInfo.productName}) 개별 계약 상품을 이용하고 계십니다.\n상품 문의는 클앱 고객센터 1661-7083으로 문의 바랍니다.";
 		alert(msg);
 		return false;

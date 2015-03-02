@@ -10,12 +10,14 @@ import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.dao.PaymentDAO;
 import kr.co.clapp.dao.ProductDAO;
 import kr.co.clapp.dao.TicketDAO;
+import kr.co.clapp.entities.EcrmEntity;
 import kr.co.clapp.entities.PageEntity;
 import kr.co.clapp.entities.PayLgdInfo;
 import kr.co.clapp.entities.PaymentEntity;
 import kr.co.clapp.entities.ProductEntity;
 import kr.co.clapp.entities.ResponseEntity;
 import kr.co.clapp.entities.TicketEntity;
+import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.payment.PaymentService;
 import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.utils.DateUtils;
@@ -45,6 +47,8 @@ public class PaymentServiceImpl implements PaymentService {
   private TicketDAO ticketDAO;
   @Autowired
   private ProductDAO productDAO;
+  @Autowired
+  private MailingService mailingService;
   
   @Value("#{pay_prop['configPath']}")
   private String configPath;
@@ -372,6 +376,16 @@ public class PaymentServiceImpl implements PaymentService {
 						//ticketDAO.insertUserTicketHistory(ticketInfo);
 						/** 티켓에 업데이트*/
 						this.insertUserTicketMaster(ticketInfo);
+						
+						/** 메일 발송 */
+						EcrmEntity ecrmEntity = new EcrmEntity();
+						ecrmEntity.setMailTitle("[Clapp] 결제가 정상적으로 완료되었습니다.");
+						ecrmEntity.setUserId(paymentEntity.getPaymentUserId());
+						ecrmEntity.setProductName(paymentEntity.getPaymentProductName());
+						ecrmEntity.setTicketAmount(paymentEntity.getPaymentTicketAmount());
+						ecrmEntity.setExpirationDate(endDate);
+						ecrmEntity.setPaymentAmount(paymentParam.getPaymentProductPrice());
+						mailingService.sendPaymentCardPhoneMail(ecrmEntity);
 					}
 					resultMap.setResultDATA(masterKey);
 					resultMap.setResultCode(CommonCode.SUCCESS);
@@ -435,6 +449,7 @@ public class PaymentServiceImpl implements PaymentService {
 		 int avilableTicket = 0;
 		 int oriTicket = ticketEntity.getTicketAmount();
 		 int oriAvilableTicket = ticketEntity.getTicketAvilableAmount();
+		 int addDate = 0;
 		 Date endDate = null;
 		 TicketEntity ticketInfo = new TicketEntity();
 		 TicketEntity ticketParam = new TicketEntity();
@@ -452,6 +467,7 @@ public class PaymentServiceImpl implements PaymentService {
 				 /** 기존 티켓수를 새로운 상품 만큼 늘린다*/
 				 ticket = ticketParam.getTicketAmount() + ticketInfo.getTicketAmount();
 				 avilableTicket = ticketParam.getTicketAvilableAmount() + ticketInfo.getTicketAvilableAmount();
+				 addDate = 1;
 			 } else {
 				 /** 기존 정보의 유효기간을 새로운 상품 만큼 늘린다.*/
 				 endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
@@ -468,7 +484,7 @@ public class PaymentServiceImpl implements PaymentService {
 			 if(result > CommonCode.ZERO) {  
 				 ticketParam.setTicketAmount(oriTicket);
 				 ticketParam.setTicketAvilableAmount(oriAvilableTicket);
-				 ticketEntity.setTicketStartExpirationDate(Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), 1));
+				 ticketEntity.setTicketStartExpirationDate(Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), addDate));
 				 ticketEntity.setTicketEndExpirationDate(endDate);
 				 ticketDAO.insertUserTicketHistory(ticketEntity);
 			 }
