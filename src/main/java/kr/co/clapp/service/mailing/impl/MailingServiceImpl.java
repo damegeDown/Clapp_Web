@@ -440,9 +440,68 @@ public class MailingServiceImpl implements MailingService {
 	 * 유료서비스 카드/핸드폰 결제
 	 */
 	@Override
-	public int sendPaymentCardPhoneMail() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int sendPaymentCardPhoneMail(EcrmEntity ecrmEntity) {
+		MailSendEntity mailSendInfo = new MailSendEntity();
+		  Map<String, Object> emailData = new ConcurrentHashMap<String,Object>();
+		  int result = CommonCode.ZERO;
+		  try {
+			String sendMailStartDates = DateUtils.getToday(CommonCode.DatePattern.DASH_TIME);
+			Date mailSendStartDate = DateUtils.getDate(sendMailStartDates, CommonCode.DatePattern.DASH_TIME);
+		    // Info
+		    mailSendInfo.setSubject(ecrmEntity.getMailTitle());
+		    mailSendInfo.setEmailForm("mailSubTemp.jsp");
+		    String[] recipient = {ecrmEntity.getUserId()};
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(emailSender);//보내는 사람
+		    
+			String userName = "클앱담당자"; 
+			String productName = ecrmEntity.getProductName();
+			int ticketAmount = ecrmEntity.getTicketAmount();
+			Date expirationDate = ecrmEntity.getExpirationDate();
+			Date paymentDate = ecrmEntity.getPaymentDate();
+			int paymentAmount = ecrmEntity.getPaymentAmount();
+			
+			ecrmEntity.setMailType(CommonCode.MailType.MAIL_PAYMENT_CARD);
+			String mailContents = this.getMailTemp(ecrmEntity)
+											.getMailTempContents()
+												.replace("$userName", userName)
+												.replace("$userId", recipient[0])
+												.replace("$productName", productName)
+												.replace("$ticketAmount", String.valueOf(ticketAmount))
+												.replace("$expirationDate", sdf.format(expirationDate))
+												.replace("$paymentDate", sdf.format(new Date()))
+												.replace("$paymentAmount", String.valueOf(paymentAmount))
+												.replace("$contextPath", serviceURL);
+//			if(!StringUtils.isEmpty(formRecruitInfoEntity.getFileName())) {
+//				mailContents.replace("$file",  formRecruitInfoEntity.getFileName());
+//			}
+			//ecrmEntity
+			ecrmEntity.setMailSendStartDate(mailSendStartDate); 
+			ecrmEntity.setMailContent(mailContents);
+	    	ecrmEntity.setMailState(CommonCode.SUCCESS_NO);
+	        ecrmEntity.setMailReceptionAddress(mailSendInfo.getRecipient()[0]);
+	        ecrmEntity.setMailSection(CommonCode.MailType.MAIL_ANY_TIME); 
+	        ecrmEntity.setMailSort(CommonCode.MailType.MAIL_SORT_PAYMENT);
+	        ecrmEntity.setMailTarget(CommonCode.MailTarget.MAIL_TARGET_NULL);
+	        //insert mail_master
+	        int masterKey = this.setMailMaster(ecrmEntity, mailSendInfo);
+	        mailContents = mailContents.replace("$masterKey" , String.valueOf(masterKey));
+	        
+			 // Data
+	        emailData.put("userId", recipient[0]);
+	        emailData.put("userName", userName);
+	        emailData.put("contents", ecrmEntity);
+	        emailData.put("masterKey", masterKey);
+			result =  sendMail(mailSendInfo, emailData);
+			
+		  } catch (IOException e) {
+		    logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } catch (MessagingException e) {
+		    logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } catch (Exception e) {
+			logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } 
+		  return result;
 	}
 
 	/**

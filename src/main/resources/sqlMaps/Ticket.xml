@@ -721,7 +721,7 @@
 				VIEW_RESERVATIONS vr,
 				VIEW_DEVICES vd
 			WHERE
-				vr.device_id = vd.device_id
+				vr.device_id = vd.id
 			AND
 				vr.status != 3
 			AND
@@ -801,13 +801,13 @@
 				use_point,
 				start_dttm,
 				end_dttm,
-			   (SELECT CONCAT(product_name, '<![CDATA[ <br/><br/> ]]>', '(', vd.prod_name , ' / ' , LEFT(ticket_start_expiration_date,16), ' ~ ', LEFT(RIGHT(ticket_end_expiration_date, 8),5), ')') FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id),
+			   (SELECT CONCAT(product_name, '<![CDATA[ <br/><br/> ]]>', '(', vd.prod_name , ' / ' , LEFT(start_dttm,16), ' ~ ', LEFT(RIGHT(end_dttm, 8),5), ')') FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id),
 				vr.user_id
 			FROM 
 				VIEW_RESERVATIONS vr,
 				VIEW_DEVICES vd
 			WHERE
-				vr.device_id = vd.device_id
+				vr.device_id = vd.id
 			AND
 				vr.status != 3
 			AND

@@ -49,7 +49,7 @@ public interface MailingService {
    * 유료서비스 결제시(신용카드, 핸드폰)
    * @return
    */
-  int sendPaymentCardPhoneMail();
+  int sendPaymentCardPhoneMail(EcrmEntity ecrmEntity);
   
   /**
    * 유료서비스 결제시(가상계좌)
