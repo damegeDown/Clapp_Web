@@ -1754,7 +1754,7 @@
   letter-spacing: -0.5px;
   color: #202020;
   display: block;
-  width: 570px;
+  width: 450px;
   height: 110px;
   position: absolute;
   margin-top: -34px;
@@ -2663,7 +2663,7 @@
 }
 .subTAContentTwoContainer {
   width: inherit;
-  height: 640px;
+  height: 715px;
   display: block;
   background: #ecf0f4;
 }
@@ -12002,7 +12002,7 @@ select::-ms-expand {
 .mtGuide05ContentSevenContainer{
   display: block;
   width: inherit;
-  height: 420px;
+  /* height: 420px; */
   background: #ecf0f4;
 }
 .mtGuide05CECMainBox{

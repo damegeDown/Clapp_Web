@@ -361,7 +361,7 @@
 <div class="mtGuide05ContentSevenContainer">
 	<div class="mtGuide05CECMainBox">
 		<div class="mtGuide05CECMainImg">
-			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_11.png" alt="" />
+			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_11.png" alt="" style="padding-top: 150px; width: 380px;" />
 		</div>
 	</div><!-- .mtGuide01COCMainBox End -->
 </div><!-- .mtGuide01ContentOneContainer End -->
@@ -444,7 +444,7 @@
 	<div class="mtGuide05CGCBox02">
 		<div class="mtGuide05CGCImgOneBox01">
 			<div class="mtGuide05CGCOneImg">
-				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_12.png" alt="" />
+				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_12.png" alt="" style="padding-top: 500px;" />
 			</div>
 		</div>
 	</div>
