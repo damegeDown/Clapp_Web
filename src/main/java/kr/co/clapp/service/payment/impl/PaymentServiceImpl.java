@@ -449,6 +449,7 @@ public class PaymentServiceImpl implements PaymentService {
 		 int avilableTicket = 0;
 		 int oriTicket = ticketEntity.getTicketAmount();
 		 int oriAvilableTicket = ticketEntity.getTicketAvilableAmount();
+		 int addDate = 0;
 		 Date endDate = null;
 		 TicketEntity ticketInfo = new TicketEntity();
 		 TicketEntity ticketParam = new TicketEntity();
@@ -466,6 +467,7 @@ public class PaymentServiceImpl implements PaymentService {
 				 /** 기존 티켓수를 새로운 상품 만큼 늘린다*/
 				 ticket = ticketParam.getTicketAmount() + ticketInfo.getTicketAmount();
 				 avilableTicket = ticketParam.getTicketAvilableAmount() + ticketInfo.getTicketAvilableAmount();
+				 addDate = 1;
 			 } else {
 				 /** 기존 정보의 유효기간을 새로운 상품 만큼 늘린다.*/
 				 endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
@@ -482,7 +484,7 @@ public class PaymentServiceImpl implements PaymentService {
 			 if(result > CommonCode.ZERO) {  
 				 ticketParam.setTicketAmount(oriTicket);
 				 ticketParam.setTicketAvilableAmount(oriAvilableTicket);
-				 ticketEntity.setTicketStartExpirationDate(Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), 1));
+				 ticketEntity.setTicketStartExpirationDate(Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), addDate));
 				 ticketEntity.setTicketEndExpirationDate(endDate);
 				 ticketDAO.insertUserTicketHistory(ticketEntity);
 			 }
