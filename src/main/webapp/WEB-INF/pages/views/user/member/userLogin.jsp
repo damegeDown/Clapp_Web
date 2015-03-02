@@ -69,7 +69,7 @@ $(function() {
  		var setSavedId = function() {
  			$(function() {
  				if("${userLoginSession.userMasterKey}") {
- 					location.href = contextPath+"/myClapp/myTicket";
+ 					location.href = contextPath+"/myClapp/myTicket"; 
  				}
 	 			var flag = getCookie("savedIdFlag");
 	 			var id = getCookie("savedId");
