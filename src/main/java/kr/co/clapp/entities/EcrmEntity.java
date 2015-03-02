@@ -126,7 +126,11 @@ public class EcrmEntity extends PageEntity implements Serializable{
 	private String testName;
 	private String serverUrl;
 	
-	
+	private String productName;
+	private int ticketAmount;
+	private Date expirationDate;
+	private Date paymentDate;
+	private int paymentAmount;
 	
 	public int getMailMasterKey() {
 		return mailMasterKey;
@@ -717,6 +721,36 @@ public class EcrmEntity extends PageEntity implements Serializable{
 	}
 	public void setServerUrl(String serverUrl) {
 		this.serverUrl = serverUrl;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public int getTicketAmount() {
+		return ticketAmount;
+	}
+	public void setTicketAmount(int ticketAmount) {
+		this.ticketAmount = ticketAmount;
+	}
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+	public int getPaymentAmount() {
+		return paymentAmount;
+	}
+	public void setPaymentAmount(int paymentAmount) {
+		this.paymentAmount = paymentAmount;
 	}
 	
 	
