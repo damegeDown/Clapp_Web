@@ -52,7 +52,7 @@ $(function() {
 				setCookie("savedId", "", -1);
 	    	}
 	    	//history.go(-2);
-	    	location.href = contextPath + "/";
+	    	location.href = contextPath+"/myClapp/myTicket";
 	    	
         } else {
         	alert(result.resultMSG);
@@ -69,7 +69,7 @@ $(function() {
  		var setSavedId = function() {
  			$(function() {
  				if("${userLoginSession.userMasterKey}") {
- 					location.href = contextPath+"/myClapp/myTicket"; 
+ 					location.href = contextPath+"/myClapp/myTicket";
  				}
 	 			var flag = getCookie("savedIdFlag");
 	 			var id = getCookie("savedId");
