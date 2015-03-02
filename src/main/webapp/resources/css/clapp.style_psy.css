@@ -12002,7 +12002,7 @@ select::-ms-expand {
 .mtGuide05ContentSevenContainer{
   display: block;
   width: inherit;
-  height: 420px;
+  /* height: 420px; */
   background: #ecf0f4;
 }
 .mtGuide05CECMainBox{
