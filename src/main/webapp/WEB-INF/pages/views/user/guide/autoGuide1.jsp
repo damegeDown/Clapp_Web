@@ -6,11 +6,11 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <body style="overflow-X:hidden">
 		<div>
-			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_1.png" ></div>
-			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_2.png" ></div>
-			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_3.png" ></div>
-			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_4.png" ></div>
-			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_5.png" ></div>
+			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_1.png"></div>
+			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_2.png" style="margin-top: -4px;" ></div>
+			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_3.png" style="margin-top: -4px;"></div>
+			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_4.png" style="margin-top: -4px;"></div>
+			<div><img src="${contextPath }/resources/images/clapp_test_auto_guide1_5.png" style="margin-top: -4px;"></div>
 		</div>
 	<div class="mtGuideFloating">
 		<a href="#atGuideWrap">
