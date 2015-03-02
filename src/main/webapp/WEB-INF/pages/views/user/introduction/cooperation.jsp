@@ -131,10 +131,10 @@
             <div class="subCooperationTwoRightBoxes2">
               <div class="subCooperationTwoRightBoxes2Box1">
                 <div class="subCooperationCompany">
-                  <img alt="게임제작업자등록증" />
+                  <img src="${contextPath }/resources/images/itr_customer_logo_mcst.png" alt="게임제작업자등록증" />
                   <p class="subCooperationCompanyText">
                     게임제작업자등록증
-                  </p> 
+                  </p>
                 </div>
               </div>
               <div class="subCooperationTwoRightBoxes2Box2">
@@ -147,10 +147,10 @@
               </div>
               <div class="subCooperationTwoRightBoxes2Box3">
                 <div class="subCooperationCompany">
-                  <img alt="RFID 회원" />
+                  <img src="${contextPath }/resources/images/itr_customer_logo_kiot.png" alt="RFID 회원" />
                   <p class="subCooperationCompanyText">
                     RFID 회원
-                  </p> 
+                  </p>
                 </div>
               </div>
             </div>
@@ -165,7 +165,7 @@
               </div>
               <div class="subCooperationTwoRightBoxes3Box2">
                 <div class="subCooperationCompany">
-                  <img alt="통신판매업신고증 " />
+                  <img src="${contextPath }/resources/images/itr_customer_logo_ftc.png" alt="통신판매업신고증 " />
                   <p class="subCooperationCompanyText">
                     통신판매업신고증
                   </p> 
