@@ -63,7 +63,7 @@
 </body>
 <script>
 $(function(){
-	scrollPage();
+	/* scrollPage(); */
 	selectDetail();
 	$("#currentPage").val(1);
 	function selectDetail() {
@@ -74,13 +74,13 @@ $(function(){
 		});
 	}
 	
-	$(window).scroll(function() {
+/* 	$(window).scroll(function() {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 		  $(".nextPage").click().unbind("click");
 		  
     }
-  });
-	function scrollPage() {
+  }); */
+/* 	function scrollPage() { */
 	  $(".nextPage").on("click", function() {
 		  var nextPage = parseInt($("#currentPage").val()) + 1;
 		  $.ajax({
@@ -127,7 +127,7 @@ $(function(){
               $(".subCIArticleContentList:last").after(contents);
               $("#currentPage").val(nextPage);
               selectDetail();
-              scrollPage();
+              /* scrollPage(); */
             }
           },
           fail : function() {
@@ -135,7 +135,7 @@ $(function(){
           }
         });
 	  });
-	}
+	/* } */
 	function directList() {
 		var directBoardKey = $('#directBoardKey').val();
 		if (directBoardKey > 0) {
