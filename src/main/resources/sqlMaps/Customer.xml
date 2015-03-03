@@ -519,7 +519,6 @@
       BOARD_NOTICE_KEY,
       NOTICE_TITLE,
       NOTICE_CONTENTS,
-      NOTICE_OPEN,
       NOTICE_OPEN_DATE,
       NOTICE_INSERT_NAME,
       NOTICE_INSERT_DATE,
@@ -536,15 +535,13 @@
     INSERT INTO BOARD_NOTICE (
      NOTICE_TITLE,
      NOTICE_CONTENTS,
-     NOTICE_OPEN,
      NOTICE_OPEN_DATE,
      NOTICE_INSERT_NAME,
      NOTICE_INSERT_DATE
       ) VALUES (
        #{noticeTitle},
        #{noticeContents},
-       #{noticeOpen},
-       DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i'),
+       DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %H:%i'),
        #{noticeInsertName},
        NOW()
       )
@@ -556,8 +553,7 @@
     UPDATE BOARD_NOTICE SET 
       NOTICE_TITLE = #{noticeTitle},
       NOTICE_CONTENTS = #{noticeContents},
-      NOTICE_OPEN = #{noticeOpen},
-      NOTICE_OPEN_DATE =  DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i')
+      NOTICE_OPEN_DATE =  DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %H:%i')
     WHERE
       BOARD_NOTICE_KEY = #{boardNoticeKey}
   </update>
@@ -819,7 +815,6 @@
       bn.BOARD_NOTICE_KEY,
       bn.NOTICE_TITLE,
       bn.NOTICE_CONTENTS,
-      bn.NOTICE_OPEN,
       bn.NOTICE_OPEN_DATE,
       bn.NOTICE_INSERT_NAME,
       bn.NOTICE_INSERT_DATE,
