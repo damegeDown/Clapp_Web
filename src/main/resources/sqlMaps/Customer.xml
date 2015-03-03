@@ -541,7 +541,7 @@
       ) VALUES (
        #{noticeTitle},
        #{noticeContents},
-       DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i'),
+       DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %H:%i'),
        #{noticeInsertName},
        NOW()
       )
@@ -553,7 +553,7 @@
     UPDATE BOARD_NOTICE SET 
       NOTICE_TITLE = #{noticeTitle},
       NOTICE_CONTENTS = #{noticeContents},
-      NOTICE_OPEN_DATE =  DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i')
+      NOTICE_OPEN_DATE =  DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %H:%i')
     WHERE
       BOARD_NOTICE_KEY = #{boardNoticeKey}
   </update>
