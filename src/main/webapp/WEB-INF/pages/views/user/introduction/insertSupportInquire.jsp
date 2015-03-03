@@ -8,7 +8,12 @@
     <!-- provide device List Start --> 
 <%-- <form:form id="memberForm" method="post" onsubmit="return inquirySubmit()" action="${contextPath }/introduction/insertSupportInquire" commandName="formInquireInfoEntity" enctype="multipart/form-data"> --%>
 <form id ="memberform" method="post" enctype="multipart/form-data">
-<input class="sicEmail" type="hidden" name="inquiryTitle"  data-name="제목" value="(회원)"/>
+<c:if test = "${userLoginSession.userMasterKey eq null}"> 
+	<input class="sicEmail" type="hidden" name="inquiryTitle"  data-name="제목" value="(비회원)"/>
+</c:if>
+<c:if test = "${userLoginSession.userMasterKey ne null}"> 
+	<input class="sicEmail" type="hidden" name="inquiryTitle"  data-name="제목" value="(회원)"/>
+</c:if>
 <div class="subInquiryContentContainer">
   <div class="subInquiryContentBox"> 
     <div class="subInquiryContent1">
