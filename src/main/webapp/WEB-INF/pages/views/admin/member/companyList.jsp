@@ -25,7 +25,7 @@
 	            <option value="${code.commonCode }" <c:if test="${memberEntity.searchValue2 eq code.commonCode }">selected</c:if>>${code.commonName }</option>
 	            </c:forEach>
             </select>
-            <span class="marL-15 span-w80" style="padding-left:10px ">사업자등록번호</span>
+            <span class="marL-15 span-w80" style="padding-left:10px; padding-left: 160px;">사업자등록번호</span>
             <c:set var="companyNum" value="${fn:split(memberEntity.searchValue3,'-')}"/>
             <input type="text" class="inp-w120 phoneNum" value="${companyNum[0]}" maxlength="3"/> - 
             <input type="text" class="inp-w80 phoneNum" value="${companyNum[1]}" maxlength="3"/> - 
@@ -38,7 +38,7 @@
 	           <input type="text" class="inp-w140" name="searchValue4" value="${memberEntity.searchValue4 }"/>
            </div>
              <div class="floatL">
-               <span class="marL-15 span-w80 floatL" style="padding-left:17px ">지역</span>
+               <span class="marL-15 span-w80 floatL" style="padding-left:17px; padding-top: 6px;padding-left: 163px; padding-right: 4px;">지역</span>
                <select class="floatL sel-w80" name="userAreaType" data-type="AREA" data-wrap="userArea">
                  <option value="">-선택-</option>
                  <option value="1" data-val="1">국내</option>
@@ -51,20 +51,15 @@
           <div class="marT-5" style="clear:both">
            <div class="marT-5">
              <div class="floatL">
-	            <span class="span-w120">연락처</span>
-	            <select class="sel-w100" name="searchKey">
-	              <option value="1"  <c:if test="${memberEntity.searchKey eq 1}"> selected</c:if>>휴대폰</option>
-	              <option value="2"  <c:if test="${memberEntity.searchKey eq 2}"> selected</c:if>>일반</option>
-	              <option value="3"  <c:if test="${memberEntity.searchKey eq 3}"> selected</c:if>>해외</option>
-              </select>
+	            <span class="span-w120" style="padding-top: 13px;">연락처</span>
 	            <c:set var="phoneNum" value="${fn:split(memberEntity.searchValue5,'-')}"/>
 	            <input type="text" class="inp-w60 phoneNum" value="${phoneNum[0]}" maxlength="4" placeholder="국번"/> - 
 	            <input type="text" class="inp-w60 phoneNum" value="${phoneNum[1]}" maxlength="4"/> - 
 	            <input type="text" class="inp-w60 phoneNum" value="${phoneNum[2]}" maxlength="4"/>
 	            <input type="hidden" class="phoneNumComp" name="searchValue5" value="${memberEntity.searchValue5}"/>
 							</div>
-							<span class="marL-15 span-w80">업종</span>
-							<select name="searchValue6" class="sel-w140">
+							<span class="marL-15 span-w80" style="margin-left: 116px;">업종</span>
+							<select name="searchValue6" class="sel-w140" style="width: 197px;">
 							<option value="">전체</option>
 								<c:forEach items="${userCompanyBusinessTypeCode }" var="code">
 								<option value="${code.commonCode }" <c:if test="${memberEntity.searchValue6 eq code.commonCode }">selected</c:if>>${code.commonName }</option>
@@ -139,7 +134,7 @@
 		</tbody>
 	</table>
 	<div class="paging-area">
-	 <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/member/popupList" pageNavigationEntity="${memberEntity}" />
+	 <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/member/companyList" pageNavigationEntity="${memberEntity}" />
 	</div> 
 </div>
 <%@ include file="/WEB-INF/pages/views/popup/popupDropMember.jsp"%>
