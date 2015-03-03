@@ -429,7 +429,7 @@
 							<span class="mtSliderRightArrow"><a></a></span>
 						</div>
 					</div>
-				</div>
+				</div>  
 			</div>
 		</div>
 		<div class="clear"></div>

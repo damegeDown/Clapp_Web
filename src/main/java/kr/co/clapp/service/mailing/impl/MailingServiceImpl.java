@@ -532,12 +532,12 @@ public class MailingServiceImpl implements MailingService {
 			Date mailSendStartDate = DateUtils.getDate(sendMailStartDates, CommonCode.DatePattern.DASH_TIME);
 		    // Info
 		    mailSendInfo.setSubject(ecrmEntity.getMailTitle());
-		    mailSendInfo.setEmailForm(apiEmailTemp);
-		    String[] recipient = {ecrmEntity.getMailReceptionAddress()};
-		    mailSendInfo.setRecipient(recipient);
+		    mailSendInfo.setEmailForm(emailTemp);
+		    String[] recipient = ecrmEntity.getMailReceptionAddress().split(",");
+		    mailSendInfo.setRecipient(recipient);  
 		    String userName = ecrmEntity.getUserName(); 
 			String fromEmail = ecrmEntity.getFromEmail(); 
-			String prodName = ecrmEntity.getProdName(); 
+			String prodName = ecrmEntity.getProdName();  
 			String fileUrl = ecrmEntity.getFileUrl(); 
 			String memo = ecrmEntity.getMemo(); 
 			String startDttm = ecrmEntity.getStartDttm(); 
