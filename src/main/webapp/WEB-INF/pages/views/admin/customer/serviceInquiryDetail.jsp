@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="Strings" uri="/WEB-INF/tlds/Strings.tld" %>
 <% pageContext.setAttribute("newLineChar", "\n"); %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${contextPath }/resources/js/customer.js"></script>
@@ -28,7 +27,6 @@
           <th>문의 제목</th>
           <td>
            ${serviceInquiryDetail.inquiryTitle}
-           <Strings:cutTextTag length="40" text="${serviceInquiryDetail.inquiryContents}" ellipsis=".."/>
           </td>
          </tr>
          <tr>
