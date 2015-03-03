@@ -99,7 +99,7 @@
 	<div class="mtGuide03ContentThreeContainer">
 		<div class="mtGuide03CHCImgBox">
 			<div class="mtGuide03CHCImg">
-				<img src="${contextPath }/resources/images/popup_mtg_device_jnlp_01.png" alt="" style="width: 800px;	height: 430px;" />
+				<img src="${contextPath }/resources/images/popup_mtg_device_jnlp_01.png" />
 			</div>
 		</div><!-- .mtGuide01COCMainBox End -->
 	</div><!-- .mtGuide01ContentOneContainer End -->
