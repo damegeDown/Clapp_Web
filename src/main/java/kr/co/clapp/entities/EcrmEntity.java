@@ -117,16 +117,16 @@ public class EcrmEntity extends PageEntity implements Serializable{
 	
 	
 	/** API MAIL */
-	private String userName;
-	private String fromEmail;
-	private String prodName;
-	private String fileUrl;
-	private String memo;
-	private String startDttm;
-	private String testName;
-	private String serverUrl;
+	private String userName = "";
+	private String fromEmail = "";
+	private String prodName = "";
+	private String fileUrl = "";
+	private String memo = "";
+	private String startDttm = "";
+	private String testName = "";
+	private String serverUrl = "";
 	
-	private String productName;
+	private String productName = "";
 	private int ticketAmount;
 	private Date expirationDate;
 	private Date paymentDate;

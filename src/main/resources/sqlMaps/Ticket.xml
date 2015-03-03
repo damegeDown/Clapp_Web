@@ -570,7 +570,7 @@
 			VIEW_RESERVATIONS vr,
 			VIEW_DEVICES vd
 		WHERE
-			vr.device_id = vd.device_id
+			vr.device_id = vd.id
 		AND
 			user_id = #{userMasterKey}
 		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
@@ -626,7 +626,7 @@
 			VIEW_RESERVATIONS vr,
 			VIEW_DEVICES vd
 		WHERE
-			vr.device_id = vd.device_id
+			vr.device_id = vd.id
 		AND
 			user_id = #{userMasterKey}
 		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
