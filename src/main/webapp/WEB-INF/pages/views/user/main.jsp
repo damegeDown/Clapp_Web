@@ -501,7 +501,9 @@ wcs_do();
 			<div class="SnsArticleText">
 				<p class="snsArticleTitle snsRT"><a href="${socialBlogList.facebookLink }" target="_blank">${socialBlogList.socialBlogTitle}</a></p>
 				<span class="snsArticleTime"> <time datetime="${socialBlogList.socialBlogInsertTime}"></time></span>
-				<p class="snsArticleText">${socialBlogList.socialBlogContent}</p>
+				<p class="snsArticleText">
+					<Strings:cutTextTag length="80" text="${socialBlogList.socialBlogContent}" ellipsis="..."/>
+				</p>
 			</div>
 		</div>
       </c:forEach>
