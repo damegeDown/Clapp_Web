@@ -83,7 +83,7 @@
 						<c:set var="weekDayLoginCount" value="${weekDayLoginCount + statisticsList.loginCount  }"/>
 					</c:if>
 					<c:set var="totalLoginCount" value="${totalLoginCount + statisticsList.loginCount  }"/>	
-					<fmt:formatNumber value="${statisticsList.loginCount }"/>  명
+					<fmt:formatNumber value="${statisticsList.loginCount }"/>  회
 				</td>
 				<!-- 기업로그인 -->
 				<td>
@@ -91,7 +91,7 @@
 						<c:set var="weekDayLoginCompanyCount" value="${weekDayLoginCompanyCount + statisticsList.loginCompanyCount  }"/>
 					</c:if>
 					<c:set var="totalLoginCompanyCount" value="${totalLoginCompanyCount + statisticsList.loginCompanyCount  }"/>	
-					<fmt:formatNumber value="${statisticsList.loginCompanyCount }"/>  명
+					<fmt:formatNumber value="${statisticsList.loginCompanyCount }"/>  회
 				</td>
 				<!-- 탈퇴 -->
 				<td>
@@ -133,8 +133,8 @@
 		 	<th>평일 평균</th>
 		 	<td><numbers:RoundTag value="${weekDayJoinMember / weekDayLength}" type="half" digit="1"/> 명  </td>
 		 	<td><numbers:RoundTag value="${weekDayJoinCompanyMember / weekDayLength}" type="half" digit="1"/> 명</td>
-		 	<td><numbers:RoundTag value="${weekDayLoginCount / weekDayLength}" type="half" digit="1"/> 명 </td>
-		 	<td><numbers:RoundTag value="${weekDayLoginCompanyCount / weekDayLength}" type="half" digit="1"/> 명 </td>
+		 	<td><numbers:RoundTag value="${weekDayLoginCount / weekDayLength}" type="half" digit="1"/> 회 </td>
+		 	<td><numbers:RoundTag value="${weekDayLoginCompanyCount / weekDayLength}" type="half" digit="1"/> 회 </td>
 		 	<td><numbers:RoundTag value="${weekDayLeaveMember / weekDayLength}" type="half" digit="1"/> 명 </td>
 		 	<td><numbers:RoundTag value="${weekDayReceptionMail / weekDayLength}" type="half" digit="1"/> 명 </td>
 		 	<td><numbers:RoundTag value="${weekDayRefusalMail / weekDayLength}" type="half" digit="1"/> 명 </td>
@@ -144,8 +144,8 @@
 		 	<th>전체 평균</th>
 		 	<td><numbers:RoundTag type="half" value="${totalJoinMember / statisticsLength}" digit="1"/> 명 </td>
 		 	<td><numbers:RoundTag type="half" value="${totalJoinCompanyMember / statisticsLength}" digit="1"/> 명</td>
-		 	<td><numbers:RoundTag type="half" value="${totalLoginCount / statisticsLength}" digit="1"/> 명 </td>
-		 	<td><numbers:RoundTag type="half" value="${totalLoginCompanyCount / statisticsLength}" digit="1"/> 명 </td>
+		 	<td><numbers:RoundTag type="half" value="${totalLoginCount / statisticsLength}" digit="1"/> 회 </td>
+		 	<td><numbers:RoundTag type="half" value="${totalLoginCompanyCount / statisticsLength}" digit="1"/> 회 </td>
 		 	<td><numbers:RoundTag type="half" value="${totalLeaveMember / statisticsLength}" digit="1"/> 명 </td>
 		 	<td><numbers:RoundTag type="half" value="${totalReceptionMail / statisticsLength}" digit="1"/> 명 </td>
 		 	<td><numbers:RoundTag type="half" value="${totalRefusalMail / statisticsLength}" digit="1"/> 명 </td>
@@ -155,8 +155,8 @@
 		 	<th>합계</th>
 		 	<td><fmt:formatNumber value="${totalJoinMember}" type="number"/> 명 </td>
 		 	<td><fmt:formatNumber value="${totalJoinCompanyMember}" type="number"/> 명 </td>
-		 	<td><fmt:formatNumber value="${totalLoginCount}" type="number"/> 명 </td>
-		 	<td><fmt:formatNumber value="${totalLoginCompanyCount}" type="number"/> 명 </td>
+		 	<td><fmt:formatNumber value="${totalLoginCount}" type="number"/> 회 </td>
+		 	<td><fmt:formatNumber value="${totalLoginCompanyCount}" type="number"/> 회 </td>
 		 	<td><fmt:formatNumber value="${totalLeaveMember}" type="number"/> 명 </td>
 		 	<td><fmt:formatNumber value="${totalReceptionMail}" type="number"/> 명 </td>
 		 	<td><fmt:formatNumber value="${totalRefusalMail}" type="number"/> 명 </td>
