@@ -517,6 +517,9 @@ body {
   background-position: center center;
   margin: 0 auto;
 }
+/* #wrapTopBgContainer:hover{
+  background: url('./../images/topbg_r.png') repeat-x;
+} */
 .topWrap {
   max-width: 1400px;
   width: 100%;
@@ -2229,120 +2232,127 @@ body {
 }
 .mSliderTextBox1 {
   width: inherit;
-  height: 120px;
+  height: 150px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 840px;
+  top: 810px;
   z-index: 10;
 }
 .mSliderTextBox2 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 690px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox3 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 690px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox4 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 840px;
+  top: 880px;
   z-index: 10;
 }
 .mSliderTextBox5 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 690px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox6 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 690px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox7 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 840px;
+  top: 880px;
   z-index: 10;
 }
 .mSliderTextBox8 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 840px;
+  top: 880px;
   z-index: 10;
 }
 .mSliderTextBox9 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 690px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox10 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 690px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox11 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 840px; 
+  top: 880px; 
   z-index: 10;
+}
+.msliderText0 {
+  display: block;
+  text-align: center;
+  font-size: 17px;
+  color: #fff;
+  margin-top: 40px;
 }
 .msliderText1 {
   display: block;
   text-align: center;
   font-size: 17px;
   color: #fff;
-  margin-top: 30px;
+  margin-top: 3px;
 }
 .msliderText2, .msliderText3 {
   display: block;
@@ -4509,7 +4519,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox2 {
@@ -4519,7 +4529,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox3 {
@@ -4529,7 +4539,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox4 {
@@ -4539,7 +4549,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox5 {
@@ -4549,7 +4559,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .mtsliderText1 {
@@ -4713,7 +4723,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox7 {
@@ -4723,7 +4733,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox8 {
@@ -4733,7 +4743,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox9 {
@@ -4743,7 +4753,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox10 {
@@ -4753,7 +4763,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .mtsliderText1 {
