@@ -483,9 +483,9 @@ wcs_do();
       </div>
       <div class="wBGSHSnsBox"> 
         <div class="wBGSnsContainer">
+          <a href="http://blog.naver.com/yesclapp" target="_blank"><img src="${contextPath }/resources/images/sns_blog.png" onMouseOver="this.src='${contextPath }/resources/images/sns_blog_r.png';" onMouseOut="this.src='${contextPath }/resources/images/sns_blog.png';"  alt="Blog" /></a>
           <a href="https://www.facebook.com/profile.php?id=100009049548425" target="_blank"><img src="${contextPath }/resources/images/sns_facebook.png" onMouseOver="this.src='${contextPath }/resources/images/sns_facebook_r.png';" onMouseOut="this.src='${contextPath }/resources/images/sns_facebook.png';" alt="Facebook" /></a>
           <%-- <a href="#" target="_blank"><img src="${contextPath }/resources/images/sns_twitter.png" onMouseOver="this.src='${contextPath }/resources/images/sns_twitter_r.png';" onMouseOut="this.src='${contextPath }/resources/images/sns_twitter.png';"  alt="Twitter" /></a> --%>
-          <!-- <a href="#" target="_blank"><img src="${contextPath }/resources/images/sns_blog.png" onMouseOver="this.src='${contextPath }/resources/images/sns_blog_r.png';" onMouseOut="this.src='${contextPath }/resources/images/sns_blog.png';"  alt="Blog" /></a> -->
         </div>
       </div>           
     </div>
