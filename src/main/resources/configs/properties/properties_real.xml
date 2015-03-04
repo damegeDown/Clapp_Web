@@ -25,8 +25,8 @@
   </util:properties>
 
   <util:properties id="pay_prop">
-	<prop key="platform">test</prop>
-<!-- 		<prop key="platform">service</prop> -->
+	<!-- <prop key="platform">test</prop> -->
+	<prop key="platform">service</prop> 
 	<prop key="mid">clapp</prop>
 	<prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3 </prop>
 	<prop key="configPath">/home/web/lgdacom</prop>

@@ -128,7 +128,7 @@ var JnlpUtils = (function() {
 	
 	var callJnlp = function(userMasterKey , userKey) {
 		var agt = navigator.userAgent.toLowerCase();
-	    $.getJSON("https://system.clapp.co.kr/test_base/jnlpDownload.do?id="+userMasterKey+"&userKey="+userKey,
+	    $.getJSON("//system.clapp.co.kr/test_base/jnlpDownload.do?id="+userMasterKey+"&userKey="+userKey,
 	    	function(data) {
 	            if(data.result) {
                     //사파리 브라우저에서는 파일 다운로드
