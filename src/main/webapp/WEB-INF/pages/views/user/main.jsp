@@ -84,7 +84,7 @@ wcs_do();
           <div style="display:table-cell;vertical-align:middle;width:480px " >
 	          <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width: 300px; max-height: 300px;"/>
 	          <div class="mSliderTextBox1" style="display: none;">
-	            <span class="msliderText1">${deviceEntity.deviceList[0].deviceModelEname}</span>
+	            <span class="msliderText0">${deviceEntity.deviceList[0].deviceModelEname}</span>
 	            <span class="msliderText2">${deviceEntity.deviceList[0].deviceMakerCode}</span>
 	            <span class="msliderText3">${deviceEntity.deviceList[0].deviceOsCode}</span>
 	          </div>

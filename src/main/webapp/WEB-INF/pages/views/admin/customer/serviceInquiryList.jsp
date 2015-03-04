@@ -101,7 +101,7 @@
 				</td> 
 				<td>${serviceInquiryList.inquiryName }</td>
 				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${serviceInquiryList.inquiryInsertDate }" /></td>
-				<td>${serviceInquiryList.answerInsertDate }</td>
+				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${serviceInquiryList.answerInsertDate }" /></td>
 			  <c:choose>
 		      <c:when test='${serviceInquiryList.answerInsertYn == "답변 완료" }'>
 		        <td style="color: blue;">${serviceInquiryList.answerInsertYn }</td>
