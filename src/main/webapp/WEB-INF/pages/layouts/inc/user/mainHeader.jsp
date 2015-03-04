@@ -23,6 +23,9 @@ $(function() {
         }
     });
   });
+	$(".topMainStart .topMainStartButton img").hover(function() {
+		$("#wrapTopBgContainer").toggleClass("mainBgOn");
+	});
 });
 </script>
 <div id="wrapBgTop">
