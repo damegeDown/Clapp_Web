@@ -7,7 +7,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script src="${contextPath }/resources/js/timeago.js" type="text/javascript"></script>
 <script type="text/javascript" src="${contextPath }/resources/js/main.js"></script>
-<script type="text/javascript" src="http://wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript" src="wcs.naver.net/wcslog.js"></script>
 <script type="text/javascript">
 if(!wcs_add) var wcs_add = {};
 wcs_add["wa"] = "c7754688df38cc";
@@ -502,7 +502,7 @@ wcs_do();
 				<p class="snsArticleTitle snsRT"><a href="${socialBlogList.facebookLink }" target="_blank">${socialBlogList.socialBlogTitle}</a></p>
 				<span class="snsArticleTime"> <time datetime="${socialBlogList.socialBlogInsertTime}"></time></span>
 				<p class="snsArticleText">
-					<Strings:cutTextTag length="80" text="${socialBlogList.socialBlogContent}" ellipsis="..."/>
+					<Strings:cutTextTag length="240" text="${socialBlogList.socialBlogContent}" ellipsis="..."/>
 				</p>
 			</div>
 		</div>
