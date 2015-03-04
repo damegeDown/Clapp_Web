@@ -119,7 +119,8 @@ $(function() {
           </div>
         </div>
         <div class="loginContentTopRight">
-          <div class="loginBtn"  onclick="check(obj)">
+          <!-- <div class="loginBtn"  onclick="check(obj)"> -->
+          <div class="loginBtn" >
             <img class="mloginBtn" src="${contextPath }/resources/images/buttons_login2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_login2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_login2.png';" alt="로그인" />
           </div>
         </div>
