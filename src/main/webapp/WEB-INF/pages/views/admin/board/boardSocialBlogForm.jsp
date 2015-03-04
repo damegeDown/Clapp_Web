@@ -34,7 +34,6 @@
 		        	<fb:login-button scope="public_profile,email" onlogin="SnsUtils.checkLoginState();"></fb:login-button>
 		        </span>
 	        </div> 
-	        <!-- <div class="fb-share-button" data-href="http://dev.clapp:8080/trandReview/socialList" data-layout="button_count"></div> -->
         </td>
       </tr>
       <tr>

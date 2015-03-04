@@ -15,7 +15,7 @@
   </util:properties>
 
   <util:properties id="mailConfig">
-    <prop key="serviceUrl">https://www.clapp.co.kr</prop>
+    <prop key="serviceUrl">http://www.clapp.co.kr:8080</prop>
     <prop key="emailSender">support@clapp.co.kr</prop>
     <prop key="recruitSender">recruit@clapp.co.kr</prop>
     <prop key="emailSenderName">클앱고객센터</prop>
@@ -30,15 +30,15 @@
 	<prop key="mid">clapp</prop>
 	<prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3 </prop>
 	<prop key="configPath">/home/web/lgdacom</prop>
-	<prop key="casnoteUrl">https://www.clapp.co.kr/rest/order/responseVirtualAcct</prop>
+	<prop key="casnoteUrl">http://www.clapp.co.kr:8080/rest/order/responseVirtualAcct</prop>
   </util:properties>
   <util:properties id="snsConfig">
-		<prop key="linkUrl">https://www.clapp.co.kr/trandReview/socialList</prop>
+		<prop key="linkUrl">http://www.clapp.co.kr:8080/trandReview/socialList</prop>
 	  	<!-- 페이스북 -->
 		<prop key="facebookLink">https://www.facebook.com/profile.php?id=100009049548425</prop>
 		<prop key="accessTocken">CAACEdEose0cBAMswp1ncb1H2Wmtwgw5FHLOCPa5ZBQ3AnZA29lkEUnr0Vx8lOPhfI5bLmbFfNwdxVGKp8S8LUsJzSAA8SWiy4v424YiuLcXxXFi8QTftZBRjONV9xw5mHjWHVEhjUTPz5UGZBrrh5kQZC0LVG7keyBMjrcCfZBZBraxTbRgPJDHKqHQq0qP2C7W2pZAXuyonIYjpb0OnIb3CeGM42ZCw3ZAEcZD</prop>
 		<prop key="appId">1563873130519004</prop>
-		<prop key="imgPath">https://www.clapp.co.kr/common/imgView</prop>
+		<prop key="imgPath">http://www.clapp.co.kr:8080/common/imgView</prop>
 		<!-- 트위터 -->
 		<prop key="twitterLink">https://twitter.com/dgdev0/status/</prop>
 		<prop key="consumerKeyStr">PsJOhA67aGYxdwIejnCKh1cA2</prop>
