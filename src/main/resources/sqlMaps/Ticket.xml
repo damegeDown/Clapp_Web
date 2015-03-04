@@ -5,39 +5,40 @@
 	<!-- 티켓 사용 내역 목록 -->
 	<select id="getUserTicketUsedList" parameterType="ticketEntity" resultType="ticketEntity">
 		SELECT 
-			UM.USER_MASTER_KEY,
-			UM.USER_ID,
-			FN_GET_COMMON_CODE_NAME('USER_TYPE', UM.USER_TYPE) USER_TYPE,
-			UM.USER_NAME,
-			UD.USER_COMPANY_NAME,
-			UTUH.HISTORY_START_USED_TIME,
-			UTUH.HISTORY_END_USED_TIME,
-			UTUH.HISTORY_USED_TICKET_AMOUNT,
-			D.DEVICE_MODEL_ENAME,
-			FN_GET_COMMON_CODE_NAME('DEVICE_MAKER_CODE', D.DEVICE_MAKER_CODE) DEVICE_MAKER_CODE
+			um.USER_MASTER_KEY,
+			um.USER_ID,
+			FN_GET_COMMON_CODE_NAME('USER_TYPE', um.USER_TYPE) USER_TYPE,
+			um.USER_NAME,
+			ud.USER_COMPANY_NAME,
+			vr.*,
+			vd.*,
+			vd.manufacturer DEVICE_MAKER_CODE
 		FROM
-		  USER_MASTER UM, USER_DETAIL UD, USER_TICKET_USED_HISTORY UTUH, DEVICE D
+		  VIEW_RESERVATIONS vr ,
+		  VIEW_DEVICES vd,
+		  USER_MASTER um,
+		  USER_DETAIL ud
 		WHERE
-		  UM.USER_MASTER_KEY = UD.USER_MASTER_KEY
+		  	vr.user_id = um.user_master_key
 		AND
-		  UM.USER_MASTER_KEY = UTUH.USER_MASTER_KEY
-		AND  
-			UTUH.DEVICE_KEY = D.DEVICE_KEY
-			<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-				AND
-				(
-				  UTUH.HISTORY_START_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-				OR
-				  UTUH.HISTORY_END_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-				)
+			um.user_master_key = ud.user_master_key
+		AND
+			vr.device_id = vd.id 	
+		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+			AND
+			(
+			 vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+			OR
+			  vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+			)
 		</if>
 		<if test="searchValue != '' and searchValue != null">
 			AND
-			 USER_TYPE = #{searchValue}
+			 um.USER_TYPE = #{searchValue}
 		</if>
 		<if test="searchValue1 != '' and searchValue1 != null">
 			AND
-			 DEVICE_MAKER_CODE = #{searchValue1}
+		  	vd.manufacturer= #{searchValue1}
 		</if>
 		<if test="searchValue2 != '' and searchValue2 != null">
 			AND
@@ -45,7 +46,7 @@
 		</if>
 		<if test="searchValue3 != '' and searchValue3 != null">
 			AND
-		  	UM.USER_NAME = #{searchValue3}
+			 UM.USER_NAME = #{searchValue3}
 		</if>
 		LIMIT  
 		#{rowStartNumber}, #{pageListSize}
@@ -69,28 +70,31 @@
 		SELECT 
 		  COUNT(*)
 		FROM
-		  USER_MASTER UM, USER_DETAIL UD, USER_TICKET_USED_HISTORY UTUH, DEVICE D
+		  VIEW_RESERVATIONS vr ,
+		  VIEW_DEVICES vd,
+		  USER_MASTER um,
+		  USER_DETAIL ud
 		WHERE
-		  UM.USER_MASTER_KEY = UD.USER_MASTER_KEY
+		  	vr.user_id = um.user_master_key
 		AND
-		  UM.USER_MASTER_KEY = UTUH.USER_MASTER_KEY
-		AND  
-		  UTUH.DEVICE_KEY = D.DEVICE_KEY
+			um.user_master_key = ud.user_master_key
+		AND
+			vr.device_id = vd.id 	
 		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
 			AND
 			(
-			  UTUH.HISTORY_START_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+			 vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
 			OR
-			  UTUH.HISTORY_END_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+			  vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
 			)
 		</if>
 		<if test="searchValue != '' and searchValue != null">
 			AND
-			 USER_TYPE = #{searchValue}
+			 um.USER_TYPE = #{searchValue}
 		</if>
 		<if test="searchValue1 != '' and searchValue1 != null">
 			AND
-		  	DEVICE_MAKER_CODE = #{searchValue1}
+		  	vd.manufacturer= #{searchValue1}
 		</if>
 		<if test="searchValue2 != '' and searchValue2 != null">
 			AND
