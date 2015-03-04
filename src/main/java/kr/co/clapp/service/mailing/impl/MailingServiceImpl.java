@@ -535,6 +535,7 @@ public class MailingServiceImpl implements MailingService {
 		    mailSendInfo.setEmailForm(emailTemp);
 		    String[] recipient = ecrmEntity.getMailReceptionAddress().split(",");
 		    mailSendInfo.setRecipient(recipient);  
+		    mailSendInfo.setSentDate(ecrmEntity.getMailSendDate());
 		    String userName = ecrmEntity.getUserName(); 
 			String fromEmail = ecrmEntity.getFromEmail(); 
 			String prodName = ecrmEntity.getProdName();  
