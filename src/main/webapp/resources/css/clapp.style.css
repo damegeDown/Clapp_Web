@@ -498,7 +498,9 @@ body {
 }
 
 /****** Main Top ********/
-
+ .mainBgOn {
+	background-image : url('/resources/images/topbg_r.png') !important;
+}
 #wrapBgTop {
   max-width: 100%;
   width: 100%;
@@ -517,9 +519,6 @@ body {
   background-position: center center;
   margin: 0 auto;
 }
-/* #wrapTopBgContainer:hover{
-  background: url('./../images/topbg_r.png') repeat-x;
-} */
 .topWrap {
   max-width: 1400px;
   width: 100%;
