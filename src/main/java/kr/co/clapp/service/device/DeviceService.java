@@ -61,6 +61,10 @@ public interface DeviceService {
 	 * 사용자 디바이스 목록
 	 */
 	DeviceEntity getDeviceUserList(DeviceEntity deviceEntity);
+	/**
+	 * 디바이스 노출 순번
+	 */
+	int deviceTopChangeSeq(DeviceEntity deviceEntity);
 	
 }
 

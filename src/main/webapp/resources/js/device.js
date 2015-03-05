@@ -12,7 +12,7 @@ $.fn.DeviceDetail = {
 	  var deviceTop = Number($(".deviceTop10").text());
 	  if(flag == 'Y') {
 	    if(deviceTop <= 0) {
-	      alert("대표 디바이스는 10개 까지 등록 가능합니다.");
+	      alert("대표 디바이스는 11개 까지 등록 가능합니다.");
 	      $("input[name=deviceTop10Open][value='N']").attr("checekd",true);
 	      return false;
 	    }
@@ -35,6 +35,9 @@ $.fn.DeviceList = {
 	this.removeUnitDevice();    //디바이스 유닛 삭제
 	this.setTop10DeviceClose(); //상위 10 노출 디바이스 취소
 	this.sortDevice();		    //디바이스 쇼팅
+	this.deviceTop10Save();
+	this.btnChangeSeq();
+	
   },
   openDetail : function() {
     $(".deviceModelEname").click(function() {
@@ -84,8 +87,8 @@ $.fn.DeviceList = {
 	  // 선택된 디바이스와 대표 디바이스 합 
 	  sumDeviceCount = Number(topDeviceCount) + Number(selectDeviceCount);
   	  //합이 10개 이상일경우 return false
-	  if( sumDeviceCount > 10) {
-		alert("대표 디바이스는 10개 까지 등록 가능합니다.");
+	  if( sumDeviceCount > 11) {
+		alert("대표 디바이스는 11개 까지 등록 가능합니다.");
 		return false; 
 	  } 
 	  var deviceEntity = { deviceKeyList: deviceKeyList.toString()};
@@ -160,7 +163,50 @@ $.fn.DeviceList = {
     $(".deviceSort").change(function() {
   	  $("form#searchForm").submit();
       }); 
+  },
+  deviceTop10Save : function(){
+	$('#deviceTop10Save').click(function() {
+	  if(!confirm('저장하시겠습니까?')) {
+	        return false;
+    }
+	var deviceSelectedList = [];
+	$('.deviceKey').each(function(index) {
+		var device = {};
+		var that = $(this);
+		device.deviceKey = that.val();
+		device.deviceTop10Number = index + 1;
+		deviceSelectedList.push(device);
+	});
+	var deviceEntity = {};
+	deviceEntity.deviceSelectedList = deviceSelectedList;
+	console.log(deviceEntity);
+	$.ajax({
+		type: 'post',
+		dataType: 'json',
+		contentType: 'application/json',
+		data: JSON.stringify(deviceEntity),
+		url : '/admin/device/rest/deviceTopChangeSeq' ,
+			success : function(result) {
+			alert(result.resultMSG);
+			if(result.resultCode == "success"){
+				location.href = "/admin/device/deviceList";
+			}
+		  }
+		});
+	});
+  },
+  btnChangeSeq : function(){
+	$('.btnChangeSeq').click(function() {
+		var that = $(this);
+		var row = that.closest('tr');
+		var type = that.data('seq');
+		if (type == 'down') {
+			row.next().after(row);
+		} else {
+			row.prev().before(row);
+		}
+		return false;
+	});
   }
-  
 };
 
