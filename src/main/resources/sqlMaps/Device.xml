@@ -12,6 +12,7 @@
     FN_GET_COMMON_CODE_NAME('DEVICE_OS_CODE', DEVICE_OS_CODE) DEVICE_OS_CODE,
     DEVICE_VERSION,
     DEVICE_TOP10_OPEN,
+    DEVICE_TOP10_NUMBER,
     DEVICE_OPEN,
     DEVICE_INSERT_NAME,
     DEVICE_INSERT_DATE,
@@ -47,7 +48,7 @@
           DEVICE_VERSION = #{searchValue3}
       </if>
     ORDER BY
-    <choose>
+     <choose>
       <when test="deviceSort == 2">
         DEVICE_MODEL_KNAME ASC
       </when>
@@ -57,8 +58,11 @@
       <when test="deviceSort == 4">
         DEVICE_VERSION DESC
       </when>
+ 	    <when test='deviceTop10Open == "Y"'>
+        DEVICE_Top10_Number ASC
+      </when>
       <otherwise>
-       DEVICE_INSERT_DATE DESC
+	      DEVICE_INSERT_DATE DESC
       </otherwise>
     </choose>
     LIMIT  
@@ -205,24 +209,41 @@
   <!-- //디바이스 삭제 -->
   
   <!-- 디바이스 TOP10 OPEN -->
-  <update id="deviceTop10Open" parameterType="deviceEntity">
+  <update id="deviceTop10Open" parameterType="int">
     UPDATE 
-      DEVICE 
-    SET 
-        DEVICE_TOP10_OPEN = 'Y'
+			DEVICE as t1,
+				(SELECT 
+					if(max(device_top10_number) is null, 1, max(device_top10_number) + 1) as number 
+				FROM DEVICE) as t2
+   	 SET 
+        t1.device_top10_number = t2.number,
+        t1.device_top10_open = 'Y'
       WHERE
-        DEVICE_KEY IN (${deviceKeyList})
+        <!-- DEVICE_KEY IN (${deviceKeyList}) -->
+        DEVICE_KEY = #{deviceKey}
   </update>
   <!-- //디바이스 TOP10 Close -->
     <update id="deviceTop10Close" parameterType="deviceEntity">
     UPDATE 
       DEVICE 
     SET 
-        DEVICE_TOP10_OPEN = 'N'
+        DEVICE_TOP10_OPEN = 'N',
+        DEVICE_TOP10_NUMBER = '0'
       WHERE
         DEVICE_KEY IN (${deviceKeyList})
   </update>
   <!-- //디바이스 TOP10 Close -->
+  
+  <!-- 디바이스 TOP10 노출 순번 -->
+  <update id="deviceTopChangeSeq" parameterType="deviceEntity">
+    UPDATE 
+      DEVICE 
+    SET 
+        DEVICE_TOP10_NUMBER = #{deviceTop10Number}
+      WHERE
+        DEVICE_KEY = #{deviceKey}
+  </update>
+  <!-- //디바이스 TOP10 노출 순번 -->
   
   <!-- 디바이스 TOP10 카운트 -->
   <select id="getCountExposedDevice" resultType="int">
@@ -246,6 +267,7 @@
       FN_GET_COMMON_CODE_NAME('DEVICE_OS_CODE', DEVICE_OS_CODE) DEVICE_OS_CODE,
       de.DEVICE_VERSION,
       de.DEVICE_TOP10_OPEN,
+      de.DEVICE_TOP10_Number,
       de.DEVICE_OPEN,
       de.DEVICE_INSERT_DATE,
       af.FILE_KEY,
@@ -266,11 +288,17 @@
         AND
          DEVICE_MODEL_ENAME LIKE CONCAT( #{searchValue}, '%')  OR FN_GET_COMMON_CODE_NAME('DEVICE_MAKER_CODE', DEVICE_MAKER_CODE) = #{searchValue} OR FN_GET_COMMON_CODE_NAME('DEVICE_OS_CODE', DEVICE_OS_CODE) = #{searchValue}
       </if>
+      <if test="deviceTop10Open != '' and deviceTop10Open != null">
+        AND DEVICE_TOP10_OPEN = #{deviceTop10Open}
+      </if>
       order by 
         <choose>
 	        <when test="searchKey != null and searchKey != '' and searchKey1 != null and searchKey1 != '' ">
 	         ${searchKey} ${searchKey1}
 	        </when>
+	        <when test='deviceTop10Open == "Y"'>
+        	 DEVICE_Top10_Number ASC
+      		</when>
 	        <otherwise>
 	         DEVICE_INSERT_DATE DESC
 	        </otherwise>

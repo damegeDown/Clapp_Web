@@ -80,7 +80,7 @@
        <tr>
         <th>대표 디바이스 노출</th>
         <td>
-          <label><input type="radio" name="deviceTop10Open" value="Y"<c:if test="${deviceDetail.deviceTop10Open eq 'Y'}">checked="checked" </c:if>/>&nbsp;&nbsp;YES (노출가능 개수 : <span class="deviceTop10">${10 - countExposedDevice }</span>개)&nbsp;&nbsp;&nbsp;</label>
+          <label><input type="radio" name="deviceTop10Open" value="Y"<c:if test="${deviceDetail.deviceTop10Open eq 'Y'}">checked="checked" </c:if>/>&nbsp;&nbsp;YES (노출가능 개수 : <span class="deviceTop10">${11 - countExposedDevice }</span>개)&nbsp;&nbsp;&nbsp;</label>
           <label><input type="radio" name="deviceTop10Open" value="N"<c:if test="${deviceDetail.deviceTop10Open ne 'Y'}">checked="checked" </c:if>/>&nbsp;&nbsp;NO</label>
         </td>
        </tr>

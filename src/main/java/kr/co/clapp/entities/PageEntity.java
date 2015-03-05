@@ -25,6 +25,7 @@ public class PageEntity extends PageNavigationEntity {
   public final static int EXCEL_GROUP_SIZE_PARAM = 99999999;
   /** 페이지에 출력될 게시물 수 */
   public final static int PAGE_LIST_SIZE_PARAM = 10;
+  public final static int PAGE_LIST_SIZE_PARAM_11 = 11;
   public final static int PAGE_LIST_SIZE_PARAM_12 = 12;
   public final static int PAGE_LIST_SIZE_PARAM_20 = 20;
   public final static int PAGE_LIST_SIZE_PARAM_30 = 30;

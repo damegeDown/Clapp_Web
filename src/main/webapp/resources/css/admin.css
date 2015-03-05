@@ -208,3 +208,7 @@ table tr.cursor:hover{ background:#A5BBD5; color:#fff;}
 .colorBlue {color:blue}
 .colorSkyBlue {color:#3079ED;text-weight:bold}
 
+/* 커서 */
+.pointer {
+	cursor: pointer;
+}
