@@ -561,7 +561,7 @@
 		pm.payment_ticket_amount,
 		pm.payment_total_price,
 		pm.payment_cancel_reason,
-		pm.payment_cancel_person,
+		pm.payment_cancel_person, 
 		pm.payment_cancel_date,
 		pd.*
 	FROM
@@ -571,7 +571,7 @@
 		pm.payment_master_key = pd.payment_master_key
 	AND
 	<choose>
-		<when test="paymentMasterKey !=null or paymentMasterKey != 0">
+		<when test="paymentMasterKey > 0">
 			pm.payment_master_key = #{paymentMasterKey}
 		</when>
 		<otherwise>
