@@ -45,7 +45,7 @@ public interface DeviceDAO {
 	/**
 	 * 디바이스 상위 노출
 	 */
-	int deviceTop10Open(DeviceEntity deviceEntity);
+	int deviceTop10Open(int deviceKey);
 	/**
 	 * 디바이스 상위 노출 해제
 	 * @param deviceEntity
@@ -60,6 +60,13 @@ public interface DeviceDAO {
 	 * 등록된 디바이스 카운트
 	 */
 	int getInsertDeviceCount();
+	/**
+	 * 사용자 디바이스 목록
+	 */
 	List<DeviceEntity> getDeviceUserList(DeviceEntity deviceEntity);
+	/**
+	 * 디바이스 노출 순번
+	 */
+	int deviceTopChangeSeq(DeviceEntity deviceEntity);
      
 }

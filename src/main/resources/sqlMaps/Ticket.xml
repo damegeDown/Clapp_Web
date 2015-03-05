@@ -166,15 +166,17 @@
 		       AND
 		        SERVICE_APPLY_REASON = #{searchValue1}
 		     </if>
-		     <if test="searchValue2 != '' and searchValue2 != null">
-		       AND
-		         um.USER_ID = #{searchValue2}
-		     </if>
 		     <if test="searchValue3 != '' and searchValue3 != null">
 		       AND
 		        TPAS.SERVICE_TARGET_NAME = #{searchValue3}
 		     </if> 
 		  )a
+		  where 
+		  SERVICE_INSERT_DATE is not null
+		  <if test="searchValue2 != '' and searchValue2 != null">
+		       AND
+		         USER_ID = #{searchValue2}
+		     </if>
 		GROUP BY
 		  TICKET_PRODUCT_SERVICE_KEY,
 		  USER_ID
@@ -192,16 +194,38 @@
 		FROM
 		  (
 		    SELECT
+		      TPAS.ticket_product_service_key,
+		      TPAS.SERVICE_APPLY_DATE,
+		      TPAS.SERVICE_PRODUCT_NAME,
+		      TPAS.SERVICE_APPLY_TICKET_AMOUNT,
+		      TPAS.SERVICE_APPLY_TICKET_TOTAL_AMOUNT,
+		      FN_GET_COMMON_CODE_NAME(
+		        'SERVICE_APPLY_REASON',
+		        TPAS.SERVICE_APPLY_REASON
+		      )SERVICE_APPLY_REASON,
+		      TPAS.SERVICE_APPLY_OPERATOR_NAME,
+		      FN_GET_COMMON_CODE_NAME(
+		        'SERVICE_TARGET_TYPE',
+		        TPAS.SERVICE_TARGET_TYPE
+		      )SERVICE_TARGET_TYPE,
+		      TPAS.SERVICE_TARGET_NAME,
+		      TPAS.SERVICE_INSERT_DATE,
 		      CASE(SERVICE_TARGET_TYPE)
-		    WHEN 4 THEN
-		      (
-		        SELECT
-		          um.USER_ID
-		        FROM
-		          USER_MASTER um
-		        WHERE
-		          um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
-		      )
+		      WHEN 1 THEN
+	         'member_all'
+	        WHEN 2 THEN 
+	         'person_all'
+	        WHEN 3 THEN
+	         'company_all'
+		      WHEN 4 THEN
+			      (
+			        SELECT
+			          um.USER_ID
+			        FROM
+			          USER_MASTER um
+			        WHERE
+			          um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
+			      )
 		    ELSE
 		      SERVICE_TARGET_NAME
 		    END AS USER_ID
@@ -210,30 +234,32 @@
 		      APPLY_SERVICE_USER ASU
 		    WHERE
 		      ASU.TICKET_PRODUCT_SERVICE_KEY = TPAS.TICKET_PRODUCT_SERVICE_KEY
-			    <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-			      AND
-			       TPAS.SERVICE_APPLY_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			    </if>
-			    <if test="searchValue != '' and searchValue != null">
-			      AND
-			       SERVICE_TARGET_TYPE = #{searchValue}
-			    </if>
-			    <if test="searchValue1 != '' and searchValue1 != null">
-			      AND
-			       SERVICE_APPLY_REASON = #{searchValue1}
-			    </if>
-			    <if test="searchValue2 != '' and searchValue2 != null">
-			      AND
-			        USER_ID = #{searchValue2}
-			    </if>
-			    <if test="searchValue3 != '' and searchValue3 != null">
-			      AND
-			       TPAS.SERVICE_TARGET_NAME = #{searchValue3}
-			    </if>
+		      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+		       AND
+		        TPAS.SERVICE_APPLY_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+		     </if>
+		     <if test="searchValue != '' and searchValue != null">
+		       AND
+		        SERVICE_TARGET_TYPE = #{searchValue}
+		     </if>
+		     <if test="searchValue1 != '' and searchValue1 != null">
+		       AND
+		        SERVICE_APPLY_REASON = #{searchValue1}
+		     </if>
+		     <if test="searchValue3 != '' and searchValue3 != null">
+		       AND
+		        TPAS.SERVICE_TARGET_NAME = #{searchValue3}
+		     </if> 
 		    GROUP BY
 		      ASU.TICKET_PRODUCT_SERVICE_KEY,
 		      user_id
 		  )a
+		  where 
+		  SERVICE_INSERT_DATE is not null
+		  <if test="searchValue2 != '' and searchValue2 != null">
+		       AND
+		         USER_ID = #{searchValue2}
+		     </if>
 	</select>
 	<!-- 티켓 적용서비스 카운트 -->
 
