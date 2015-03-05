@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="statisticsLength" value="${statisticsEntity.statisticsList.size() }"/>
 <div style="width:100%;">
-		<h3 class="floatL" style="margin:15px 0 10px 0">티켓사용 내역</h3>
+		<div class="floatL" style="margin:15px 0 10px 0">티켓사용 내역</div>
  </div>
  <c:set var="statisticsLength" value="${statisticsDateList.statisticsList.size() }"/>
 <table class="board-list">
@@ -122,7 +122,7 @@
 	</table>
 	<!-- 사용시간대별 -->
 	<div style="width:100%;">
- 		<h3 class="floatL" style="margin:15px 0 10px 0">사용 시간별 건수</h3>
+ 		<div class="floatL" style="margin:15px 0 10px 0">사용 시간별 건수</div>
   </div>
   <c:set var="statisticsLength" value="${statisticsTimeList.statisticsList.size() }"/>
 	<table class="board-list">
@@ -174,7 +174,7 @@
 	</table>
 	<!-- 사용 디바이스별 -->
 	<div style="width:100%;">
- 		<h3 class="floatL" style="margin:15px 0 10px 0">사용 디바이스별 건수</h3>
+ 		<div class="floatL" style="margin:15px 0 10px 0">사용 디바이스별 건수</div>
   </div>
   <c:set var="statisticsLength" value="${statisticsDeviceList.statisticsList.size() }"/>
 	<table class="board-list">

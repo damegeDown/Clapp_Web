@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dropOutLength" value="${dropOutList.size() }"/>
 <c:set var="reasonLength" value="${dropOutReasonList.size() }"/>
-<h3 class="floatL" >> 탈퇴회원</h3>
+<div class="floatL">> 탈퇴회원</div>
 <table class="board-list" style="width:600px">
 <colgroup>
 		<col width="50%"/>
@@ -49,7 +49,7 @@
 	</c:if>
 </table>
 <br/>
-<h3 class="floatL" >> 탈퇴 사유별</h3>
+<div class="floatL" >> 탈퇴 사유별</div>
 <table class="board-list" style="width:600px">
 	<thead> 
 		<tr>
