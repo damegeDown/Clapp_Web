@@ -41,6 +41,16 @@
           <textarea class="w780" cols="150" rows="20" id="ir1" name="qnaAnswer" wrap="hard">${boardQnaDetail.qnaAnswer }</textarea>
         </td>
        </tr>
+       <tr>
+        <th>이미지</th>
+        <td>
+        	<img src="${contextPath}/common/imgView?fileType=${boardQnaDetail.fileTarget}&fileName=${boardQnaDetail.fileSavedName}" class="boardQnaImage" style="max-width:800px"/>
+					<input type="hidden" name="fileName" value="${boardQnaDetail.fileName }" data-flag="off"/>
+					<input type="hidden" name="fileSavedName" value="${boardQnaDetail.fileSavedName }" data-flag="off"/>
+          <div class="marT-5"><span>등록된 이미지 : </span><a href="">${boardQnaDetail.fileName }</a></div>
+          <div class="marT-5"><input type="file" name="file" data-flag="off"/></div>
+        </td>
+       </tr> 
        <c:if test="${boardQnaDetail.boardQnaKey ne null}">
        <tr>
        <th>등록 일시</th>

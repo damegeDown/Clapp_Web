@@ -32,6 +32,14 @@
         <td>${boardQnaDetail.qnaAnswer }</td>
        </tr>
        <tr>
+       <th>이미지</th>
+       <td>
+         <img src="${contextPath}/common/imgView?fileType=${boardQnaDetail.fileTarget}&fileName=${boardQnaDetail.fileSavedName}" style="max-width:800px"/>
+         <input type="hidden" name="fileName" value="${boardQnaDetail.fileName }" data-flag="off"/>
+         <input type="hidden" name="fileSavedName" value="${boardQnaDetail.fileSavedName }" data-flag="off"/>
+       </td>
+       </tr>
+       <tr>
        <th>등록 일시</th>
         <td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardQnaDetail.qnaInsertDate }" /></td>
         </tr>
@@ -57,8 +65,8 @@
   </table>
   <div class="btn-area">
     <a href="${contextPath}/admin/customer/boardQnaList" class="floatL btn-bottom-orenge">목록</a>
-    <div class="btn-bottom-orenge" onclick="javascript:location.href='${contextPath}/admin/customer/boardQnaModify?boardQnaKey=${boardQnaDetail.boardQnaKey}'" >수정</div>
-    <div class="btn-bottom-orenge submitBtn" data-action="/admin/customer/rest/removeBoardQna" data-type="ajax" data-id='${boardQnaDetail.boardQnaKey}' data-msg='삭제'>삭제</div>
+    <div class="floatR btn-bottom-orenge" onclick="javascript:location.href='${contextPath}/admin/customer/boardQnaModify?boardQnaKey=${boardQnaDetail.boardQnaKey}'" >수정</div>
+    <div class="floatR btn-bottom-orenge submitBtn" data-action="/admin/customer/rest/removeBoardQna" data-type="ajax" data-id='${boardQnaDetail.boardQnaKey}' data-msg='삭제'>삭제</div>
   </div>
   </form>
 </div>
