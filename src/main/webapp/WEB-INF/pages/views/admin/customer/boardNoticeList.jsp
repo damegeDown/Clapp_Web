@@ -79,8 +79,8 @@
         <td>${boardNoticeEntity.dataSize-(boardNoticeEntity.pageListSize*(boardNoticeEntity.currentPage-1))-i.index}</td> 
         <td style="cursor:pointer" class="noticeTitle" data-key="${boardNoticeList.boardNoticeKey }">${boardNoticeList.noticeTitle}</td>
         <td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardNoticeList.noticeInsertDate }" /></td>
-        <td>${boardNoticeList.noticeOpenYn}  
-           <c:if test="${boardNoticeList.noticeOpenYn eq '대기'}"> <br>  
+        <td>${boardNoticeList.noticeOpen}  
+           <c:if test="${boardNoticeList.noticeOpen eq '대기'}"> <br>  
 	          <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardNoticeList.noticeOpenDate }" />
 	        </c:if> 
 	      </td>
