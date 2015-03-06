@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.clapp.dao.CustomerDAO">
-  <!-- 이메일 문의 목록 -->
+  <!-- 이메일 문의 목록 --> 
   <select id="getServiceInquiryList" parameterType="serviceInquiryEntity" resultType="serviceInquiryEntity" >
     SELECT 
       si.SERVICE_INQUIRY_KEY,
@@ -516,17 +516,36 @@
   <!-- 공지사항 상세-->
     <select id="getBoardNoticeDetail" parameterType="boardNoticeEntity" resultType="boardNoticeEntity" >
     SELECT 
-      BOARD_NOTICE_KEY,
-      NOTICE_TITLE,
-      NOTICE_CONTENTS,
-      NOTICE_OPEN_DATE,
-      NOTICE_INSERT_NAME,
-      NOTICE_INSERT_DATE,
-      NOTICE_REMOVE_DATE
+      nt.BOARD_NOTICE_KEY,
+      nt.NOTICE_TITLE,
+      nt.NOTICE_CONTENTS,
+      nt.NOTICE_OPEN_DATE,
+      nt.NOTICE_INSERT_NAME,
+      nt.NOTICE_INSERT_DATE,
+      nt.NOTICE_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT 
     FROM 
-      BOARD_NOTICE
+      BOARD_NOTICE nt
+	    LEFT OUTER JOIN
+	    	ADMINISTRATION_FILE af 
+	    		ON nt.board_notice_key = af.file_target_key 
+	    			AND af.file_target = 'NOTICE' 
+	    			<if test="fileType != null and fileType != ''">
+	    				AND af.file_type = #{fileType}
+	    			</if>
     WHERE
-      BOARD_NOTICE_KEY = #{boardNoticeKey}
+      nt.BOARD_NOTICE_KEY = #{boardNoticeKey}
+	  GROUP BY
+	  	nt.BOARD_NOTICE_KEY
   </select>
   <!-- //공지사항 상세-->
   
@@ -669,18 +688,37 @@
   <!-- 도움말 상세-->
   <select id="getBoardQnaDetail" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
     SELECT 
-      BOARD_QNA_KEY,
+      bq.BOARD_QNA_KEY,
       FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
-      QNA_QUESTION,
-      QNA_ANSWER,
-      QNA_TOP10_OPEN,
-      QNA_INSERT_NAME,
-      QNA_INSERT_DATE,
-      QNA_REMOVE_DATE
+      bq.QNA_QUESTION,
+      bq.QNA_ANSWER,
+      bq.QNA_TOP10_OPEN,
+      bq.QNA_INSERT_NAME,
+      bq.QNA_INSERT_DATE,
+      bq.QNA_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT 
     FROM 
-      BOARD_QNA
+      BOARD_QNA bq
+	    LEFT OUTER JOIN
+	    	ADMINISTRATION_FILE af 
+	    		ON bq.board_qna_key = af.file_target_key 
+	    			AND af.file_target = 'QNA' 
+	    			<if test="fileType != null and fileType != ''">
+	    				AND af.file_type = #{fileType}
+	    			</if>
     WHERE
-      BOARD_QNA_KEY = #{boardQnaKey}
+      bq.BOARD_QNA_KEY = #{boardQnaKey}
+    GROUP BY
+	  	bq.BOARD_QNA_KEY
   </select>
   <!-- //도움말 상세-->
   

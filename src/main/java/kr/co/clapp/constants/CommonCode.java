@@ -33,6 +33,8 @@ public class CommonCode {
 	public static final String AREA_DETAIL = "AREA_DETAIL";									//공통코드 기업/단체 타입
 	public static final String CELL_PHONE_NUM = "CELL_PHONE_NUM";							//공통코드 핸드폰
 	public static final String TELE_PHONE_NUM = "TELE_PHONE_NUM";							//공통코드 전화번호
+	public static final String FILE_TARGET_NOTICE = "notice";								//디바이스 파일 저장 폴더 
+	public static final String FILE_TARGET_QNA = "qna";								//디바이스 파일 저장 폴더 
 	public static final String FILE_TARGET_DEVICE = "device";								//디바이스 파일 저장 폴더 
 	public static final String FILE_TARGET_INQUIRY = "inquiry";								//상담 파일 저장 폴더 
 	public static final String FILE_TARGET_BOARD_TRAND = "boardTrand";						//트렌드리뷰 파일 저장 폴더 

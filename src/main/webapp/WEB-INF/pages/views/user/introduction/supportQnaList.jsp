@@ -39,8 +39,8 @@
             <div class="subCISupportFOCLCOCont">
               <p>
               ${boardQnaSelected.qnaAnswer}
-              <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.
               </p>
+              <p><br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.</p>
             </div><!-- .subCISupportFOCLCOCont End-->
           </div><!-- .subCISupportFOCLCO End -->
         </div><!-- .subCISupportFOCListContentOpen End -->
@@ -97,8 +97,8 @@
             <div class="subCISupportQOCLCOCont" style="margin-left: -60px;">
               <p>
                 ${boardQnaList.qnaAnswer}
-                <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.
               </p>
+              <p><br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.</p>
             </div><!-- .subCISupportQOCLCOCont End-->
           </div><!-- .subCISupportQOCLCO End -->
         </div><!-- .subCISupportQOCListContentOpen End -->
