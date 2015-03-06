@@ -55,8 +55,7 @@
        <tr>
        <th>등록 일시</th>
         <td>
-        <fmt:formatDate var="qnaInsertDate" pattern="yyyy/MM/dd HH:mm" value="${boardQnaDetail.qnaInsertDate }" />
-        <input type="text" class="inp-w160 " name="qnaInsertDate" value="${boardQnaDetail.qnaInsertDate }" data-flag ="off" readonly="readonly"/>
+       	 <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardQnaDetail.qnaInsertDate }" />
         </td> 
         </tr>
         </c:if>

@@ -34,7 +34,7 @@
             </div>
           </div><!-- .subCISupportFOCLSO End -->
         </div><!-- .subCISupportFOCListSubjectOpen -->
-        <div class="subCISupportFOCListContentOpen qnaAnswer" style="display: none; overflow:scroll;">
+        <div class="subCISupportFOCListContentOpen qnaAnswer" style="display: none; overflow:auto;">
           <div class="subCISupportFOCLCO">
             <div class="subCISupportFOCLCOCont">
               <p>
@@ -92,11 +92,17 @@
             </div>
           </div><!-- .subCISupportQOCLSC End -->
         </div><!-- .subCISupportQOCListSubjectClose End -->
-        <div class="subCISupportQOCListContentOpen qnaAnswer" style="display: none; overflow:scroll;">
+        <div class="subCISupportQOCListContentOpen qnaAnswer" style="display: none; overflow:auto;">
           <div class="subCISupportQOCLCO">
             <div class="subCISupportQOCLCOCont" style="margin-left: -60px;">
               <p>
                 ${boardQnaList.qnaAnswer}
+		            <c:if test="${boardQnaList.fileName ne null}">
+				         <p><img src="${contextPath}/common/imgView?fileType=${boardQnaList.fileTarget}&fileName=${boardQnaList.fileSavedName}" style="max-width:800px"/>
+				         <input type="hidden" name="fileName" value="${boardQnaList.fileName }" data-flag="off"/>
+				         <input type="hidden" name="fileSavedName" value="${boardQnaList.fileSavedName }" data-flag="off"/>
+				         </p>
+		            </c:if>
               </p>
               <p><br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.</p>
             </div><!-- .subCISupportQOCLCOCont End-->

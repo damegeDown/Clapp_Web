@@ -62,7 +62,7 @@
     <div class="subTRIndustryViewContentTwoContainer">
       <div class="subTRIndustryContentContBox">
         <div class="subTRIndustryContentCont">
-          <p class="subTRIndustryContentContTit">
+          <p class="subTRIndustryContentContTxt">
             ${fn:replace(trandReviewDetail.trandContents, newLineChar, '<br/>')}
           <p>
         </div><!-- subTRIndustryContentCont End -->

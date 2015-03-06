@@ -75,14 +75,15 @@
            </div><!-- .subTRIndusrtyContentList End -->
            </c:if>
            </c:forEach>
-           
         <!-- provide device List End -->
         <div class="subTRIndusrtyContentBottomBox">
           <div class="subTRIndusrtyContentMoreImgBox">
             <div class="subTRIndusrtyContentMoreImg">
-              <span class="nextPage" data-url="reviewList" alt="">
-               <img class="images" src="${contextPath}/resources/images/contents_btn_submit_board.png"  onmouseover="this.src='${contextPath}/resources/images/contents_btn_submit_board_more.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_submit_board.png';" alt="more" />
-              </span>
+            	<c:if test="${boardEntity.dataSize > 12}">
+	              <span class="nextPage" data-url="reviewList" alt="">
+	               <img class="images" src="${contextPath}/resources/images/contents_btn_submit_board.png"  onmouseover="this.src='${contextPath}/resources/images/contents_btn_submit_board_more.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_submit_board.png';" alt="more" />
+	              </span>
+             	</c:if>
               <input type="hidden" id="currentPage" value="${boardEntity.currentPage}" name="currentPage"/>
             </div><!-- .subTRIndusrtyContentMoreImg End-->
           </div><!-- .subTRIndusrtyContentMoreImgBox End -->

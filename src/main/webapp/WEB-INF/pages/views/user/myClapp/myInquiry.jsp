@@ -127,7 +127,7 @@
     </div>
     <div class="subInquiryContent6">
       <div class="subInquiryContentLeft">
-        <span class="subInquiryContentLeftTitle">파일 첨부</span>
+        <span class="subInquiryContentLeftTitle" style="margin-top:-14px;">파일 첨부</span>
         <span class="subInquiryContentLeftSub">(jpg/gif, zip, pdf 최대 1M)</span>
       </div>
       <div class="subInquiryContentRight">

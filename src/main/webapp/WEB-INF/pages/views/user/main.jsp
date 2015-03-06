@@ -251,7 +251,7 @@ wcs_do();
       <div class="mtqRTop">
         <div class="wrapBgMTQRTTextContainer">
           <span class="wrapBgMTQRTText">클앱 자동화</span>
-                        <span class="wrapBgMTQLText2">CLAPP AUTOMATION</span>
+                        <span class="wrapBgMTQLText2" style="color:#bbb2ea;">CLAPP AUTOMATION</span>
           <p class="wrapBgMTQRTText2">수동으로 수행하기 힘든 반복,<br />회귀 테스트를 자동화로 진행할 수 있는<br />설치형 프로그램 입니다.</p>
           <span class="wrapBgMTQRTMore">
             <a href="${contextPath }/clappTesting/autoMain"></a>
@@ -261,7 +261,7 @@ wcs_do();
       <div class="mtqRBottom">
         <div class="wrapBgMTQRBTextContainer">
           <span class="wrapBgMTQRBText">클앱 컨설팅</span>
-                        <span class="wrapBgMTQLText2">CLAPP CONSULTING</span>
+                        <span class="wrapBgMTQLText2" style="color:#81ffee;">CLAPP CONSULTING</span>
           <p class="wrapBgMTQRBText2">풍부한 경험과 국제 표준에 의한<br />
           품질 요소 검증을 기반으로 SW 테스트<br /> 
           관련 기술을 보유하고 있습니다.</p>
@@ -491,8 +491,8 @@ wcs_do();
     </div>
     <div class="wBGSnsBoldLine"></div>
     <div class="wBgSnsArticles">
-    <c:forEach items="${boardEntity.socialBlogList }" var="socialBlogList">
-      <div class="SnsArticleBox SnsArticleLine">
+    <c:forEach items="${boardEntity.socialBlogList }" var="socialBlogList" varStatus="i">
+      <div class="SnsArticleBox SnsArticleLine" <c:if test="${i.last}">style="border-bottom:none;"</c:if>>
 			<div class="SnsArticleThumbnail alignCenter" style="display:table">
           	  <div style="display:table-cell;vertical-align:middle">
 	          	<img src="${contextPath}/common/imgView?fileType=${socialBlogList.fileTarget}&fileName=${socialBlogList.fileSavedName}" style="max-width:80px;"/>
