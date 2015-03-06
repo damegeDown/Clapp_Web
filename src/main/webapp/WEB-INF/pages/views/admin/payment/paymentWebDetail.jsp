@@ -37,7 +37,7 @@
     	 		 <td>${paymentInfo.paymentOid }</td>
     	 		 <td>${paymentInfo.paymentStateText }</td>
     	 		 <td>
-    	 		 		<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${paymentInfo.paymentDate}" />
+    	 		 		${paymentInfo.payDt}
     	 		 </td>
     	 		 <td><fmt:formatNumber value="${paymentInfo.paymentNotVatTotalPrice }" type="number"/></td>
     	 		 <td><fmt:formatNumber value="${paymentInfo.paymentTotalPrice }" type="number"/></td>
@@ -91,12 +91,13 @@
     	 	 <tr>
     	 		 <td>${paymentInfo.paymentOid }</td>
     	 		 <td><input type="button" value="전표보기"/></td>
-    	 		 <td>${paymentInfo.paymentApprovalDate }</td>
+    	 		 <td>${paymentInfo.payDt }</td>
     	 		 <td>${paymentInfo.paymentTid }</td>
     	 		 <td><fmt:formatNumber value="${paymentInfo.paymentTotalPrice }" type="number"/></td>
     	 	 </tr>
     	 </tbody>
    	 </table>
+   	 <c:if test="${paymentInfo.payTypeCd eq  'SC0010' }" >
    	 <!-- 신용카드 결제 -->
    	 <table class="board-list" style="margin-top:10px;">
 	     <colgroup>
@@ -105,38 +106,28 @@
 	       <col width="15%"/>
 	       <col width="15%"/>
 	       <col width="15%"/>
-	       <col width="15%"/>
 	     </colgroup>
 	     <thead>
 	     	 <tr>
-	     		 <th>신용카드/핸드폰번호</th>
+	     		 <th>신용카드</th>
 	     		 <th>할부기간</th>
 	     		 <th>신용카드사코드</th>
-	     		 <th>카드발급사코드</th>
 	     		 <th>입금은행</th>
 	     		 <th>결제자명</th>
      		 </tr>
 	     </thead>
     	 <tbody>
     	 	 <tr>
-    	 		 <td>  
-    	 		 	 <c:choose>
-	    	 		   <c:when test="${paymentInfo.paymentType eq '1' }">
-	    	 		     ${paymentInfo.paymentCardNumber }
-	    	 		 	 </c:when>
-	    	 		 	 <c:when test="${paymentInfo.paymentType eq '2' }">
-	    	 		     ${paymentInfo.paymentCellphoneNumber }
-	    	 		 	 </c:when>
-    	 		 	 </c:choose>
-    	 		 </td>
-    	 		 <td>${paymentInfo.paymentInstallment }</td>
-    	 		 <td>${paymentInfo.paymentCardCompanyCode }</td>
-    	 		 <td>${paymentInfo.paymentCardCompanyCode }</td>
-    	 		 <td>${paymentInfo.paymentBankCode }</td>
-    	 		 <td>${paymentInfo.paymentName }</td>
+    	 		 <td>${paymentInfo.paymentCardNumber }</td>
+    	 		 <td>${paymentInfo.cardInstallMonth }</td>
+    	 		 <td>${paymentInfo.cardAcquirer }</td>
+    	 		 <td>${paymentInfo.financeName }</td>
+    	 		 <td>${paymentInfo.buyer }</td>
     	 	 </tr>
     	 </tbody>
    	 </table>
+   	 </c:if>
+   	 <c:if test="${paymentInfo.payTypeCd eq  'SC0040' }" >
    	 <div> 
 		   <h3 class="floatL part-title">> 세금계산서 발행여부(가상계좌 입금완료분, 영수처리만 해당)</h3>
 		   <div style="clear:both;"></div>
@@ -158,7 +149,7 @@
 	     </thead>
     	 <tbody>
     	 	 <tr>
-    	 		 <td>${paymentInfo.paymentBillRequestState }</td>
+    	 		 <td>${paymentInfo.cashReceiptSelfYn }</td>
     	 		 <td>
     	 		   <c:choose>
 	    	 		   <c:when test="${paymentInfo.paymentBillPublicationDate eq null }">
@@ -174,6 +165,7 @@
     	 	 </tr>
     	 </tbody>
    	 </table>
+   	 </c:if>
    	 <div> 
 		   <h3 class="floatL part-title">> 결제관련 로그정보</h3>
 		   <div style="clear:both;"></div>
@@ -194,7 +186,7 @@
     	 <tbody>
     	 	<c:forEach var="logs" items="${paymentInfo.paymentList }" varStatus="i">
     	 	 <tr>
-    	 		 <td>${logs.insertLogsDate }</td>
+    	 		 <td><fmt:formatDate value="${logs.insertLogsDate }" pattern="yyyy-MM-dd HH:mm"/> </td>
     	 		 <td>${logs.logsCode }</td>
     	 		 <td>${logs.logsMessage }</td>
     	 	 </tr>
