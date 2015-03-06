@@ -27,6 +27,14 @@
         <th>내용</th>
         <td>${boardNoticeDetail.noticeContents }</td>
        </tr>
+       <tr>
+       <th>이미지</th>
+       <td>
+         <img src="${contextPath}/common/imgView?fileType=${boardNoticeDetail.fileTarget}&fileName=${boardNoticeDetail.fileSavedName}" style="max-width:800px"/>
+         <input type="hidden" name="fileName" value="${boardNoticeDetail.fileName }" data-flag="off"/>
+         <input type="hidden" name="fileSavedName" value="${boardNoticeDetail.fileSavedName }" data-flag="off"/>
+       </td>
+       </tr>
        <c:if test="${boardNoticeDetail.boardNoticeKey > 0}">
        <tr>
        <th>등록 일시</th>
@@ -54,8 +62,8 @@
   </table>
   <div class="btn-area">
     <a href="${contextPath}/admin/customer/boardNoticeList" class="floatL btn-bottom-orenge">목록</a>
-    <div class="btn-bottom-orenge" onclick="javascript:location.href='${contextPath}/admin/customer/boardNoticeModify?boardNoticeKey=${boardNoticeDetail.boardNoticeKey }'">수정</div>
-    <div class=" btn-bottom-orenge delSubmitBtn" data-action="${contextPath}/admin/customer/rest/removeBoardNotice" data-type="ajax" data-id='${boardNoticeDetail.boardNoticeKey}' data-msg='삭제'>삭제</div>
+    <div class="floatR btn-bottom-orenge" onclick="javascript:location.href='${contextPath}/admin/customer/boardNoticeModify?boardNoticeKey=${boardNoticeDetail.boardNoticeKey }'">수정</div>
+    <div class="floatR btn-bottom-orenge delSubmitBtn" data-action="${contextPath}/admin/customer/rest/removeBoardNotice" data-type="ajax" data-id='${boardNoticeDetail.boardNoticeKey}' data-msg='삭제'>삭제</div>
   </div>
   </form>
 </div>
