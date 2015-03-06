@@ -344,10 +344,10 @@ public class CustomerRestController {
 		ResponseEntity result = new ResponseEntity();
 	  try {
 		String resultCode = ResultCode.FAIL;
-		String resultMessage = messages.getMessage("top10open.fail");
+		String resultMessage = messages.getMessage("qnaTop10open.fail");
 		if(customerService.qnaTop10Open(boardQnaEntity) > CommonCode.ZERO) {
 		  resultCode = ResultCode.SUCCESS;
-		  resultMessage = messages.getMessage("top10open.success"); 
+		  resultMessage = messages.getMessage("qnaTop10open.success"); 
 		  result.setResultURL("/admin/customer/boardQnaList");
 		}
 		result.setResultCode(resultCode);
@@ -355,7 +355,7 @@ public class CustomerRestController {
 	  } catch (Exception e) {
 		logger.error("CustomerRestController.qnaTop10Open:Faild" , e);
 		result.setResultCode(ResultCode.FAIL);
-		result.setResultMSG(messages.getMessage("top10open.fail"));
+		result.setResultMSG(messages.getMessage("qnaTop10open.fail"));
 	  }
 	  return result;
 	}
@@ -369,10 +369,10 @@ public class CustomerRestController {
 		ResponseEntity result = new ResponseEntity();
 	  try {
 		String resultCode = ResultCode.FAIL;
-		String resultMessage = messages.getMessage("top10close.fail");
+		String resultMessage = messages.getMessage("qnaTop10close.fail");
 		if(customerService.qnaTop10Close(boardQnaEntity) > CommonCode.ZERO) {
 		  resultCode = ResultCode.SUCCESS;
-		  resultMessage = messages.getMessage("top10close.success"); 
+		  resultMessage = messages.getMessage("qnaTop10close.success"); 
 		  result.setResultURL("/admin/customer/boardQnaList");
 		}
 		result.setResultCode(resultCode);
@@ -380,7 +380,7 @@ public class CustomerRestController {
 	  } catch (Exception e) {
 		logger.error("CustomerRestController.qnaTop10Close:Faild" , e);
 		result.setResultCode(ResultCode.FAIL);
-		result.setResultMSG(messages.getMessage("top10close.fail"));
+		result.setResultMSG(messages.getMessage("qnaTop10close.fail"));
 	  }
 	  return result;
 	}

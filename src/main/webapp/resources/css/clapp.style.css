@@ -1315,6 +1315,7 @@ body {
   color: #57402b;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 .brownbg:hover, .Brown a:hover {
   height: 159px;
@@ -1338,6 +1339,7 @@ body {
   color: #2b4865;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 .navybg:hover {
   height: 159px;
@@ -1358,6 +1360,7 @@ body {
   color: #4c3a5e;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 .purplebg:hover {
   background: #f7f4f8;
@@ -1376,6 +1379,7 @@ body {
   color: #808080;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 
 #wrapBgSns {
@@ -5192,7 +5196,7 @@ body {
   width: inherit;
   min-height: 492px;
   height: auto;
-  padding-bottom: 30px;
+  padding-bottom: 22px;
   display: block;
 }
 .subJoinFormOptionSection {
@@ -5440,7 +5444,7 @@ body {
 
 .subJoinFormRequiredTelField {
   width: 960px;
-  height: 120px;
+  height: 100px;
   margin: 0 auto;
   display: block;
   border-top: 1px solid #e8ecf0;
@@ -6640,7 +6644,7 @@ body {
 .subInquiryContentLeftTitle {
   display: block;
   padding-left: 20px;
-  line-height: 60px;
+  line-height: 75px;
   font-size: 15px;
   font-weight: 600;
   color: #404040;
@@ -6658,7 +6662,7 @@ body {
   width: 700px;
   float: left;
   display: block;
-  line-height: 60px;
+  line-height: 75px;
   
 }
 .sicRadio {
@@ -6695,7 +6699,7 @@ body {
   text-align: center;
 }
 .sicEmail, .sicName {
-  margin-top: 9px;
+  margin-top: 16px;
   width: 580px;
   height: 38px;
   border: 1px solid #dbe1e7;
@@ -6709,7 +6713,7 @@ body {
   margin-left: 1px;
 }
 .sicTel1, .sicTel2, .sicTel3 {
-  margin-top: 9px;
+  margin-top: 17px;
   width: 130px;
   height: 38px;
   border: 1px solid #dbe1e7;
@@ -6733,7 +6737,7 @@ body {
   margin-bottom: -14px;
 }
 .sicTextArea {
-  margin-top: 9px;
+  margin-top: 17px;
   width: 588px;
   height: 200px;
   border: 1px solid #dbe1e7;
@@ -7580,7 +7584,6 @@ body {
   background-position: center left;
   background-size: 24px 24px;
   background-attachment: cover;
-  margin-left: 50px;
   font-size: 15px;
   color: #606060;
   padding-left: 30px;

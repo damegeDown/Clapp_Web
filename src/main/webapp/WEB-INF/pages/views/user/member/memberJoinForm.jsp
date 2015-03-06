@@ -429,7 +429,7 @@ var SelectUtils = (function() {
             <input type="text" class="sjfrTelInput2 phoneNum" name="cellPhone3" value="${cellPhone[2]}" data-name="휴대폰번호" maxlength="4"/>
             <input type="hidden" class="phoneNumComp" name="userCellPhoneNumber"/>
             <!-- <div class="authBtn authentication">인증받기</div> -->
-             <p class="smisCorpMessage" style="width: 700px; line-height:1.3em; ">
+             <p class="smisCorpMessage" style="width: 700px; line-height:1.3em; margin-top: -3px;">
                 ※ 테스팅 서비스를 이용하실 때, 계정별 비정상적인 접근을 방지하기 위한 인증수단으로 이용 됩니다.<br/>
                   ( 해외 거주자의 경우, 클앱 고객지원 1661-7083 으로 문의 )
              </p>
@@ -450,7 +450,7 @@ var SelectUtils = (function() {
         </div>
         <input type="button" class="authenticationBtn comparison" value="인증받기" data-check="false"/>
       </div>
-      <p class="smisCorpMessage" id="countdown" align="center" style="float:left; width:1320px; margin-top:10px;color:blue">3분 이내 입력 ( 남은시간 : <span class="min">3</span>분 : <span class="sec">00</span>초 )</p>
+      <p class="smisCorpMessage" id="countdown" style="float:left; margin-left:700px; margin-top:-3px; color:blue">3분 이내 입력 ( 남은시간 : <span class="min">3</span>분 : <span class="sec">00</span>초 )</p>
     </div> <!-- .subJoinRequiredSection End -->
     <div class="clear"></div>
      <div class="subJoinFormOptionSection">
