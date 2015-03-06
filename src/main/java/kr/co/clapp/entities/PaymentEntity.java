@@ -26,7 +26,7 @@ public class PaymentEntity extends PageEntity implements Serializable {
   private String    paymentState;               //결제상태
   private String paymentStateText;           //결제상태 텍스트
   private Date   paymentDate;                //결제일
-  private String   paymentApprovalDate;        //결제 승인일
+  private Date   paymentApprovalDate;        //결제 승인일
   private String    paymentType;                //결제 타입
   private String paymentTypeText;            //결제 타입 텍스트
   private String paymentName;                //결제자명
@@ -239,11 +239,11 @@ public int getPaymentWaitCount() {
     paymentDate = paymentDateParam;
   }
 
-  public String getPaymentApprovalDate () {
+  public Date getPaymentApprovalDate () {
     return paymentApprovalDate;
   }
 
-  public void setPaymentApprovalDate ( final String paymentApprovalDateParam ) {
+  public void setPaymentApprovalDate ( final Date paymentApprovalDateParam ) {
     paymentApprovalDate = paymentApprovalDateParam;
   }
 

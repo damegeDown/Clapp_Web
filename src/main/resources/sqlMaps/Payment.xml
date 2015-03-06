@@ -49,43 +49,53 @@
   <select id="getPaymentWebListCount" parameterType="paymentEntity" resultType="int">
     SELECT
       COUNT(pm.payment_master_key)
-    FROM
-      PAYMENT_MASTER pm
-    INNER JOIN
-      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key 
+     FROM
+	      PAYMENT_MASTER pm
+	   INNER JOIN
+	      PAYMENT p on pm.payment_master_key = p.payment_master_key
+	   INNER JOIN 
+				USER_MASTER um on pm.payment_user_id = um.user_id  
+   <!--  INNER JOIN
+      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key  -->
     WHERE
-    	1 = 1 
+    	1 =1
    	<include refid="searchPaymentWebList"/>
   </select>
   <select id="getPaymentWebList" parameterType="paymentEntity" resultType="paymentEntity">
   	 
 	     SELECT
 	        pm.payment_master_key,
+	        pm.user_master_key,
 	        pm.payment_oid,
-			pm.payment_tid,
+			pm.payment_tid, 
 	        pm.payment_state,
 	        FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',pm.payment_state) payment_state_text,
-	        DATE_FORMAT(pm.payment_date,'%d %b %y') payment_date,
+	      pm.payment_date,
 	        FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE',pm.payment_type) paymentTypeText,
 	        pm.payment_approval_date, 
-	        pm.payment_name,  
-	        pm.payment_user_id,
+	        pm.payment_user_id, 
+	        pm.payment_name,
+	        pm.payment_company_number,
+	        pm.product_master_key,  
 	        pm.payment_product_name,
 	        pm.payment_product_price,
+	        pm.payment_use_time,
 	        pm.payment_ticket_amount,
 	        FN_GET_VAT_EXCEPT_AMOUNT(pm.payment_total_price) payment_not_vat_total_price,
 	        pm.payment_total_price,
-	        FN_GET_COMMON_CODE_NAME('BILL_STATE',pd.payment_bill_request_state) payment_bill_request_state,
-	        (select ifnull(user_company_number,'-') from USER_DETAIL ud where um.user_master_key = ud.user_master_key) user_company_number
+	        pm.payment_start_date,
+	        pm.payment_end_date
 	    FROM
 	      PAYMENT_MASTER pm
-	    INNER JOIN
-	      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key 
-	    LEFT OUTER JOIN 
-				USER_MASTER um on pm.payment_user_id = um.user_id
+       INNER JOIN
+	      PAYMENT p on pm.payment_master_key = p.payment_master_key
+	   INNER JOIN 
+			USER_MASTER um on pm.payment_user_id = um.user_id  
 	    WHERE
 	      	1 = 1
 	    <include refid="searchPaymentWebList"/>
+	    	LIMIT 
+     	 #{rowStartNumber}, #{pageListSize}
   </select>
 	<select id="getPaymentWebDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
@@ -102,27 +112,21 @@
 			pm.payment_product_name,
 			pm.payment_ticket_amount,
 			pm.payment_approval_date,
-			pd.payment_installment,
-			pd.payment_card_company_code,
-			FN_GET_SECRET_CARD_NUMBER(pd.payment_card_number) payment_card_number,
-			pd.payment_installment,
-			pd.payment_card_company_code,
-			FN_GET_SECRET_CELL_NUMBER(pd.payment_cellphone_number) payment_cellphone_number,
-			pd.payment_mobile_agency,
-			pd.payment_account_number,
-			pd.payment_account_holder,
-			pd.payment_bank_code,
-			FN_GET_COMMON_CODE_NAME('BILL_STATE',pd.payment_bill_request_state) payment_bill_request_state,
-			pd.payment_purpose_type,
-			pd.payment_bill_request_date,
-			pd.payment_bill_publication_date,
-			pd.payment_bill_email,
-			pd.payment_bill_memo 
+			p.card_install_month payment_installment,
+			p.card_acquirer payment_card_company_code,
+			FN_GET_SECRET_CARD_NUMBER(p.card_num) payment_card_number,
+			FN_GET_SECRET_CELL_NUMBER(p.buyer_phone) payment_cellphone_number,
+			p.account_num payment_account_number,
+			p.payer payment_account_holder,
+			p.finance_code,
+			p.finance_name,
+			FN_GET_COMMON_CODE_NAME('BILL_STATE',p.cash_receipt_self_yn) payment_bill_request_state,
+			p.cash_receipt_kind payment_purpose_type
 		FROM
-			PAYMENT_MASTER pm, 
-			PAYMENT_DETAIL pd
-		WHERE	
-			pm.payment_master_key = pd.payment_master_key
+			PAYMENT_MASTER pm ,
+			PAYMENT p
+		WHERE
+			pm.payment_master_key = p.payment_master_key
 		AND
 			pm.payment_master_key = #{paymentMasterKey}
 		
@@ -561,7 +565,7 @@
 		pm.payment_ticket_amount,
 		pm.payment_total_price,
 		pm.payment_cancel_reason,
-		pm.payment_cancel_person,
+		pm.payment_cancel_person, 
 		pm.payment_cancel_date,
 		pd.*
 	FROM
@@ -571,7 +575,7 @@
 		pm.payment_master_key = pd.payment_master_key
 	AND
 	<choose>
-		<when test="paymentMasterKey !=null or paymentMasterKey != 0">
+		<when test="paymentMasterKey > 0">
 			pm.payment_master_key = #{paymentMasterKey}
 		</when>
 		<otherwise>

@@ -450,11 +450,13 @@ public class PaymentServiceImpl implements PaymentService {
 		 int oriTicket = ticketEntity.getTicketAmount();
 		 int oriAvilableTicket = ticketEntity.getTicketAvilableAmount();
 		 int addDate = 0;
+		 int userMasterKey = ticketEntity.getUserMasterKey();
 		 Date endDate = null;
 		 TicketEntity ticketInfo = new TicketEntity();
 		 TicketEntity ticketParam = new TicketEntity();
 		 ticketParam = ticketEntity;
 		 //소유한 티켓 정보를 불러온다.
+		 ticketParam.setUserMasterKey(userMasterKey);
 		 ticketInfo = ticketDAO.selectTicketInfo(ticketParam); 
 		 if(StringUtils.isEmpty(ticketInfo)) { 
 			 result = ticketDAO.insertUserTicketMaster(ticketParam);
@@ -584,19 +586,19 @@ public class PaymentServiceImpl implements PaymentService {
 		 * 그외 : 상점 처리결과 실패
 		 * ※ 주의사항 : 성공시 'OK' 문자이외의 다른문자열이 포함되면 실패처리 되오니 주의하시기 바랍니다.
 		 **/
-		String resultMsg = "결제결과 상점 DB처리(LGD_CASNOTEURL) 결과값을 입력해 주시기 바랍니다.";  
+		String resultMsg = "결제결과 상점 DB처리(LGD_CASNOTEURL) 결과값을 입력해 주시기 바랍니다.";
+		String resultCode = CommonCode.FAIL;
 		if (LGD_HASHDATA2.trim().equals(LGD_HASHDATA)) { //해쉬값 검증이 성공이면
 			if ( ("0000".equals(LGD_RESPCODE.trim())) ){ //결제가 성공이면
 				if( "R".equals( LGD_CASFLAG.trim() ) ) {
 					// if( 무통장 할당 성공 상점처리결과 성공 ) 
-					resultMsg = "무통장 할당";
+					resultMsg = "OK";
+					resultCode = CommonCode.SUCCESS;
 				} else if( "I".equals( LGD_CASFLAG.trim() ) ) {
 					// if( 무통장 입금 성공 상점처리결과 성공 ) 
 					paymentEntity.setPayStateCd(CommonCode.PayState.COMPLET);
 					paymentDAO.updPayment(paymentEntity);
 					paymentDAO.updPaymentMaster(paymentEntity);
-					resultMsg = "무통장 입금";
-
 					/** 티켓 저장*/
 					PaymentEntity paymentInfo = new PaymentEntity();
 					paymentInfo = paymentDAO.getPaymentInfo(paymentEntity);
@@ -608,12 +610,12 @@ public class PaymentServiceImpl implements PaymentService {
 					Date endDate = null;
 					TicketEntity ticketInfo = new TicketEntity();
 					ticketInfo.setTargetKey(paymentInfo.getPaymentMasterKey());
-					ticketInfo.setUserMasterKey(paymentEntity.getUserMasterKey());
-					ticketInfo.setProductMasterKey(paymentEntity.getProductMasterKey());
-					ticketInfo.setProductName(paymentEntity.getPaymentProductName());
-					ticketInfo.setPaymentTid(paymentEntity.getPaymentTid());
-					ticketInfo.setTicketAmount(paymentEntity.getPaymentTicketAmount());
-					ticketInfo.setTicketAvilableAmount(paymentEntity.getPaymentTicketAmount());
+					ticketInfo.setUserMasterKey(paymentInfo.getUserMasterKey());
+					ticketInfo.setProductMasterKey(paymentInfo.getProductMasterKey());
+					ticketInfo.setProductName(paymentInfo.getPaymentProductName());
+					ticketInfo.setPaymentTid(paymentInfo.getPaymentTid());
+					ticketInfo.setTicketAmount(paymentInfo.getPaymentTicketAmount());
+					ticketInfo.setTicketAvilableAmount(paymentInfo.getPaymentTicketAmount());
 					if(paymentEntity.getProductExpirationDate() > 0) {
 					  endDate = Utils.getAddNowDate(expirationDate);
 					  ticketInfo.setTicketEndExpirationDate(endDate);
@@ -624,13 +626,17 @@ public class PaymentServiceImpl implements PaymentService {
 					
 					/** 티켓 히스토리에 저장*/
 					//ticketDAO.insertUserTicketHistory(ticketInfo);
-					this.insertUserTicketMaster(ticketInfo);
+					int resultInt = this.insertUserTicketMaster(ticketInfo);
+					if(resultInt > CommonCode.ZERO) {
+						resultMsg = "OK";
+						resultCode = CommonCode.SUCCESS;
+					}
 				} else if( "C".equals( LGD_CASFLAG.trim() ) ) {
 					// if( 무통장 입금취소 성공 상점처리결과 성공 ) 
 					paymentEntity.setPayStateCd(CommonCode.PayState.CANCEL);
 					paymentDAO.updPayment(paymentEntity);
 					paymentDAO.updPaymentMaster(paymentEntity);
-					resultMsg = "무통장 입금 취소";
+					resultMsg = "OK";
 				}
 			} else { // 결제가 실패이면
 				// if( 결제실패 상점처리결과 성공 )
@@ -638,7 +644,7 @@ public class PaymentServiceImpl implements PaymentService {
 			}
 			logger.info("무통장입금처리 : " + resultMsg);
 			resultMap.setResultMSG(resultMsg);
-			resultMap.setResultCode(ResultCode.SUCCESS);
+			resultMap.setResultCode(resultCode);
 			 
 		} else { // 해쉬값이 검증이 실패이면
 			// HASHDATA 검증 실패 로그를 처리하시기 바랍니다. 

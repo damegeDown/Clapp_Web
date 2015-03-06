@@ -112,18 +112,20 @@ public class MyClappRestController {
 	 * @return
 	 */
 	@RequestMapping("/responseVirtualAcct")
-	public ResponseEntity responseVirtualAcct(HttpServletRequest request) {
-
+	public String responseVirtualAcct(HttpServletRequest request) {
+		String result = "FAIL";
 		ResponseEntity resultMap = new ResponseEntity();
 		try {
 			resultMap = paymentService.responseVirtualAcct(request);
-			logger.info("무통장입금처리 Success");
+			if(resultMap.getResultCode().equals(CommonCode.SUCCESS)) {
+				result = "OK"; 
+			}
 		} catch (Exception e) {
 			resultMap.setResultCode(ResultCode.FAIL);
 			logger.error("MyClappRestController.responseVirtualAcct:Faild" , e);
 		}
-		return resultMap;
-	}
+		return result;
+	} 
 	
 	/**
 	 * 1:1문의 등록

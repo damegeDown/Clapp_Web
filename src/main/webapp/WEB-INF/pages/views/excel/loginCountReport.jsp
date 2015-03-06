@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="statisticsLength" value="${statisticsEntity.statisticsList.size() }"/>
 <c:set var="weekDayLength" value="0"/>
-<h3 class="floatL" >> 로그인수</h3>
+<div class="floatL" >> 로그인수</div>
 <table class="board-list" style="width:600px">
 	<colgroup>
 		<col style="width:23%"/>

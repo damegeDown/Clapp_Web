@@ -77,24 +77,41 @@
   <div style="width:100%;">
   	<h3 class="floatL part-title">${CommonCode.searchResult }</h3>
   </div>
-  <table class="board-list-r">
+  <table class="board-list-r" style="">
+	  <colgroup>
+	  	<col width="5%"/>
+	  	<col width="10%"/>
+	  	<col width="10%"/>
+	  	<col width="7%"/>
+	  	<col width="6%"/>
+	  	<col width="6%"/>
+	  	<col width="6%"/>
+	  	<col width="6%"/>
+	  	<col width="6%"/>
+	  	<col width="9%"/>
+	  	<col width="6%"/>
+	  	<col width="6%"/>
+	  	<col width="6%"/>
+	  	<col width="6%"/>
+	  	<col width="5%"/>
+  	  </colgroup>
     <thead>
     <tr>
       <th>No.</th>
-			<th class="al-center">회원 ID</th>
-			<th class="al-center">결제번호</th>
-			<th class="al-center">신청일시</th>
-			<th class="al-center">결제방법</th>
-			<th class="al-center">계산서<br/>발행여부</th>
-			<th class="al-center">결제여부</th>
-			<th class="al-center">결제일시</th>
-			<th class="al-center">결제자명</th>
-			<th class="al-center">사업자등록번호</th>
-			<th class="al-center">신청상품</th>
-			<th>신청금액<br/>(원)</th>
-			<th>결제금액<br/>(vat제외, 원)</th>
-			<th>결제금액<br/>(vat포함, 원)</th>
-			<th>티켓</th>
+		<th class="al-center">회원 ID</th>
+		<th class="al-center">결제번호</th>
+		<th class="al-center">신청일시</th>
+		<th class="al-center">결제방법</th>
+		<th class="al-center">계산서<br/>발행여부</th>
+		<th class="al-center">결제여부</th>
+		<th class="al-center">결제일시</th>
+		<th class="al-center">결제자명</th>
+		<th class="al-center">사업자등록번호</th>
+		<th class="al-center">신청상품</th>
+		<th>신청금액<br/>(원)</th>
+		<th>결제금액<br/>(vat제외, 원)</th>
+		<th>결제금액<br/>(vat포함, 원)</th>
+		<th>티켓</th>
     </tr>
     </thead>
     <tbody>

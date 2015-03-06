@@ -159,6 +159,8 @@ public class MembersController {
     @RequestMapping(value = "/doUserLogin", method = RequestMethod.POST)
     public ResponseEntity doUserLogin(MemberEntity memberEntity, HttpSession session, HttpServletRequest request){
     	ResponseEntity result = new ResponseEntity();
+    	MemberEntity userInfo =  new MemberEntity();
+		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
     	try{
     		result = memberService.doUserLogin(memberEntity, result, session);
     		//if(result.equals(ResultCode.SUCCESS)) { 
