@@ -351,14 +351,19 @@
       UD.USER_COMPANY_GROUP_TYPE,
       FN_GET_COMMON_CODE_NAME('USER_COMPANY_GROUP_TYPE', UD.USER_COMPANY_GROUP_TYPE ) USER_COMPANY_GROUP_TYPE_TEXT,
       UD.USER_COMPANY_NUMBER,
-      UD.USER_COMPANY_BUSINESS_TYPE
-      <!-- todo 보유티켓수, 유료상품 이용현황 -> 이용중(Monthly Silver, 상품 적용기간 0000/00/00 ~ 0000/00/00 -->
+      UD.USER_COMPANY_BUSINESS_TYPE,
+		  vum.ticket_start_expiration_date,
+		  vum.ticket_end_expiration_date,
+		  vum.product_name,
+		  vum.used_ticket_amount
     FROM
-      USER_MASTER UM, USER_DETAIL UD
+      USER_MASTER UM, USER_DETAIL UD, v_user_master vum
     WHERE
-      UM.USER_MASTER_KEY = #{userMasterKey}
-    AND
       UM.USER_MASTER_KEY = UD.USER_MASTER_KEY 
+	  AND  
+	    UM.USER_MASTER_KEY = vum.user_master_key
+    AND
+      UM.USER_MASTER_KEY = #{userMasterKey}
   </select>
   <!-- //회원 상세 -->
   

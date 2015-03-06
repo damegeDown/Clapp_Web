@@ -40,6 +40,15 @@ public class MemberEntity extends PageEntity implements Serializable{
 	private String dropOutUserid;
 	private String redundancyCheckId;
 	/**
+	 * v_user_master
+	 */
+	private int usedTicketAmount;						//보유 티켓수
+	private Date ticketStartExpirationDate;			//상품 유효기간 시작일
+	private Date ticketEndExpirationDate;			//상품 유효기간 종료일
+	private String productName;							//상품명
+	
+	
+	/**
 	 * user_detail
 	 */
 	private String userAgeGroup;								// 연령대(10대:1, 20대:2,...50대:5)
@@ -279,6 +288,38 @@ public class MemberEntity extends PageEntity implements Serializable{
 
 	public String getRedundancyCheckId() {
 		return redundancyCheckId;
+	}
+
+	public int getUsedTicketAmount() {
+		return usedTicketAmount;
+	}
+
+	public void setUsedTicketAmount(int usedTicketAmount) {
+		this.usedTicketAmount = usedTicketAmount;
+	}
+
+	public Date getTicketStartExpirationDate() {
+		return ticketStartExpirationDate;
+	}
+
+	public void setTicketStartExpirationDate(Date ticketStartExpirationDate) {
+		this.ticketStartExpirationDate = ticketStartExpirationDate;
+	}
+
+	public Date getTicketEndExpirationDate() {
+		return ticketEndExpirationDate;
+	}
+
+	public void setTicketEndExpirationDate(Date ticketEndExpirationDate) {
+		this.ticketEndExpirationDate = ticketEndExpirationDate;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public void setRedundancyCheckId(String redundancyCheckId) {
