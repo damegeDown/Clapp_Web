@@ -83,13 +83,15 @@ public class PaymentController {
   	  for(int i = 0; i < paymentEntity.getPaymentList().size();i++) {
    		searchTotalPrice += paymentEntity.getPaymentList().get(i).getPaymentNotVatTotalPrice();
    	  }
-  	 
+  	  ProductEntity productEntity = new ProductEntity();
+  	  productEntity = productService.getProductList(productEntity);
       //공통
       commonCode.put( "navigation", "웹 결제 관리 (이 달의 결제 : <span class='colorSkyBlue'>"+searchResult.getSumCount()+"</span> 건 / <span class='colorSkyBlue'>"+searchResult.getSumTotalPrice()+"</span> 원 vat 별도)" );					// 현재 페이지 네비게이션
       commonCode.put("searchResult", "> 검색결과 : <span class='colorSkyBlue'>"+paymentEntity.getPaymentList().size()+"</span> 건 /  <span class='colorSkyBlue'>"+searchTotalPrice+"</span> vat 별도");   // 검색 결과
       commonCode.put( "mainMenu", "permissionPayment" );                      // left main menu
       commonCode.put( "subMenu", "paymentWeb" );                // left sub menu
       model.addAttribute( "CommonCode", commonCode );
+      model.addAttribute( "productInfo", productEntity );
 	} catch (Exception e) {
 	  logger.error("PaymentController.paymentWebList", e);
 	}

@@ -62,7 +62,8 @@ public class MemberController {
 			Model model, HttpServletRequest request) throws Exception {
 		
 		String ip = Utils.getRomoteIp(request);
-		
+		String localIp = Utils.getLocalServerIp(request);
+		 
 		model.addAttribute("ipAddress", ip);
 		model.addAttribute("chkGrant", chkGrant); 
 		model.addAttribute("resultCode", resultCode);
