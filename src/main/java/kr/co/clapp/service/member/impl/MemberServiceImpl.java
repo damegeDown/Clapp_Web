@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
 	int checkFlag = 0;
 	//adminEntity.setAdminPassword(HashUtils.encryptSHA256(adminEntity.getAdminPassword()));
 	
-	adminEntity.setAccessIpAddress(Utils.getRomoteIp(request));
+	adminEntity.setAccessIpAddress(Utils.getLocalServerIp(request));
 	checkFlag = memberDAO.ipCheck(adminEntity);
 	
 	adminEntity.setAdminPassword(adminEntity.getAdminPassword());

@@ -54,15 +54,20 @@
 	<!-- //티켓 사용 내역 목록 -->
 	
 	<!-- 이달의 티켓 사용 개수 합계 -->
-<!--  	<select id="getTicketSum" parameterType="ticketEntity" resultType="ticketEntity">
+	<select id="getTicketSum" parameterType="ticketEntity" resultType="ticketEntity">
 		SELECT 
-	    if(SUM(HISTORY_USED_TICKET_AMOUNT) is null, 0, SUM(HISTORY_USED_TICKET_AMOUNT)) ticketSum
-	  FROM 
-	    USER_TICKET_USED_HISTORY 
+	    	if(SUM(use_point) is null, 0, SUM(use_point)) ticketSum
+	  	FROM 
+	    VIEW_RESERVATIONS
 		WHERE 
-	    HISTORY_START_USED_TIME BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
-	      OR HISTORY_END_USED_TIME BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
-	</select>  -->
+	    	start_dttm 
+	    		BETWEEN 
+	    			DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
+	      	OR 
+	      	end_dttm 
+	      		BETWEEN 
+	      			DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
+	</select>
   <!-- //이달의 티켓 사용 개수 합계 -->
 
 	<!-- 티켓 사용 내역 카운트 -->
