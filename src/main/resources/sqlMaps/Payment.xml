@@ -94,7 +94,9 @@
 	    WHERE
 	      	1 = 1
 	    <include refid="searchPaymentWebList"/> 
-	    	LIMIT 
+	    ORDER BY
+	    	p.reg_dt desc
+	    LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
   </select>
 	<select id="getPaymentWebDetail" parameterType="paymentEntity" resultType="paymentEntity">
