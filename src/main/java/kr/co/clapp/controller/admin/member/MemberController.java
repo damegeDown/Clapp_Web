@@ -61,12 +61,12 @@ public class MemberController {
 			@RequestParam(required = false, value = "chkGrant", defaultValue = "N") String chkGrant,
 			Model model, HttpServletRequest request) throws Exception {
 		
-		String ip = Utils.getRomoteIp(request);
-		String localIp = Utils.getLocalServerIp(request);
-		 
-		model.addAttribute("ipAddress", localIp);
-		model.addAttribute("chkGrant", chkGrant); 
-		model.addAttribute("resultCode", resultCode);
+		String remoteIp = Utils.getRomoteIp(request);
+		String localIp = Utils.getLocalServerIp(request); 
+		model.addAttribute("remoteIp", remoteIp); 
+		model.addAttribute("localIpAddress", localIp);
+		model.addAttribute("chkGrant", chkGrant);  
+		model.addAttribute("resultCode", resultCode); 
 		return "adminLoginDef";
 	}
 
