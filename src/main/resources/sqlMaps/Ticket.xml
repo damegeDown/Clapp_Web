@@ -48,6 +48,8 @@
 			AND
 			 UM.USER_NAME = #{searchValue3}
 		</if> 
+		ORDER BY
+			start_dttm DESC
 		LIMIT  
 		#{rowStartNumber}, #{pageListSize}
 	</select>
@@ -800,9 +802,10 @@
 				'적립' statusText,
 				CONCAT('+',ticket_avilable_amount) historyUsedTicketAmountText,
 				ticket_start_expiration_date ticketStartExpirationDate,
-				ticket_end_expiration_date ticketEndExpirationDate,
+				ticket_end_expiration_date ticketEndExpirationDate, 
 				product_name productName,
-				user_master_key
+				user_master_key,
+				TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) as expirationDate
 			FROM
 				USER_TICKET_HISTORY
 			WHERE
@@ -837,7 +840,8 @@
 				start_dttm,
 				end_dttm,
 			   (SELECT CONCAT(product_name, '<![CDATA[ <br/><br/> ]]>', '(', vd.prod_name , ' / ' , LEFT(start_dttm,16), ' ~ ', LEFT(RIGHT(end_dttm, 8),5), ')') FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id),
-				vr.user_id
+				vr.user_id,
+				TO_DAYS(end_dttm) - TO_DAYS(now()) AS expirationDate
 			FROM 
 				VIEW_RESERVATIONS vr,
 				VIEW_DEVICES vd

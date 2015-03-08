@@ -84,7 +84,8 @@
 					<div class="btn-area">
 						<a href="#" class="login loginBtn">로그인</a>
 					</div>
-					IP : <c:out value="${ipAddress }"/>
+					<%-- remoteIp : <c:out value="${remoteIp }"/> --%>
+					IP : <c:out value="${localIpAddress }"/> 
 				</form> 
 			</div>
 		</div>

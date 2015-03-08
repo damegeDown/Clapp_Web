@@ -61,6 +61,9 @@ public class MemberServiceImpl implements MemberService {
 	//adminEntity.setAdminPassword(HashUtils.encryptSHA256(adminEntity.getAdminPassword()));
 	
 	adminEntity.setAccessIpAddress(Utils.getLocalServerIp(request));
+	System.out.println("==============localIp +" + Utils.getLocalServerIp(request));
+	System.out.println("==============remoteIp +" + Utils.getRomoteIp(request));
+	
 	checkFlag = memberDAO.ipCheck(adminEntity);
 	
 	adminEntity.setAdminPassword(adminEntity.getAdminPassword());

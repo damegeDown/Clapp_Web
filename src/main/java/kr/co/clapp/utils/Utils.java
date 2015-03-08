@@ -32,7 +32,7 @@ public class Utils {
 	/**
 	 * 현재 서버의 IP 주소를 가져옵니다.
 	 *
-	 * @return IP 주소
+	 * @return IP 주소 
 	 */
 	public static String getLocalServerIp(HttpServletRequest request)
 	{
@@ -47,6 +47,7 @@ public class Utils {
 	           if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
 	           {
 	           	return inetAddress.getHostAddress().toString();
+	        	//   return inetAddress;
 	           }
 	       }
 	   }
