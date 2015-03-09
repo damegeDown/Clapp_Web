@@ -53,7 +53,7 @@
               <div class="subTRIndusrtyContentListRow direct" id="boardKey${boardTrandList.boardTrandKey}">
                 <div class="subTRIndusrtyContentImgBox">
                   <div class="subTRIndusrtyContentImg">
-                    <a href="./industry_review_view.html">
+                    <a class="trandReviewDetail" href="javascript:;" data-url="reviewDetail" data-key="${boardTrandList.boardTrandKey}">
                       <img src="${contextPath}/common/imgView?fileType=${boardTrandList.fileTarget}&fileName=${boardTrandList.fileSavedName}" style="max-width:160px;"/>
                     </a>
                   </div>
