@@ -544,6 +544,7 @@ public class MailingServiceImpl implements MailingService {
 			String startDttm = ecrmEntity.getStartDttm(); 
 			String testName = ecrmEntity.getTestName(); 
 			String serverUrl = ecrmEntity.getServerUrl(); 
+			String mailContent = ecrmEntity.getMailContent();
 			
 			ecrmEntity.setMailType(ecrmEntity.getMailType());
 			String mailContents = this.getMailTemp(ecrmEntity)
@@ -554,8 +555,8 @@ public class MailingServiceImpl implements MailingService {
 												.replace("$startDttm", startDttm)
 												.replace("$testName", testName)
 												.replace("$serverUrl", serverUrl)
+												.replace("$mailContent", mailContent)
 												.replace("$memo", memo);
-			//String mailContents = ecrmEntity.getMailContent();
 			//ecrmEntity
 			ecrmEntity.setMailSendStartDate(mailSendStartDate); 
 			ecrmEntity.setMailContent(mailContents);
