@@ -60,13 +60,14 @@ public class MemberController {
 			@RequestParam(required = false, value = "resultCode", defaultValue = "") String resultCode,
 			@RequestParam(required = false, value = "chkGrant", defaultValue = "N") String chkGrant,
 			Model model, HttpServletRequest request) throws Exception {
-		
+		 
 		String remoteIp = Utils.getRomoteIp(request);
-		String localIp = Utils.getLocalServerIp(request); 
+		String localIp = Utils.getLocalServerIp(request);  
+		
 		model.addAttribute("remoteIp", remoteIp); 
 		model.addAttribute("localIpAddress", localIp);
 		model.addAttribute("chkGrant", chkGrant);  
-		model.addAttribute("resultCode", resultCode); 
+		model.addAttribute("resultCode", resultCode);  
 		return "adminLoginDef";
 	}
 
