@@ -62,10 +62,10 @@ public class CustomerRestController {
 		String resultMessage = messages.getMessage("insert.fail");
 		if(customerService.insertServiceInquiryAnswer(serviceInquiryEntity) > CommonCode.ZERO) {
 		  resultCode = ResultCode.SUCCESS;
-		  resultMessage = messages.getMessage("insert.success"); 
-		  result.setResultURL("/admin/customer/serviceInquiryList");
+		  resultMessage = messages.getMessage("insert.success");  
+		  result.setResultURL("/admin/customer/serviceInquiryList"); 
 		  memberEntity.setUserId(serviceInquiryEntity.getInquiryEmail());
-		  memberEntity.setUserName(serviceInquiryEntity.getInquiryInsertName()); 
+		  memberEntity.setUserName(serviceInquiryEntity.getInquiryName()); 
 		  memberEntity.setInquiryContents(serviceInquiryEntity.getInquiryContents()); 
 		  memberEntity.setAnswerContents(serviceInquiryEntity.getAnswerContents()); 
 		  if(mailingService.sendInquiryAnswerMail(memberEntity) > CommonCode.ZERO) {

@@ -140,7 +140,9 @@ public class MemberServiceImpl implements MemberService {
 		result = memberDAO.insertAdminPermission(adminEntity);
 		if(result > CommonCode.ZERO) {
 			//adminEntity.setAccessIpAddress(Utils.getRomoteIp());
-			result = memberDAO.insertAccessIp(adminEntity);
+			//if(memberDAO.ipCheck(adminEntity) == CommonCode.ZERO) {
+				result = memberDAO.insertAccessIp(adminEntity);
+			//}
 		}
 	}
 	return result;

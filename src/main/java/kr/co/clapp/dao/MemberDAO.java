@@ -240,4 +240,5 @@ TicketEntity getUserProductInfo(MemberEntity userInfo);
 
 MemberEntity getUserInfoId(MemberEntity memberEntity);
 
+
 }
