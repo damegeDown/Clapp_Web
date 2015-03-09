@@ -15,7 +15,7 @@
         VALUES
         (
             #{msg_type},  
-            CONCAT(now()+0,#{ranNum});
+            CONCAT(now()+0,#{ranNum}),
             now(),
             now(),
             #{dest_phone}, 
