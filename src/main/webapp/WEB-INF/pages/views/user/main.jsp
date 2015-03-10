@@ -164,21 +164,21 @@ wcs_do();
         <div class="mSliderContent5BoxBottom">
           <div class="mSliderContentItem7 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[6].fileTarget}&fileName=${deviceEntity.deviceSelectedList[6].fileSavedName}" style="max-width:150px; max-height:150px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[8].fileTarget}&fileName=${deviceEntity.deviceSelectedList[8].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox7" style="display: none;">
-	              <span class="msliderText1">${deviceEntity.deviceSelectedList[6].deviceModelEname}</span>
-	              <span class="msliderText2">${deviceEntity.deviceSelectedList[6].deviceMakerCode}</span>
-	              <span class="msliderText3">${deviceEntity.deviceSelectedList[6].deviceOsCode}</span>
+	              <span class="msliderText1">${deviceEntity.deviceSelectedList[8].deviceModelEname}</span>
+	              <span class="msliderText2">${deviceEntity.deviceSelectedList[8].deviceMakerCode}</span>
+	              <span class="msliderText3">${deviceEntity.deviceSelectedList[8].deviceOsCode}</span>
 	            </div>
             </div>
           </div>
           <div class="mSliderContentItem8 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[7].fileTarget}&fileName=${deviceEntity.deviceSelectedList[7].fileSavedName}" style="max-width:150px; max-height:150px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[9].fileTarget}&fileName=${deviceEntity.deviceSelectedList[9].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox8" style="display: none;">
-	              <span class="msliderText1">${deviceEntity.deviceSelectedList[7].deviceModelEname}</span>
-	              <span class="msliderText2">${deviceEntity.deviceSelectedList[7].deviceMakerCode}</span>
-	              <span class="msliderText3">${deviceEntity.deviceSelectedList[7].deviceOsCode}</span>
+	              <span class="msliderText1">${deviceEntity.deviceSelectedList[9].deviceModelEname}</span>
+	              <span class="msliderText2">${deviceEntity.deviceSelectedList[9].deviceMakerCode}</span>
+	              <span class="msliderText3">${deviceEntity.deviceSelectedList[9].deviceOsCode}</span>
 	            </div>
             </div>
           </div>
@@ -189,21 +189,21 @@ wcs_do();
         <div class="mSliderContent6BoxTop">
           <div class="mSliderContentItem9 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[8].fileTarget}&fileName=${deviceEntity.deviceSelectedList[8].fileSavedName}" style="max-width:150px; max-height:150px;"/>
+            	<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[6].fileTarget}&fileName=${deviceEntity.deviceSelectedList[6].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox9" style="display: none;">
-	              <span class="msliderText1">${deviceEntity.deviceSelectedList[8].deviceModelEname}</span>
-	              <span class="msliderText2">${deviceEntity.deviceSelectedList[8].deviceMakerCode}</span>
-	              <span class="msliderText3">${deviceEntity.deviceSelectedList[8].deviceOsCode}</span>
+	              <span class="msliderText1">${deviceEntity.deviceSelectedList[6].deviceModelEname}</span>
+	              <span class="msliderText2">${deviceEntity.deviceSelectedList[6].deviceMakerCode}</span>
+	              <span class="msliderText3">${deviceEntity.deviceSelectedList[6].deviceOsCode}</span>
 	            </div>
             </div>
           </div>
           <div class="mSliderContentItem10 alignCenter" style="display:table">
           	<div style="display:table-cell;vertical-align:middle;width:240px">
-	            <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[9].fileTarget}&fileName=${deviceEntity.deviceSelectedList[9].fileSavedName}" style="max-width:150px; max-height:150px;"/>
+	            <img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[7].fileTarget}&fileName=${deviceEntity.deviceSelectedList[7].fileSavedName}" style="max-width:150px; max-height:150px;"/>
 	            <div class="mSliderTextBox10" style="display: none;">
-	              <span class="msliderText1">${deviceEntity.deviceSelectedList[9].deviceModelEname}</span>
-	              <span class="msliderText2">${deviceEntity.deviceSelectedList[9].deviceMakerCode}</span>
-	              <span class="msliderText3">${deviceEntity.deviceSelectedList[9].deviceOsCode}</span>
+	              <span class="msliderText1">${deviceEntity.deviceSelectedList[7].deviceModelEname}</span>
+	              <span class="msliderText2">${deviceEntity.deviceSelectedList[7].deviceMakerCode}</span>
+	              <span class="msliderText3">${deviceEntity.deviceSelectedList[7].deviceOsCode}</span>
 	            </div>
             </div>
           </div>
