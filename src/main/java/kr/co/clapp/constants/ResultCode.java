@@ -31,6 +31,8 @@ public class ResultCode {
 	public final static String NO_RESULT = "noResult";
 	/** 계정과 패스워드가 일치하지 않음 */
 	public final static String ACCOUNT_NOT_EQUAL = "accountNotEqual";
+	/** 이미 로그인한 상태 */
+	public final static String USED_LOGIN = "usedLogin";
 	/** 삭제 질의 */
 	public final static String DELETE_QUESTION = "deleteQuestion";
 	/** 중복 아이디일시*/
