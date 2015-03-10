@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.constants.CommonCode.Session;
+import kr.co.clapp.controller.SessionBindingListener;
+import kr.co.clapp.controller.SessionListener;
 import kr.co.clapp.entities.CommonCodeEntity;
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.ResponseEntity;
@@ -161,13 +163,19 @@ public class MembersController {
     	ResponseEntity result = new ResponseEntity();
     	MemberEntity userInfo =  new MemberEntity();
 		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
+		SessionListener listner = new SessionListener();
+		result.setResultCode(ResultCode.USED_LOGIN);
+		result.setResultMSG(messages.getMessage("login.usedLogin"));
     	try{
-    		result = memberService.doUserLogin(memberEntity, result, session);
-    		//if(result.equals(ResultCode.SUCCESS)) { 
-//    			SessionListener listener = new SessionListener(); 
-//    			request.getSession().setAttribute(memberEntity.getUserId(), listener);
-//    			session.setAttribute(CommonCode.Session.USER_LOGIN_SESSION, result.getResultDATA());
-    		//}
+    		if(!listner.isLogin(memberEntity.getUserId())) {
+	    		result = memberService.doUserLogin(memberEntity, result, session);
+	
+	    		if(result.getResultCode().equals(ResultCode.SUCCESS)) {  
+	    			//request.getSession().setAttribute(memberEntity.getUserId(), listener);
+	    			listner.setSession(session, memberEntity.getUserId());
+	    			//session.setAttribute(CommonCode.Session.USER_LOGIN_SESSION, result.getResultDATA());
+	    		}
+    		}
     	} catch(Exception e){
     		logger.error("MembersController.userLogin:Faild" , e);
     	}
@@ -187,12 +195,14 @@ public class MembersController {
 		ResponseEntity result = new ResponseEntity();
 		MemberEntity userInfo = (MemberEntity) session
 				.getAttribute(Session.USER_LOGIN_SESSION);
+		SessionListener listner = new SessionListener();
 		try {
 			if (userInfo != null) {
 				int userLoginStateOff= memberService.userLoginStateOff(memberEntity);
 				res.setHeader("Cache-Control", "no-cache");
 				res.setDateHeader("Expires", 0);
 				session.invalidate();
+			//	listner.removeSession(userInfo.getUserId());
 			}
 			result.setResultCode(ResultCode.SUCCESS);
 			result.setResultMSG(messages.getMessage("user.logout.success"));
