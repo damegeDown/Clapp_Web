@@ -407,13 +407,16 @@ var SelectUtils = (function() {
             </div>
           </div>
         </div>
-        <div class="subJoinFormRequiredNameField">
+        <div class="subJoinFormRequiredNameField"  style="height: 80px">
           <div class="sjfrNameLabelBox">
             <span class="sjfrNameLabel">기업•단체명</span>
           </div>
           <div class="sjfrNameInputbox">
             <div class="sjfrNameInputGroup">
-              <input class="sjfrNameInput" type="text" name="userCompanyName" id="tags" data-name="기업•단체명"  />
+              <input class="sjfrNameInput" type="text" name="userCompanyName" id="tags" data-name="기업•단체명" placeholder="(올바른 사용예) 주식회사클앱, 클앱주식회사"/>
+                <p class="smisCorpMessage" style="margin-top: -25px;">
+                    기업.단체명에는 특수문자를 입력하실 수 없습니다.
+                </p>
             </div>
           </div>
         </div>
