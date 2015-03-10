@@ -311,7 +311,7 @@
 					<a href="${contextPath}/autoGuide/autoGuide1" onClick="mtPopup(this.href); return false;">
 						<div class="sTACEItems2Text1Box">
 							<p class="sTACEItems2Text1">
-								Over View
+								Overview
 							</p>
 						</div>
 					</a>
@@ -340,7 +340,7 @@
 						<div class="sTACEItems2Text5Box">
 							<p class="sTACEItems2Text5">
 								Script Test
-							</p>
+						</p>
 						</div>
 					</a>
 				</div>
@@ -348,7 +348,6 @@
 		</div>
 	</div>
 </div> <!-- .subContentEightContainer End -->
-
 <div class="clear"></div>
 <div class="subTAContentNineContainer">
 	<div class="subTASlider">

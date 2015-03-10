@@ -43,7 +43,7 @@
 				<div class="atGuideTab">
 					<a href="${contextPath}/autoGuide/autoGuide1" class="atGuideTab01">
 						<div class="autoGuide1">
-							<span>Over View</span>
+							<span>Overview</span>
 						</div><!-- .mtGuideTab01Auto End -->
 					</a>
 					<a href="${contextPath}/autoGuide/autoGuide2" class="atGuideTab02">
