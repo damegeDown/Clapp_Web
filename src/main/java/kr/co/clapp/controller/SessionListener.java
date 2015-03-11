@@ -85,7 +85,7 @@ public class SessionListener implements  HttpSessionListener{
 	    HttpSession httpSession = httpSessionEvent.getSession();
 	    MemberEntity memberInfo = (MemberEntity) httpSession.getAttribute(Session.USER_LOGIN_SESSION);
 	    if(!StringUtils.isEmpty(memberInfo)) {
-	    	removeSession(memberInfo.getUserId());
+	    	removeSession(Integer.toString(memberInfo.getUserMasterKey()));
 	    }
 	     
 	}

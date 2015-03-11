@@ -162,17 +162,16 @@ public class MembersController {
     public ResponseEntity doUserLogin(MemberEntity memberEntity, HttpSession session, HttpServletRequest request){
     	ResponseEntity result = new ResponseEntity();
     	MemberEntity userInfo =  new MemberEntity();
-		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
 		SessionListener listner = new SessionListener();
 		result.setResultCode(ResultCode.USED_LOGIN);
 		result.setResultMSG(messages.getMessage("login.usedLogin"));
     	try{
-    		if(!listner.isLogin(memberEntity.getUserId())) {
+    		if(!listner.isLogin(String.valueOf(memberEntity.getUserMasterKey()))) {
 	    		result = memberService.doUserLogin(memberEntity, result, session);
-	
+	    		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
 	    		if(result.getResultCode().equals(ResultCode.SUCCESS)) {  
 	    			//request.getSession().setAttribute(memberEntity.getUserId(), listener);
-	    			listner.setSession(session, memberEntity.getUserId());
+	    			listner.setSession(session, String.valueOf(userInfo.getUserMasterKey()));
 	    			//session.setAttribute(CommonCode.Session.USER_LOGIN_SESSION, result.getResultDATA());
 	    		}
     		}
@@ -202,7 +201,7 @@ public class MembersController {
 				res.setHeader("Cache-Control", "no-cache");
 				res.setDateHeader("Expires", 0);
 				session.invalidate();
-			//	listner.removeSession(userInfo.getUserId());
+				listner.removeSession(String.valueOf(memberEntity.getUserMasterKey()));
 			}
 			result.setResultCode(ResultCode.SUCCESS);
 			result.setResultMSG(messages.getMessage("user.logout.success"));
