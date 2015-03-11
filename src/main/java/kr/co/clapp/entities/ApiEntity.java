@@ -26,6 +26,9 @@ public class ApiEntity implements Serializable{
 	private String email;					// 관리자 이메일
 	private int type;							// 관리자 회원가입과 비밀번호 변경을 구부하기 위한 용도
 	
+	/* 로그인 체크 */
+	private boolean loginChk;
+	
 	public String getResultState() {
 		return resultState;
 	}
@@ -97,6 +100,12 @@ public class ApiEntity implements Serializable{
 	}
 	public void setReturnTicketAmount(int returnTicketAmount) {
 		this.returnTicketAmount = returnTicketAmount;
+	}
+	public boolean isLoginChk() {
+		return loginChk;
+	}
+	public void setLoginChk(boolean loginChk) {
+		this.loginChk = loginChk;
 	}
 	
 	

@@ -375,4 +375,15 @@ public class ApiController {
 		return apiEntity;
 	}
 	
+	/**
+	 * 로그인 여부 체크
+	 * @param apiEntity
+	 * @return apiEntity (true, false)
+	 */
+	@RequestMapping(value = "loginCheck")
+	public ApiEntity loginCheck(ApiEntity apiEntity) {
+		SessionListener listner = new SessionListener();
+		apiEntity.setLoginChk(listner.isLogin(Integer.toString(apiEntity.getUserMasterKey())));
+		return apiEntity;
+	}
 }

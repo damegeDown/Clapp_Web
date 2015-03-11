@@ -46,10 +46,10 @@
         <th>적용일시</th>
         <td>
           <label><input type="radio" name="aa" class="serviceApplyDateNow" />&nbsp;바로 적용&nbsp;&nbsp;</label>
-          <label><input type="radio" name="aa" class="serviceApplyDateSelect" />&nbsp;특정일시 지정&nbsp;&nbsp;</label>
-          <span class="btn-bottom-gray">달력</span>
-           <fmt:formatDate var="serviceApplyDate" pattern="yyyy/MM/dd HH:mm" value="${ticketEntity.serviceApplyDate }" />
-           <input type="text" class="inp-w160 datetimepicker" name="serviceApplyDate" value="${serviceApplyDate }" data-flag="off"/>  
+          <%--<label><input type="radio" name="aa" class="serviceApplyDateSelect" />&nbsp;특정일시 지정&nbsp;&nbsp;</label>--%>
+          <%--<span class="btn-bottom-gray">달력</span>--%>
+           <%--<fmt:formatDate var="serviceApplyDate" pattern="yyyy/MM/dd HH:mm" value="${ticketEntity.serviceApplyDate }" />--%>
+           <input type="hidden" class="inp-w160 datetimepicker" name="serviceApplyDate" value="${serviceApplyDate }" data-flag="off"/>
         </td>
       </tr>
       <tr>

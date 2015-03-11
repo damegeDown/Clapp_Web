@@ -78,22 +78,21 @@
        </tr>
        <tr>
         <th>유료 상품 이용현황</th>
-        <td>
-        <c:choose>
-        	<c:when test='${memberDetail.productName ne "Free"}'>
-        		유료 상품 이용중 
-        	</c:when>
-        	<c:when test='${memberDetail.productName eq "Free"}'>
-        		무료 상품 이용중 
-        	</c:when>
-        	<c:when test='${memberDetail.productName eq null}'>
-        		-
-        	</c:when>
-        </c:choose>
-         ( ${memberDetail.productName}, 상품 적용기간 
-          <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketStartExpirationDate }" /> ~ 
-          <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketEndExpirationDate }" /> )
-          <a href="${contextPath}/admin/payment/paymentWebList" class="btn-bottom-orenge">결제내역 바로가기</a>
+           <td>
+               <c:choose>
+                   <c:when test='${memberDetail.productName ne "Free"}'>
+                       유료 상품 이용중
+                   </c:when>
+                   <c:when test='${memberDetail.productName eq "Free"}'>
+                       무료 상품 이용중
+                   </c:when>
+                   <c:when test='${memberDetail.productName eq null}'>
+                       -
+                   </c:when>
+               </c:choose>
+               ( ${memberDetail.productName}, 상품 적용기간
+               <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketStartExpirationDate }" /> ~
+               <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketEndExpirationDate }" /> )
         </td>
        </tr>
     </tbody>

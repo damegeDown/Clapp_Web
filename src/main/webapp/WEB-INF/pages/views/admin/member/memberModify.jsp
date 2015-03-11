@@ -110,15 +110,28 @@
        <tr>
         <th>보유 티켓수</th>
         <td>
-          000티켓
-          <a href="${contextPath}/admin/ticket/userTicketUsedList" class="btn-bottom-orenge" >티켓관리 바로가기</a>
+            ${memberDetail.usedTicketAmount}티켓
+            <a href="${contextPath}/admin/ticket/userTicketUsedList" class="btn-bottom-orenge" >티켓관리 바로가기</a>
         </td>
        </tr>
        <tr>
         <th>유료 상품 이용현황</th>
         <td>
-          이용중 ( Monthly Silver, 상품 적용기간 2014/08/01 ~ 2014/08/30 )
-          <a href="${contextPath}/admin/payment/paymentWebList" class="btn-bottom-orenge" >결제내역 바로가기</a>
+            <c:choose>
+                <c:when test='${memberDetail.productName ne "Free"}'>
+                    유료 상품 이용중
+                </c:when>
+                <c:when test='${memberDetail.productName eq "Free"}'>
+                    무료 상품 이용중
+                </c:when>
+                <c:when test='${memberDetail.productName eq null}'>
+                    -
+                </c:when>
+            </c:choose>
+            ( ${memberDetail.productName}, 상품 적용기간
+            <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketStartExpirationDate }" /> ~
+            <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketEndExpirationDate }" /> )
+            <a href="${contextPath}/admin/payment/paymentWebList" class="btn-bottom-orenge">결제내역 바로가기</a>
         </td>
        </tr>
     </tbody>

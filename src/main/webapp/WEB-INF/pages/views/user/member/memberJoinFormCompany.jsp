@@ -496,11 +496,11 @@ var SelectUtils = (function() {
         <div class="sjfrNameInputbox">
           <div class="sjfrNameInputGroup">
             <input class="sjfrNameInput inputCompare" type="text" name="inputCompare"  data-id="false"/>
+            <p class="smisCorpMessage" id="countdown" style="width: 700px; line-height:1.3em; margin-top: -3px; color: blue">3분 이내 입력 ( 남은시간 : <span class="min">3</span>분 : <span class="sec">00</span>초 )</p>
           </div>
         </div>
         <input type="button" class="authenticationBtn comparison" value="인증받기" data-check="false"/>
       </div>
-      <p class="smisCorpMessage" id="countdown" align="center" style="float:left; width:1320px; margin-top:10px;color:blue">3분 이내 입력 ( 남은시간 : <span class="min">3</span>분 : <span class="sec">00</span>초 )</p>
       </div> <!-- .subJoinRequiredSection End -->
       <div class="clear"></div>
       <div class="subJoinFormOptionSection">
