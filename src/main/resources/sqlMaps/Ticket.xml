@@ -299,7 +299,7 @@
 	         #{serviceTargetName},
 	        </otherwise>
 	        </choose>
-				DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %h:%i'),
+				DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %H:%i'),
 				#{serviceProductName},
 				#{serviceApplyTicketAmount},
 				#{serviceApplyTicketTotalAmount},
@@ -402,7 +402,7 @@
 					#{serviceApplyTicketAmount},
 					date_add(utm.ticket_end_expiration_date, interval +1 day),
 					date_add(utm.ticket_end_expiration_date, interval +${expirationDate} day),
-					DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %h:%i'),
+					DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %H:%i'),
 					NOW()
 				FROM 
 				 	USER_TICKET_MASTER utm,
