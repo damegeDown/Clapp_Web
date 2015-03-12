@@ -45,11 +45,10 @@
       <tr>
         <th>적용일시</th>
         <td>
-          <label><input type="radio" name="aa" class="serviceApplyDateNow" />&nbsp;바로 적용&nbsp;&nbsp;</label>
-          <%--<label><input type="radio" name="aa" class="serviceApplyDateSelect" />&nbsp;특정일시 지정&nbsp;&nbsp;</label>--%>
-          <%--<span class="btn-bottom-gray">달력</span>--%>
-           <%--<fmt:formatDate var="serviceApplyDate" pattern="yyyy/MM/dd HH:mm" value="${ticketEntity.serviceApplyDate }" />--%>
-           <input type="hidden" class="inp-w160 datetimepicker" name="serviceApplyDate" value="${serviceApplyDate }" data-flag="off"/>
+          <label><input type="radio" name="applyType" class="serviceApplyDateNow" />&nbsp;바로 적용&nbsp;&nbsp;</label>
+          <label><input type="radio" name="applyType" class="serviceApplyDateSelect" />&nbsp;특정일시 지정&nbsp;&nbsp;</label>
+          	<fmt:formatDate var="serviceApplyDate" pattern="yyyy/MM/dd" value="${ticketEntity.serviceApplyDate }" />
+           <input type="text" class="inp-w160 datepicker" name="serviceApplyDate" value="${serviceApplyDate }" data-flag="off"/>
         </td>
       </tr>
       <tr>
@@ -124,6 +123,21 @@
 		var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
 		$("input[name=serviceProductName]").val(productName);
 		$("input[name=expirationDate]").val(applyDate);
+		setDate(applyDate);
+	});
+  	$("input[name=contractExpirationDate]").change(function() {
+		setDate($(this).val());
 	});
   });
+	var setDate = function(addDate) {
+		console.log(addDate);
+		var dt = new Date();
+		// Display the month, day, and year. getMonth() returns a 0-based number.
+		dt.setDate(Number(dt.getDate())+ Number(addDate));
+		
+		var month = dt.getMonth()+1;
+		var day = dt.getDate();
+		var year = dt.getFullYear();
+		console.log(year+'/' +month+ '/' +day);  
+	}
 </script>

@@ -5,7 +5,9 @@ $.fn.SelectCommon = {
   reLogin : function(adminId) {
     if(getCookie("memberChkGrant") != adminId || getCookie("memberChkGrant") == '') {
 	  location.href = "/admin/reLogin?chkGrant=Y";
-	}	  
+	} else {
+		//setCookie("memberChkGrant", "");
+	}
   },
   setArea : function(userAreaType,userArea,userAreaDetail) {
     if(userAreaType > 0) {
