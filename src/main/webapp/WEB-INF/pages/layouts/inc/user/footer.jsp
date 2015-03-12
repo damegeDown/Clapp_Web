@@ -70,7 +70,7 @@
       </div>
       <div class="wrapFooterMenu">
         <ul>
-          <li><a href="${contextPath }/common/privacy">개인정보 처리방침</a></li>
+          <li><a href="${contextPath }/common/privacy" style="font-size:14px;font-weight: 900;">개인정보 처리방침</a></li>
           <li class="ftmLine"></li>
           <li><a href="${contextPath }/common/terms">이용약관</a></li>
           <li class="ftmLine"></li>
