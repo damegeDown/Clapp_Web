@@ -658,9 +658,10 @@ public class MailingServiceImpl implements MailingService {
 		    // Info
 		    mailSendInfo.setSubject("[Clapp] 고객문의 답변 메일입니다..");
 		    mailSendInfo.setEmailForm(emailTemp);
-		    String[] recipient = {emailSender};
+		    //String[] recipient = {emailSender};
+		    String[] recipient = {memberEntity.getUserId()}; 
 		    mailSendInfo.setRecipient(recipient); //받는사람
-		    mailSendInfo.setSender(memberEntity.getUserId());//보내는 사람
+		    mailSendInfo.setSender(emailSender);//보내는 사람
 			String userName = memberEntity.getUserName(); 
 			String inquiry = memberEntity.getInquiryContents();
 			String answer = memberEntity.getAnswerContents();
