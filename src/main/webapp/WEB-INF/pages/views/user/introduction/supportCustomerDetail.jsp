@@ -34,10 +34,10 @@
           <p>
             ${supportCustomerDetail.noticeContents}
             <c:if test="${supportCustomerDetail.fileName ne null}">
-		         <img src="${contextPath}/common/imgView?fileType=${supportCustomerDetail.fileTarget}&fileName=${supportCustomerDetail.fileSavedName}" style="max-width:800px"/>
+		        <center><img src="${contextPath}/common/imgView?fileType=${supportCustomerDetail.fileTarget}&fileName=${supportCustomerDetail.fileSavedName}" style="max-width:800px"/></center>
 		         <input type="hidden" name="fileName" value="${supportCustomerDetail.fileName }" data-flag="off"/>
 		         <input type="hidden" name="fileSavedName" value="${supportCustomerDetail.fileSavedName }" data-flag="off"/>
-           </c:if>
+            </c:if>
           </p>
         </div><!-- .subCISupportVOCViewContBox End-->
       </div><!-- .subCISupportVOCViewContWrap -->
