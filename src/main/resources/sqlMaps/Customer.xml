@@ -390,7 +390,7 @@
         ADVICE_INSERT_DATE
         ) VALUES (
          #{adviceCategory},
-         DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %h:%i'),
+         DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %H:%i'),
          #{adviceInquiryName},
          #{adviceEmail},
          #{advicePhoneNumber},
@@ -406,7 +406,6 @@
   <update id="modifyCabledAdvice" parameterType="cabledAdviceEntity">
     UPDATE CABLED_ADVICE SET 
       ADVICE_CATEGORY = #{adviceCategory},
-      ADVICE_ACCEPT_DATE = DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %h:%i'),,
       ADVICE_INQUIRY_NAME = #{adviceInquiryName},
       ADVICE_EMAIL = #{adviceEmail},
       ADVICE_PHONE_NUMBER = #{advicePhoneNumber},
