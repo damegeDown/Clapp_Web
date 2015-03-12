@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 <title>error</title>
 </head>
 <body>

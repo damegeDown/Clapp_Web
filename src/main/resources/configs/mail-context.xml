@@ -20,7 +20,7 @@
 		</property>
 	</bean>
 	  Email Sender End -->
-	
+	 
 	<!-- Email Sender-->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="defaultEncoding" value="UTF-8" />
