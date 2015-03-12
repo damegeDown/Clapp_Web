@@ -131,7 +131,7 @@ $.fn.ticketProductServiceForm = {
   },
   serviceApplyDateSelect : function() {
    $(".serviceApplyDateSelect").click(function(){
-     $(".datetimepicker").focus();
+     $(".datepicker").focus();
     });
   },
   serviceTargetTypeChecked : function() {
@@ -145,7 +145,8 @@ $.fn.ticketProductServiceForm = {
   serviceApplyDateNow : function() {
    $(".serviceApplyDateNow").click(function(){
 	  var now = new Date();
-	  var nowAll = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + " ";
+//	  var nowAll = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + " ";
+	  var nowAll = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
 	  $("input[name=serviceApplyDate]").val(nowAll);
 	})
   },

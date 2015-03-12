@@ -15,6 +15,19 @@ jQuery(document).ready(function($) {
 	Prototype.init();
 	
 });
+
+/**
+ * 관리자 회원 정보 관리에서 벗어났을시에 케시 삭제
+ */
+
+$(function() {
+	var url = location.href;
+	if(url.indexOf("/admin/member/") != -1) {
+		//console.log("insert");
+	}  else {
+		setCookie("memberChkGrant", "");
+	}
+});
 /**
  * 에디터 유틸
  * param = id : 입력란 아이디, type : ajax -> submitBtn공통 사용시, form -> 일반 폼 전송 사용시 
