@@ -7,7 +7,6 @@ import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.ecrm.EcrmService;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,10 +102,10 @@ public class EcrmController {
 	  }
 	  ecrmService.getSurveyList(ecrmEntity);
 	  //공통 
-	  commonCode.put("navigation", "eCRM > 타켓 메일");		// 현재 페이지 네비게이션
+	  commonCode.put("navigation", "eCRM > 설문관리(수시)");		// 현재 페이지 네비게이션
 	  commonCode.put("mainMenu", "ecrm");				// left main menu 
 	  commonCode.put("subMenu", "survey");				// left sub menu
-	  commonCode.put("searchResult", "> 검색결과 : 타켓 메일 : <span class='colorSkyBlue'>"+ecrmEntity.getEcrmList().size()+"</span> 건");				// left sub menu
+	  commonCode.put("searchResult", "> 검색결과 : 총 : <span class='colorSkyBlue'>"+ecrmEntity.getEcrmList().size()+"</span> 건");				// left sub menu
 	  model.addAttribute("CommonCode", commonCode);
     } catch (Exception e) {
 	  logger.error("EcrmController.surveyList:Faild" , e);
