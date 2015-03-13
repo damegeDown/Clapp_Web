@@ -62,7 +62,7 @@
         DEVICE_TOP10_NUMBER ASC
       </when>
       <otherwise>
-	      DEVICE_INSERT_DATE DESC
+	      DEVICE_INSERT_DATE ASC
       </otherwise>
     </choose>
     LIMIT  
