@@ -1,10 +1,6 @@
 package kr.co.clapp.controller.admin.ticket;
 
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.entities.CommonCodeEntity;
 import kr.co.clapp.entities.ProductEntity;
@@ -13,13 +9,16 @@ import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.product.ProductService;
 import kr.co.clapp.service.ticket.TicketService;
 import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -46,11 +45,12 @@ public class TicketController {
   @RequestMapping("/ticket/userTicketUsedList")
   public String userTicketUsedList(TicketEntity ticketEntity, Model model){
 	  	try{
-		  	Calendar oCalendar = Calendar.getInstance( );
+            java.util.Calendar cal = java.util.Calendar.getInstance();
 			//처음 페이지 접속시 현재달의 날짜로 세팅
 		  	if(StringUtils.isEmpty(ticketEntity.getStartDate())) {
-				ticketEntity.setStartDate(oCalendar.get(Calendar.YEAR)+"/"+(oCalendar.get(Calendar.MONTH) + 1)+"/01"); //시작일
-				ticketEntity.setEndDate(oCalendar.get(Calendar.YEAR)+"/"+(oCalendar.get(Calendar.MONTH) + 1)+"/"+oCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)); //종료일
+                ticketEntity.setStartDate(String.valueOf(cal.get(cal.YEAR)+"/")+String.valueOf(cal.get(cal.MONTH)+1)+"/01"); //시작일
+                ticketEntity.setEndDate(String.valueOf(cal.get(cal.YEAR) + "/") + String.valueOf(cal.get(cal.MONTH) + 1) + "/" + String.valueOf(cal.get(cal.DATE))); //종료일
+
 		  	}
 	  		//공통코드 
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
