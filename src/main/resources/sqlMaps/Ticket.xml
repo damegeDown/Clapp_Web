@@ -660,7 +660,7 @@
 		            WHEN (vr.status = '1') THEN '사용중'
 		            WHEN ((vr.status = '2') AND (NOW() <![CDATA[<=]]> vr.end_dttm)) THEN '대기중'
 		            WHEN ((vr.status = '2') AND (NOW() > vr.end_dttm)) THEN '종료'
-		            WHEN (vr.status  = '3') THEN '취소'
+		            WHEN (vr.status  = '3') THEN '사용종료'
            		 ELSE '' END
             ) AS statusText, 
 			vd.manufacturer,
