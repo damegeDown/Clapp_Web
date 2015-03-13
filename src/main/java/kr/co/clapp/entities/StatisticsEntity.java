@@ -82,6 +82,11 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	private String adviceType;						//상담 타입
 	private int adviceCount = 0;					//상담수
 	private int adviceTotal = 0;					//상담총수
+	
+	private List<StatisticsEntity> dropOutList = null;
+	private List<StatisticsEntity> dropOutReasonList = null;
+	
+	
 	public int getJoinMember() {
 		return joinMember;
 	}
@@ -593,6 +598,22 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 
 	public void setAdviceTotal(int adviceTotal) {
 		this.adviceTotal = adviceTotal;
+	}
+
+	public List<StatisticsEntity> getDropOutList() {
+		return dropOutList;
+	}
+
+	public void setDropOutList(List<StatisticsEntity> dropOutList) {
+		this.dropOutList = dropOutList;
+	}
+
+	public List<StatisticsEntity> getDropOutReasonList() {
+		return dropOutReasonList;
+	}
+
+	public void setDropOutReasonList(List<StatisticsEntity> dropOutReasonList) {
+		this.dropOutReasonList = dropOutReasonList;
 	}
 
 	

@@ -56,7 +56,7 @@ public class StatisticsServiceImpl implements StatisticsService {
    * 탈퇴 회원 현황
    */
   @Override
-  public void getDropOutMemberReport(StatisticsEntity statisticsEntity, Model model) {
+  public StatisticsEntity getDropOutMemberReport(StatisticsEntity statisticsEntity, Model model) {
 	try {
 	  //날짜별 탈퇴 회원수
 	  statisticsEntity.setSearchKey("date");
@@ -65,8 +65,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 	  statisticsEntity.setSearchKey("reason");
 	  List<StatisticsEntity> dropOutReasonList= statisticsDAO.getDropOutMemberReport(statisticsEntity);
 	  
-	  model.addAttribute("dropOutList", dropOutList);
-	  model.addAttribute("dropOutReasonList", dropOutReasonList);
+	  statisticsEntity.setDropOutList(dropOutList);
+	  statisticsEntity.setDropOutReasonList(dropOutReasonList);
 	  
 	  //공통
 	  commonCode.put("navigation", "탈퇴 회원 (누적 탈퇴회원 수 : <span class='colorSkyBlue'>"+dropOutList.get(0).getTotDropOutCount()+"</span> 명)");   // 현재 페이지 네비게이션
@@ -81,7 +81,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 	} catch (Exception e) {
 		logger.error("StatisticsServiceImpl.dropOutMemberReport : Exception", e); 
 	}
-	
+	return statisticsEntity;
   }
   /**
    * 메일수신 현황

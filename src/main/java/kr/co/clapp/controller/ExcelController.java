@@ -128,10 +128,12 @@ public class ExcelController {
 		  statisticsEntity.setSearchValue(String.valueOf(year));
 	  }
 	  //탈퇴 회원수 
-	  statisticsService.getDropOutMemberReport(statisticsEntity, model);
+	  statisticsEntity = statisticsService.getDropOutMemberReport(statisticsEntity, model);
 	} catch (Exception e) {
 		logger.error("ExcelController.dropOutMemberReport", e);
 	}
+	model.addAttribute("dropOutList", statisticsEntity.getDropOutList());
+	model.addAttribute("dropOutReasonList", statisticsEntity.getDropOutReasonList());
 	model.addAttribute("excelName", "dropOutMemberReport_"+statisticsEntity.getSearchValue());
 	return "excel/dropOutMemberReport";
   }

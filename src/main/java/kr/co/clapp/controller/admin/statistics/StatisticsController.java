@@ -171,10 +171,12 @@ public class StatisticsController {
 		  statisticsEntity.setSearchValue(String.valueOf(year));
 	  }
 	  //탈퇴 회원수 
-	  statisticsService.getDropOutMemberReport(statisticsEntity, model);
+	  statisticsEntity = statisticsService.getDropOutMemberReport(statisticsEntity, model);
 	} catch (Exception e) {
 		logger.error("StatisticsController.dropOutMemberReport", e);
 	}
+	model.addAttribute("dropOutList", statisticsEntity.getDropOutList());
+	model.addAttribute("dropOutReasonList", statisticsEntity.getDropOutReasonList());
 	return "admin/statistics/dropOutMemberReport";
   }
   /**
