@@ -42,11 +42,11 @@
         </if>
         <if test="searchValue2 != '' and searchValue2 != null">
             AND
-            UM.USER_ID LIKE CONCAT(#{searchValue2}, '%')
+            um.USER_ID LIKE CONCAT(#{searchValue2}, '%')
         </if>
         <if test="searchValue3 != '' and searchValue3 != null">
             AND
-            um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%')
+            (um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%'))
         </if>
         ORDER BY
              start_dttm DESC
@@ -105,11 +105,11 @@
         </if>
         <if test="searchValue2 != '' and searchValue2 != null">
             AND
-            UM.USER_ID LIKE CONCAT(#{searchValue2}, '%')
+            um.USER_ID LIKE CONCAT(#{searchValue2}, '%')
         </if>
         <if test="searchValue3 != '' and searchValue3 != null">
             AND
-            um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%')
+            (um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%'))
         </if>
 	</select>
 	<!-- //티켓 사용 내역 카운트 -->
