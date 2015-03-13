@@ -653,9 +653,18 @@
 			vr.updt_dttm,
 			vr.use_point,
 			vr.status,
-			FN_GET_COMMON_CODE_NAME('RESERVATION_STATUS',  vr.status) statusText,
+			<!-- FN_GET_COMMON_CODE_NAME('RESERVATION_STATUS',  vr.status) statusText, -->
+			(
+	            CASE
+		            WHEN (vr.status = '0') THEN '예약중'
+		            WHEN (vr.status = '1') THEN '사용중'
+		            WHEN ((vr.status = '2') AND (NOW() <![CDATA[<=]]> vr.end_dttm)) THEN '대기중'
+		            WHEN ((vr.status = '2') AND (NOW() > vr.end_dttm)) THEN '종료'
+		            WHEN (vr.status  = '3') THEN '취소'
+           		 ELSE '' END
+            ) AS statusText, 
 			vd.manufacturer,
-			vd.prod_name,
+			vd.prod_name, 
 			vd.os,
 			vd.resolution,
 			vd.os_version
