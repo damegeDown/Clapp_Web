@@ -166,7 +166,7 @@
 		<tbody>
 		<c:forEach items="${statisticsTimeList.statisticsList }" var="statisticsTimeList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsTimeList.historyUsedTicketAmount * 15 } 분</td> 
+				<td>${statisticsTimeList.usePoint * 15 } 분</td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsTimeList.usedTicketMember } 명
@@ -218,7 +218,7 @@
 		<tbody>
 		<c:forEach items="${statisticsDeviceList.statisticsList }" var="statisticsDeviceList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsDeviceList.deviceModelEname} </td> 
+				<td>${statisticsDeviceList.prodName} </td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsDeviceList.usedTicketMember } 명
