@@ -31,7 +31,7 @@
             <input type="text" class="inp-w60 phoneNum" value="${phoneNum[2]}" maxlength="4"/>
             <input type="hidden" class="phoneNumComp" name="searchValue2" value="${cabledAdviceEntity.searchValue2}"/>
           <span class="span-w53" style="padding-left: 30px; padding-right: 7px;">문의 분류</span>
-           <select class="sel-w107" name="searchValue3">
+           <select class="sel-w130" name="searchValue3">
             <option value="">전체</option>
              <c:forEach items="${cabledAdviceCode }" var="code">
             <option value="${code.commonCode }" <c:if test="${cabledAdviceEntity.searchValue3 eq code.commonCode }">selected</c:if>>${code.commonName }</option>
