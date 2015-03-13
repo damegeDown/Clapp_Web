@@ -59,7 +59,7 @@
         DEVICE_VERSION DESC
       </when>
  	    <when test='deviceTop10Open == "Y"'>
-        DEVICE_TOP10_NUMBER DESC
+        DEVICE_TOP10_NUMBER ASC
       </when>
       <otherwise>
 	      DEVICE_INSERT_DATE DESC
