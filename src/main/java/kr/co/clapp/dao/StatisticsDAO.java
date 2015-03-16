@@ -1,8 +1,8 @@
 package kr.co.clapp.dao;
 
-import java.util.List;
-
 import kr.co.clapp.entities.StatisticsEntity;
+
+import java.util.List;
 
 public interface StatisticsDAO {
 
@@ -66,4 +66,32 @@ public interface StatisticsDAO {
 	 * @return
 	 */
 	List<StatisticsEntity> getCableAdviceReprot(StatisticsEntity statisticsEntity);
+
+    /**
+     * 문의메일 누적카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getInquiryCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 문의메일 카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getInquirySearchCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 유선상담 누적카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getCableAdviceTotalCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 유선상담 카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getCableAdviceSearchCount(StatisticsEntity statisticsEntity);
 }

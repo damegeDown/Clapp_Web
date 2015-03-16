@@ -320,11 +320,11 @@
 		'문의건수' inquiry_text,
 		COUNT(si.service_inquiry_key) inquiry_count
 	FROM
-		SERVICE_INQUIRY si 
+		SERVICE_INQUIRY si
 	<if test="searchValue != '' and searchValue != null">
-	WHERE	
+	WHERE
 		inquiry_insert_date LIKE '${searchValue}%'
-	</if>	
+	</if>
 	UNION ALL
 	SELECT
 		'답변건수' inquiry_text,
@@ -335,32 +335,117 @@
 	WHERE
 		si.service_inquiry_key = sa.service_inquiry_key
 	<if test="searchValue != '' and searchValue != null">
-	AND	
+	AND
 		DATE_FORMAT(answer_insert_date, '%Y/%m/%d') LIKE '${searchValue}%'
-	</if>	
+	</if>
 	UNION ALL
 	SELECT
 		'미답변건수',
-		COUNT(si.service_inquiry_key) 
+		COUNT(si.service_inquiry_key)
 	FROM
 		SERVICE_INQUIRY si,
 		SERVICE_INQUIRY_ANSWER sa
 	WHERE
 		si.service_inquiry_key != sa.service_inquiry_key
 	<if test="searchValue != '' and searchValue != null">
-	AND	
+	AND
 		answer_insert_date  LIKE '${searchValue}%'
-	</if>	
+	</if>
 </select>
 
-<select id="getCableAdviceReprot" resultType="statisticsEntity" parameterType="statisticsEntity">
+    <!-- 이메일 문의 카운트 -->
+<select id="getInquirySearchCount" parameterType="statisticsEntity" resultType="statisticsEntity">
+    SELECT
+        b.totalCount,
+        b.answerCount,
+        b.totalCount - b.answerCount notAnswerCount
+    FROM (
+        SELECT
+          COUNT(*) totalCount,
+          COUNT(IF(a.ANSWER_INSERT_DATE IS NOT NULL , a.SERVICE_INQUIRY_KEY, NULL))answerCount
+        FROM(
+            SELECT
+                si.SERVICE_INQUIRY_KEY,
+                sa.ANSWER_INSERT_DATE
+            FROM
+                SERVICE_INQUIRY si
+            LEFT OUTER JOIN
+                SERVICE_INQUIRY_ANSWER sa ON si.SERVICE_INQUIRY_KEY = sa.SERVICE_INQUIRY_KEY
+            WHERE
+                INQUIRY_INSERT_DATE IS NOT NULL
+                <if test="searchValue != '' and searchValue != null">
+                    AND
+                    DATE_FORMAT(INQUIRY_INSERT_DATE, '%Y/%m') LIKE '${searchValue}%'
+                </if>
+            GROUP BY  si.SERVICE_INQUIRY_KEY
+            ) a
+        )b
+</select>
+    <!-- //이메일 문의 카운트 -->
+    <!-- 이메일 문의 누적 카운트 -->
+<select id="getInquiryCount" parameterType="statisticsEntity" resultType="statisticsEntity">
+    SELECT
+        b.totalCount,
+        b.answerCount,
+        b.totalCount - b.answerCount notAnswerCount
+    FROM (
+        SELECT
+            COUNT(*) totalCount,
+            COUNT(IF(a.ANSWER_INSERT_DATE IS NOT NULL , a.SERVICE_INQUIRY_KEY, NULL))answerCount
+        FROM(
+            SELECT
+                si.SERVICE_INQUIRY_KEY,
+                sa.ANSWER_INSERT_DATE
+            FROM
+              SERVICE_INQUIRY si
+            LEFT OUTER JOIN
+                SERVICE_INQUIRY_ANSWER sa ON si.SERVICE_INQUIRY_KEY = sa.SERVICE_INQUIRY_KEY
+            GROUP BY  si.SERVICE_INQUIRY_KEY
+        ) a
+    )b
+</select>
+<!-- //이메일 문의 누적 카운트 -->
+
+<!-- 유선상담 누적 카운트 -->
+<select id="getCableAdviceTotalCount" resultType="statisticsEntity" parameterType="int">
 	SELECT
-		FN_GET_COMMON_CODE_NAME('CABLED_ADVICE',advice_category) adviceType,
-		COUNT(cabled_advice_key) adviceCount ,
-		(SELECT COUNT(*) FROM CABLED_ADVICE) adviceTotal
+		count(*) as cableAdviceTotalCount
 	FROM
 		CABLED_ADVICE
-	GROUP BY
-		advice_category
+    WHERE
+      ADVICE_ACCEPT_DATE IS NOT NULL
+</select>
+<!-- //유선상담 누적 카운트 -->
+
+<!-- 유선상담 카운트 -->
+<select id="getCableAdviceSearchCount" resultType="statisticsEntity" parameterType="int">
+    SELECT
+      count(*) as cableAdviceSearchCount
+    FROM
+      CABLED_ADVICE
+    WHERE
+      ADVICE_ACCEPT_DATE IS NOT NULL
+      <if test="searchValue != '' and searchValue != null">
+        AND
+        DATE_FORMAT(ADVICE_ACCEPT_DATE, '%Y/%m') LIKE '${searchValue}%'
+      </if>
+</select>
+<!-- //유선상담 카운트 -->
+
+<select id="getCableAdviceReprot" resultType="statisticsEntity" parameterType="statisticsEntity">
+    SELECT
+      FN_GET_COMMON_CODE_NAME('CABLED_ADVICE',advice_category) adviceType,
+      COUNT(cabled_advice_key) adviceCount ,
+      (SELECT COUNT(*) FROM CABLED_ADVICE WHERE DATE_FORMAT(ADVICE_ACCEPT_DATE, '%Y/%m') LIKE '${searchValue}%') adviceTotal
+    FROM
+      CABLED_ADVICE
+    WHERE
+      ADVICE_ACCEPT_DATE IS NOT NULL
+      <if test="searchValue != '' and searchValue != null">
+          AND
+          DATE_FORMAT(ADVICE_ACCEPT_DATE, '%Y/%m') LIKE '${searchValue}%'
+      </if>
+    GROUP BY
+      advice_category
 </select>
 </mapper>

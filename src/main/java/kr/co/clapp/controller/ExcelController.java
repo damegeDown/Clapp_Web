@@ -1,22 +1,21 @@
 package kr.co.clapp.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import kr.co.clapp.entities.PaymentEntity;
 import kr.co.clapp.entities.StatisticsEntity;
 import kr.co.clapp.service.payment.PaymentService;
 import kr.co.clapp.service.statistics.StatisticsService;
 import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 @RequestMapping("/excel")
@@ -231,6 +230,23 @@ public class ExcelController {
 	model.addAttribute("excelName", "cableAdviceReprot"+statisticsEntity.getSearchValue());
 	return "excel/cableAdviceReprot";
   }
+
+    /**
+     * 이메일 문의/답변
+     * @param statisticsEntity
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mailInquiryReport")
+    public String mailInquiryReport(StatisticsEntity statisticsEntity, Model model) {
+        try {
+            statisticsService.getMailInquiryReport(statisticsEntity, model);
+        } catch (Exception e) {
+            logger.error("ExcelController.mailInquiryReport" , e);
+        }
+        model.addAttribute("excelName", "mailInquiryReport"+statisticsEntity.getSearchValue());
+        return "excel/mailInquiryReport";
+    }
   
   /**
    * 웹결제내역 통계

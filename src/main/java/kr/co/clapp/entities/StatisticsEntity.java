@@ -78,10 +78,15 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	
 	private String inquiryText;					    //문의
 	private int inquiryCount = 0;					//문의 건수
-	
+    private int totalCount = 0;                     //문의 카운트
+    private int answerCount = 0;                    //답변 카운트
+    private int notAnswerCount = 0;                 //미답변 카운트
+
 	private String adviceType;						//상담 타입
 	private int adviceCount = 0;					//상담수
 	private int adviceTotal = 0;					//상담총수
+    private int cableAdviceTotalCount = 0;          //누적 카운트
+    private int cableAdviceSearchCount = 0;         //검색 카운트
 
     /*reservation*/
     private int id = 0;								//키
@@ -597,7 +602,31 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 		this.inquiryCount = inquiryCount;
 	}
 
-	public String getAdviceType() {
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public int getAnswerCount() {
+        return answerCount;
+    }
+
+    public void setAnswerCount(int answerCount) {
+        this.answerCount = answerCount;
+    }
+
+    public int getNotAnswerCount() {
+        return notAnswerCount;
+    }
+
+    public void setNotAnswerCount(int notAnswerCount) {
+        this.notAnswerCount = notAnswerCount;
+    }
+
+    public String getAdviceType() {
 		return adviceType;
 	}
 
@@ -620,6 +649,22 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	public void setAdviceTotal(int adviceTotal) {
 		this.adviceTotal = adviceTotal;
 	}
+
+    public int getCableAdviceTotalCount() {
+        return cableAdviceTotalCount;
+    }
+
+    public void setCableAdviceTotalCount(int cableAdviceTotalCount) {
+        this.cableAdviceTotalCount = cableAdviceTotalCount;
+    }
+
+    public int getCableAdviceSearchCount() {
+        return cableAdviceSearchCount;
+    }
+
+    public void setCableAdviceSearchCount(int cableAdviceSearchCount) {
+        this.cableAdviceSearchCount = cableAdviceSearchCount;
+    }
 
     public int getId() {
         return id;
