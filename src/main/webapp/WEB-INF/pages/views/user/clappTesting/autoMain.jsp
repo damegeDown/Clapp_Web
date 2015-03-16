@@ -83,7 +83,7 @@
 		</p>
 		<span class="subTACOBItem5">
 			테스팅 화면 캡쳐 및<br/>
-			&amp; 녹화
+			녹화
 		</span>
 		<p class="subTACOBItem5Text">
 			실시간 디바이스의 화면을<br />
@@ -97,7 +97,7 @@
 		</p>
 		<span class="subTACOBItem7">
                   결과 리포트 인쇄 및<br/>
-			&amp; 파일 다운로드</span>
+			      파일 다운로드</span>
 		<p class="subTACOBItem7Text">
 			테스트 결과 리포트 인쇄 및<br />
 			이메일 발송, <br />
