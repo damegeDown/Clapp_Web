@@ -3735,7 +3735,7 @@ body {
 }
 .subMTContentEightContainer {
   width: inherit;
-  height: 320px;
+  height: 450px;
   display: block;
   background: #dee6ed;
 }
@@ -3822,8 +3822,8 @@ body {
 }
 .subMTContentEightItem2TextBox {
   display: block;
-  background: url('./../images/smtce-Item2bg.png') no-repeat;
-  background-position: right center;
+  /*background: url('./../images/smtce-Item2bg.png') no-repeat;*/
+  /*background-position: right center;*/
 }
 .sMTCEItems2Text1Box {
   width: 330px;
@@ -4100,7 +4100,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox2 {
@@ -4110,7 +4110,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox3 {
@@ -4120,7 +4120,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox4 {
@@ -4130,7 +4130,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox5 {
@@ -4140,7 +4140,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtsliderText1 {
@@ -4311,7 +4311,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox7 {
@@ -4321,7 +4321,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox8 {
@@ -4331,7 +4331,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox9 {
@@ -4341,7 +4341,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox10 {
@@ -4351,7 +4351,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtsliderText1 {
