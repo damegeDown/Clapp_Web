@@ -69,7 +69,7 @@
         </p>
         <span class="subMTCOBItem3">실시간 네트웍스</span>
         <p class="subMTCOBItem3Text">
-          원격지에서 통신 및 방송<br />사업자의 N/W에 접속
+          원격지에서 통신 및 방송<br />사업자의 Network에 접속
         </p>
         <span class="subMTCOBItem4">디바이스 원격 액세스</span>
         <p class="subMTCOBItem4Text">
