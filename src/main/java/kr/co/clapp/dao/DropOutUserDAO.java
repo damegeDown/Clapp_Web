@@ -1,8 +1,8 @@
 package kr.co.clapp.dao;
 
-import java.util.List;
-
 import kr.co.clapp.entities.DropOutUserEntity;
+
+import java.util.List;
 
 public interface DropOutUserDAO {
 	/**
@@ -11,21 +11,21 @@ public interface DropOutUserDAO {
 	 * @return
 	 */
 	List<DropOutUserEntity> getDropOutUserList(DropOutUserEntity dropOutUserEntity);
-	/**
-	 * 탈퇴 회원 카운트
-	 * @param dropOutUserEntity
-	 * @return
-	 */
-	int getDropOutUserCount(DropOutUserEntity dropOutUserEntity);
+    /**
+     * 누적 탈퇴 회원 카운트
+     */
+	int getDropOutUserCount();
+    /**
+     * 탈퇴회원 카운트
+     * @return
+     */
+    int getDropOutUserSearchCount(DropOutUserEntity dropOutUserEntity);
 	/**
 	 * 탈퇴 회원 등록
 	 * @param dropOutUserEntity
 	 * @return
 	 */
 	int insertDropOutUser(DropOutUserEntity dropOutUserEntity);
-	/**
-	 * 누적 탈퇴 회원 카운트
-	 */
-	int getDropOutCount();
-	
+
+
 }

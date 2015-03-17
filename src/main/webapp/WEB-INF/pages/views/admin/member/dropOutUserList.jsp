@@ -7,7 +7,7 @@
 <script type="text/javascript" src="${contextPath }/resources/js/member.js"></script>
 <div class="sub-content">
   <div>
-    <h3 class="contents-title floatL">${CommonCode.navigation }  (누적 : <span class="colorSkyBlue">${dropOutCount}</span> 명)</h3> 
+    <h3 class="contents-title floatL">${CommonCode.navigation }  (누적 : <span class="colorSkyBlue">${dropOutCount}</span> 명)</h3>
     <div style="clear:both;"></div>
 	    <form id="searchForm" action="">
 		    <div class="search-box">
@@ -23,7 +23,7 @@
 	     <div style="border-top:2px dotted #999;margin-bottom:30px"></div>
 	     <div style="clear:both;"></div>
 	     <div style="width:100%;">
- 			<h3 class="floatL part-title">> 검색결과 <span class="colorSkyBlue">${dropOutUserEntity.dropOutUserList[0].dropOutCount }</span> 건</h3>
+ 			<h3 class="floatL part-title">> 검색결과 <span class="colorSkyBlue">${dropOutUserEntity.dataSize }</span> 건</h3>
 	        <div class=" floatR">
 			    <select class="sel-w100 searchValue" name="searchValue1">
 		        <option value="">탈퇴사유 전체</option>

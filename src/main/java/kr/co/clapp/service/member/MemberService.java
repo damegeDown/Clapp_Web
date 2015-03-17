@@ -1,17 +1,11 @@
 package kr.co.clapp.service.member;
 
-import java.util.List;
+import kr.co.clapp.entities.*;
+import kr.co.clapp.entities.validation.FormUserInfoEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import kr.co.clapp.entities.AdminEntity;
-import kr.co.clapp.entities.DropOutUserEntity;
-import kr.co.clapp.entities.MemberEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.SmsEntity;
-import kr.co.clapp.entities.TicketEntity;
-import kr.co.clapp.entities.validation.FormUserInfoEntity;
+import java.util.List;
 
 public interface MemberService {
   /**
@@ -121,8 +115,8 @@ public interface MemberService {
   /**
    * 탈퇴회원 누적 카운트
    */
-  int getDropOutCount();
-  
+  int getDropOutUserCount();
+
   String[] searchUserIdArr(MemberEntity memberEntity);
   /**
    * 관리자 일반회원 정보 접근시 로그 저장
@@ -189,6 +183,7 @@ MemberEntity userIdFind(MemberEntity memberEntity);
  */
 TicketEntity getUserProductInfo(MemberEntity userInfo);
 
-  
+
+
 }
 

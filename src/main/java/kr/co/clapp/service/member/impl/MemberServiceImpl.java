@@ -226,7 +226,7 @@ public class MemberServiceImpl implements MemberService {
   public DropOutUserEntity getDropOutUserList(DropOutUserEntity dropOutUserEntity) throws Exception {
 	  dropOutUserEntity.setPageParams();
 	  dropOutUserEntity.setPageSize(PageEntity.PAGE_LIST_SIZE_PARAM, PageEntity.PAGE_GROUP_SIZE_PARAM);
-	  dropOutUserEntity.setDataSize(dropOutUserDAO.getDropOutUserCount(dropOutUserEntity));
+	  dropOutUserEntity.setDataSize(dropOutUserDAO.getDropOutUserSearchCount(dropOutUserEntity));
 	List<DropOutUserEntity> dropOutUserListResult = dropOutUserDAO.getDropOutUserList(dropOutUserEntity);
 	dropOutUserEntity.setDropOutUserList(dropOutUserListResult);
     return dropOutUserEntity;
@@ -268,10 +268,9 @@ public class MemberServiceImpl implements MemberService {
    * 탈퇴 회원 누적 카운트
    */
   @Override
-  public int getDropOutCount() {
-	return dropOutUserDAO.getDropOutCount();
+  public int getDropOutUserCount() {
+	return dropOutUserDAO.getDropOutUserCount();
   }
-
 
   @Override
   public  String[] searchUserIdArr(MemberEntity memberEntity) {
@@ -377,6 +376,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberEntity passwordFind(MemberEntity memberEntity) {
 		return memberDAO.passwordFind(memberEntity);
 	}
+
 	@Override
 	@Transactional(readOnly=false)
 	public int modifyPasswrod(FormUserInfoEntity formUserInfoEntity) {
