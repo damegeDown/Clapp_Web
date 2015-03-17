@@ -28,9 +28,9 @@
 			클앱 이용을 위해 결제하신 내역을 조회하실 수 있습니다. (별도 계약건은 영업담당 02-3460-8536 문의)
 		</p>
               <div class="subMyClappTaxBox">
-			<a href="#">
+			<a href="${contextPath}/myClapp/myInquiry?inquiryCategory=4">
 			<span class="subMyClappTaxTitle">계산서 요청</span>
-				<img class="taxIcon" src="${contextPath }/resources/images/tax.png" alt="계산서" onclick="javascript:location.href='${contextPath}/myClapp/myInquiry?inquiryCategory=4'" />
+                <img class="taxIcon" src="${contextPath }/resources/images/tax.png" alt="계산서"/>
 			</a>
 		</div>
 	</div>
