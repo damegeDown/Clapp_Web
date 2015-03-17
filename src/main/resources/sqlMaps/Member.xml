@@ -348,7 +348,6 @@
       FN_GET_COMMON_CODE_NAME('USER_AGE_GROUP', UD.USER_AGE_GROUP ) USER_AGE_GROUP,
       UD.USER_JOB_TYPE,
       UD.USER_COMPANY_NAME,
-      UD.USER_COMPANY_GROUP_TYPE,
       FN_GET_COMMON_CODE_NAME('USER_COMPANY_GROUP_TYPE', UD.USER_COMPANY_GROUP_TYPE ) USER_COMPANY_GROUP_TYPE_TEXT,
       UD.USER_COMPANY_NUMBER,
       UD.USER_COMPANY_BUSINESS_TYPE,
@@ -621,8 +620,17 @@
 	    AND 
     		user_id = #{userId}
 	</select>
-    <!--  //회원 로그인 --> 
-    
+    <!--  //회원 로그인 -->
+  <!-- 최종 로그인 일시 -->
+  <update id="userLastLoginDate" parameterType="memberEntity">
+    UPDATE
+      USER_MASTER
+    SET
+      USER_LAST_LOGIN_DATE = NOW()
+    WHERE
+      USER_ID = #{userId}
+  </update>
+  <!-- //최종 로그인 일시 -->
   <!-- 회원 접속 상태 On -->
   <update id="userLoginState" parameterType="memberEntity">
     UPDATE
