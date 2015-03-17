@@ -30,6 +30,7 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	private int sumLoginCount = 0;					//검색 총 일반로그인수 
 	private int sumLoginCompanyCount = 0;			//검색 초 기업/단체로그인수
 	private int dropOutCount = 0;					//탈퇴 회원수
+	private int dropOutMemberCount = 0;			    //누적 탈퇴 회원수
 	private int sumDropOutCount = 0;				//검색 탈퇴 총 수
 	private int totDropOutCount = 0;				//탈퇴 총 수
 	private String dropOutDate;						//탈퇴 일
@@ -265,7 +266,15 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 		this.dropOutCount = dropOutCount;
 	}
 
-	public int getSumDropOutCount() {
+    public int getDropOutMemberCount() {
+        return dropOutMemberCount;
+    }
+
+    public void setDropOutMemberCount(int dropOutMemberCount) {
+        this.dropOutMemberCount = dropOutMemberCount;
+    }
+
+    public int getSumDropOutCount() {
 		return sumDropOutCount;
 	}
 

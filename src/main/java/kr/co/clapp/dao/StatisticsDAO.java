@@ -94,4 +94,11 @@ public interface StatisticsDAO {
      * @return
      */
     StatisticsEntity getCableAdviceSearchCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 회원탈퇴 누적 카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getDropOutMemberCount(StatisticsEntity statisticsEntity);
 }

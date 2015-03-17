@@ -7,7 +7,7 @@
 <script type="text/javascript" src="${contextPath }/resources/js/statistics.js"></script>
 <div class="sub-content">
     <div>
-	  <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
+	  <h3 class="contents-title floatL">${CommonCode.navigation } ( 누적 탈퇴회원 수 : <span class="colorSkyBlue">${dropOutMemberCount.dropOutMemberCount}</span>명 )</h3>
 	  <div style="clear:both;"></div>
 	</div>
 	<div class="search-box">
@@ -23,7 +23,7 @@
 		  <input type="button" class="btn searchBtn" value="검색"/>
 		</form>
 	</div>
-  <div style="margin:5px; color:red">* 월 단위 검색만 가능합니다.</div>
+  <%--<div style="margin:5px; color:red">* 월 단위 검색만 가능합니다.</div>--%>
   <div style="border-top:2px dotted #999;margin-bottom:30px"></div>
   <div style="width:100%;">
   	<h3 class="floatL part-title">${CommonCode.searchResult }</h3>

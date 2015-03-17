@@ -25,7 +25,7 @@
 	     <div style="width:100%;">
  			<h3 class="floatL part-title">> 검색결과 <span class="colorSkyBlue">${dropOutUserEntity.dataSize }</span> 건</h3>
 	        <div class=" floatR">
-			    <select class="sel-w100 searchValue" name="searchValue1">
+			    <select class="sel-w230 searchValue" name="searchValue1">
 		        <option value="">탈퇴사유 전체</option>
 		        <c:forEach items="${dropOutReasonCode}" var="code">
 		          <option value="${code.commonCode }" <c:if test="${dropOutUserEntity.searchValue1 eq code.commonCode }">selected</c:if>>${code.commonName }</option>

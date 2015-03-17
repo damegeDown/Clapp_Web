@@ -62,15 +62,16 @@ public class StatisticsServiceImpl implements StatisticsService {
 	  //탈퇴 사유별 탈퇴 회원수
 	  statisticsEntity.setSearchKey("reason");
 	  List<StatisticsEntity> dropOutReasonList= statisticsDAO.getDropOutMemberReport(statisticsEntity);
-	  
+      StatisticsEntity dropOutMemberCount  = statisticsDAO.getDropOutMemberCount(statisticsEntity);
 	  statisticsEntity.setDropOutList(dropOutList);
 	  statisticsEntity.setDropOutReasonList(dropOutReasonList);
-	  
+      model.addAttribute("dropOutMemberCount", dropOutMemberCount);
+
 	  //공통
-	  commonCode.put("navigation", "탈퇴 회원 (누적 탈퇴회원 수 : <span class='colorSkyBlue'>"+dropOutList.get(0).getTotDropOutCount()+"</span> 명)");   // 현재 페이지 네비게이션
-	  commonCode.put("searchResult", "> 검색결과 :  <span class='colorSkyBlue'>"+dropOutList.get(0).getSumDropOutCount()+"</span> 명");   // 검색 결과
-	  commonCode.put("dropOutReason", "> 탈퇴 사유별 : <span class='colorSkyBlue'>"+dropOutReasonList.get(0).getDropOutReason()+" ("+dropOutReasonList.get(0).getSumDropOutCount()+"</span> 건)");   // 검색 결과 
-	  commonCode.put("mainMenu", "permissionMaster");				// left main menu 
+	  commonCode.put("navigation", "탈퇴 회원");   // 현재 페이지 네비게이션
+      commonCode.put("searchResult", "> 검색결과 :  <span class='colorSkyBlue'>"+dropOutList.get(0).getSumDropOutCount()+"</span> 명");   // 검색 결과
+      commonCode.put("dropOutReason", "> 탈퇴 사유별 : <span class='colorSkyBlue'>"+dropOutReasonList.get(0).getDropOutReason()+" ("+dropOutReasonList.get(0).getSumDropOutCount()+"</span> 건)");   // 검색 결과
+      commonCode.put("mainMenu", "permissionMaster");				// left main menu
 	  commonCode.put("subMenu", "statistics");				// left sub menu
 	  commonCode.put("subMenu2", "dropOutMemberReport");	// left sub menu
 	  model.addAttribute("CommonCode", commonCode);
