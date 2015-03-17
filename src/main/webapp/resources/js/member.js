@@ -45,10 +45,12 @@ $.fn.SelectCommon = {
 //	  var dropOutPerson = $("#dropMemberform input[name=dropOutPerson]").val();
 	  var dropOutPerson = "관리자";
 	  var dropOutReasonCode = $("#dropMemberform .dropOutReason:checked").data('code');
-	  var dropOutReason = $("#dropMemberform input[name=dropOutReason]").val();
+      var dropOutReason = $("#dropMemberform input[type=radio][name=dropOutReason]:checked").val();
 	  var userMasterKey = $("#dropMemberform input[name=userMasterKey]").val();
 	  var userName = $("#dropMemberform input[name=userName]").val();
-	  var dropOutReason = $("#dropOutReasonInput").val();
+        if (dropOutReason == '기타'){
+            var dropOutReason = $("#dropOutReasonInput").val();
+        }
 	  $.ajax ({
 		type: 'POST',
 		dataType : 'json',
