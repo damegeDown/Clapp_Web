@@ -199,6 +199,7 @@
 	  SELECT 
 	    BOARD_SOCIAL_BLOG_KEY,
 	    SOCIAL_LINK,
+        SOCIAL_ORIGIN,
 	    SOCIAL_BLOG_TITLE,
 	    SOCIAL_BLOG_CONTENT,
 	    SOCIAL_BLOG_INSERT_NAME,
@@ -295,6 +296,7 @@
     SELECT 
 	    bsb.BOARD_SOCIAL_BLOG_KEY,
 	    bsb.SOCIAL_LINK,
+	    bsb.SOCIAL_ORIGIN,
 	    bsb.SOCIAL_BLOG_TITLE,
 	    bsb.SOCIAL_BLOG_CONTENT,
 	    bsb.SOCIAL_BLOG_INSERT_NAME,
@@ -352,12 +354,14 @@
     <insert id="insertBoardSocialBlog" parameterType="boardEntity" useGeneratedKeys="true" keyProperty="boardSocialBlogKey">
       INSERT INTO BOARD_SOCIAL_BLOG (
 		    SOCIAL_LINK,
+		    SOCIAL_ORIGIN,
 		    SOCIAL_BLOG_TITLE,
 		    SOCIAL_BLOG_CONTENT,
 		    SOCIAL_BLOG_INSERT_NAME,
 		    SOCIAL_BLOG_INSERT_DATE
       ) VALUES (
         #{socialLink},
+        #{socialOrigin},
         #{socialBlogTitle},
         #{socialBlogContent},
         #{socialBlogInsertName},
@@ -473,6 +477,7 @@
     SELECT 
       bsb.BOARD_SOCIAL_BLOG_KEY,
       bsb.SOCIAL_LINK,
+      bsb.SOCIAL_ORIGIN,
       bsb.SOCIAL_BLOG_TITLE,
       bsb.SOCIAL_BLOG_CONTENT,
       bsb.SOCIAL_BLOG_INSERT_DATE,
@@ -523,6 +528,7 @@
     SELECT 
       bsb.BOARD_SOCIAL_BLOG_KEY,
       bsb.SOCIAL_LINK,
+      bsb.SOCIAL_ORIGIN,
       bsb.SOCIAL_BLOG_TITLE,
       bsb.SOCIAL_BLOG_CONTENT,
       bsb.SOCIAL_BLOG_INSERT_DATE,

@@ -47,7 +47,7 @@
             <fmt:formatDate value="${newsArticleDetail.socialBlogInsertDate}" pattern="yyyy.MM.dd"/>
           </span>
           <span class="subCIArticleCOBOrigin ">
-            출처: 전자신문
+            출처 : <a href="http://${newsArticleDetail.socialLink }" target="new">${newsArticleDetail.socialOrigin }</a>
           </span>
         </div>
         <div class="subCIArticleCTBImg alignCenter" style="display:table">

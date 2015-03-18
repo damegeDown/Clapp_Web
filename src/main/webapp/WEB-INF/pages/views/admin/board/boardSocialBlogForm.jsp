@@ -1,17 +1,14 @@
-<%@page import="kr.co.clapp.utils.TwitterClient"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<%@ page import="twitter4j.auth.*, java.util.*, twitter4j.*"%>
-<%@ page import="kr.co.clapp.utils.*"%>
- 
+
 
 <div class="sub-content">
-  <form id="memberForm" enctype="multipart/form-data">
-    <div> 
-      <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
+    <form id="memberForm" enctype="multipart/form-data">
+        <div>
+            <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
       <div style="clear:both;"></div>
     </div>
     <c:if test="${boardSocialBlogDetail.boardSocialBlogKey ne null}">
@@ -63,6 +60,13 @@
         <td>
          <textarea rows="10" cols="200" id="ir1" name="socialBlogContent" >${boardSocialBlogDetail.socialBlogContent}</textarea>
         </td>
+      </tr>
+      <tr>
+          <th>출처 / 링크</th>
+          <td>
+              <input type="text" name="socialOrigin" placeholder="출처" value="${boardSocialBlogDetail.socialOrigin}"/> / 링크 : http://
+              <input type="text" class="inp-w600" name="socialLink" placeholder="40자 이내" value="${boardSocialBlogDetail.socialLink}"/>
+          </td>
       </tr>
       <tr>
         <th>작성자</th>
