@@ -50,9 +50,12 @@
             출처: 전자신문
           </span>
         </div>
-        <div class="subCIArticleCTBImg">
-          <img src="${contextPath }/resources/images/trr_trend_view_img01.png" alt="" />
+        <div class="subCIArticleCTBImg alignCenter" style="display:table">
+            <div style="display:table-cell;vertical-align:middle;width:428px; height:270px">
+                <img src="${contextPath}/common/imgView?fileType=${newsArticleDetail.fileTarget}&fileName=${newsArticleDetail.fileSavedName}" />
+            </div>
         </div>
+
       </div><!-- .subTRIndustryContentOnebox End -->
     </div> <!-- .subContentOneContainer End -->
 

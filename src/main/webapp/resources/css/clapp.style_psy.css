@@ -2271,9 +2271,11 @@
   right: 0;
 }
 .subCIArticleCTBImg img{
-  display: block;
-  width: 319px;
-  height: 319px;
+  /*display: block;*/
+  /*width: 319px;*/
+  /*height: 319px;*/
+  max-height : 270px;
+  max-width : 428px;
 }
 .subCIArticleViewContentTwoContainer {
   width: 960px;
