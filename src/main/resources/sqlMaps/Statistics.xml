@@ -175,8 +175,17 @@
 					drop_out_reason
 				</otherwise>
 			</choose> 
-	
+
 	</select>
+    <!-- 탈퇴회원 누적 카운트 -->
+    <select id="getDropOutMemberCount" resultType="statisticsEntity" parameterType="int">
+        SELECT
+           count(*) as dropOutMemberCount
+        FROM
+           DROP_OUT_USER
+    </select>
+    <!-- //탈퇴회원 누적 카운트 -->
+
 	<!-- 수시 발송용 / 타켓 메일 -->
 	<select id="getMailReport" resultType="statisticsEntity" parameterType="statisticsEntity">
 		SELECT
