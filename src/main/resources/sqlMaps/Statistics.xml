@@ -221,59 +221,60 @@
 	 
 	<select id="getUsedTicketReport" resultType="statisticsEntity" parameterType="statisticsEntity">
         SELECT
-        SUM(a.usedTicketMember) sumUsedTicketMember,
-        SUM(a.usedTicketCompanyMember) sumUsedTicketCompanyMember,
-        usedTicketMember,
-        usedTicketCompanyMember,
-        left(a.end_dttm,10) history_end_used_time,
-        a.use_point,
-        usedTicketCompanyMember / (usedTicketMember+usedTicketCompanyMember) * 100 aveUsedTicket,
-        usedTicketMember + usedTicketCompanyMember sumDayTotal,
-        a.prod_name,
-        a.id,
-        a.day_of_week,
-        FN_GET_DAY_OF_WEEK(a.day_name) day_name
+            SUM(a.usedTicketMember) sumUsedTicketMember,
+            SUM(a.usedTicketCompanyMember) sumUsedTicketCompanyMember,
+            usedTicketMember,
+            usedTicketCompanyMember,
+            left(a.end_dttm,10) history_end_used_time,
+            a.end_dttm statisticsDate,
+            a.use_point,
+            usedTicketCompanyMember / (usedTicketMember+usedTicketCompanyMember) * 100 aveUsedTicket,
+            usedTicketMember + usedTicketCompanyMember sumDayTotal,
+            a.prod_name,
+            a.id,
+            a.day_of_week,
+            FN_GET_DAY_OF_WEEK(a.day_name) day_name
         FROM (
-        SELECT
-        COUNT(if(um.user_type = 1,um.user_type,NULL)) usedTicketMember,
-        COUNT(if(um.user_type = 2,um.user_type,NULL)) usedTicketCompanyMember,
-        vr.end_dttm,
-        vr.use_point,
-        vd.prod_name,
-        vd.id,
-        WEEKDAY(vr.end_dttm) day_of_week,
-        DAYNAME(vr.end_dttm) day_name
-        FROM
-        VIEW_RESERVATIONS vr ,
-        VIEW_DEVICES vd,
-        USER_MASTER um,
-        USER_DETAIL ud
-        WHERE
-        vr.user_id = um.user_master_key
-        AND
-        um.user_master_key = ud.user_master_key
-        AND
-        vr.device_id = vd.id
-        AND
-        vr.status = 2
-        <if test="searchValue != '' and searchValue != null">
+            SELECT
+                COUNT(if(um.user_type = 1,um.user_type,NULL)) usedTicketMember,
+                COUNT(if(um.user_type = 2,um.user_type,NULL)) usedTicketCompanyMember,
+                vr.end_dttm,
+                vr.use_point,
+                vd.prod_name,
+                vd.id,
+                WEEKDAY(vr.end_dttm) day_of_week,
+                DAYNAME(vr.end_dttm) day_name
+            FROM
+                VIEW_RESERVATIONS vr ,
+                VIEW_DEVICES vd,
+                USER_MASTER um,
+                USER_DETAIL ud
+            WHERE
+                vr.user_id = um.user_master_key
             AND
-            DATE_FORMAT(vr.end_dttm, '%Y/%m/%d') LIKE '${searchValue}%'
-        </if>
-        GROUP BY
-        <choose>
-            <when test="searchKey == 'date'">
-                vr.end_dttm
-            </when>
-            <when test="searchKey == 'time'">
-                vr.use_point
-            </when>
-            <otherwise>
-                vd.id
-            </otherwise>
-        </choose>
+                um.user_master_key = ud.user_master_key
+            AND
+                vr.device_id = vd.id
+            AND
+                vr.status = 2
+            <if test="searchValue != '' and searchValue != null">
+            AND
+                DATE_FORMAT(vr.end_dttm, '%Y/%m/%d') LIKE '${searchValue}%'
+            </if>
+            GROUP BY
+            <choose>
+                <when test="searchKey == 'date'">
+                    vr.end_dttm
+                </when>
+                <when test="searchKey == 'time'">
+                    vr.use_point
+                </when>
+                <otherwise>
+                    vd.id
+                </otherwise>
+            </choose>
 
-        ) a
+            ) a
         GROUP BY
         <choose>
             <when test="searchKey == 'date'">
