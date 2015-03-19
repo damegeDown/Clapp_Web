@@ -37,7 +37,8 @@
 			<tr>
 				<th>날짜(요일)</th>
 				<th>일반</th>
-				<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+				<th>기업 / 단체</th>
+				<th>기업 / 단체 사용율</th>
 				<th>일별 합계</th>
 			</tr>
 		</thead>
@@ -58,16 +59,16 @@
 				</c:when>
 				<c:otherwise>
 					<c:set var="color" value="color:black"/>
-				</c:otherwise>  
+				</c:otherwise>
 			</c:choose>
 			<tr class="cursor" style="cursor:pointer; ${color} ">
-				<td>	<fmt:formatDate pattern="yyyy/MM/dd " value="${statisticsList.statisticsDate}" /> <br/>(${statisticsDateList.dayName })</td> 
+				<td>	<fmt:formatDate pattern="yyyy/MM/dd " value="${statisticsList.statisticsDate}" /> <br/>(${statisticsDateList.dayName })</td>
 				<!-- 일반 -->
-				<td> 
+				<td>
 					<c:if test="${statisticsDateList.dayOfWeek < 5 }">
 						<c:set var="weekDayUsedTicketMember" value="${weekDayUsedTicketMember + statisticsDateList.usedTicketMember  }"/>
 					</c:if>
-					<c:set var="totalUsedTicketMember" value="${totalUsedTicketMember + statisticsDateList.usedTicketMember  }"/>	
+					<c:set var="totalUsedTicketMember" value="${totalUsedTicketMember + statisticsDateList.usedTicketMember  }"/>
 					${statisticsDateList.usedTicketMember } 명
 				</td>
 				<!-- 기업/단체가입 -->
@@ -75,19 +76,19 @@
 					<c:if test="${statisticsDateList.dayOfWeek < 5 }">
 						<c:set var="weekDayUsedTicketCompanyMember" value="${weekDayUsedTicketCompanyMember + statisticsDateList.usedTicketCompanyMember  }"/>
 					</c:if>
-					<c:set var="totalUsedTicketCompanyMember" value="${totalUsedTicketCompanyMember + statisticsDateList.usedTicketCompanyMember  }"/>	
+					<c:set var="totalUsedTicketCompanyMember" value="${totalUsedTicketCompanyMember + statisticsDateList.usedTicketCompanyMember  }"/>
 					${statisticsDateList.usedTicketCompanyMember } 명
 				</td>
 				<!-- 기업/단체가입 -->
 				<td>
 					<numbers:RoundTag value="${(statisticsDateList.usedTicketCompanyMember / (statisticsDateList.usedTicketMember + statisticsDateList.usedTicketCompanyMember)) * 100 }" type="half" digit="1"/> %
-				</td> 
+				</td>
 				<!-- 일별합계 -->
 				<td>
 					<c:if test="${statisticsDateList.dayOfWeek < 5 }">
 						<c:set var="weekDayLoginCount" value="${weekDayLoginCount + statisticsDateList.usedTicketMember + statisticsDateList.usedTicketCompanyMember }"/>
 					</c:if>
-					<c:set var="totalLoginCount" value="${totalLoginCount + statisticsDateList.usedTicketMember + statisticsDateList.usedTicketCompanyMember }"/>	
+					<c:set var="totalLoginCount" value="${totalLoginCount + statisticsDateList.usedTicketMember + statisticsDateList.usedTicketCompanyMember }"/>
 					${statisticsDateList.usedTicketMember + statisticsDateList.usedTicketCompanyMember} 명
 				</td>
 			</tr>
@@ -153,7 +154,8 @@
 			<tr>
 				<th>사용 시간</th>
 				<th>일반</th>
-				<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+				<th>기업 / 단체</th>
+                <th>기업 / 단체 사용율</th>
 				<th>일별 합계</th>
 			</tr>
 		</thead>
@@ -205,7 +207,8 @@
 			<tr>
 				<th>디바이스 모델명</th>
 				<th>일반</th>
-				<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+				<th>기업 / 단체</th>
+                <th>기업 / 단체 사용율</th>
 				<th>일별 합계</th>
 			</tr>
 		</thead>
