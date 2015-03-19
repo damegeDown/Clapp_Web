@@ -49,7 +49,7 @@ $.fn.SelectCommon = {
 	  var userMasterKey = $("#dropMemberform input[name=userMasterKey]").val();
 	  var userName = $("#dropMemberform input[name=userName]").val();
         if (dropOutReason == '기타'){
-            var dropOutReason = $("#dropOutReasonInput").val();
+            var dropOutReason = '기타 '+ '(' +$("#dropOutReasonInput").val()+')';
         }
 	  $.ajax ({
 		type: 'POST',

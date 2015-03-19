@@ -26,7 +26,7 @@
   <%--<div style="margin:5px; color:red">* 월 단위 검색만 가능합니다.</div>--%>
   <div style="border-top:2px dotted #999;margin-bottom:30px"></div>
   <div style="width:100%;">
-  	<h3 class="floatL part-title">${CommonCode.searchResult }</h3>
+  	<h3 class="floatL part-title">${CommonCode.searchResult } <span class="colorSkyBlue"> ${dropOutSearchCount.dropOutSearchCount}</span>명 </h3>
   	<input type="button" class="btn floatR excelDownBtn" value="엑셀 다운로드"/>
   </div>
   <c:set var="dropOutLength" value="${dropOutList.size() }"/>
@@ -72,7 +72,7 @@
 		</c:if>
 	</table>
 	<div style="width:100%;">
-  	<h3 class="floatL" style="margin-top:15px">${CommonCode.dropOutReason }</h3>
+  	<h3 class="floatL" style="margin-top:15px">${CommonCode.dropOutReason } <span class="colorSkyBlue">${dropOutMaxCount.maxDropOutReason} (${dropOutMaxCount.numDropOutReason} 건)</span></h3>
   </div>
   <c:set var="reasonLength" value="${dropOutReasonList.size() }"/>
 	<table class="board-list-r">
@@ -82,7 +82,7 @@
 		</colgroup>
 		<thead> 
 			<tr>
-				<th>탈퇴 사유별</th>  
+				<th>탈퇴 사유별</th>
 				<th>건 수</th>
 			</tr>
 		</thead>
@@ -95,7 +95,7 @@
 		<tbody>
 		<c:forEach items="${dropOutReasonList }" var="reasonList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ${color} ">
-				<td>${reasonList.dropOutReason }</td> 
+				<td>${reasonList.dropOutReason }</td>
 				<!-- 일반가입 -->
 				<td> 
 					 ${reasonList.dropOutCount } 건

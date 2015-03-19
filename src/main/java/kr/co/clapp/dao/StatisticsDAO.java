@@ -101,4 +101,18 @@ public interface StatisticsDAO {
      * @return
      */
     StatisticsEntity getDropOutMemberCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 가장많은 탈퇴 사유
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getDropOutMaxCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 회원 탈퇴 검색 카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getDropOutSearchCount(StatisticsEntity statisticsEntity);
 }

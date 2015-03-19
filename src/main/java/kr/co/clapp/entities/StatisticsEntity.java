@@ -35,7 +35,10 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	private int totDropOutCount = 0;				//탈퇴 총 수
 	private Date dropOutDate;						//탈퇴 일
 	private String dropOutReason;					//탈퇴 사유
-	
+	private String maxDropOutReason;			    //가장 많은 탈퇴 사유
+	private int numDropOutReason;			        //가장 많은 탈퇴 사유 번호
+	private int dropOutSearchCount;			        //탈퇴회원 검색 카운트
+
 	private int tempPassword = 0;					// 임시비번발송
 	private int payCredit = 0;						// 유료(신용,핸드폰)
 	private int payVirtuarAccount = 0;				// 유료(가상계좌)
@@ -305,8 +308,32 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	public void setDropOutReason(String dropOutReason) {
 		this.dropOutReason = dropOutReason;
 	}
-	
-	public int getTempPassword() {
+
+    public String getMaxDropOutReason() {
+        return maxDropOutReason;
+    }
+
+    public void setMaxDropOutReason(String maxDropOutReason) {
+        this.maxDropOutReason = maxDropOutReason;
+    }
+
+    public int getNumDropOutReason() {
+        return numDropOutReason;
+    }
+
+    public void setNumDropOutReason(int numDropOutReason) {
+        this.numDropOutReason = numDropOutReason;
+    }
+
+    public int getDropOutSearchCount() {
+        return dropOutSearchCount;
+    }
+
+    public void setDropOutSearchCount(int dropOutSearchCount) {
+        this.dropOutSearchCount = dropOutSearchCount;
+    }
+
+    public int getTempPassword() {
 		return tempPassword;
 	}
 

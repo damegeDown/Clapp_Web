@@ -156,27 +156,56 @@
 	</select>
 	<!-- 회원 탈퇴 현황 -->
 	<select id="getDropOutMemberReport" resultType="statisticsEntity" parameterType="statisticsEntity">
-		SELECT
-			COUNT(*) drop_out_count,
+        SELECT
+            COUNT(*) drop_out_count,
             drop_out_date,
---         	FN_GET_COMMON_CODE_NAME('DROP_OUT_REASON',drop_out_reason ) drop_out_reason,
-			drop_out_reason,
-			(SELECT COUNT(*) FROM DROP_OUT_USER) sum_drop_out_count
-		FROM
-			DROP_OUT_USER
-		WHERE
-			DATE_FORMAT(drop_out_date, '%Y/%m/%d') LIKE '${searchValue}%'
-		GROUP BY	
-			<choose>
-				<when test="searchKey eq 'date'">
-					LEFT(drop_out_date, 7)
-				</when>
-				<otherwise>
-					drop_out_reason
-				</otherwise>
-			</choose> 
+            FN_GET_COMMON_CODE_NAME('DROP_OUT_REASON',DROP_OUT_REASON_CODE ) DROP_OUT_REASON,
+            (SELECT COUNT(*) FROM DROP_OUT_USER) sum_drop_out_count
+        FROM
+            DROP_OUT_USER
+        WHERE
+            DATE_FORMAT(drop_out_date, '%Y/%m/%d') LIKE '${searchValue}%'
+        GROUP BY
+        <choose>
+            <when test="searchKey eq 'date'">
+                LEFT(drop_out_date, 7)
+            </when>
+            <otherwise>
+                drop_out_reason_code
+            </otherwise>
+        </choose>
 
 	</select>
+
+    <!-- 탈퇴회원 제일 건수 높은 사유 카운트 -->
+    <select id="getDropOutMaxCount" resultType="statisticsEntity" parameterType="statisticsEntity">
+        select
+            max(NUM_DROP_OUT_REASON) as NUM_DROP_OUT_REASON ,
+            FN_GET_COMMON_CODE_NAME('DROP_OUT_REASON',drop_out_reason_code ) MAX_DROP_OUT_REASON
+        from (
+            select
+            count(*) as NUM_DROP_OUT_REASON,
+            drop_out_reason_code
+            from DROP_OUT_USER
+                WHERE
+                DATE_FORMAT(drop_out_date, '%Y/%m/%d') LIKE '${searchValue}%'
+            group by drop_out_reason_code
+            order by NUM_DROP_OUT_REASON desc
+        ) a
+    </select>
+    <!-- 탈퇴회원 제일 건수 높은 사유 카운트 -->
+
+    <!-- 탈퇴회원 검색 카운트 -->
+    <select id="getDropOutSearchCount" resultType="statisticsEntity" parameterType="statisticsEntity">
+	  SELECT
+			count(*) as dropOutSearchCount
+      FROM
+        DROP_OUT_USER
+			WHERE
+        DATE_FORMAT(drop_out_date, '%Y/%m/%d') LIKE '${searchValue}%'
+    </select>
+    <!-- 탈퇴회원 검색 카운트 -->
+
     <!-- 탈퇴회원 누적 카운트 -->
     <select id="getDropOutMemberCount" resultType="statisticsEntity" parameterType="int">
         SELECT
