@@ -158,8 +158,8 @@
 	<select id="getDropOutMemberReport" resultType="statisticsEntity" parameterType="statisticsEntity">
 		SELECT
 			COUNT(*) drop_out_count,
-			LEFT(drop_out_date, 7) drop_out_date,
-			<!-- FN_GET_COMMON_CODE_NAME('DROP_OUT_REASON',drop_out_reason ) drop_out_reason, -->
+            drop_out_date,
+--         	FN_GET_COMMON_CODE_NAME('DROP_OUT_REASON',drop_out_reason ) drop_out_reason,
 			drop_out_reason,
 			(SELECT COUNT(*) FROM DROP_OUT_USER) sum_drop_out_count
 		FROM

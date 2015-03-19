@@ -27,7 +27,7 @@
 	<tbody>
 	<c:forEach items="${dropOutList }" var="dropOutList" varStatus="i">
 		<tr class="cursor" style="cursor:pointer; ">
-			<td>${dropOutList.dropOutDate}</td> 
+            <td><fmt:formatDate pattern="yyyy–MM" value="${dropOutList.dropOutDate }" /></td>
 			<!-- 일반가입 -->
 			<td> 
 				${dropOutList.dropOutCount } 명

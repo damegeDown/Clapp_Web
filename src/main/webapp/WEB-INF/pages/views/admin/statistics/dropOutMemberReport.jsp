@@ -37,7 +37,7 @@
 		</colgroup>
 		<thead> 
 			<tr>
-				<th>년 / 월</th>  
+				<th>년 / 월</th>
 				<th>탈퇴 회원수</th>
 			</tr>
 		</thead>
@@ -50,7 +50,7 @@
 		<tbody>
 		<c:forEach items="${dropOutList }" var="dropOutList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ${color} ">
-				<td>${dropOutList.dropOutDate}</td> 
+                <td><fmt:formatDate pattern="yyyy–MM" value="${dropOutList.dropOutDate }" /></td>
 				<!-- 일반가입 -->
 				<td> 
 					${dropOutList.dropOutCount } 명
