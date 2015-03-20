@@ -1,26 +1,5 @@
 package kr.co.clapp.service.mailing.impl;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.velocity.VelocityEngineFactory;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.dao.EcrmDAO;
 import kr.co.clapp.dao.MailingDAO;
@@ -32,11 +11,24 @@ import kr.co.clapp.entities.validation.FormRecruitInfoEntity;
 import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.digigroove.commons.entities.MailSendEntity;
-import kr.co.digigroove.commons.utils.DateUtils;
-import kr.co.digigroove.commons.utils.HashUtils;
-import kr.co.digigroove.commons.utils.MailUtils;
-import kr.co.digigroove.commons.utils.NumberUtils;
-import kr.co.digigroove.commons.utils.StringUtils;
+import kr.co.digigroove.commons.utils.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.velocity.VelocityEngineFactory;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service("MailingService")
 @Transactional(readOnly=true)
@@ -327,7 +319,7 @@ public class MailingServiceImpl implements MailingService {
 	 * 설문 발송
 	 */
 	@Override
-	public int sendSurvey(EcrmEntity ecrmEntity, HttpServletRequest request) {
+	public int sendSurvey(EcrmEntity ecrmEntity) {
 	  MemberEntity memberEntity = new MemberEntity(); 
 	  MailSendEntity mailSendInfo = new MailSendEntity();
 	  Map<String, Object> emailData = new ConcurrentHashMap<String,Object>();
