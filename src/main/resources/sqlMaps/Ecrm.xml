@@ -38,10 +38,16 @@
 		mm.mail_section = #{mailSection}
 	GROUP BY
 		mail_type
-		<if test="searchKey != null and searchKey != ''">
+	<choose>
+		<when test="searchKey != null and searchKey != ''">
 		ORDER BY 
 			${searchKey} DESC
-		</if>
+		</when>
+		<otherwise>
+			ORDER BY mail_sort ASC, mail_type ASC
+		</otherwise> 
+	</choose>
+		
   </select>
   <!-- //메일 통계-->
   <!-- 메일 템플릿 -->
