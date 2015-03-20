@@ -1,7 +1,5 @@
 package kr.co.clapp.service.mailing;
 
-import javax.servlet.http.HttpServletRequest;
-
 import kr.co.clapp.entities.DropOutUserEntity;
 import kr.co.clapp.entities.EcrmEntity;
 import kr.co.clapp.entities.MemberEntity;
@@ -68,7 +66,7 @@ public interface MailingService {
    * @return
    */
 
-  int sendSurvey(EcrmEntity ecrmEntity, HttpServletRequest request);
+  int sendSurvey(EcrmEntity ecrmEntity);
 
   int sendApiMail(EcrmEntity ecrmEntity);
  
