@@ -65,7 +65,7 @@
           <select name="userAgeGroup">
             <option value="">-연령대선택-</option>
             <c:forEach items="${userAgeGroupCode }" var="code">
-              <option value="${code.commonCode }" <c:if test="${memberDetail.userAgeGroup eq code.commonCode }">selected</c:if>>${code.commonName }</option>
+              <option value="${code.commonCode }" <c:if test="${memberDetail.userAgeGroup eq code.commonName }">selected</c:if>>${code.commonName }</option>
             </c:forEach>
           </select> 
         </td>

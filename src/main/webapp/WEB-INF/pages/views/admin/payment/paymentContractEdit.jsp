@@ -43,7 +43,7 @@
 	    	 	   <th>회원 ID</th>
 	    	 	   <td>
 	    	 	   	 <input type="hidden" name="userMasterKeyArr"   data-flag="off" data-id="${i.index + 1 }"/>
-	    	 	     <input type="text" name="contractUserIdArr" value="${paymentInfo.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="1"/>
+	    	 	     <input type="text" class="inp-w180" name="contractUserIdArr" value="${paymentInfo.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="1"/>
 	    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 	    	 	   </td>
 	    	 	 </tr>
@@ -67,11 +67,11 @@
     	 	 </tr>
     	 	 <tr>
     	 	   <th>발행금액</th>
-    	 	   <td><input type="text" name="contractTotalPrice" value="${paymentInfo.contractTotalPrice }" placeholder="공급가액 + 부가가치세 포함 총 금액"/></td>
+    	 	   <td><input class="inp-w185" type="text" name="contractTotalPrice" value="${paymentInfo.contractTotalPrice }" placeholder="공급가액 + 부가가치세 포함 총 금액"/></td>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>결제방법</th>
-    	 	   <td><input type="text" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제"/></td>
+    	 	   <td><input type="text" class="inp-w160" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제"/></td>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>기업명</th>
