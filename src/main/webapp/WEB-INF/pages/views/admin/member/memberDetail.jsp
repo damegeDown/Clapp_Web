@@ -95,6 +95,29 @@
                ( ${memberDetail.productName}, 상품 적용기간
                <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketStartExpirationDate }" /> ~
                <fmt:formatDate pattern="yyyy/MM/dd" value="${memberDetail.ticketEndExpirationDate }" /> )
+               <c:choose>
+                   <c:when test='${memberDetail.productName eq "Monthly Diamond" }'>
+                       <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                   </c:when>
+                   <c:when test='${memberDetail.productName eq "Annual Silver" }'>
+                       <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                   </c:when>
+                   <c:when test='${memberDetail.productName eq "Annual Gold" }'>
+                       <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                   </c:when>
+                   <c:when test='${memberDetail.productName eq "Annual Diamond" }'>
+                       <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                   </c:when>
+                   <c:when test='${memberDetail.productName eq "Enterprize Gold" }'>
+                       <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                   </c:when>
+                   <c:when test='${memberDetail.productName eq "Enterprize Diamond" }'>
+                       <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                   </c:when>
+                   <c:otherwise>
+                       <a href="${contextPath}/admin/payment/paymentWebList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                   </c:otherwise>
+               </c:choose>
         </td>
        </tr>
     </tbody>
