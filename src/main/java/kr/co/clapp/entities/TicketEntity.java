@@ -16,6 +16,7 @@ public class TicketEntity extends PageEntity implements Serializable{
 	
 	private int userTicketUserdHistoryKey;				
 	private int userTicketMasterKey;
+	private int targetKey;
 	private String historyStartReserveTime;					//예약 시작시간
 	private String historyEndReserveTime;					//예약 종료시간
 	private String historyStartUsedTime;					//사용 시작시간
@@ -99,6 +100,13 @@ public class TicketEntity extends PageEntity implements Serializable{
 	}
 	public void setUserTicketMasterKey(int userTicketMasterKey) {
 		this.userTicketMasterKey = userTicketMasterKey;
+	}
+	
+	public int getTargetKey() {
+		return targetKey;
+	}
+	public void setTargetKey(int targetKey) {
+		this.targetKey = targetKey;
 	}
 	public String getHistoryStartReserveTime() {
 		return historyStartReserveTime;

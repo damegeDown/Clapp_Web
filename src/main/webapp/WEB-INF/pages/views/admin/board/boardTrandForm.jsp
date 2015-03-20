@@ -61,7 +61,7 @@
         <th>출처 / 링크</th>
         <td>
           <input type="text" name="trandOrigin" placeholder="출처" value="${boardTrandDetail.trandOrigin}"/> / 링크 : http:// 
-          <input type="text" class="inp-w600"" name="trandOriginLink" placeholder="40자 이내" value="${boardTrandDetail.trandOriginLink}"/>
+          <input type="text" class="inp-w600" name="trandOriginLink" placeholder="40자 이내" value="${boardTrandDetail.trandOriginLink}"/>
         </td>
        </tr>
        <tr>

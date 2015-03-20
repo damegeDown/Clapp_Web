@@ -115,6 +115,23 @@ public class EcrmEntity extends PageEntity implements Serializable{
 	private int surveyAnswer10Point;
 	private String[] surveyAnswerContentsArr;
 	
+	
+	/** API MAIL */
+	private String userName = "";
+	private String fromEmail = "";
+	private String prodName = "";
+	private String fileUrl = "";
+	private String memo = "";
+	private String startDttm = "";
+	private String testName = "";
+	private String serverUrl = "";
+	
+	private String productName = "";
+	private int ticketAmount;
+	private Date expirationDate;
+	private Date paymentDate;
+	private int paymentAmount;
+	
 	public int getMailMasterKey() {
 		return mailMasterKey;
 	}
@@ -657,5 +674,85 @@ public class EcrmEntity extends PageEntity implements Serializable{
 	public void setAnswerList(List<EcrmEntity> answerList) {
 		this.answerList = answerList;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getFromEmail() {
+		return fromEmail;
+	}
+	public void setFromEmail(String fromEmail) {
+		this.fromEmail = fromEmail;
+	}
+	public String getProdName() {
+		return prodName;
+	}
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	public String getStartDttm() {
+		return startDttm;
+	}
+	public void setStartDttm(String startDttm) {
+		this.startDttm = startDttm;
+	}
+	public String getTestName() {
+		return testName;
+	}
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
+	public String getServerUrl() {
+		return serverUrl;
+	}
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public int getTicketAmount() {
+		return ticketAmount;
+	}
+	public void setTicketAmount(int ticketAmount) {
+		this.ticketAmount = ticketAmount;
+	}
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+	public int getPaymentAmount() {
+		return paymentAmount;
+	}
+	public void setPaymentAmount(int paymentAmount) {
+		this.paymentAmount = paymentAmount;
+	}
+	
+	
 	
 }

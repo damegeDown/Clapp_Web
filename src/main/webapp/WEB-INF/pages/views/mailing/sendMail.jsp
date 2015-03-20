@@ -30,55 +30,90 @@
 				style="margin: 20px 0; TEXT-ALIGN: left; PADDING-BOTTOM: 20px; LINE-HEIGHT: 21px; PADDING-LEFT: 25px; PADDING-RIGHT: 15px; FONT-FAMILY: gulim,??; COLOR: #444; FONT-SIZE: 12px; PADDING-TOP: 20px; BACKGROUND-COLOR: #f2f2f2; width: 630px">
 				<B> <FONT color=#3369d8> <SPAN style="FONT-SIZE: 14px;">$userName</SPAN></FONT>
 					<SPAN style="FONT-SIZE: 14px;">회원님,</SPAN></B><BR>
-				<BR> <strong><font color="#3369d8">$nowDate</font></strong> 에 문의하신 내용에 대한 답변을 드립니다. <BR> 아래 내용을 확인해 주시고,
-				더 자세한 안내가 필요하신 경우에는 클앱 고객지원 070 - 0000 - 0000 으로<BR> 연락주시기
-				바랍니다.<BR>
-				<BR> 감사합니다.
+				<BR> 신청하신 유료 서비스의 결제가 정상적으로 완료되어, 서비스 이용이 가능합니다.<BR>
+                      상세 내역은 아래와 같습니다.
 			</div>
 			<div style="clear: both"></div>
 			<div
 				style="PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 15px; PADDING-TOP: 0px; width: 665px">
-				<strong>&#8226; 온라인 문의하기 답변</strong>
+				<strong>&#8226; 결제 내역</strong>
 				<TABLE border="0" cellSpacing="0" cellPadding="0" width="663">
-					<TBODY>
-						<TR>
-							<TD bgColor="#9dc1d9" height="2" width="150"></TD>
-							<TD bgColor="#9dc1d9" width="1"></TD>
-							<TD bgColor="#9dc1d9"></TD>
-						</TR>
-						<TR>
-							<TD
-								style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px"
-								bgColor="#fbfbfb" height="38" align="center">문의내용</TD>
-							<TD bgColor="#e2e2e2"></TD>
-							<TD
-								style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px; PADDING-TOP: 0px">&nbsp;$inquiry</TD>
-						</TR>
-						<TR>
-							<TD bgColor=#e2e2e2 height=1 colSpan=3></TD>
-						</TR>
-						<TR>
-							<TD
-								style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px; BACKGROUND-COLOR: #eff5ff;"
-								height="38" align="center">클앱 답변</TD>
-							<TD bgColor="#e2e2e2">$answer</TD>
-							<TD
-								style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px; PADDING-TOP: 0px; BACKGROUND-COLOR: #eff5ff;">&nbsp;$answer</TD>
-						</TR>
-						<TR bgColor="#e2e2e2">
-							<TD bgColor="#e2e2e2" height="1" colSpan="3"></TD>
-						</TR>
-					</TBODY>
-				</TABLE>
+	                <TBODY>
+	                  <TR>
+		                    <TD bgColor="#9dc1d9" height="2" width="150"></TD>
+		                    <TD bgColor="#9dc1d9" width="1"></TD>
+		                    <TD bgColor="#9dc1d9"></TD>
+	                  </TR>
+	                  <TR>
+		                    <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
+		                    	유료 서비스명
+		                    </TD>
+		                    <TD bgColor="#e2e2e2"></TD>
+		                    <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
+		                    	$productName
+		                   	</TD>
+	                  </TR>
+	                  <TR>
+	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD>
+	                  </TR>
+	                  <TR>
+		                    <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
+		                		발급 티켓 / 유효 기간
+		                	</TD>
+		                    <TD bgColor="#e2e2e2"></TD>
+		                    <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
+		                    	$ticketAmount Ticket / $expirationDate 
+		                    </TD>
+	                  </TR>
+	                  <TR>
+	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD>
+	                  </TR>
+	                  <TR>
+		                     <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
+		                     	결제 일시
+		                     </TD>
+		                     <TD bgColor="#e2e2e2"></TD>
+		                     <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
+		                     	$paymentDate
+		                     </TD>
+	                   </TR>
+	                   <TR>
+	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
+	                   <TR>
+		                     <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
+		                     	결제 금액
+		                     </TD>
+		                     <TD bgColor="#e2e2e2"></TD>
+		                     <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
+		                     	$paymentAmount 원
+		                     </TD>
+	                   </TR>
+	                   <TR>
+	                   		<TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
+	                   <TR>
+	                    	<TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
+	                    		결제 방법
+	                    	</TD>
+	                    	<TD bgColor="#e2e2e2"></TD>
+	                    	<TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">신용카드&nbsp;<a href="#">
+	                    		<img src="$contextPath/resources/images/ecrm_04_pay_card_hp_bt03.png" width="60" height="19" border="0" align="bottom"></a>
+	                    	</TD>
+	                  </TR>
+	                  <TR>
+	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD>
+	                  </TR>
+	              </TBODY>
+             </TABLE>
 			</div>
 			<div style="height: 75px; text-align: center; margin-top: 20px">
-				<A href="$contextPath" target=_blank><IMG border=0
-					alt="클앱 홈으로 이동" src="$contextPath/resources/images/ecrm_06_bt_gohome.png"></A><A
-					href="$contextPath/support_inquire.html" target=_blank><IMG
-					border="0" alt="추가 문의" src="$contextPath/resources/images/ecrm_06_bt_gosupport.png"></A>
-
+				<A href="$contextPath/mobileTesting/mobileTestingMain/" target=_blank>
+					<IMG border=0 alt="클앱 테스팅 이용" src="$contextPath/resources/images/ecrm_04_pay_card_hp_bt01.png">
+				</A>
+				<A href="$contextPath/clappTesting/autoMain" target=_blank>
+					<IMG border="0" alt="클앱 자동화 이용" src="$contextPath/resources/images/ecrm_04_pay_card_hp_bt02.png">
+				</A>
 			</div>
-
+            <div height="108" align="center" valign="bottom"><img src="$contextPath/resources/images/ecrm_04_pay_card_hp_comments.png" width="663" height="88"></div>
 		</div>
 		<!-- //컨텐츠  -->
 

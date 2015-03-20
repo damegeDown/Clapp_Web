@@ -1,10 +1,10 @@
 package kr.co.clapp.entities;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 public class BoardEntity extends AdministrationFileEntity implements Serializable{
 
@@ -31,6 +31,7 @@ public class BoardEntity extends AdministrationFileEntity implements Serializabl
 	
 	private int boardSocialBlogKey;
 	private String socialLink;					//소셜 링크
+	private String socialOrigin;			    //소셜 출처
 	private String socialBlogTitle;				//소셜/블로그 제목
 	private String socialBlogContent;			//소셜/블로그 내용
 	private String socialBlogInsertName;		//등록자
@@ -225,7 +226,15 @@ public class BoardEntity extends AdministrationFileEntity implements Serializabl
 		this.socialLink = socialLink;
 	}
 
-	public String getSocialBlogTitle() {
+    public String getSocialOrigin() {
+        return socialOrigin;
+    }
+
+    public void setSocialOrigin(String socialOrigin) {
+        this.socialOrigin = socialOrigin;
+    }
+
+    public String getSocialBlogTitle() {
 		return socialBlogTitle;
 	}
 

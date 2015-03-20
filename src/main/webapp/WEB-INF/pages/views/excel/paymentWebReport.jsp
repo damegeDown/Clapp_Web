@@ -6,7 +6,7 @@
 <c:set var="paymentDateLength" value="${paymentDateList.size() }"/>
  <!-- 일자별 -->
 <div style="width:100%;">
-  <h3 class="floatL" style="margin:15px 0 10px 0">일자별 웹결제 통계</h3>
+  <div class="floatL" style="margin:15px 0 10px 0">일자별 웹결제 통계</div>
 </div>
 <table class="board-list">
 	<thead> 
@@ -59,7 +59,7 @@
 </table>
 <!-- 상품별 -->
 <div style="width:100%;">
-		<h3 class="floatL" style="margin:15px 0 10px 0">상품별 웹결제 통계</h3>
+		<div class="floatL" style="margin:15px 0 10px 0">상품별 웹결제 통계</div>
  </div>
 <c:set var="paymentDeviceLength" value="${paymentDeviceList.size() }"/>
 <table class="board-list">
@@ -113,7 +113,7 @@
 </table>
 <!-- 결제 방법별 -->
 <div style="width:100%;">
-		<h3 class="floatL" style="margin:15px 0 10px 0">결제방법별 웹결제 통계</h3>
+		<div class="floatL" style="margin:15px 0 10px 0">결제방법별 웹결제 통계</div>
  </div>
 <c:set var="paymentTypeLength" value="${paymentTypeList.size() }"/>
 <table class="board-list">

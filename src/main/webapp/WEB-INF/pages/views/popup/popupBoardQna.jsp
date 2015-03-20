@@ -32,9 +32,9 @@
       </div><!-- .subCISupportFOCLSO End -->
     </div><!-- .subCISupportFOCListSubjectOpen -->
     <div class="subCISupportFOCListContentOpen">
-      <div class="subCISupportFOCLCO">
-        <div class="subCISupportFOCLCOCont">
-         <p class="qnaAnswer" ></p>
+      <div class="subCISupportQOCLCO">
+        <div class="subCISupportQOCLCOCont">
+         <span class="qnaAnswer" ></span>
         </div><!-- .subCISupportFOCLCOCont End-->
       </div><!-- .subCISupportFOCLCO End -->
     </div><!-- .subCISupportFOCListContentOpen End -->

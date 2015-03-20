@@ -36,6 +36,7 @@
 </div> <!-- .subMyClappTitleContainer End -->
 <div class="subMyClappContentContainerT2">
 <form id="historyForm">
+<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentBox">
 		<div class="subMyClappTitleSmallLine"></div>
 		<span class="subMyClappSmallTitle">상세 내역 조회</span>
@@ -94,7 +95,7 @@
 			<div class="subMyClappContentResultTotalSectionBox">
 				<div class="sccrtS1">
 					<ul class="sccrtSLists">
-						<li><span class="sccrtSTitle1">현재 잔여 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 건</span></li>
+						<li><span class="sccrtSTitle1">현재 잔여 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 티켓</span></li>
 						<li class="sccrtSListsLine"></li>
 						<li><span class="sccrtSTitle2">유효기간 : &nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.expirationDate }</span><span class="sccrtSQty2"> 일</span></li>
 					</ul>
@@ -136,7 +137,10 @@
 						<td><fmt:formatDate value="${history.ticketApplyDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${history.statusText}</td>
 						<td>${history.historyUsedTicketAmountText }</td>
-						<td><fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>
+							${history.expirationDate }
+							<%-- <fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/> --%>
+						</td>
 						<td>${history.productName }</td>
 					</tr>
 					</c:forEach>
@@ -149,3 +153,11 @@
 	</div>
 </form>
 </div>	
+<script>
+$(function() {
+ 	if("${ticketHistoryInfo.searchKey}") {
+ 		var term = "${ticketHistoryInfo.searchKey}";
+ 		SearchUtils.setDataTerm('', term);
+ 	}
+});
+</script>

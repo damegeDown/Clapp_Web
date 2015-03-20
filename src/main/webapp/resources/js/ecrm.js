@@ -104,7 +104,7 @@ var SurveyUtils = (function() {
 			  })
 		});
 		var freeViewWrap = 
-			$("<div></div>").attr({"id":"freeViewForm", "action" : "http://dev.clapp:8080/admin/ecrm/insertSurvey"}).css({"text-align":"left", "width" : "500px" , "margin" : "10px 10px 20px 10px"})
+			$("<div></div>").attr({"id":"freeViewForm", "action" : "$contextPath/admin/ecrm/insertSurvey"}).css({"text-align":"left", "width" : "500px" , "margin" : "10px 10px 20px 10px"})
 				.append($("<input></input").attr({"type" : "hidden", "name" : "userId", "value" : userId}))
 				/*제목 및 설명*/
 				.append($("<h3></h3>").text("<"+$("[name=surveyTitle]").val()+">"))		//제목 

@@ -29,9 +29,9 @@ public class MainController {
     	String url = request.getRequestURL().toString();
     	String returnUrl = "user/main";
     	/**티저페이지 이동*/
-    	if(!url.contains("8080")) { 
-    		returnUrl = "teaser";
-    	}
+    	//if(!url.contains("8080")) { 
+    		//returnUrl = "teaser"; 
+    	//}
     	deviceEntity = deviceService.getDeviceUserList(deviceEntity);
     	boardEntity = boardService.getTrandList(boardEntity);
 		boardEntity = boardService.getSocialBlogList(boardEntity);

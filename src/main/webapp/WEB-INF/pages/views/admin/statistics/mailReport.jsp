@@ -25,7 +25,7 @@
 	<table class="board-list-r">
 		<thead> 
 			<tr>
-				<th rowspan="2">날짜(요일)\메일분류</th>
+				<th rowspan="2">날짜(요일)</th>
 				<th colspan="12">수시 발송용</th>
 				<th colspan="3">타켓 메일</th>
 			</tr>
@@ -34,7 +34,7 @@
 				<th>기업/단체<br/>가입</th>
 				<th>회원탈퇴</th>
 				<th>임시<br/>비번발송</th>
-				<th>유료<br/>(신용,핸드폰)</th>
+				<th>유료<br/>(신용)</th>
 				<th>유료<br/>(가상계좌)</th>
 				<th>결제취소</th>
 				<th>계좌입금<br/>기한종료</th>
@@ -215,7 +215,7 @@
 		 		<numbers:RoundTag value="${weekDayTempPassword}" type="half" digit="1"/> 명
 		 	</td>
 		 	<td>
-		 		<!-- 유료(신용/핸드폰) -->
+		 		<!-- 유료(신용) -->
 		 		<c:set var="aveWeekDayPayCredit" value="${weekDayPayCredit / statisticsLength }"/>
 		 		<numbers:RoundTag value="${weekDayPayCredit}" type="half" digit="1"/> 명
 		 	</td>
@@ -293,7 +293,7 @@
 			 		<numbers:RoundTag value="${TotalTempPassword}" type="half" digit="1"/> 명
 			 	</td>
 			 	<td>
-			 		<!-- 유료(신용/핸드폰) -->
+			 		<!-- 유료(신용) -->
 			 		<c:set var="aveTotalPayCredit" value="${totalPayCredit / statisticsLength }"/>
 			 		<numbers:RoundTag value="${TotalPayCredit}" type="half" digit="1"/> 명
 			 	</td>
@@ -367,7 +367,7 @@
 		 		${ totalTempPassword} 명
 		 	</td>
 		 	<td>
-		 		<!-- 유료(신용/핸드폰) -->
+		 		<!-- 유료(신용) -->
 		 		${ totalPayCredit} 명
 		 	</td>
 		 	<td>

@@ -45,9 +45,9 @@
 						<span class="taButtonStart" id="doAutoClappBtn" style="cursor: pointer;">
 								<img src="${contextPath }/resources/images/at_cta_kv_tas.png" onMouseOver="this.src='${contextPath }/resources/images/at_cta_kv_tas_r.png';" onMouseOut="this.src='${contextPath }/resources/images/at_cta_kv_tas.png';" alt="테스트 자동화 시작" />
 						</span>
-						<%-- <a href="#" class="taButtonDemo">
+						 <%-- <a href="#" class="taButtonDemo">
 								<img src="${contextPath }/resources/images/at_cta_kv_demo.png" onMouseOver="this.src='${contextPath }/resources/images/at_cta_kv_demo_r.png';" onMouseOut="this.src='${contextPath }/resources/images/at_cta_kv_demo.png';" alt="데모 체험" />
-						</a> --%>
+						</a>  --%>
 					</div>
 				</div>
 			</div>
@@ -83,7 +83,7 @@
 		</p>
 		<span class="subTACOBItem5">
 			테스팅 화면 캡쳐 및<br/>
-			&amp; 녹화
+			녹화
 		</span>
 		<p class="subTACOBItem5Text">
 			실시간 디바이스의 화면을<br />
@@ -97,7 +97,7 @@
 		</p>
 		<span class="subTACOBItem7">
                   결과 리포트 인쇄 및<br/>
-			&amp; 파일 다운로드</span>
+			      파일 다운로드</span>
 		<p class="subTACOBItem7Text">
 			테스트 결과 리포트 인쇄 및<br />
 			이메일 발송, <br />
@@ -114,6 +114,7 @@
 			해당 시스템은 기본 Scenario를 통해 Test Automation을 제공합니다.<br />
 			지속적인 고도화를 통해 다양한 플랫폼(OS)에서 지원할 계획입니다.
 		</p>
+		<img src="${contextPath }/resources/images/at_two_c_bg2.png" alt="구성도" style="margin-top:80px;"/>
 	</div>
 </div> <!-- .subContentFourContainer End -->
 
@@ -307,18 +308,39 @@
 			</div>
 			<div class="subTAContentFiveItem2TextBox">
 				<div class="sTACEItemsText2Box">
-					<a href="#">
+					<a href="${contextPath}/autoGuide/autoGuide1" onClick="mtPopup(this.href); return false;">
 						<div class="sTACEItems2Text1Box">
 							<p class="sTACEItems2Text1">
-								Memory Leak 기본 가이드
+								Overview
 							</p>
 						</div>
 					</a>
-					<a href="#">
+					<a href="${contextPath}/autoGuide/autoGuide2" onClick="mtPopup(this.href); return false;">
 						<div class="sTACEItems2Text2Box">
 							<p class="sTACEItems2Text2">
-								Script 기본 가이드
+								프로그램 시작하기
 							</p>
+						</div>
+					</a>
+					<a href="${contextPath}/autoGuide/autoGuide3" onClick="mtPopup(this.href); return false;">
+						<div class="sTACEItems2Text3Box">
+							<p class="sTACEItems2Text3">
+								주요 기능
+							</p>
+						</div>
+					</a>
+					<a href="${contextPath}/autoGuide/autoGuide4" onClick="mtPopup(this.href); return false;">
+						<div class="sTACEItems2Text4Box">
+							<p class="sTACEItems2Text4">
+								Memory Leak Test
+							</p>
+						</div>
+					</a>
+					<a href="${contextPath}/autoGuide/autoGuide5" onClick="mtPopup(this.href); return false;">
+						<div class="sTACEItems2Text5Box">
+							<p class="sTACEItems2Text5">
+								Script Test
+						</p>
 						</div>
 					</a>
 				</div>
@@ -326,7 +348,6 @@
 		</div>
 	</div>
 </div> <!-- .subContentEightContainer End -->
-
 <div class="clear"></div>
 <div class="subTAContentNineContainer">
 	<div class="subTASlider">
@@ -344,50 +365,60 @@
 					<span class="subTACNMore"><a href="${contextPath }/clappTesting/autoDevice"></a></span>
 				</div>
 				<div class="sTASL1LBottom">
-					<div class="sTASL1LBLeft">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[0].fileTarget}&fileName=${deviceEntity.deviceList[0].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox1" style="display:none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[0].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[0].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[0].deviceOsCode}</span>
+					<div class="sTASL1LBLeft alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[2].fileTarget}&fileName=${deviceEntity.deviceSelectedList[2].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox1" style="display:none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[2].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[2].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[2].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
-					<div class="sTASL1LBRight">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[1].fileTarget}&fileName=${deviceEntity.deviceList[1].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox2" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[1].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[1].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[1].deviceOsCode}</span>
+					<div class="sTASL1LBRight alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[3].fileTarget}&fileName=${deviceEntity.deviceSelectedList[3].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox2" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[3].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[3].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[3].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="subTASliderL1CotentBoxRight">
 				<div class="sTASL1RTop">
-					<div class="sTASL1RTLeft">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[2].fileTarget}&fileName=${deviceEntity.deviceList[2].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox3" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[2].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[2].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[2].deviceOsCode}</span>
+					<div class="sTASL1RTLeft alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[0].fileTarget}&fileName=${deviceEntity.deviceSelectedList[0].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox3" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[0].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[0].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[0].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
-					<div class="sTASL1RTRight">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[3].fileTarget}&fileName=${deviceEntity.deviceList[3].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox4" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[3].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[3].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[3].deviceOsCode}</span>
+					<div class="sTASL1RTRight alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[1].fileTarget}&fileName=${deviceEntity.deviceSelectedList[1].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox4" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[1].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[1].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[1].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="sTASL1RBottom">
-					<div class="sTASL1RBLeft">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[4].fileTarget}&fileName=${deviceEntity.deviceList[4].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox5" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[4].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[4].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[4].deviceOsCode}</span>
+					<div class="sTASL1RBLeft alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[4].fileTarget}&fileName=${deviceEntity.deviceSelectedList[4].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox5" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[4].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[4].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[4].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
 					<div class="sTASL1RBRight">
@@ -397,7 +428,7 @@
 							<span class="mtSliderRightArrow"><a></a></span>
 						</div>
 					</div>
-				</div>
+				</div>  
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -416,50 +447,60 @@
 					<span class="subTACNMore"><a href="${contextPath }/clappTesting/autoDevice"></a></span>
 				</div>
 				<div class="sTASL2LBottom">
-					<div class="sTASL2LBLeft">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[5].fileTarget}&fileName=${deviceEntity.deviceList[5].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox6" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[5].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[5].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[5].deviceOsCode}</span>
-						</div>
+					<div class="sTASL2LBLeft alignCenter" style="display:table">
+		          	<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[7].fileTarget}&fileName=${deviceEntity.deviceSelectedList[7].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox6" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[7].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[7].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[7].deviceOsCode}</span>
+							</div>
+						</div> 
 					</div>
-					<div class="sTASL2LBRight">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[6].fileTarget}&fileName=${deviceEntity.deviceList[6].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox7" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[6].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[6].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[6].deviceOsCode}</span>
+					<div class="sTASL2LBRight alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[8].fileTarget}&fileName=${deviceEntity.deviceSelectedList[8].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox7" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[8].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[8].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[8].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="subTASliderL2CotentBoxRight">
 				<div class="sTASL2RTop">
-					<div class="sTASL2RTLeft">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[7].fileTarget}&fileName=${deviceEntity.deviceList[7].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox8" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[7].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[7].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[7].deviceOsCode}</span>
+					<div class="sTASL2RTLeft alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[5].fileTarget}&fileName=${deviceEntity.deviceSelectedList[5].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox8" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[5].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[5].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[5].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
-					<div class="sTASL2RTRight">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[8].fileTarget}&fileName=${deviceEntity.deviceList[8].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox9" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[8].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[8].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[8].deviceOsCode}</span>
+					<div class="sTASL2RTRight alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[6].fileTarget}&fileName=${deviceEntity.deviceSelectedList[6].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox9" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[6].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[6].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[6].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="sTASL2RBottom">
-					<div class="sTASL2RBLeft">
-						<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceList[9].fileTarget}&fileName=${deviceEntity.deviceList[9].fileSavedName}" style="max-width:240px;"/>
-						<div class="taSliderTextBox10" style="display: none;">
-							<span class="mtsliderText1">${deviceEntity.deviceList[9].deviceModelEname}</span>
-							<span class="mtsliderText2">${deviceEntity.deviceList[9].deviceMakerCode}</span>
-							<span class="mtsliderText3">${deviceEntity.deviceList[9].deviceOsCode}</span>
+					<div class="sTASL2RBLeft alignCenter" style="display:table">
+          				<div style="display:table-cell;vertical-align:middle;width:240px">
+							<img src="${contextPath}/common/imgView?fileType=${deviceEntity.deviceSelectedList[9].fileTarget}&fileName=${deviceEntity.deviceSelectedList[9].fileSavedName}" style="max-width:240px; max-height: 240px;"/>
+							<div class="taSliderTextBox10" style="display: none;">
+								<span class="mtsliderText1">${deviceEntity.deviceSelectedList[9].deviceModelEname}</span>
+								<span class="mtsliderText2">${deviceEntity.deviceSelectedList[9].deviceMakerCode}</span>
+								<span class="mtsliderText3">${deviceEntity.deviceSelectedList[9].deviceOsCode}</span>
+							</div>
 						</div>
 					</div>
 					<div class="sTASL2RBRight">

@@ -1,26 +1,5 @@
 package kr.co.clapp.service.mailing.impl;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.velocity.VelocityEngineFactory;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.dao.EcrmDAO;
 import kr.co.clapp.dao.MailingDAO;
@@ -32,11 +11,24 @@ import kr.co.clapp.entities.validation.FormRecruitInfoEntity;
 import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.digigroove.commons.entities.MailSendEntity;
-import kr.co.digigroove.commons.utils.DateUtils;
-import kr.co.digigroove.commons.utils.HashUtils;
-import kr.co.digigroove.commons.utils.MailUtils;
-import kr.co.digigroove.commons.utils.NumberUtils;
-import kr.co.digigroove.commons.utils.StringUtils;
+import kr.co.digigroove.commons.utils.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.velocity.VelocityEngineFactory;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service("MailingService")
 @Transactional(readOnly=true)
@@ -47,6 +39,8 @@ public class MailingServiceImpl implements MailingService {
 	private String serviceURL;
 	@Value("#{mailConfig['emailSender']}")
 	private String emailSender;
+	@Value("#{mailConfig['recruitSender']}")
+	private String recruitSender;
 	@Value("#{mailConfig['emailSenderName']}")
 	private String emailSenderName;
 	@Value("#{mailConfig['emailForm']}")
@@ -93,7 +87,9 @@ public class MailingServiceImpl implements MailingService {
 		int sendResult = CommonCode.ZERO;
 		// Default Info
 		mailSendInfo.setIsHtml(true);
-		mailSendInfo.setSender(emailSender);
+		if( StringUtils.isEmpty(mailSendInfo.getSender())) {
+			mailSendInfo.setSender(emailSender);
+		}
 		mailSendInfo.setSenderName(emailSenderName);
 		// Default Data
 //		SimpleDateFormat sdf = new SimpleDateFormat(CommonCode.DatePattern.KOREAN, Locale.KOREAN);
@@ -278,11 +274,11 @@ public class MailingServiceImpl implements MailingService {
 		// Info 
 	    mailSendInfo.setSubject("[Clapp] 회원탈퇴 되었습니다.");
 		mailSendInfo.setEmailForm(emailTemp);
-		//String[] recipient = {dropOutUserEntity.getDropOutUserId()};
-		String[] recipient = {"dnltpdnd@naver.com"};
-		//String userName = dropOutUserEntity.getUserName();
-		String userName = "위세웅"; 
+		String[] recipient = {dropOutUserEntity.getDropOutUserId()};
+//		String[] recipient = {"hijin0115@naver.com"};
 		mailSendInfo.setRecipient(recipient);
+		String userName = dropOutUserEntity.getUserName(); 
+//		String userName = "엄성재";
 
 		ecrmEntity.setMailType(CommonCode.MailType.MAIL_DROPOUT_MEMBER);
 		String mailContents = this.getMailTemp(ecrmEntity)
@@ -291,6 +287,7 @@ public class MailingServiceImpl implements MailingService {
 											.replace("$userId", recipient[0])
 											.replace("$nowDate", sdf.format(new Date()))
 											.replace("$contextPath", serviceURL);
+		ecrmEntity = this.getMailTemp(ecrmEntity);
 		//ecrmEntity
 		ecrmEntity.setMailSendStartDate(mailSendStartDate); 
 		ecrmEntity.setMailContent(mailContents);
@@ -316,14 +313,13 @@ public class MailingServiceImpl implements MailingService {
 	  } catch (ParseException e) {
 		logger.error("MailingServiceImpl.insertDropOut:ParseException:Faild" , e);
 	  }
-	  
 	  return result;
 	}
 	/**
 	 * 설문 발송
 	 */
 	@Override
-	public int sendSurvey(EcrmEntity ecrmEntity, HttpServletRequest request) {
+	public int sendSurvey(EcrmEntity ecrmEntity) {
 	  MemberEntity memberEntity = new MemberEntity(); 
 	  MailSendEntity mailSendInfo = new MailSendEntity();
 	  Map<String, Object> emailData = new ConcurrentHashMap<String,Object>();
@@ -343,10 +339,10 @@ public class MailingServiceImpl implements MailingService {
 		}
 		mailSendInfo.setSentDate(mailSendStartDate);
 
-		ecrmEntity.setMailContent("<a href='"+serviceURL+"/admin/ecrm/surveyAnswerForm?surveyMasterKey="+ecrmEntity.getSurveyMasterKey()+"'>설문 하러가기</a>");
-		
-        // Data
- 		emailData.put("contents", ecrmEntity);
+		ecrmEntity.setMailContent("<a href='"+serviceURL+"/surveyAnswerForm?surveyMasterKey="+ecrmEntity.getSurveyMasterKey()+"'>설문 하러가기</a>");
+		 
+        // Data 
+ 		emailData.put("contents", ecrmEntity); 
  		emailData.put("surveyMasterKey", ecrmEntity.getSurveyMasterKey());
  		//emailData.put("action", serviceURL+"/admin/ecrm/rest/insertSurveyAnswer");
 		result =  sendMail(mailSendInfo, emailData);
@@ -436,9 +432,68 @@ public class MailingServiceImpl implements MailingService {
 	 * 유료서비스 카드/핸드폰 결제
 	 */
 	@Override
-	public int sendPaymentCardPhoneMail() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int sendPaymentCardPhoneMail(EcrmEntity ecrmEntity) {
+		MailSendEntity mailSendInfo = new MailSendEntity();
+		  Map<String, Object> emailData = new ConcurrentHashMap<String,Object>();
+		  int result = CommonCode.ZERO;
+		  try {
+			String sendMailStartDates = DateUtils.getToday(CommonCode.DatePattern.DASH_TIME);
+			Date mailSendStartDate = DateUtils.getDate(sendMailStartDates, CommonCode.DatePattern.DASH_TIME);
+		    // Info
+		    mailSendInfo.setSubject(ecrmEntity.getMailTitle());
+		    mailSendInfo.setEmailForm("mailSubTemp.jsp");
+		    String[] recipient = {ecrmEntity.getUserId()};
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(emailSender);//보내는 사람
+		    
+			String userName = "클앱담당자"; 
+			String productName = ecrmEntity.getProductName();
+			int ticketAmount = ecrmEntity.getTicketAmount();
+			Date expirationDate = ecrmEntity.getExpirationDate();
+			Date paymentDate = ecrmEntity.getPaymentDate();
+			int paymentAmount = ecrmEntity.getPaymentAmount();
+			
+			ecrmEntity.setMailType(CommonCode.MailType.MAIL_PAYMENT_CARD);
+			String mailContents = this.getMailTemp(ecrmEntity)
+											.getMailTempContents()
+												.replace("$userName", userName)
+												.replace("$userId", recipient[0])
+												.replace("$productName", productName)
+												.replace("$ticketAmount", String.valueOf(ticketAmount))
+												.replace("$expirationDate", sdf.format(expirationDate))
+												.replace("$paymentDate", sdf.format(new Date()))
+												.replace("$paymentAmount", String.valueOf(paymentAmount))
+												.replace("$contextPath", serviceURL);
+//			if(!StringUtils.isEmpty(formRecruitInfoEntity.getFileName())) {
+//				mailContents.replace("$file",  formRecruitInfoEntity.getFileName());
+//			}
+			//ecrmEntity
+			ecrmEntity.setMailSendStartDate(mailSendStartDate); 
+			ecrmEntity.setMailContent(mailContents);
+	    	ecrmEntity.setMailState(CommonCode.SUCCESS_NO);
+	        ecrmEntity.setMailReceptionAddress(mailSendInfo.getRecipient()[0]);
+	        ecrmEntity.setMailSection(CommonCode.MailType.MAIL_ANY_TIME); 
+	        ecrmEntity.setMailSort(CommonCode.MailType.MAIL_SORT_PAYMENT);
+	        ecrmEntity.setMailTarget(CommonCode.MailTarget.MAIL_TARGET_NULL);
+	        //insert mail_master
+	        int masterKey = this.setMailMaster(ecrmEntity, mailSendInfo);
+	        mailContents = mailContents.replace("$masterKey" , String.valueOf(masterKey));
+	        
+			 // Data
+	        emailData.put("userId", recipient[0]);
+	        emailData.put("userName", userName);
+	        emailData.put("contents", ecrmEntity);
+	        emailData.put("masterKey", masterKey);
+			result =  sendMail(mailSendInfo, emailData);
+			
+		  } catch (IOException e) {
+		    logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } catch (MessagingException e) {
+		    logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } catch (Exception e) {
+			logger.error("MailingServiceImpl.insertDropOut:Faild" , e);
+		  } 
+		  return result;
 	}
 
 	/**
@@ -469,18 +524,31 @@ public class MailingServiceImpl implements MailingService {
 			Date mailSendStartDate = DateUtils.getDate(sendMailStartDates, CommonCode.DatePattern.DASH_TIME);
 		    // Info
 		    mailSendInfo.setSubject(ecrmEntity.getMailTitle());
-		    mailSendInfo.setEmailForm(apiEmailTemp);
-		    String[] recipient = {ecrmEntity.getMailReceptionAddress()};
-		    mailSendInfo.setRecipient(recipient);
-			String userName = ""; 
+		    mailSendInfo.setEmailForm(emailTemp);
+		    String[] recipient = ecrmEntity.getMailReceptionAddress().split(",");
+		    mailSendInfo.setRecipient(recipient);  
+		    mailSendInfo.setSentDate(ecrmEntity.getMailSendDate());
+		    String userName = ecrmEntity.getUserName(); 
+			String fromEmail = ecrmEntity.getFromEmail(); 
+			String prodName = ecrmEntity.getProdName();  
+			String fileUrl = ecrmEntity.getFileUrl(); 
+			String memo = ecrmEntity.getMemo(); 
+			String startDttm = ecrmEntity.getStartDttm(); 
+			String testName = ecrmEntity.getTestName(); 
+			String serverUrl = ecrmEntity.getServerUrl(); 
+			String mailContent = ecrmEntity.getMailContent();
 			
-			ecrmEntity.setMailType(CommonCode.MailType.MAIL_ISSUE);
-//			String mailContents = this.getMailTemp(ecrmEntity)
-//											.getMailTempContents()
-//												.replace("$userName", userName)
-//												.replace("$userId", recipient[0])
-//												.replace("$nowDate", sdf.format(new Date()));
-			String mailContents = ecrmEntity.getMailContent();
+			ecrmEntity.setMailType(ecrmEntity.getMailType());
+			String mailContents = this.getMailTemp(ecrmEntity)
+											.getMailTempContents()
+												.replace("$fromEmail", fromEmail)
+												.replace("$prodName", prodName)
+												.replace("$fileUrl", fileUrl)
+												.replace("$startDttm", startDttm)
+												.replace("$testName", testName)
+												.replace("$serverUrl", serverUrl)
+												.replace("$mailContent", mailContent)
+												.replace("$memo", memo);
 			//ecrmEntity
 			ecrmEntity.setMailSendStartDate(mailSendStartDate); 
 			ecrmEntity.setMailContent(mailContents);
@@ -522,8 +590,9 @@ public class MailingServiceImpl implements MailingService {
 		    // Info
 		    mailSendInfo.setSubject(formRecruitInfoEntity.getName()+"_이력서");
 		    mailSendInfo.setEmailForm("mailSubTemp.jsp");
-		    String[] recipient = {formRecruitInfoEntity.getEmail()};
-		    mailSendInfo.setRecipient(recipient);
+		    String[] recipient = {recruitSender};
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(formRecruitInfoEntity.getEmail());//보내는 사람
 		    mailSendInfo.setFile(formRecruitInfoEntity.getFileName());
 		    mailSendInfo.setFileName("이력서");
 		    
@@ -536,8 +605,10 @@ public class MailingServiceImpl implements MailingService {
 												.replace("$email", recipient[0])
 												.replace("$tel", formRecruitInfoEntity.getTel())
 												.replace("$depart", formRecruitInfoEntity.getDepart()) 
-												.replace("$file",  formRecruitInfoEntity.getFileName())
 												.replace("$nowDate", sdf.format(new Date()));
+//			if(!StringUtils.isEmpty(formRecruitInfoEntity.getFileName())) {
+//				mailContents.replace("$file",  formRecruitInfoEntity.getFileName());
+//			}
 			//ecrmEntity
 			ecrmEntity.setMailSendStartDate(mailSendStartDate); 
 			ecrmEntity.setMailContent(mailContents);
@@ -579,9 +650,10 @@ public class MailingServiceImpl implements MailingService {
 		    // Info
 		    mailSendInfo.setSubject("[Clapp] 고객문의 답변 메일입니다..");
 		    mailSendInfo.setEmailForm(emailTemp);
-		   // String[] recipient = {memberEntity.getUserId()};
-		    String[] recipient = {memberEntity.getUserId()};
-		    mailSendInfo.setRecipient(recipient);
+		    //String[] recipient = {emailSender};
+		    String[] recipient = {memberEntity.getUserId()}; 
+		    mailSendInfo.setRecipient(recipient); //받는사람
+		    mailSendInfo.setSender(emailSender);//보내는 사람
 			String userName = memberEntity.getUserName(); 
 			String inquiry = memberEntity.getInquiryContents();
 			String answer = memberEntity.getAnswerContents();

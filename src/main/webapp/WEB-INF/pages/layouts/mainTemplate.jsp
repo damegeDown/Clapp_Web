@@ -22,7 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/clapp.style.css" />
 	<link rel="stylesheet" href="${contextPath }/resources/css/jquery/jquery-ui.min-1.11.2.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/jquery/jquery.datetimepicker.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-ui.min-1.11.2.js"></script>
     <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.datetimepicker.js"></script>

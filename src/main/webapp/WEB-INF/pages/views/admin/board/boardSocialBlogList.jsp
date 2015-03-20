@@ -48,9 +48,10 @@
 	<table class="board-list">
 		<colgroup>
 			<col width="10%"/>
-			<col width="40%"/>
+			<col width="*"/>
 			<col width="15%"/>
 			<col width="10%"/>
+			<col width="5%"/>
 		</colgroup> 
 		<thead>
 			<tr>
@@ -58,6 +59,7 @@
 				<th>제목</th>
 				<th>소셜 구분별</th>
 				<th>등록일시</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -83,6 +85,17 @@
 					</c:if>	
 				</td>
 				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardSocialBlogList.socialBlogInsertDate }" /></td>
+				<td style="text-align:center">
+				<form id="deleteSocialForm">
+					<div class="floatR btn-bottom-gray submitBtn" 
+						data-id="${boardSocialBlogList.boardSocialBlogKey }"
+						data-type="ajax"
+						data-message="블로그 게시글을 삭제 하시겠습니까?"
+						data-action="${contextPath }/admin/board/rest/removeBoardSocialBlog">
+						
+					삭제</div>
+				</form>
+				</td>
 			</tr>
 		</c:forEach>  
  		<c:if test="${boardEntity.boardSocialBlogList.size() < 1 }">

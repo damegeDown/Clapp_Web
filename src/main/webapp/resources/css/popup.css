@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @font-face{font-family:NanumGothic;src:url('../font/NanumGothic.eot');src:local(※), url('../font/NanumGothic.woff') format('woff');} 
 
 /* 결제 취소 팝업 */

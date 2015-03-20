@@ -351,14 +351,19 @@
       UD.USER_COMPANY_GROUP_TYPE,
       FN_GET_COMMON_CODE_NAME('USER_COMPANY_GROUP_TYPE', UD.USER_COMPANY_GROUP_TYPE ) USER_COMPANY_GROUP_TYPE_TEXT,
       UD.USER_COMPANY_NUMBER,
-      UD.USER_COMPANY_BUSINESS_TYPE
-      <!-- todo 보유티켓수, 유료상품 이용현황 -> 이용중(Monthly Silver, 상품 적용기간 0000/00/00 ~ 0000/00/00 -->
+      UD.USER_COMPANY_BUSINESS_TYPE,
+		  vum.ticket_start_expiration_date,
+		  vum.ticket_end_expiration_date,
+		  vum.product_name,
+		  vum.used_ticket_amount
     FROM
-      USER_MASTER UM, USER_DETAIL UD
+      USER_MASTER UM, USER_DETAIL UD, v_user_master vum
     WHERE
-      UM.USER_MASTER_KEY = #{userMasterKey}
-    AND
       UM.USER_MASTER_KEY = UD.USER_MASTER_KEY 
+	  AND  
+	    UM.USER_MASTER_KEY = vum.user_master_key
+    AND
+      UM.USER_MASTER_KEY = #{userMasterKey}
   </select>
   <!-- //회원 상세 -->
   
@@ -439,6 +444,10 @@
       USER_MASTER
     WHERE
       user_id LIKE '%${userId}%'
+    <if test="userType != '' and userType != null">
+    AND
+    	user_type > #{userType}
+   	</if>
   </select>
   <select id="searchUserIdArr" parameterType="memberEntity" resultType="String">
       SELECT  
@@ -590,6 +599,16 @@
     		user_master_key = #{userMasterKey}
     </select>
     <!-- //회원 정보 -->
+    <!-- 회원 정보 -->
+    <select id="getUserInfoId" parameterType="memberEntity" resultType="memberEntity">
+    	SELECT 
+    		* 
+    	FROM 
+    		USER_MASTER 
+    	WHERE 
+    		user_id = #{userId}
+    </select>
+    <!-- //회원 정보 -->
     <!--  회원 로그인 -->
 	<select id="doUserLogin" parameterType="memberEntity" resultType="memberEntity">
 		SELECT
@@ -602,8 +621,17 @@
 	    AND 
     		user_id = #{userId}
 	</select>
-    <!--  //회원 로그인 --> 
-    
+    <!--  //회원 로그인 -->
+  <!-- 최종 로그인 일시 -->
+  <update id="userLastLoginDate" parameterType="memberEntity">
+    UPDATE
+      USER_MASTER
+    SET
+      USER_LAST_LOGIN_DATE = NOW()
+    WHERE
+      USER_ID = #{userId}
+  </update>
+  <!-- //최종 로그인 일시 -->
   <!-- 회원 접속 상태 On -->
   <update id="userLoginState" parameterType="memberEntity">
     UPDATE

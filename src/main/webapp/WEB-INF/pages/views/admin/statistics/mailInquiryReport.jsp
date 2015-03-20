@@ -7,12 +7,13 @@
 <script type="text/javascript" src="${contextPath }/resources/js/statistics.js"></script>
 <div class="sub-content">
   <div>
-			<h3 class="contents-title floatL">${CommonCode.navigation }</h3>
-			<div style="clear:both;"></div>
-	</div>
+    <h3 class="contents-title floatL">${CommonCode.navigation } ( 누적 문의건수 : <span class="colorSkyBlue">${inquiryCount.totalCount}</span> 건 /
+        답변건수 : <span class="colorSkyBlue">${inquiryCount.answerCount}</span> 건 / 미답변 건수 : <span class="colorSkyBlue">${inquiryCount.notAnswerCount}</span> 건)</h3>
+    <div style="clear:both;"></div>
+  </div>
 	<div class="search-box">
 		<form id="searchForm" action="">
-			<input type="hidden" name="actionUrl" value="${contextPath }/excel/ticketProductReport"/>
+			<input type="hidden" name="actionUrl" value="${contextPath }/excel/mailInquiryReport"/>
 		  <span style="margin:right:20px">검색일</span>
 		  <input type="text" class="monthpicker inp-cal" name="searchValue" value="${statisticsEntity.getSearchValue() }" style="vertical-align:middle; height:20px"/>
 			<input type="button" class="btn searchBtn" value="검색"/>
@@ -21,8 +22,13 @@
   <div style="margin:5px; color:red"></div>
   <div style="border-top:2px dotted #999;margin-bottom:30px"></div>
   <div style="width:100%;">
- 		<h3 class="floatL part-title">${CommonCode.searchResult }</h3>
- 		<input type="button" class="btn floatR excelDownBtn" value="엑셀 다운로드"/>
+    <h3 class="floatL part-title">
+        >검색결과 : 문의건수
+        <span class="colorSkyBlue">${inquirySearchCount.totalCount}</span> 건 /
+        답변건수 <span class="colorSkyBlue">${inquirySearchCount.answerCount}</span> 건 /
+        미답변 건수 <span class="colorSkyBlue">${inquirySearchCount.notAnswerCount}</span> 건
+    </h3>
+    <input type="button" class="btn floatR excelDownBtn" value="엑셀 다운로드"/>
   </div>
   <c:set var="statisticsLength" value="${statisticsEntity.statisticsList.size() }"/>
   <c:set var="dayOfLength" value="0"/>
@@ -37,25 +43,28 @@
 				<th>건수</th>
 			</tr>
 		</thead>
-		<c:if test="${statisticsLength == 0 }">
+		<c:if test="${inquirySearchCount.totalCount == 0 }">
 			<tbody>
 				<td colspan="2" class="al-center">조회한 내용이 없습니다.</td>
 			</tbody>
 		</c:if>
-		<c:if test="${statisticsLength > 0}">
-		<tbody>
-		<c:forEach items="${statisticsEntity.statisticsList }" var="statisticsList" varStatus="i">
-			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsList.inquiryText}</td> 
-				<!-- 일반 -->
-				<td> 
-					${statisticsList.inquiryCount } 건
-				</td>
-			</tr>
-		</c:forEach>
+        <c:if test="${inquirySearchCount.totalCount > 0 }">
+        <tbody>
+            <tr class="cursor" style="cursor:pointer; ">
+                <td>문의건수</td>
+                <td>${inquirySearchCount.totalCount} 건</td>
+            </tr>
+            <tr class="cursor" style="cursor:pointer; ">
+                <td>답변건수</td>
+                <td>${inquirySearchCount.answerCount} 건</td>
+            </tr>
+            <tr class="cursor" style="cursor:pointer; ">
+                <td>미답변 건수</td>
+                <td>${inquirySearchCount.notAnswerCount} 건</td>
+            </tr>
 		</tbody>
-		</c:if>
-	</table>
+        </c:if>
+    </table>
 	<!-- 만족도 -->
 	<div style="width:100%;">
  		<h3 class="floatL" style="margin:15px 0 10px 0">${CommonCode.searchReason }</h3>

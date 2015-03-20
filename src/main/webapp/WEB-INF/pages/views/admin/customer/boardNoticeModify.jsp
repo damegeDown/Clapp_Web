@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${contextPath }/resources/js/customer.js"></script>
+<jsp:useBean id="today" class="java.util.Date" />
 <div class="sub-content">
 <form id="memberForm" enctype="multipart/form-data">
   <div> 
@@ -30,6 +31,16 @@
           <textarea class="w780" cols="150" rows="20" id="ir1" name="noticeContents">${boardNoticeDetail.noticeContents }</textarea>
         </td>
        </tr>
+       <tr>
+        <th>이미지</th>
+        <td>
+        	<img src="${contextPath}/common/imgView?fileType=${boardNoticeDetail.fileTarget}&fileName=${boardNoticeDetail.fileSavedName}"  class="boardNoticeImage" style="max-width:800px"/>
+					<input type="hidden" name="fileName" value="${boardNoticeDetail.fileName }" data-flag="off"/>
+					<input type="hidden" name="fileSavedName" value="${boardNoticeDetail.fileSavedName }" data-flag="off"/>
+          <div class="marT-5"><span>등록된 이미지 : </span><a href="">${boardNoticeDetail.fileName }</a></div>
+          <div class="marT-5"><input type="file" name="file" data-flag="off"/></div>
+        </td>
+       </tr> 
        <c:if test="${boardNoticeDetail.boardNoticeKey > 0}">
        <tr>
        <th>등록 일시</th>
@@ -37,12 +48,12 @@
          <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardNoticeDetail.noticeInsertDate }" />
        </td>
         </tr>
-        </c:if>
+        </c:if> 
        <tr>
         <th>노출 일시</th>
         <td>
-          <label><input type="radio" name="noticeOpen" value="Y" class="noticeOpenDateNow" <c:if test="${boardNoticeDetail.noticeOpen == 'Y'}">checked="checked" </c:if>/>&nbsp;바로 적용&nbsp;&nbsp;</label>
-          <label><input type="radio" name="noticeOpen" value="N" class="noticeOpenDateSelect" <c:if test="${boardNoticeDetail.noticeOpen == 'N'}">checked="checked" </c:if>/>&nbsp;특정일시 지정 (대기 상태로 표기됨)&nbsp;&nbsp;</label>
+					<label><input type="radio" name="noticeOpenYn" class="noticeOpenDateNow" <c:if test="${boardNoticeDetail.noticeOpenDate <= today}">checked="checked" </c:if>/>&nbsp;바로 적용&nbsp;&nbsp;</label>
+					<label><input type="radio" name="noticeOpenYn" class="noticeOpenDateSelect" <c:if test="${boardNoticeDetail.noticeOpenDate > today}">checked="checked" </c:if>/>&nbsp;특정일시 지정 (대기 상태로 표기됨)&nbsp;&nbsp;</label>
           <span class="btn-bottom-gray">달력</span>
            <fmt:formatDate var="noticeOpenDate" pattern="yyyy/MM/dd HH:mm" value="${boardNoticeDetail.noticeOpenDate  }" />
            <input type="text" class="inp-w160 datetimepicker" name="noticeOpenDate" value="${noticeOpenDate }" data-flag="off"/>

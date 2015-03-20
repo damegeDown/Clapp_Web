@@ -10,12 +10,14 @@ import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.dao.PaymentDAO;
 import kr.co.clapp.dao.ProductDAO;
 import kr.co.clapp.dao.TicketDAO;
+import kr.co.clapp.entities.EcrmEntity;
 import kr.co.clapp.entities.PageEntity;
 import kr.co.clapp.entities.PayLgdInfo;
 import kr.co.clapp.entities.PaymentEntity;
 import kr.co.clapp.entities.ProductEntity;
 import kr.co.clapp.entities.ResponseEntity;
 import kr.co.clapp.entities.TicketEntity;
+import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.payment.PaymentService;
 import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.utils.DateUtils;
@@ -45,6 +47,8 @@ public class PaymentServiceImpl implements PaymentService {
   private TicketDAO ticketDAO;
   @Autowired
   private ProductDAO productDAO;
+  @Autowired
+  private MailingService mailingService;
   
   @Value("#{pay_prop['configPath']}")
   private String configPath;
@@ -110,21 +114,27 @@ public class PaymentServiceImpl implements PaymentService {
 	PayLgdInfo payLgdInfo = new PayLgdInfo();
 	TicketEntity ticketInfo = new TicketEntity();
 	String tid = payLgdInfo.createOrderNo();
-	paymentEntity.setContractTid(tid);
-	result = paymentDAO.insertContract(paymentEntity);
 	List<String> userIdArr = null;
-	List<Integer> userKeyArr = null;
+	List<String> userKeyArr = null;
 	
+	paymentEntity.setContractTid(tid);
+	
+	/** 개별 계약 등록*/
+	result = paymentDAO.insertContract(paymentEntity);
+
 	if(result > CommonCode.ZERO) {
+	  /** 개별 계약 회원 등록*/
 	  userIdArr = (List<String>) paymentEntity.getContractUserIdArr();
-	  userKeyArr = (List<Integer>) paymentEntity.getUserMasterKeyArr();
+	  userKeyArr = (List<String>) paymentEntity.getUserMasterKeyArr();
 	  for(int i = 0; i < userIdArr.size(); i++) {
 		paymentEntity.setContractUserId(userIdArr.get(i));
-		paymentEntity.setUserMasterKey(userKeyArr.get(i));
+		paymentEntity.setUserMasterKey(Integer.parseInt(userKeyArr.get(i))); 
 		paymentEntity.setContractTid(tid);
 		result = paymentDAO.insertContractUser(paymentEntity);
+		
 		/**티켓저장*/
-		ticketInfo.setUserMasterKey(userKeyArr.get(i));
+		ticketInfo.setTargetKey(paymentEntity.getContractMasterKey());
+		ticketInfo.setUserMasterKey(Integer.parseInt(userKeyArr.get(i)));
 		ticketInfo.setProductMasterKey(paymentEntity.getProductMasterKey());	//상품키 
 		ticketInfo.setProductName(paymentEntity.getContractProductName());		//상품이름	
 		ticketInfo.setPaymentTid(tid);															//tid 
@@ -133,9 +143,11 @@ public class PaymentServiceImpl implements PaymentService {
 		ticketInfo.setTicketStartExpirationDate(paymentEntity.getContractStartDate());	//사용가능기한-시작
 		ticketInfo.setTicketEndExpirationDate(paymentEntity.getContractEndDate());	//사용가능기한-종료
 		ticketInfo.setExpirationDate(paymentEntity.getContractExpirationDate());	//유효기간(일로 표시)
+		ticketInfo.setTicketApplyDate(DateUtils.getDate());
+		
 		/** 티켓 히스토리에 저장*/
-		ticketDAO.insertUserTicketHistory(ticketInfo);
 		this.insertUserTicketMaster(ticketInfo);
+		//ticketDAO.insertUserTicketHistory(ticketInfo);
 	  }
 	}
 	return  result; 
@@ -148,24 +160,52 @@ public class PaymentServiceImpl implements PaymentService {
   }
 
   @Override
-  public List<String> getPaymentContractUserDetail(PaymentEntity paymentEntity) {
+  public List<PaymentEntity> getPaymentContractUserDetail(PaymentEntity paymentEntity) {
 	return paymentDAO.getPaymentContractUserDetail(paymentEntity);
   }
   /**
-   * 개별 계약 등록
+   * 개별 계약 수정
    */
   @Override
   @Transactional(readOnly=false)
   public int modifyContract(PaymentEntity paymentEntity) {
 	int result = CommonCode.ZERO;
-	result = paymentDAO.modifyContract(paymentEntity);
+	TicketEntity ticketInfo = new TicketEntity();
+	PaymentEntity paymentParam = paymentEntity;
 	List<String> userIdArr = null;
+	List<String> userKeyArr = null;
+	userIdArr = (List<String>) paymentEntity.getContractUserIdArr();
+	userKeyArr = (List<String>) paymentEntity.getUserMasterKeyArr();
+	
+	/** 상품에 묶여있는 기존 회원들의 티켓 마스터의 값을 삭제한다. */
+	this.removeUserTicketMaster(paymentParam);
+	  
+	result = paymentDAO.modifyContract(paymentParam);
 	if(result > CommonCode.ZERO) {
-	  userIdArr = (List<String>) paymentEntity.getContractUserIdArr();
+	 
+	  
+	  /** 상품에 묶여있는 회원 삭제*/
 	  if(paymentDAO.removeContractUser(paymentEntity) > CommonCode.ZERO) {
 	    for(int i = 0; i < userIdArr.size(); i++) {
 	      paymentEntity.setContractUserId(userIdArr.get(i));
+	      paymentEntity.setUserMasterKey(Integer.parseInt(userKeyArr.get(i)));
 		  result = paymentDAO.insertContractUser(paymentEntity);
+		  
+		  /**티켓수정*/
+			ticketInfo.setTargetKey(paymentEntity.getContractMasterKey()); 
+			ticketInfo.setUserMasterKey(Integer.parseInt(userKeyArr.get(i)));
+			ticketInfo.setProductMasterKey(paymentEntity.getProductMasterKey());	//상품키 
+			ticketInfo.setProductName(paymentEntity.getContractProductName());		//상품이름	
+			ticketInfo.setTicketAmount(paymentEntity.getContractTicketAmount());    //티켓수
+			ticketInfo.setPaymentTid(paymentEntity.getContractTid());															//tid
+			ticketInfo.setTicketAvilableAmount(paymentEntity.getContractTicketAmount()); //사용가능 티켓
+			ticketInfo.setTicketStartExpirationDate(paymentEntity.getContractStartDate());	//사용가능기한-시작
+			ticketInfo.setTicketEndExpirationDate(paymentEntity.getContractEndDate());	//사용가능기한-종료
+			ticketInfo.setExpirationDate(paymentEntity.getContractExpirationDate());	//유효기간(일로 표시)
+			ticketInfo.setTicketApplyDate(DateUtils.getDate());
+			
+			/** 티켓 히스토리에 저장*/
+			this.insertUserTicketMaster(ticketInfo);
 		}
 	  }
 	}
@@ -316,6 +356,7 @@ public class PaymentServiceImpl implements PaymentService {
 						/** 티켓 저장*/
 						Date startDate = DateUtils.getDate();
 						TicketEntity ticketInfo = new TicketEntity();
+						ticketInfo.setTargetKey(masterKey);
 						ticketInfo.setUserMasterKey(paymentEntity.getUserMasterKey());
 						ticketInfo.setProductMasterKey(paymentEntity.getProductMasterKey());
 						ticketInfo.setProductName(paymentEntity.getPaymentProductName());
@@ -332,9 +373,19 @@ public class PaymentServiceImpl implements PaymentService {
 						ticketInfo.setTicketApplyDate(startDate);
 						
 						/** 티켓 히스토리에 저장*/
-						ticketDAO.insertUserTicketHistory(ticketInfo);
+						//ticketDAO.insertUserTicketHistory(ticketInfo);
 						/** 티켓에 업데이트*/
 						this.insertUserTicketMaster(ticketInfo);
+						
+						/** 메일 발송 */
+						EcrmEntity ecrmEntity = new EcrmEntity();
+						ecrmEntity.setMailTitle("[Clapp] 결제가 정상적으로 완료되었습니다.");
+						ecrmEntity.setUserId(paymentEntity.getPaymentUserId());
+						ecrmEntity.setProductName(paymentEntity.getPaymentProductName());
+						ecrmEntity.setTicketAmount(paymentEntity.getPaymentTicketAmount());
+						ecrmEntity.setExpirationDate(endDate);
+						ecrmEntity.setPaymentAmount(paymentParam.getPaymentProductPrice());
+						mailingService.sendPaymentCardPhoneMail(ecrmEntity);
 					}
 					resultMap.setResultDATA(masterKey);
 					resultMap.setResultCode(CommonCode.SUCCESS);
@@ -392,13 +443,20 @@ public class PaymentServiceImpl implements PaymentService {
 	 * @return
 	 */
 	 @Transactional(readOnly=false, rollbackFor=Throwable.class)
-	 public int insertUserTicketMaster(TicketEntity ticketParam){
+	 public int insertUserTicketMaster(TicketEntity ticketEntity){
 		 int result = 0;
 		 int ticket = 0;
 		 int avilableTicket = 0;
+		 int oriTicket = ticketEntity.getTicketAmount();
+		 int oriAvilableTicket = ticketEntity.getTicketAvilableAmount();
+		 int addDate = 0;
+		 int userMasterKey = ticketEntity.getUserMasterKey();
 		 Date endDate = null;
 		 TicketEntity ticketInfo = new TicketEntity();
+		 TicketEntity ticketParam = new TicketEntity();
+		 ticketParam = ticketEntity;
 		 //소유한 티켓 정보를 불러온다.
+		 ticketParam.setUserMasterKey(userMasterKey);
 		 ticketInfo = ticketDAO.selectTicketInfo(ticketParam); 
 		 if(StringUtils.isEmpty(ticketInfo)) { 
 			 result = ticketDAO.insertUserTicketMaster(ticketParam);
@@ -411,6 +469,7 @@ public class PaymentServiceImpl implements PaymentService {
 				 /** 기존 티켓수를 새로운 상품 만큼 늘린다*/
 				 ticket = ticketParam.getTicketAmount() + ticketInfo.getTicketAmount();
 				 avilableTicket = ticketParam.getTicketAvilableAmount() + ticketInfo.getTicketAvilableAmount();
+				 addDate = 1;
 			 } else {
 				 /** 기존 정보의 유효기간을 새로운 상품 만큼 늘린다.*/
 				 endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
@@ -422,10 +481,70 @@ public class PaymentServiceImpl implements PaymentService {
 			 ticketParam.setTicketAmount(ticket);
 			 ticketParam.setTicketAvilableAmount(avilableTicket);
 			 result = ticketDAO.modifyUserTicketMaster(ticketParam);
+			 
+			 /** 티켓 히스토리에 저장 */
+			 if(result > CommonCode.ZERO) {  
+				 ticketParam.setTicketAmount(oriTicket);
+				 ticketParam.setTicketAvilableAmount(oriAvilableTicket);
+				 ticketEntity.setTicketStartExpirationDate(Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), addDate));
+				 ticketEntity.setTicketEndExpirationDate(endDate);
+				 ticketDAO.insertUserTicketHistory(ticketEntity);
+			 }
 		 }
 		 return result;
 	 } 
 	  
+	 
+	 /**
+		 * 회원 티켓 삭제
+		 * @param paymentEntity
+		 * @return
+		 */
+		 @Transactional(readOnly=false, rollbackFor=Throwable.class)
+		 public int removeUserTicketMaster(PaymentEntity paymentEntity){
+			 int result = 0;
+			 int ticket = 0;
+			 int avilableTicket = 0;
+			 Date endDate = null;
+			 TicketEntity ticketInfo = new TicketEntity(); 
+			 TicketEntity ticketParam = new TicketEntity();
+			 PaymentEntity paymentInfo = new PaymentEntity();
+			 paymentInfo = paymentDAO.getContractInfo(paymentEntity);
+			 
+			 ticketParam.setTicketAmount(paymentInfo.getContractTicketAmount());    //티켓수
+			 ticketParam.setProductMasterKey(paymentInfo.getProductMasterKey());    //상품 명
+			 ticketParam.setProductName(paymentInfo.getContractProductName());    //상품 명
+			 ticketParam.setPaymentTid(paymentInfo.getContractTid());    //tid 
+			 ticketParam.setTicketAvilableAmount(paymentInfo.getContractTicketAmount()); //사용가능 티켓
+			 ticketParam.setExpirationDate(paymentInfo.getContractExpirationDate());	//유효기간(일로 표시)
+			 ticketParam.setTicketApplyDate(paymentInfo.getContractInsertDate());
+			 /** 상품에 묶인 회원 키를 불러온다*/
+			 List<PaymentEntity> userMasterKey = paymentDAO.getUserMasterKeyList(paymentEntity);
+			 
+			 if(userMasterKey.size() > CommonCode.ZERO) {
+				 for(int i = 0; i < userMasterKey.size(); i++) {
+					 ticketParam.setUserMasterKey(userMasterKey.get(i).getUserMasterKey());
+					 //소유한 티켓 정보를 불러온다.
+					 ticketInfo = ticketDAO.selectTicketInfo(ticketParam); 
+		
+					 /** 기존 정보의 유효기간을 뺀다.*/
+					 endDate = Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), ticketParam.getExpirationDate() * -1);
+					 ticketParam.setTicketEndExpirationDate(endDate);
+					 /** 기존 티켓수를 새로운 상품 만큼 뺀다*/
+					 ticket = ticketInfo.getTicketAmount() - ticketParam.getTicketAmount();
+					 avilableTicket = ticketInfo.getTicketAvilableAmount() - ticketParam.getTicketAvilableAmount();
+		
+					 ticketParam.setTicketAmount(ticket);
+					 ticketParam.setTicketAvilableAmount(avilableTicket);
+					 result = ticketDAO.modifyUserTicketMaster(ticketParam);
+				 }
+				 
+				 /** 히스토리 삭제 */
+				 ticketParam.setTargetKey(paymentEntity.getContractMasterKey());
+				 result = ticketDAO.removeUserTicketHistory(ticketParam);
+			 }
+			 return result;
+		 } 
 	@Transactional(readOnly=false, rollbackFor=Throwable.class)
 	@Override
 	public ResponseEntity responseVirtualAcct(HttpServletRequest request) {
@@ -467,19 +586,19 @@ public class PaymentServiceImpl implements PaymentService {
 		 * 그외 : 상점 처리결과 실패
 		 * ※ 주의사항 : 성공시 'OK' 문자이외의 다른문자열이 포함되면 실패처리 되오니 주의하시기 바랍니다.
 		 **/
-		String resultMsg = "결제결과 상점 DB처리(LGD_CASNOTEURL) 결과값을 입력해 주시기 바랍니다.";  
+		String resultMsg = "결제결과 상점 DB처리(LGD_CASNOTEURL) 결과값을 입력해 주시기 바랍니다.";
+		String resultCode = CommonCode.FAIL;
 		if (LGD_HASHDATA2.trim().equals(LGD_HASHDATA)) { //해쉬값 검증이 성공이면
 			if ( ("0000".equals(LGD_RESPCODE.trim())) ){ //결제가 성공이면
 				if( "R".equals( LGD_CASFLAG.trim() ) ) {
 					// if( 무통장 할당 성공 상점처리결과 성공 ) 
-					resultMsg = "무통장 할당";
+					resultMsg = "OK";
+					resultCode = CommonCode.SUCCESS;
 				} else if( "I".equals( LGD_CASFLAG.trim() ) ) {
 					// if( 무통장 입금 성공 상점처리결과 성공 ) 
 					paymentEntity.setPayStateCd(CommonCode.PayState.COMPLET);
 					paymentDAO.updPayment(paymentEntity);
 					paymentDAO.updPaymentMaster(paymentEntity);
-					resultMsg = "무통장 입금";
-
 					/** 티켓 저장*/
 					PaymentEntity paymentInfo = new PaymentEntity();
 					paymentInfo = paymentDAO.getPaymentInfo(paymentEntity);
@@ -490,12 +609,13 @@ public class PaymentServiceImpl implements PaymentService {
 					Date startDate = DateUtils.getDate();
 					Date endDate = null;
 					TicketEntity ticketInfo = new TicketEntity();
-					ticketInfo.setUserMasterKey(paymentEntity.getUserMasterKey());
-					ticketInfo.setProductMasterKey(paymentEntity.getProductMasterKey());
-					ticketInfo.setProductName(paymentEntity.getPaymentProductName());
-					ticketInfo.setPaymentTid(paymentEntity.getPaymentTid());
-					ticketInfo.setTicketAmount(paymentEntity.getPaymentTicketAmount());
-					ticketInfo.setTicketAvilableAmount(paymentEntity.getPaymentTicketAmount());
+					ticketInfo.setTargetKey(paymentInfo.getPaymentMasterKey());
+					ticketInfo.setUserMasterKey(paymentInfo.getUserMasterKey());
+					ticketInfo.setProductMasterKey(paymentInfo.getProductMasterKey());
+					ticketInfo.setProductName(paymentInfo.getPaymentProductName());
+					ticketInfo.setPaymentTid(paymentInfo.getPaymentTid());
+					ticketInfo.setTicketAmount(paymentInfo.getPaymentTicketAmount());
+					ticketInfo.setTicketAvilableAmount(paymentInfo.getPaymentTicketAmount());
 					if(paymentEntity.getProductExpirationDate() > 0) {
 					  endDate = Utils.getAddNowDate(expirationDate);
 					  ticketInfo.setTicketEndExpirationDate(endDate);
@@ -505,14 +625,18 @@ public class PaymentServiceImpl implements PaymentService {
 					ticketInfo.setTicketApplyDate(startDate); 
 					
 					/** 티켓 히스토리에 저장*/
-					ticketDAO.insertUserTicketHistory(ticketInfo);
-					this.insertUserTicketMaster(ticketInfo);
+					//ticketDAO.insertUserTicketHistory(ticketInfo);
+					int resultInt = this.insertUserTicketMaster(ticketInfo);
+					if(resultInt > CommonCode.ZERO) {
+						resultMsg = "OK";
+						resultCode = CommonCode.SUCCESS;
+					}
 				} else if( "C".equals( LGD_CASFLAG.trim() ) ) {
 					// if( 무통장 입금취소 성공 상점처리결과 성공 ) 
 					paymentEntity.setPayStateCd(CommonCode.PayState.CANCEL);
 					paymentDAO.updPayment(paymentEntity);
 					paymentDAO.updPaymentMaster(paymentEntity);
-					resultMsg = "무통장 입금 취소";
+					resultMsg = "OK";
 				}
 			} else { // 결제가 실패이면
 				// if( 결제실패 상점처리결과 성공 )
@@ -520,7 +644,7 @@ public class PaymentServiceImpl implements PaymentService {
 			}
 			logger.info("무통장입금처리 : " + resultMsg);
 			resultMap.setResultMSG(resultMsg);
-			resultMap.setResultCode(ResultCode.SUCCESS);
+			resultMap.setResultCode(resultCode);
 			 
 		} else { // 해쉬값이 검증이 실패이면
 			// HASHDATA 검증 실패 로그를 처리하시기 바랍니다. 

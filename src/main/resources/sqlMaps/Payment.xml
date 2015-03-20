@@ -26,12 +26,12 @@
 		<!-- 계산서 발행여부 -->
 		<if test="searchValue3 != '' and searchValue3 != null">
 			AND
-				pd.payment_bill_request_state = #{searchValue3}
+				p.cash_receipt_self_yn = #{searchValue3}
 		</if>
 		<!-- 결제자명 -->
 		<if test="searchValue4 != '' and searchValue4 != null">
 			AND
-				pm.payment_name  LIKE CONCAT('%', #{searchValue2}, '%')
+				p.buyer  LIKE CONCAT('%', #{searchValue2}, '%')
 		</if>
 		<!-- 신청상품 -->
 		<if test="searchValue5 != '' and searchValue5 != null">
@@ -41,7 +41,7 @@
 		<!-- 결제방법 -->
 		<if test="(searchValue6 != '' and searchValue6 != null) or (searchValue7 != '' and searchValue7 != null) or (searchValue8 != '' and searchValue8 != null) ">
 			AND
-				pm.payment_type in  
+				p.pay_type_cd in  
 		   <foreach item="item" index="index" collection="searchValueArr"
 			      open="(" separator="," close=")">${item}</foreach>
 		</if>
@@ -49,43 +49,55 @@
   <select id="getPaymentWebListCount" parameterType="paymentEntity" resultType="int">
     SELECT
       COUNT(pm.payment_master_key)
-    FROM
-      PAYMENT_MASTER pm
-    INNER JOIN
-      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key 
+     FROM
+	      PAYMENT_MASTER pm
+	   INNER JOIN
+	      PAYMENT p on pm.payment_master_key = p.payment_master_key
+	   INNER JOIN 
+				USER_MASTER um on pm.payment_user_id = um.user_id  
+   <!--  INNER JOIN
+      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key  -->
     WHERE
-    	1 = 1 
+    	1 =1
    	<include refid="searchPaymentWebList"/>
   </select>
   <select id="getPaymentWebList" parameterType="paymentEntity" resultType="paymentEntity">
   	 
 	     SELECT
-	        pm.payment_master_key,
-	        pm.payment_oid,
-			pm.payment_tid,
-	        pm.payment_state,
-	        FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',pm.payment_state) payment_state_text,
-	        DATE_FORMAT(pm.payment_date,'%d %b %y') payment_date,
-	        FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE',pm.payment_type) paymentTypeText,
-	        pm.payment_approval_date, 
-	        pm.payment_name,  
-	        pm.payment_user_id,
+	     	p.payment_master_key,
+	     	p.buyer_id,
+	     	p.oid,
+	     	IF(p.cash_receipt_self_yn is null, '-', p.cash_receipt_self_yn) cash_receipt_self_yn,
+	        pm.user_master_key,  
+	        FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',p.pay_state_cd) payment_state_text,
+	      	p.reg_dt,
+	        FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE',p.pay_type_cd) paymentTypeText,
+	        p.pay_dt, 
+	        p.buyer,
+	        p.product_info,
+	        IF(pm.payment_company_number is null, '-', pm.payment_company_number) payment_company_number,
+	        pm.product_master_key,  
 	        pm.payment_product_name,
 	        pm.payment_product_price,
+	        pm.payment_use_time,
 	        pm.payment_ticket_amount,
 	        FN_GET_VAT_EXCEPT_AMOUNT(pm.payment_total_price) payment_not_vat_total_price,
 	        pm.payment_total_price,
-	        FN_GET_COMMON_CODE_NAME('BILL_STATE',pd.payment_bill_request_state) payment_bill_request_state,
-	        (select ifnull(user_company_number,'-') from USER_DETAIL ud where um.user_master_key = ud.user_master_key) user_company_number
+	        pm.payment_start_date,
+	        pm.payment_end_date 
 	    FROM
 	      PAYMENT_MASTER pm
-	    INNER JOIN
-	      PAYMENT_DETAIL pd on pm.payment_master_key = pd.payment_master_key 
-	    LEFT OUTER JOIN 
-				USER_MASTER um on pm.payment_user_id = um.user_id
+       INNER JOIN
+	      PAYMENT p on pm.payment_master_key = p.payment_master_key
+	   INNER JOIN 
+			USER_MASTER um on pm.payment_user_id = um.user_id  
 	    WHERE
 	      	1 = 1
-	    <include refid="searchPaymentWebList"/>
+	    <include refid="searchPaymentWebList"/> 
+	    ORDER BY
+	    	p.reg_dt desc
+	    LIMIT 
+     	 #{rowStartNumber}, #{pageListSize}
   </select>
 	<select id="getPaymentWebDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
@@ -94,35 +106,37 @@
 			pm.payment_master_key,
 			pm.payment_oid,
 			pm.payment_tid,
-			FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',pm.payment_state) payment_state_text,
-			pm.payment_type,
+			IF(p.cash_receipt_self_yn is null, '미신청', '신청') cash_receipt_self_yn,
+			if(p.cash_receipt_kind = 0, '소득공제용', '지출증빙용') cashReceiptKind,
+			FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',p.pay_state_cd) payment_state_text,
+			p.pay_type_cd,
 			pm.payment_date,
 			FN_GET_VAT_EXCEPT_AMOUNT(pm.payment_total_price) payment_not_vat_total_price,
 			pm.payment_total_price,
 			pm.payment_product_name,
 			pm.payment_ticket_amount,
 			pm.payment_approval_date,
-			pd.payment_installment,
-			pd.payment_card_company_code,
-			FN_GET_SECRET_CARD_NUMBER(pd.payment_card_number) payment_card_number,
-			pd.payment_installment,
-			pd.payment_card_company_code,
-			FN_GET_SECRET_CELL_NUMBER(pd.payment_cellphone_number) payment_cellphone_number,
-			pd.payment_mobile_agency,
-			pd.payment_account_number,
-			pd.payment_account_holder,
-			pd.payment_bank_code,
-			FN_GET_COMMON_CODE_NAME('BILL_STATE',pd.payment_bill_request_state) payment_bill_request_state,
-			pd.payment_purpose_type,
-			pd.payment_bill_request_date,
-			pd.payment_bill_publication_date,
-			pd.payment_bill_email,
-			pd.payment_bill_memo 
+			pm.payment_bill_email,
+			pm.payment_bill_memo,
+			p.card_install_month,
+			if(p.card_acquirer is null, '-', p.card_acquirer) card_acquirer,
+			if(p.finance_name is null , '-', p.finance_name) finance_name,
+			FN_GET_SECRET_CARD_NUMBER(p.card_num) payment_card_number,
+			FN_GET_SECRET_CELL_NUMBER(p.buyer_phone) payment_cellphone_number,
+			p.pay_dt,
+			p.reg_dt,
+			p.account_num payment_account_number,
+			p.payer payment_account_holder,
+			p.finance_code,
+			p.finance_name,
+			p.buyer,
+			FN_GET_COMMON_CODE_NAME('BILL_STATE',p.cash_receipt_self_yn) payment_bill_request_state,
+			p.cash_receipt_kind payment_purpose_type
 		FROM
-			PAYMENT_MASTER pm, 
-			PAYMENT_DETAIL pd
-		WHERE	
-			pm.payment_master_key = pd.payment_master_key
+			PAYMENT_MASTER pm ,
+			PAYMENT p
+		WHERE
+			pm.payment_master_key = p.payment_master_key
 		AND
 			pm.payment_master_key = #{paymentMasterKey}
 		
@@ -280,6 +294,7 @@
 			  contract_payment_method,
 			  contract_company_name,
 			  contract_company_number,
+			  product_master_key,
 			  contract_product_name,
 			  contract_ticket_amount,
 			  contract_expiration_date,
@@ -295,9 +310,10 @@
 			  #{contractBillPublicationDate},
 			  #{contractTotalPrice},
 			  #{contractPaymentMethod},
-			  #{contractCompanyName},
+			   #{contractCompanyName},
 			  #{contractCompanyNumber},
-			  #{contractProductName},
+			  #{productMasterKey},
+			   (SELECT product_name FROM PRODUCT_MASTER where product_master_key = #{productMasterKey} limit 1),
 			  #{contractTicketAmount},
 			  #{contractExpirationDate},
 			  1,
@@ -331,15 +347,18 @@
 		INSERT INTO
 			CONTRACT_USER (
 				contract_master_key,
+				user_master_key,
 				contract_user_id
 			) VALUES (
 				#{contractMasterKey},
+				#{userMasterKey},
 				#{contractUserId}
 			)
 	</insert>
 	<select id="getPaymentContractDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
 			cm.contract_master_key,
+			cm.contract_tid,
 			cm.contract_start_date,
 			cm.contract_end_date,
 			cm.contract_bill_publication_date,
@@ -355,15 +374,16 @@
 			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
 			cm.contract_use_close_reason,
 			cm.contract_operator_name,
-			cm.contract_insert_date
+			cm.contract_insert_date 
 		FROM
-			CONTRACT_MASTER cm
+			CONTRACT_MASTER cm 
 		WHERE
 			cm.contract_master_key = #{contractMasterKey}
 	</select>
-	<select id="getPaymentContractUserDetail" parameterType="paymentEntity" resultType="String">
+	<select id="getPaymentContractUserDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
-			contract_user_id
+			contract_user_id,
+			user_master_key
 		FROM
 			CONTRACT_USER
 		WHERE
@@ -394,12 +414,9 @@
 		  FN_GET_VAT_EXCEPT_AMOUNT(SUM(pm.payment_total_price)) paymentNotVatTotalPrice,
 		  SUM(pm.payment_total_price) paymentTotalPrice
 		FROM 
-			PAYMENT_MASTER pm,
-			PAYMENT_DETAIL pd
+			PAYMENT_MASTER pm 
 		WHERE
-			pm.payment_master_key = pd.payment_master_key
-		AND
-			pm.payment_state = 2
+			pm.payment_state = 1
 		AND	
 			DATE_FORMAT(pm.payment_date, '%Y/%m/%d')  LIKE '${searchValue}%'
 		GROUP BY
@@ -432,7 +449,7 @@
 		AND
 			cm.contract_state = 1
 		AND	
-			cm.contract_start_date LIKE '${searchValue}%'
+			DATE_FORMAT(cm.contract_start_date, '%Y/%m/%d')  LIKE '${searchValue}%'
 		GROUP BY
 		<choose>
 				<when test="searchKey == 'date'">
@@ -555,7 +572,7 @@
 		pm.payment_ticket_amount,
 		pm.payment_total_price,
 		pm.payment_cancel_reason,
-		pm.payment_cancel_person,
+		pm.payment_cancel_person, 
 		pm.payment_cancel_date,
 		pd.*
 	FROM
@@ -565,7 +582,7 @@
 		pm.payment_master_key = pd.payment_master_key
 	AND
 	<choose>
-		<when test="paymentMasterKey !=null or paymentMasterKey != 0">
+		<when test="paymentMasterKey > 0">
 			pm.payment_master_key = #{paymentMasterKey}
 		</when>
 		<otherwise>
@@ -803,6 +820,8 @@
 			AND
 			 a.payment_state = #{searchValue2}
 		</if>
+		ORDER BY
+			a.payment_date DESC
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
@@ -810,7 +829,7 @@
 	<!-- 구매하려는 상품이 현재 상용중인 상품에 속하는지 확인 -->
  	<select id="getProductInfo" parameterType="paymentEntity" resultType="int">
 	    SELECT
-	        COUNT(user_ticket_master_key)
+	        COUNT(*)
 	    FROM 
 	        USER_TICKET_MASTER
 	    WHERE
@@ -824,4 +843,23 @@
 	 </select>
 	<!-- //구매하려는 상품이 현재 상용중인 상품에 속하는지 확인 -->
 	
+	<select id="getUserMasterKeyList" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			cu.user_master_key
+		FROM
+			CONTRACT_MASTER cm,
+			CONTRACT_USER cu
+		WHERE
+			cm.contract_master_key = cu.contract_master_key
+		AND
+			cm.contract_master_key = #{contractMasterKey}
+	</select>
+	<select id="getContractInfo" parameterType="paymentEntity" resultType="paymentEntity">
+		SELECT
+			*
+		FROM
+			CONTRACT_MASTER
+		WHERE
+			contract_master_key = #{contractMasterKey}
+	</select>
 </mapper>

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <div class="sub-content">
 	<form id="paymentForm">
+		<input type="hidden" name="contractTid" value="${paymentInfo.contractTid}" data-flag="off"/>
 		<c:if test="${paymentInfo.contractMasterKey > 0}">
 		<input type="hidden" name="contractMasterKey" value="${paymentInfo.contractMasterKey}" data-flag="off"/>
 		</c:if>
@@ -26,22 +27,23 @@
 	    	 	 	<c:forEach  items="${userList }" var="user" varStatus="i">
 		    	 	 <tr class="trUserId">
 		    	 	   <th>회원 ID</th>
-		    	 	   <td>
-		    	 	     <input type="hidden" name="userMastreKeyrArr" data-flag="off" data-id="${i.index + 1 }"/>
-		    	 	     <input type="text" name="contractUserIdArr" value="${user}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="${i.index + 1 }"/>
+		    	 	   <td> 
+		    	 	     <input type="hidden" name="userMasterKeyArr" value="${user.userMasterKey }" data-flag="off" data-id="${i.index + 1 }"/>
+		    	 	     <input type="text" name="contractUserIdArr" value="${user.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="${i.index + 1 }"/>
 		    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 		    	 	     <c:if test="${i.index >= 1 }">
 		    	 	     	<input type="button" class="btn removeUserIdBtn" value="-"/>
 		    	 	     </c:if>
 		    	 	   </td>
-	    	 	 		</tr>
-	    	 	 	</c:forEach>
+	    	 	 		</tr> 
+	    	 	 	</c:forEach> 
 	    	 	 </c:when>
 	    	 	 <c:otherwise>
 	    	 	 <tr class="trUserId">
 	    	 	   <th>회원 ID</th>
 	    	 	   <td>
-	    	 	     <input type="text" name="contractUserIdArr" value="${paymentInfo.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="1"/>
+	    	 	   	 <input type="hidden" name="userMasterKeyArr"   data-flag="off" data-id="${i.index + 1 }"/>
+	    	 	     <input type="text" class="inp-w180" name="contractUserIdArr" value="${paymentInfo.contractUserId}" placeholder="회원으로 가입된 계정만 검색 가능" readonly data-id="1"/>
 	    	 	     <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
 	    	 	   </td>
 	    	 	 </tr>
@@ -65,11 +67,11 @@
     	 	 </tr>
     	 	 <tr>
     	 	   <th>발행금액</th>
-    	 	   <td><input type="text" name="contractTotalPrice" value="${paymentInfo.contractTotalPrice }" placeholder="공급가액 + 부가가치세 포함 총 금액"/></td>
+    	 	   <td><input class="inp-w185" type="text" name="contractTotalPrice" value="${paymentInfo.contractTotalPrice }" placeholder="공급가액 + 부가가치세 포함 총 금액"/></td>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>결제방법</th>
-    	 	   <td><input type="text" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제"/></td>
+    	 	   <td><input type="text" class="inp-w160" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제"/></td>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>기업명</th>
@@ -88,11 +90,12 @@
     	 	 <tr>
     	 	   <th>신청상품</th>
     	 	   <td>
-    	 	   	<select class="sel-w180" name="contractProductName">
+    	 	   <input type="hidden" name="contractProductName" value="${paymentInfo.contractProductName}"/>
+    	 	   	<select class="sel-w180" name="productMasterKey">
 		          <c:forEach items="${productInfo.productList }" var="code">
-								<option value="${code.productMasterKey }" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
-							</c:forEach>
-	          </select>
+					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
+				 </c:forEach>
+	           </select>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>적용티켓</th>
@@ -144,6 +147,12 @@
 		var availableTags = tagsArr;
 		$( "#tags" ).autocomplete({
 			source: availableTags
+		});
+		$("select[name=productMasterKey]").change(function() {
+			var productName = $("select option[value="+$(this).val()+"]").text();
+			var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
+			$("input[name=contractProductName]").val(productName);
+			$("input[name=contractExpirationDate]").val(applyDate);
 		});
 	});
 	$(function() {

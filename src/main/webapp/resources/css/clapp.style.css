@@ -172,11 +172,22 @@ sub {
 /**
  * Remove border when inside `a` element in IE 8/9/10.
  */
-
+.cell-wrapper {
+	display:table;
+} 
+.cell {
+	display:table-cell;
+	vertical-align:middle
+}
 img {
   border: 0;
 }
-
+.alignCenter img {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  vertical-align:middle;
+}
 /**
  * Correct overflow not hidden in IE 9/10/11.
  */
@@ -487,7 +498,9 @@ body {
 }
 
 /****** Main Top ********/
-
+ .mainBgOn {
+	background-image : url('/resources/images/topbg_r.png') !important;
+}
 #wrapBgTop {
   max-width: 100%;
   width: 100%;
@@ -900,7 +913,7 @@ body {
 /**************** Gnb End ****************/
 #wrapBgDevice {
   width: 100%;
-  height: 480px;
+  height: 300px;
   display: block;
   background: #1e2428;
   margin: 0 auto;
@@ -1173,7 +1186,9 @@ body {
   float: left;
   width: 160px;
   height: 160px;
-  display: block;
+  display: table-cell;
+  vertical-align: middle;
+  
 }
 .wrapArticleMainTitle {
   float: left;
@@ -1300,6 +1315,7 @@ body {
   color: #57402b;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 .brownbg:hover, .Brown a:hover {
   height: 159px;
@@ -1323,6 +1339,7 @@ body {
   color: #2b4865;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 .navybg:hover {
   height: 159px;
@@ -1343,6 +1360,7 @@ body {
   color: #4c3a5e;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 .purplebg:hover {
   background: #f7f4f8;
@@ -1361,6 +1379,7 @@ body {
   color: #808080;
   padding-left: 19px;
   line-height: 20px;
+  margin-right: 20px;
 }
 
 #wrapBgSns {
@@ -1907,6 +1926,7 @@ body {
 }
 .wrapFooterMenu li a:hover {
   color: #fff;
+  font-weight: bold;
 }
 .ftmLine {
   width:1px;
@@ -1969,7 +1989,7 @@ body {
   margin: 0 auto;
 }
 .mSliderContent1 {
-  width: 430px;
+  width: 480px;
   height: inherit;
   display: block;
   float: left;
@@ -1989,7 +2009,7 @@ body {
 }
 .mSliderContent2BoxTop, .mSliderContent2BoxBottom {
   width: inherit;
-  height: 240px;
+  height: 150px;
   display: block;
 }
 .mSliderContentItem2, .mSliderContentItem3 {
@@ -2022,7 +2042,7 @@ body {
 }
 .mSliderContent5BoxTop, .mSliderContent5BoxBottom {
   width: inherit;
-  height: 240px;
+  height: 150px;
   display: block;
 }
 .mSliderContentItem5, .mSliderContentItem6 {
@@ -2057,7 +2077,7 @@ body {
 }
 .mSliderContent6BoxTop, .mSliderContent6BoxBottom {
   width: inherit;
-  height: 240px;
+  height: 150px;
   display: block;
 }
 .mSliderContentItem9, .mSliderContentItem10 {
@@ -2090,12 +2110,12 @@ body {
   width: inherit;
   height: 68px;
   display: block;
-  margin-top: 90px;
+  margin-top: 40px;
 }
 .mSliderLeftArrow, .mSliderRightArrow {
   float: left;
   width: 50px;
-  height: 64px;
+  height: 64px; 
   display: block;
 }
 .mSliderLeftArrow a, .mSliderRightArrow a {
@@ -2216,120 +2236,127 @@ body {
 }
 .mSliderTextBox1 {
   width: inherit;
-  height: 120px;
+  height: 150px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 1020px;
+  top: 810px;
   z-index: 10;
 }
 .mSliderTextBox2 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox3 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox4 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 1020px;
+  top: 880px;
   z-index: 10;
 }
 .mSliderTextBox5 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox6 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox7 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 1020px;
+  top: 880px;
   z-index: 10;
 }
 .mSliderTextBox8 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 1020px;
+  top: 880px;
   z-index: 10;
 }
 .mSliderTextBox9 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox10 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 780px;
+  top: 730px;
   z-index: 10;
 }
 .mSliderTextBox11 {
   width: inherit;
-  height: 120px;
+  height: 80px;
   display: block;
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 1020px;
+  top: 880px; 
   z-index: 10;
+}
+.msliderText0 {
+  display: block;
+  text-align: center;
+  font-size: 17px;
+  color: #fff;
+  margin-top: 40px;
 }
 .msliderText1 {
   display: block;
   text-align: center;
   font-size: 17px;
   color: #fff;
-  margin-top: 30px;
+  margin-top: 3px;
 }
 .msliderText2, .msliderText3 {
   display: block;
@@ -2346,7 +2373,7 @@ body {
   background: url('./../images/more_device.png') no-repeat;
   background-position: center center;
   margin-left: 193px;
-  margin-top: 96px;
+  margin-top: 65px;
 }
 .mDeviceMore:hover {
   width: 37px;
@@ -2356,7 +2383,7 @@ body {
   background: url('./../images/more_device_r.png') no-repeat;
   background-position: center center;
   margin-left: 193px;
-  margin-top: 96px;
+  margin-top: 65px;
 }
 .mDeviceMore a {
   width: 37px;
@@ -3708,7 +3735,7 @@ body {
 }
 .subMTContentEightContainer {
   width: inherit;
-  height: 320px;
+  height: 450px;
   display: block;
   background: #dee6ed;
 }
@@ -3795,8 +3822,8 @@ body {
 }
 .subMTContentEightItem2TextBox {
   display: block;
-  background: url('./../images/smtce-Item2bg.png') no-repeat;
-  background-position: right center;
+  /*background: url('./../images/smtce-Item2bg.png') no-repeat;*/
+  /*background-position: right center;*/
 }
 .sMTCEItems2Text1Box {
   width: 330px;
@@ -4073,7 +4100,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox2 {
@@ -4083,7 +4110,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox3 {
@@ -4093,7 +4120,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox4 {
@@ -4103,7 +4130,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox5 {
@@ -4113,7 +4140,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtsliderText1 {
@@ -4284,7 +4311,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox7 {
@@ -4294,7 +4321,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtSliderTextBox8 {
@@ -4304,7 +4331,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox9 {
@@ -4314,7 +4341,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4540px;
+  top: 4670px;
   z-index: 10;
 }
 .mtSliderTextBox10 {
@@ -4324,7 +4351,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 4780px;
+  top: 4910px;
   z-index: 10;
 }
 .mtsliderText1 {
@@ -4496,7 +4523,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox2 {
@@ -4506,7 +4533,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox3 {
@@ -4516,7 +4543,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox4 {
@@ -4526,7 +4553,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox5 {
@@ -4536,7 +4563,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .mtsliderText1 {
@@ -4700,7 +4727,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox7 {
@@ -4710,7 +4737,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .taSliderTextBox8 {
@@ -4720,7 +4747,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox9 {
@@ -4730,7 +4757,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3420px;
+  top: 3495px;
   z-index: 10;
 }
 .taSliderTextBox10 {
@@ -4740,7 +4767,7 @@ body {
   background: #030404;
   opacity: 0.8;
   position: absolute;
-  top: 3660px;
+  top: 3736px;
   z-index: 10;
 }
 .mtsliderText1 {
@@ -5170,7 +5197,7 @@ body {
   width: inherit;
   min-height: 492px;
   height: auto;
-  padding-bottom: 30px;
+  padding-bottom: 22px;
   display: block;
 }
 .subJoinFormOptionSection {
@@ -5418,7 +5445,7 @@ body {
 
 .subJoinFormRequiredTelField {
   width: 960px;
-  height: 120px;
+  height: 100px;
   margin: 0 auto;
   display: block;
   border-top: 1px solid #e8ecf0;
@@ -6051,7 +6078,7 @@ body {
   height: inherit;
   display: block;
   margin: 0 auto;
-  padding-top: 50px;
+  padding: 50px 0;
 }
 .subMyClappTitleSmallLine {
   width: 2px;
@@ -6618,7 +6645,7 @@ body {
 .subInquiryContentLeftTitle {
   display: block;
   padding-left: 20px;
-  line-height: 60px;
+  line-height: 75px;
   font-size: 15px;
   font-weight: 600;
   color: #404040;
@@ -6636,7 +6663,7 @@ body {
   width: 700px;
   float: left;
   display: block;
-  line-height: 60px;
+  line-height: 75px;
   
 }
 .sicRadio {
@@ -6673,7 +6700,7 @@ body {
   text-align: center;
 }
 .sicEmail, .sicName {
-  margin-top: 9px;
+  margin-top: 16px;
   width: 580px;
   height: 38px;
   border: 1px solid #dbe1e7;
@@ -6687,7 +6714,7 @@ body {
   margin-left: 1px;
 }
 .sicTel1, .sicTel2, .sicTel3 {
-  margin-top: 9px;
+  margin-top: 17px;
   width: 130px;
   height: 38px;
   border: 1px solid #dbe1e7;
@@ -6711,7 +6738,7 @@ body {
   margin-bottom: -14px;
 }
 .sicTextArea {
-  margin-top: 9px;
+  margin-top: 17px;
   width: 588px;
   height: 200px;
   border: 1px solid #dbe1e7;
@@ -7187,7 +7214,7 @@ body {
 .smisCRadio:checked + .smisLable:before {
   content: "\2022";
   color: #1484c9;
-  font-family: Nanum Gothic,Dotum,돋움,Helvetica,AppleSDGothicNeo,sans-serif;
+  font-family: arial,Nanum Gothic,Dotum,돋움,Helvetica,AppleSDGothicNeo,sans-serif;
   font-size: 45px;
   line-height: 26px;
   text-align: center;
@@ -7558,7 +7585,6 @@ body {
   background-position: center left;
   background-size: 24px 24px;
   background-attachment: cover;
-  margin-left: 50px;
   font-size: 15px;
   color: #606060;
   padding-left: 30px;
@@ -8223,7 +8249,7 @@ body {
 
 .subCooperationOneContainer {
   width: 100%;
-  height: 504px;
+  height: 310px;
   display: block;
   background: #fff;
 }

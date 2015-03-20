@@ -1,16 +1,16 @@
 package kr.co.clapp.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
-public class BoardQnaEntity extends PageEntity implements Serializable{
+public class BoardQnaEntity extends AdministrationFileEntity implements Serializable{
 
 	private static final long serialVersionUID =1L;
 	
-	public BoardQnaEntity() {
-		super(1L);
-	}
+//	public BoardQnaEntity() {
+//		super(1L);
+//	}
 	private int boardQnaKey;
 	private String qnaCategory;								//도움말 분류(1: 기술, 2: 사이트, 3:일반, 4:계약,제휴,광고, 5:채용, 6:기타)
 	private String qnaQuestion;								//질문

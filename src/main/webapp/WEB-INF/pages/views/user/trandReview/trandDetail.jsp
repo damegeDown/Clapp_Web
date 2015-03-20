@@ -50,16 +50,18 @@
             출처 : <a href="http://${trandReviewDetail.trandOriginLink }" target="new">${trandReviewDetail.trandOrigin }</a>
           </span>
         </div>
-        <div class="subTRIndustryCTBImg">
-          <img src="${contextPath}/common/imgView?fileType=${trandReviewDetail.fileTarget}&fileName=${trandReviewDetail.fileSavedName}" />
+        <div class="subTRIndustryCTBImg alignCenter" style="display:table">
+          	<div style="display:table-cell;vertical-align:middle;width:428px; height:270px">
+          		<img src="${contextPath}/common/imgView?fileType=${trandReviewDetail.fileTarget}&fileName=${trandReviewDetail.fileSavedName}" />
+          	</div>
         </div>
-      </div><!-- .subTRIndustryContentOnebox End -->
+      </div><!-- .subTRIndustryContentOnebox End --> 
     </div> <!-- .subContentOneContainer End -->
 
     <div class="subTRIndustryViewContentTwoContainer">
       <div class="subTRIndustryContentContBox">
         <div class="subTRIndustryContentCont">
-          <p class="subTRIndustryContentContTxt">
+          <p class="subTRIndustryContentContTxt" id="trandContents">
             ${fn:replace(trandReviewDetail.trandContents, newLineChar, '<br/>')}
           <p>
         </div><!-- subTRIndustryContentCont End -->
@@ -98,3 +100,12 @@
       </div><!-- subTRIndustryContentBtnBox End -->
     </div> <!-- .subTRIndustryViewContentThreeContainer End -->
   </body>
+<script>
+function autolink(id) {
+var container = document.getElementById(id);
+var doc = container.innerHTML;
+var regURL = new RegExp("(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)","gi");
+container.innerHTML = doc.replace(regURL,"<a href='$1://$2' target='_blank'>$1://$2</a>");
+}
+autolink("trandContents");
+</script>

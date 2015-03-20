@@ -673,13 +673,20 @@
 	<div id="enterprize"></div>
 <script>
 var goPayment = function(key) { 
+	var userType = "${userLoginSession.userType}";
+	
+	if(userType == 2) {
+		var msg = "현재 (기업/단체) 고객님께서는 \n(${ticketInfo.productName}) 개별 계약 상품을 이용하고 계십니다.\n상품 문의는 클앱 고객센터 1661-7083으로 문의 바랍니다.";
+		alert(msg);
+		return false;
+	}
+	
 	var usedProductKey = '${ticketInfo.productMasterKey}';
 	var goProductKey = key;
 	if(usedProductKey != '' && usedProductKey != goProductKey) {
-		alert("현재 고객님께서는 (${ticketInfo.productName}) 상품을 이용하고 계십니다. "+
-				"\n같은 상품을 추가 결제하여 연장은 가능하지만,"+
-				"\n다른 상품을 추가 결제는 정책상 불가 하오니,"+
-				"\n이용중이신 상품을 모두 소진 후 결제 바랍니다."+
+		alert("현재 (일반)고객님께서는 \n(${ticketInfo.productName}) 상품을 이용하고 계십니다. "+
+				"\n동일 상품으로 추가결재하여 연장 가능하지만,"+
+				"\n다른 상품으로의 변경은 사용중인 상품의 티켓을 모두 소진 후 추가 상품 구매가 가능합니다."+
 			    "\n\n기타 상품 결제 관련은 클앱 고객센터 1661-7083으로 문의 바랍니다.");
 		return false;
 	}
@@ -687,8 +694,8 @@ var goPayment = function(key) {
 };
 //소개서 다운로드 링크
 var autoJnlpDownload = function(){ 
-	var orgFileName = "CLAPP_소개서_20150216.pdf";
+	var orgFileName = "CLAPP_INFO.pdf";
     location.href = contextPath + "/common/fileDownload?path=download&orgFileName="+orgFileName;
-	
+	  
 };
 </script>

@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- Email Sender -->
+	<!-- Email Sender 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="host" value="smtp.gmail.com"/>
@@ -16,9 +16,18 @@
 				<prop key="mail.smtp.starttls.required">true</prop>
 				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="hostname">smtp.google.com</prop>
-				<!-- <prop key="mail.smtp.timeout">5000000</prop> -->
 			</props>
 		</property>
+	</bean>
+	  Email Sender End -->
+	 
+	<!-- Email Sender-->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="host" value="smtp.works.naver.com"/>
+		<property name="username" value="support@clapp.co.kr"/>
+		<property name="password" value="medi8536!"/> 
+		<property name="port" value="587"/>
 	</bean>
 	<!-- Email Sender End -->
 

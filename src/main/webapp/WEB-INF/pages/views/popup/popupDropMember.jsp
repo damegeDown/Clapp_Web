@@ -19,7 +19,7 @@
   </div>
   <div  style="overflow:auto; ">
   <h4  style="margin:10px;"><탈퇴 사유 선택></h4>
-  <form id="previewFm" > 
+  <form id="previewFm" style="margin-left: 10px;" >
     <input type="hidden" name="userMasterKey"/> 
     <input type="hidden" name="dropOutUserId"/>
     <input type="hidden" name="userName" />

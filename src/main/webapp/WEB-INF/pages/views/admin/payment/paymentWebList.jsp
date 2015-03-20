@@ -49,16 +49,14 @@
             <span class="span-w80">결제자명</span>
             <input type="text" class="inp-w100" name="searchValue4" value="${paymentEntity.searchValue4}" placeholder="결제자명"/>
             <span class="marL-15 span-w80">신청상품</span>
-            <select class="sel-w100" name="searchValue5">
-            	<option value="">전체</option>
-            	<option value="basic" <c:if test="${paymentEntity.searchValue5 eq 'basic' }">selected</c:if>>Basic</option>
-            	<option value="monthly" <c:if test="${paymentEntity.searchValue5 eq 'monthly' }">selected</c:if>>Monthly</option>
-            	<option value="silver" <c:if test="${paymentEntity.searchValue5 eq 'silver' }">selected</c:if>>Silver</option>
-            	<option value="gold" <c:if test="${paymentEntity.searchValue5 eq 'gold' }">selected</c:if>>Mobthly Gold</option>
-            </select> 
+            	<select class="sel-w100" name="searchValue5">
+            		<option value="">전체</option>
+		          <c:forEach items="${productInfo.productList }" var="code">
+					<option value="${code.productName }" data-applyDate="${code.productExpirationDate }" <c:if test="${paymentEntity.searchValue5 eq code.productName }">selected</c:if>>${code.productName }</option>
+				 </c:forEach>
+	           </select>
             <span class="marL-15 span-w60">결제방법</span>
           	<label><input type="checkbox" value="1" name="searchValue6" <c:if test="${paymentEntity.searchValue6 eq '1' }">checked</c:if>/> 신용카드</label>
-          	<label><input type="checkbox" value="2" name="searchValue7" <c:if test="${paymentEntity.searchValue7 eq '2' }">checked</c:if>/> 핸드폰</label>
           	<label><input type="checkbox" value="3" name="searchValue8" <c:if test="${paymentEntity.searchValue8 eq '3' }">checked</c:if>/> 가상계좌</label>
           	
             <span class="marL-5 "></span>
@@ -77,24 +75,41 @@
   <div style="width:100%;">
   	<h3 class="floatL part-title">${CommonCode.searchResult }</h3>
   </div>
-  <table class="board-list-r">
+  <table class="board-list-r" style="">
+	  <colgroup>
+	  	<col width="2%"/>
+	  	<col width="9%"/>
+	  	<col width="9%"/>
+	  	<col width="6%"/>
+	  	<col width="5%"/>
+	  	<col width="5%"/>
+	  	<col width="5%"/>
+	  	<col width="5%"/>
+	  	<col width="5%"/>
+	  	<col width="10%"/>
+	  	<col width="7%"/>
+	  	<col width="6%"/>
+	  	<col width="7%"/>
+	  	<col width="7%"/>
+	  	<col width="5%"/>
+  	  </colgroup>
     <thead>
     <tr>
       <th>No.</th>
-			<th class="al-center">회원 ID</th>
-			<th class="al-center">결제번호</th>
-			<th class="al-center">신청일시</th>
-			<th class="al-center">결제방법</th>
-			<th class="al-center">계산서<br/>발행여부</th>
-			<th class="al-center">결제여부</th>
-			<th class="al-center">결제일시</th>
-			<th class="al-center">결제자명</th>
-			<th class="al-center">사업자등록번호</th>
-			<th class="al-center">신청상품</th>
-			<th>신청금액<br/>(원)</th>
-			<th>결제금액<br/>(vat제외, 원)</th>
-			<th>결제금액<br/>(vat포함, 원)</th>
-			<th>티켓</th>
+		<th class="al-center">회원 ID</th>
+		<th class="al-center">결제번호</th>
+		<th class="al-center">신청일시</th>
+		<th class="al-center">결제방법</th>
+		<th class="al-center">계산서<br/>발행여부</th>
+		<th class="al-center">결제여부</th>
+		<th class="al-center">결제일시</th>
+		<th class="al-center">결제자명</th>
+		<th class="al-center">사업자등록번호</th>
+		<th class="al-center">신청상품</th>
+		<th>신청금액<br/>(원)</th>
+		<th>결제금액<br/>(vat제외, 원)</th>
+		<th>결제금액<br/>(vat포함, 원)</th>
+		<th>티켓</th>
     </tr>
     </thead>
     <tbody>
@@ -106,27 +121,27 @@
 	    </c:when>
 	    <c:otherwise>
 	    <c:forEach items="${paymentEntity.paymentList }" var="paymentList" varStatus="i">
-	    	<c:if test="${paymentList.paymentState == 3 }">
+	    	<c:if test="${paymentList.payStateCd == 3 }">
 	    	<c:set var="bgColor" value="#FFD5E3"/>
 	    	</c:if>
 	      <tr class="cursor" style="cursor:pointer; background:${bgColor}" data-key="${paymentList.paymentMasterKey }">
 	        <td class="al-center">${paymentEntity.dataSize-(paymentEntity.pageListSize*(paymentList.currentPage-1))-i.index}</td>
-	        <td class="al-center">${paymentList.paymentUserId }</td>
-	        <td class="al-center">${paymentList.paymentOid }</td> 
-	        <td class="al-center"><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${paymentList.paymentDate }" /></td>
+	        <td class="al-center">${paymentList.buyerId }</td>
+	        <td class="al-center">${paymentList.oid }</td> 
+	        <td class="al-center">${paymentList.regDt }</td>
 	        <td class="al-center">${paymentList.paymentTypeText }</td> 
-	        <td class="al-center">${paymentList.paymentBillRequestState }</td>
+	        <td class="al-center">${paymentList.cashReceiptSelfYn }</td>
 	        <td class="al-center">${paymentList.paymentStateText }</td>
-	        <td class="al-center"><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${paymentList.paymentApprovalDate }" /></td>
-	        <td class="al-center">${paymentList.paymentName}</td>
-	        <td class="al-center">${paymentList.userCompanyNumber}</td>
-	        <td class="al-center">${paymentList.paymentProductName}</td>
+	        <td class="al-center">${paymentList.payDt }</td>
+	        <td class="al-center">${paymentList.buyer}</td>
+	        <td class="al-center">${paymentList.paymentCompanyNumber}</td>
+	        <td class="al-center">${paymentList.productInfo}</td>
 	        <td><fmt:formatNumber value="${paymentList.paymentTotalPrice}" type="number"/></td>
 	        <td><fmt:formatNumber value="${paymentList.paymentNotVatTotalPrice}" type="number"/></td>
 	        <td><fmt:formatNumber value="${paymentList.paymentTotalPrice}" type="number"/></td>
 	        <td><fmt:formatNumber value="${paymentList.paymentTicketAmount}" type="number"/></td>
 	      </tr>
-	    </c:forEach>
+	    </c:forEach> 
 	    </c:otherwise>
     </c:choose>
     </tbody>

@@ -124,12 +124,15 @@ $.fn.boardNoticeDetail = {
     	EditorUtils.oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 	  var noticeTitle = $("input[name=noticeTitle]").val();
 	  var noticeContents = $("textarea[name=noticeContents]").val();
+	  var noticeImage = $(".boardNoticeImage");
 	  var noticeInsertDate = $("input[name=noticeInsertDate]").val();
 	  if(noticeContents != null && noticeContents.length > 0) {
 		  noticeContents = noticeContents.replace(/(\r\n|\n|\r)/g,"<br />");
-		  }
+	  }
+	  
 	  $("#popupBoardNotice").find(".noticeTitle").html(noticeTitle);
 	  $("#popupBoardNotice").find(".noticeContents").html(noticeContents);
+	  $("#popupBoardNotice").find(".noticeContents").append(noticeImage);
 	  $("#popupBoardNotice").find(".noticeInsertDate").html(noticeInsertDate);
     });
   }
@@ -302,12 +305,15 @@ $.fn.boardQnaDetail = {
 	  var qnaCategory = $("#qnaCategory option:selected").text();
 	  var qnaQuestion = $("input[name=qnaQuestion]").val();
 	  var qnaAnswer = $("textarea[name=qnaAnswer]").val();
+	  var qnaImage = $(".boardQnaImage");
 	  if(qnaAnswer != null && qnaAnswer.length > 0) {
 		qnaAnswer = qnaAnswer.replace(/(\r\n|\n|\r)/g,"<br />");
 	  }
+	  console.log(qnaImage);
 	  $("#popupBoardQna").find(".qnaCategory").html(qnaCategory);
 	  $("#popupBoardQna").find(".qnaQuestion").html(qnaQuestion);
 	  $("#popupBoardQna").find(".qnaAnswer").html(qnaAnswer);
+	  $("#popupBoardQna").find(".qnaAnswer").append(qnaImage);
     });
   }
 };

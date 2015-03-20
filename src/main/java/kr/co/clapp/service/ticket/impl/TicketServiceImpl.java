@@ -1,5 +1,6 @@
 package kr.co.clapp.service.ticket.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.clapp.constants.CommonCode;
+import kr.co.clapp.dao.MemberDAO;
 import kr.co.clapp.dao.TicketDAO;
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.PageEntity;
 import kr.co.clapp.entities.TicketEntity;
 import kr.co.clapp.service.ticket.TicketService;
+import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.messages.Messages;
+import kr.co.digigroove.commons.utils.DateUtils;
 import kr.co.digigroove.commons.utils.StringUtils;
 
 @Service
@@ -20,6 +24,8 @@ import kr.co.digigroove.commons.utils.StringUtils;
 public class TicketServiceImpl implements TicketService {
   @Autowired
   private TicketDAO ticketDAO;
+  @Autowired
+  private MemberDAO memberDAO;
   @Autowired
   private Messages messages;
   /**
@@ -55,13 +61,41 @@ public class TicketServiceImpl implements TicketService {
   @Transactional(readOnly = false, rollbackFor = Exception.class)
   public int insertTicketProductService(TicketEntity ticketEntity) throws Exception{
 	int selectResult = 0;  
+	int ticket = 0;
+	int avilableTicket = 0;
+	Date endDate = null;
+	TicketEntity ticketInfo = new TicketEntity();
+	TicketEntity ticketParam = ticketEntity;
+	//소유한 티켓 정보를 불러온다.
+	ticketInfo = ticketDAO.selectTicketInfo(ticketParam); 
+	 
 	int result = ticketDAO.insertTicketProductService(ticketEntity);
+	MemberEntity memberEntity = new MemberEntity();
 	  if(result > 0 ){
 		  selectResult = ticketDAO.selectUserType(ticketEntity);
-		  /** update ticket for user_ticket_master */
-		  ticketDAO.modifyServiceTicketMaster(ticketEntity);
-		  /** insert ticket for user_ticket_history*/
-		 // ticketDAO.insertServiceTicketHistory(ticketEntity);
+		  
+		  List<String> userId = (List<String>) ticketEntity.getUserIdArr();
+		  
+		  /** 개별 계정 부여시 */
+		  if(ticketEntity.getServiceTargetType().equals("4")) {
+			  for(int i = 0; i < userId.size(); i++ ) {
+				  memberEntity.setUserId(userId.get(i));
+				  memberEntity = memberDAO.getUserInfoId(memberEntity);
+				  
+				  ticketEntity.setUserMasterKey(memberEntity.getUserMasterKey());
+				  ticketEntity.setUserId(memberEntity.getUserId());
+				  ticketEntity.setUserType(memberEntity.getUserType());
+				  /** update ticket for user_ticket_master */
+				  ticketDAO.modifyServiceTicketMaster(ticketEntity);
+				  /** insert ticket for user_ticket_history*/
+				 ticketDAO.insertServiceTicketHistory(ticketEntity);
+			  }
+		  } else {
+			  /** update ticket for user_ticket_master */
+			  ticketDAO.modifyServiceTicketMaster(ticketEntity);
+			  /** insert ticket for user_ticket_history*/
+			  ticketDAO.insertServiceTicketHistory(ticketEntity);
+		  }
 	  }
 	  return result > 0 ? selectResult : result;
   }

@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="statisticsLength" value="${statisticsDateList.size() }"/>
 <div style="width:100%;">
-		<h3 class="floatL" style="margin:15px 0 10px 0">티켓 / 상품적용 서비스</h3>
+		<div class="floatL" style="margin:15px 0 10px 0">티켓 / 상품적용 서비스</div>
 </div>
 <c:set var="dayOfLength" value="0"/>
 <table class="board-list">
@@ -15,7 +15,7 @@
 			<th>날짜(요일)</th>
 			<th>전체</th>
 			<th>일반</th>
-			<th>기업 / 단체 (일반 대비 사용률)</th>
+			<th>기업 / 단체</th>
 			<th>개별</th>
 			<th>일별 합계</th>
 		</tr>
@@ -175,7 +175,7 @@
 	</table>
 	<!-- 사유별 -->
 	<div style="width:100%;">
- 		<h3 class="floatL" style="margin:15px 0 10px 0">적용 사유별</h3>
+ 		<div class="floatL" style="margin:15px 0 10px 0">적용 사유별</div>
   </div>
   <c:set var="statisticsReasonLength" value="${statisticsReasonEntity.statisticsList.size() }"/>
 	<table class="board-list">

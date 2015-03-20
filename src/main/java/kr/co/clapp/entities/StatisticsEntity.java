@@ -30,11 +30,15 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	private int sumLoginCount = 0;					//검색 총 일반로그인수 
 	private int sumLoginCompanyCount = 0;			//검색 초 기업/단체로그인수
 	private int dropOutCount = 0;					//탈퇴 회원수
+	private int dropOutMemberCount = 0;			    //누적 탈퇴 회원수
 	private int sumDropOutCount = 0;				//검색 탈퇴 총 수
 	private int totDropOutCount = 0;				//탈퇴 총 수
-	private String dropOutDate;						//탈퇴 일
+	private Date dropOutDate;						//탈퇴 일
 	private String dropOutReason;					//탈퇴 사유
-	
+	private String maxDropOutReason;			    //가장 많은 탈퇴 사유
+	private int numDropOutReason;			        //가장 많은 탈퇴 사유 번호
+	private int dropOutSearchCount;			        //탈퇴회원 검색 카운트
+
 	private int tempPassword = 0;					// 임시비번발송
 	private int payCredit = 0;						// 유료(신용,핸드폰)
 	private int payVirtuarAccount = 0;				// 유료(가상계좌)
@@ -78,10 +82,41 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	
 	private String inquiryText;					    //문의
 	private int inquiryCount = 0;					//문의 건수
-	
+    private int totalCount = 0;                     //문의 카운트
+    private int answerCount = 0;                    //답변 카운트
+    private int notAnswerCount = 0;                 //미답변 카운트
+
 	private String adviceType;						//상담 타입
 	private int adviceCount = 0;					//상담수
 	private int adviceTotal = 0;					//상담총수
+    private int cableAdviceTotalCount = 0;          //누적 카운트
+    private int cableAdviceSearchCount = 0;         //검색 카운트
+
+    /*reservation*/
+    private int id = 0;								//키
+    private int deviceId = 0;					//디바이스키
+    private String reservationNo;		//예약번호
+    private Date reserveTime;			//예약일시
+    private int duration = 0;					//예약구분
+    private Date startDttm;				//예약시작년월일
+    private Date endDttm;					//예약종료년월일
+    private int canceled = 0;					//예약취소
+    private Date regDttm;					//등록일시
+    private Date updtDttm;				//수정일시
+    private int usePoint = 0;					//차감포인트
+    private int status = 0;						//상태
+    private String statusText;						//상태
+    /*devices*/
+    private String manufacturer;		//제조사
+    private String prodName;		 		//모델명
+    private String os;						//OS
+    private String resolution;				//화면 사이즈
+    private String osVersion;				//os 버전
+
+	private List<StatisticsEntity> dropOutList = null;
+	private List<StatisticsEntity> dropOutReasonList = null;
+	
+	
 	public int getJoinMember() {
 		return joinMember;
 	}
@@ -234,7 +269,15 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 		this.dropOutCount = dropOutCount;
 	}
 
-	public int getSumDropOutCount() {
+    public int getDropOutMemberCount() {
+        return dropOutMemberCount;
+    }
+
+    public void setDropOutMemberCount(int dropOutMemberCount) {
+        this.dropOutMemberCount = dropOutMemberCount;
+    }
+
+    public int getSumDropOutCount() {
 		return sumDropOutCount;
 	}
 
@@ -250,11 +293,11 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 		this.totDropOutCount = totDropOutCount;
 	}
 
-	public String getDropOutDate() {
+	public Date getDropOutDate() {
 		return dropOutDate;
 	}
 
-	public void setDropOutDate(String dropOutDate) {
+	public void setDropOutDate(Date dropOutDate) {
 		this.dropOutDate = dropOutDate;
 	}
 
@@ -265,8 +308,32 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	public void setDropOutReason(String dropOutReason) {
 		this.dropOutReason = dropOutReason;
 	}
-	
-	public int getTempPassword() {
+
+    public String getMaxDropOutReason() {
+        return maxDropOutReason;
+    }
+
+    public void setMaxDropOutReason(String maxDropOutReason) {
+        this.maxDropOutReason = maxDropOutReason;
+    }
+
+    public int getNumDropOutReason() {
+        return numDropOutReason;
+    }
+
+    public void setNumDropOutReason(int numDropOutReason) {
+        this.numDropOutReason = numDropOutReason;
+    }
+
+    public int getDropOutSearchCount() {
+        return dropOutSearchCount;
+    }
+
+    public void setDropOutSearchCount(int dropOutSearchCount) {
+        this.dropOutSearchCount = dropOutSearchCount;
+    }
+
+    public int getTempPassword() {
 		return tempPassword;
 	}
 
@@ -571,7 +638,31 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 		this.inquiryCount = inquiryCount;
 	}
 
-	public String getAdviceType() {
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public int getAnswerCount() {
+        return answerCount;
+    }
+
+    public void setAnswerCount(int answerCount) {
+        this.answerCount = answerCount;
+    }
+
+    public int getNotAnswerCount() {
+        return notAnswerCount;
+    }
+
+    public void setNotAnswerCount(int notAnswerCount) {
+        this.notAnswerCount = notAnswerCount;
+    }
+
+    public String getAdviceType() {
 		return adviceType;
 	}
 
@@ -593,6 +684,182 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 
 	public void setAdviceTotal(int adviceTotal) {
 		this.adviceTotal = adviceTotal;
+	}
+
+    public int getCableAdviceTotalCount() {
+        return cableAdviceTotalCount;
+    }
+
+    public void setCableAdviceTotalCount(int cableAdviceTotalCount) {
+        this.cableAdviceTotalCount = cableAdviceTotalCount;
+    }
+
+    public int getCableAdviceSearchCount() {
+        return cableAdviceSearchCount;
+    }
+
+    public void setCableAdviceSearchCount(int cableAdviceSearchCount) {
+        this.cableAdviceSearchCount = cableAdviceSearchCount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getReservationNo() {
+        return reservationNo;
+    }
+
+    public void setReservationNo(String reservationNo) {
+        this.reservationNo = reservationNo;
+    }
+
+    public Date getReserveTime() {
+        return reserveTime;
+    }
+
+    public void setReserveTime(Date reserveTime) {
+        this.reserveTime = reserveTime;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Date getStartDttm() {
+        return startDttm;
+    }
+
+    public void setStartDttm(Date startDttm) {
+        this.startDttm = startDttm;
+    }
+
+    public Date getEndDttm() {
+        return endDttm;
+    }
+
+    public void setEndDttm(Date endDttm) {
+        this.endDttm = endDttm;
+    }
+
+    public int getCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(int canceled) {
+        this.canceled = canceled;
+    }
+
+    public Date getRegDttm() {
+        return regDttm;
+    }
+
+    public void setRegDttm(Date regDttm) {
+        this.regDttm = regDttm;
+    }
+
+    public Date getUpdtDttm() {
+        return updtDttm;
+    }
+
+    public void setUpdtDttm(Date updtDttm) {
+        this.updtDttm = updtDttm;
+    }
+
+    public int getUsePoint() {
+        return usePoint;
+    }
+
+    public void setUsePoint(int usePoint) {
+        this.usePoint = usePoint;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getStatusText() {
+        return statusText;
+    }
+
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
+    public String getOsVersion() {
+        return osVersion;
+    }
+
+    public void setOsVersion(String osVersion) {
+        this.osVersion = osVersion;
+    }
+
+    public List<StatisticsEntity> getDropOutList() {
+		return dropOutList;
+	}
+
+	public void setDropOutList(List<StatisticsEntity> dropOutList) {
+		this.dropOutList = dropOutList;
+	}
+
+	public List<StatisticsEntity> getDropOutReasonList() {
+		return dropOutReasonList;
+	}
+
+	public void setDropOutReasonList(List<StatisticsEntity> dropOutReasonList) {
+		this.dropOutReasonList = dropOutReasonList;
 	}
 
 	

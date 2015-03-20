@@ -62,7 +62,13 @@
 						<fmt:formatDate value="${history.ticketStartExpirationDate }" pattern="yyyy-MM-dd"/> 
 						~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd"/>	
 					</td>
-					<td>${history.expirationDate }일</td>
+					<td>
+						<c:choose>
+							<c:when test="${history.expirationDate < 1}">0</c:when>
+							<c:when test="${history.expirationDate > 0}">${history.expirationDate}</c:when>
+						</c:choose>
+						일
+					</td>
 					<td>${history.ticketAvilableAmount }티켓</td>
 					<%-- <td>${history.ticketAmount - ticketInfo.ticketAvilableAmount}티켓</td>
 					<td>${history.ticketAvilableAmount }티켓</td> --%>
@@ -75,6 +81,7 @@
 </div>
 <div class="subMyClappContentDetailsContainer">
 	<form id="reservationForm">
+	<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentDetailsBox">
 		<div class="subMyClappTitleSmallLine"></div>
 		<span class="subMyClappSmallTitle">상세 내역 조회</span>
@@ -141,7 +148,7 @@
 			<div class="subMyClappContentDetailsSearchBottomSection">
 				<div class="smccdsbBox">
 					<input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700">
-					<input type="reset" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">
+					<input type="button" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">
 				</div>
 			</div>
 		</div>
@@ -200,7 +207,7 @@
 					<td>
 						<fmt:formatDate value="${history.startDttm}" pattern="yyyy-MM-dd"/><br/>
 						<fmt:formatDate value="${history.startDttm}" pattern="HH:mm"/>
-						~ <fmt:formatDate value="${history.endDttm}" pattern="HH:mm"/>	
+						~ <fmt:formatDate value="${history.reserveTime}" pattern="HH:mm"/>	
 					</td>
 					<td>
 						<fmt:formatDate value="${history.startDttm}" pattern="yyyy-MM-dd"/><br/>
@@ -229,3 +236,11 @@
 	</div> <!-- .subMyClappContentResultBox End -->
 </form>
 </div>
+<script>
+$(function() {
+ 	if("${ticketHistoryInfo.searchKey}") {
+ 		var term = "${ticketHistoryInfo.searchKey}";
+ 		SearchUtils.setDataTerm('', term);
+ 	}
+});
+</script>

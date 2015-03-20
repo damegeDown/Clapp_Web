@@ -27,33 +27,35 @@ public class Utils {
 	 * @return
 	 */
 	public  static String getRomoteIp(HttpServletRequest request) {
-		return  request.getRemoteHost().toString();
+		//return  request.getRemoteHost().toString();
+		return  request.getRemoteAddr().toString();
 	}
 	/**
 	 * 현재 서버의 IP 주소를 가져옵니다.
 	 *
-	 * @return IP 주소
+	 * @return IP 주소 
 	 */
 	public static String getLocalServerIp(HttpServletRequest request)
 	{
-			return "58.180.17.145";
-//	try
-//	{    
-//	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
-//	   {
-//	       NetworkInterface intf = en.nextElement();
-//	       for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
-//	       {
-//	           InetAddress inetAddress = enumIpAddr.nextElement();
-//	           if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
-//	           {
-//	           	return inetAddress.getHostAddress().toString();
-//	           }
-//	       }
-//	   }
-//	}
-//	catch (Exception ex) {}
-//	return null;
+		//return request.getLocalAddr().toString();
+	try 
+	{    
+	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+	   {
+	       NetworkInterface intf = en.nextElement();
+	       for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+	       {
+	           InetAddress inetAddress = enumIpAddr.nextElement();
+	           if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
+	           {
+	           	return inetAddress.getHostAddress().toString();
+	        	//   return inetAddress;
+	           }
+	       }
+	   }
+	} 
+	catch (Exception ex) {}
+	return null;
 	}
 	/**
 	 * 접속한 아이피와 서버아이피를 비교한다.
@@ -63,7 +65,7 @@ public class Utils {
 	public static  boolean checkRemoteIp(HttpServletRequest request){
 		boolean flag = false;
 		String remoteIp = getRomoteIp(request);
-		String localIp = getLocalServerIp(request);
+		String localIp = "58.180.17.145";//getLocalServerIp(request);
 		if(remoteIp.equals(localIp)) {
 			flag = true;
 		}

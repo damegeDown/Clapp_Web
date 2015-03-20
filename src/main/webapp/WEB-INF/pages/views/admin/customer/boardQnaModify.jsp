@@ -41,19 +41,28 @@
           <textarea class="w780" cols="150" rows="20" id="ir1" name="qnaAnswer" wrap="hard">${boardQnaDetail.qnaAnswer }</textarea>
         </td>
        </tr>
+       <tr>
+        <th>이미지</th>
+        <td>
+        	<img src="${contextPath}/common/imgView?fileType=${boardQnaDetail.fileTarget}&fileName=${boardQnaDetail.fileSavedName}" class="boardQnaImage" style="max-width:800px"/>
+					<input type="hidden" name="fileName" value="${boardQnaDetail.fileName }" data-flag="off"/>
+					<input type="hidden" name="fileSavedName" value="${boardQnaDetail.fileSavedName }" data-flag="off"/>
+          <div class="marT-5"><span>등록된 이미지 : </span><a href="">${boardQnaDetail.fileName }</a></div>
+          <div class="marT-5"><input type="file" name="file" data-flag="off"/></div>
+        </td>
+       </tr> 
        <c:if test="${boardQnaDetail.boardQnaKey ne null}">
        <tr>
        <th>등록 일시</th>
         <td>
-        <fmt:formatDate var="qnaInsertDate" pattern="yyyy/MM/dd HH:mm" value="${boardQnaDetail.qnaInsertDate }" />
-        <input type="text" class="inp-w160 " name="qnaInsertDate" value="${boardQnaDetail.qnaInsertDate }" data-flag ="off" readonly="readonly"/>
+       	 <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardQnaDetail.qnaInsertDate }" />
         </td> 
         </tr>
         </c:if>
        <tr>
         <th>TOP 10 노출 여부</th>
         <td>
-          <label><input type="radio" name="qnaTop10Open" value="N" <c:if test="${boardQnaDetail.qnaTop10Open == 'N'}">checked="checked" </c:if>/>&nbsp;비노출&nbsp;&nbsp;</label>
+          <label><input type="radio" name="qnaTop10Open" value="N" <c:if test="${boardQnaDetail.qnaTop10Open == 'N'}">checked="checked" </c:if>checked/>&nbsp;비노출&nbsp;&nbsp;</label>
           <label><input type="radio" name="qnaTop10Open" value="Y" <c:if test="${boardQnaDetail.qnaTop10Open == 'Y'}">checked="checked" </c:if>/>&nbsp;노출 (TOP 10 가능개수 : <span class="boardQnaTop10">${10 - countExposedBoardQna }</span>개)&nbsp;&nbsp;</label>
         </td>
        </tr>

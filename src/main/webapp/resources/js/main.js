@@ -35,8 +35,11 @@ $(document).ready(function(){
 					htmlWrap.find(".contents").html(popContents);
 					
 					/* 팝업 1주일간 창 열지 않기 체크박스 */ 
-					var checkLabel = $("<label></label>").text(" 1주일간 열지 않기");
+					var checkLabel = $("<label></label>")
+														.css({"cursor" : "pointer"})
+														.text(" 1주일간 열지 않기");
 					var checkBox =  $("<input></input>")
+												.css({"margin-top":"5px","margin-left":"3px", "cursor" : "pointer"})
 												.attr({"type": "checkbox" , "name" : "popupCheck" + popList.popupKey})
 												.click(function() {
 													var name = $(this).attr("name");
@@ -49,7 +52,7 @@ $(document).ready(function(){
 					
 					/* 팝업 창닫기 버튼*/
 					var closeBtn = $("<span></span>")
-											.css({"float":"right","padding-right":"5px"})
+											.css({"float":"right","padding-right":"5px", "margin-top": "2px", "cursor" : "pointer"})
 											.addClass("cancelBtn")
 											.attr("onclick","javascript:$('#popup_"+popList.popupKey+"').hide()")
 											.text("X");

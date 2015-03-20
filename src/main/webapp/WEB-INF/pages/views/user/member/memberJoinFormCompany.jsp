@@ -77,6 +77,7 @@ $(function(){
      return false;
      } else {
        $('.comparison').data('check', true);
+       $('#countdown').hide();
        alert("인증되었습니다.");
      }
     });
@@ -110,6 +111,7 @@ $(function(){
 					            var resultNum = result.resultDATA;
 					            $('.resultNum').val(resultNum);
 		                  alert("입력하신 휴대폰 번호로 인증번호가 발송되었습니다");
+		                  $("#countdown").show();
 		                  CountDownUtils.setMinute(3);
                     }
            },
@@ -405,13 +407,16 @@ var SelectUtils = (function() {
             </div>
           </div>
         </div>
-        <div class="subJoinFormRequiredNameField">
+        <div class="subJoinFormRequiredNameField"  style="height: 80px">
           <div class="sjfrNameLabelBox">
             <span class="sjfrNameLabel">기업•단체명</span>
           </div>
           <div class="sjfrNameInputbox">
             <div class="sjfrNameInputGroup">
-              <input class="sjfrNameInput" type="text" name="userCompanyName" id="tags" data-name="기업•단체명"  />
+              <input class="sjfrNameInput" type="text" name="userCompanyName" id="tags" data-name="기업•단체명" placeholder="(올바른 사용예) 주식회사클앱, 클앱주식회사"/>
+                <p class="smisCorpMessage" style="margin-top: -25px;">
+                    기업.단체명에는 특수문자를 입력하실 수 없습니다.
+                </p>
             </div>
           </div>
         </div>
@@ -491,11 +496,11 @@ var SelectUtils = (function() {
         <div class="sjfrNameInputbox">
           <div class="sjfrNameInputGroup">
             <input class="sjfrNameInput inputCompare" type="text" name="inputCompare"  data-id="false"/>
+            <p class="smisCorpMessage" id="countdown" style="width: 700px; line-height:1.3em; margin-top: -3px; color: blue">3분 이내 입력 ( 남은시간 : <span class="min">3</span>분 : <span class="sec">00</span>초 )</p>
           </div>
         </div>
         <input type="button" class="authenticationBtn comparison" value="인증받기" data-check="false"/>
       </div>
-      <p class="smisCorpMessage" align="center" style="float:left; width:1320px; margin-top:10px;color:blue">3분 이내 입력 ( 남은시간 : <span class="min">3</span>분 : <span class="sec">00</span>초 )</p>
       </div> <!-- .subJoinRequiredSection End -->
       <div class="clear"></div>
       <div class="subJoinFormOptionSection">

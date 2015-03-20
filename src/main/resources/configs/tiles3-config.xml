@@ -24,6 +24,7 @@
   </definition>
   <definition name="blankDef" template="/WEB-INF/pages/layouts/blankTemplate.jsp"/>
   <definition name="guideDef" template="/WEB-INF/pages/layouts/guideTemplate.jsp"/>
+  <definition name="autoGuideDef" template="/WEB-INF/pages/layouts/autoGuideTemplate.jsp"/>
   <definition name="introductionDef" template="/WEB-INF/pages/layouts/introductionTemplate.jsp"/>
   
   <definition name="surveyAnswerForm" extends="blankDef">
@@ -45,6 +46,10 @@
    
   <!-- 회원 -->
   <definition name="guide/*" extends="guideDef">
+	  <put-attribute name="body" value="/WEB-INF/pages/views/user/guide/{1}.jsp" />
+  </definition>
+  
+    <definition name="autoGuide/*" extends="autoGuideDef">
 	  <put-attribute name="body" value="/WEB-INF/pages/views/user/guide/{1}.jsp" />
   </definition>
   

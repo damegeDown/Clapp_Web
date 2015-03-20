@@ -35,7 +35,7 @@ public interface PaymentDAO {
 
   PaymentEntity getPaymentContractDetail(PaymentEntity paymentEntity);
 
-  List<String> getPaymentContractUserDetail(PaymentEntity paymentEntity);
+  List<PaymentEntity> getPaymentContractUserDetail(PaymentEntity paymentEntity);
 
   int modifyContract(PaymentEntity paymentEntity);
   
@@ -64,5 +64,9 @@ public interface PaymentDAO {
   List<PaymentEntity> getPaymentList(PaymentEntity paymentParam);
 
 int getProductInfo(PaymentEntity paymentEntity);
+
+List<PaymentEntity> getUserMasterKeyList(PaymentEntity paymentEntity);
+
+PaymentEntity getContractInfo(PaymentEntity paymentEntity);
 }
  

@@ -9,7 +9,7 @@ import kr.co.clapp.entities.AdministrationFileEntity;
 import kr.co.clapp.entities.BoardEntity;
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
+import kr.co.clapp.entities.ServiceInquiryEntity;   
 import kr.co.clapp.service.board.BoardService;
 import kr.co.clapp.service.customer.CustomerService;
 import kr.co.clapp.service.file.AdministrationFileService;
@@ -20,6 +20,7 @@ import kr.co.digigroove.commons.messages.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -145,8 +146,8 @@ public class IntroductionRestController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping(value = "/insertSupportInquire",  method = RequestMethod.POST)
-	public ResponseEntity insertInquiry(ServiceInquiryEntity inquiryEntity, MultipartHttpServletRequest req) {
+	@RequestMapping(value = "/insertSupportInquire/{var}",  method = RequestMethod.POST)
+	public ResponseEntity insertInquiry(@PathVariable String var, ServiceInquiryEntity inquiryEntity, MultipartHttpServletRequest req) {
       ResponseEntity result = new ResponseEntity();
 	  AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
 	  try {
@@ -155,7 +156,11 @@ public class IntroductionRestController {
 		if(customerService.insertInquiry(inquiryEntity) > CommonCode.ZERO) {
 		  resultCode = ResultCode.SUCCESS; 
 		  resultMessage = messages.getMessage("insert.success"); 
-		  result.setResultURL("/introduction/supportInquireComplete");
+		  if("myInquiry".equals(var)){
+			  result.setResultURL("/myClapp/myInquiryComplet");
+		  } else {
+			  result.setResultURL("/introduction/supportInquireComplete");
+		  }
 		  // 파일 업로드
 		  if(req.getFileNames().hasNext()) { 
 			  administrationFileEntity.setFileTargetKey(inquiryEntity.getServiceInquiryKey());

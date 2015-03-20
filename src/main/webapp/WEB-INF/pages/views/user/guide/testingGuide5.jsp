@@ -15,8 +15,8 @@
 				CLAPP은 Command를 통해 디바이스 제어 및 테스트 환경 제어 기능을 제공합니다.
 			</p>
 		</div>
-		<div class="mtGuide05COCMainImg">
-			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_01.png" alt="" />
+		<div class="mtGuide05COCMainImg" align="center">
+			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_01.png" alt=""/>
 		</div>
 	</div><!-- .mtGuide01COCMainBox End -->
 </div><!-- .mtGuide01ContentOneContainer End -->
@@ -137,19 +137,19 @@
 		</div>
 		<div class="mtGuide05CTCImgTwoBox02">
 			<div class="mtGuide05CTCThreeImg">
-				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_03.png" alt="" />
+				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_03.png" alt=""/>
 			</div>
 		</div>
 		<div class="mtGuide05CTCImgThreeBox03">
 			<div class="mtGuide05CTCThreeImg">
-				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_04.png" alt="" />
+				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_04.png" alt=""/>
 			</div>
 		</div>
 	</div>
 </div><!-- .mtGuide01ContentTwoContainer End -->
 <div class="mtGuide05ContentThreeContainer">
 	<div class="mtGuide05CHCMainBox">
-		<div class="mtGuide05CHCMainImg">
+		<div class="mtGuide05CHCMainImg" align="center">
 			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_05.png" alt="" />
 		</div>
 	</div><!-- .mtGuide01COCMainBox End -->
@@ -225,7 +225,7 @@
 
 <div class="mtGuide05ContentFiveContainer">
 	<div class="mtGuide05CVCMainBox">
-		<div class="mtGuide05CVCMainImg">
+		<div class="mtGuide05CVCMainImg" align="center">
 			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_08.png" alt="" />
 		</div>
 	</div><!-- .mtGuide01COCMainBox End -->
@@ -360,8 +360,8 @@
 
 <div class="mtGuide05ContentSevenContainer">
 	<div class="mtGuide05CECMainBox">
-		<div class="mtGuide05CECMainImg">
-			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_11.png" alt="" />
+		<div class="mtGuide05CECMainImg" align="center">
+			<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_11.png" alt=""/>
 		</div>
 	</div><!-- .mtGuide01COCMainBox End -->
 </div><!-- .mtGuide01ContentOneContainer End -->
@@ -444,7 +444,7 @@
 	<div class="mtGuide05CGCBox02">
 		<div class="mtGuide05CGCImgOneBox01">
 			<div class="mtGuide05CGCOneImg">
-				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_12.png" alt="" />
+				<img src="${contextPath }/resources/images/popup_mtg_control_jnlp_12.png" alt="" style="padding-top: 500px;" />
 			</div>
 		</div>
 	</div>

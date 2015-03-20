@@ -51,14 +51,26 @@
 						</c:choose>							
 					</span>
 				</div>
+				
 				<div class="smisRight">
 					<span class="smisName">
-						<span style="float:left">${userInfo.userName }</span>
+					<c:choose>
+						<c:when test="${userInfo.userType eq 2 }">
+							<span style="float:left">${userInfo.userCompanyName }</span>
+							<span class="smisCorpMessage">
+								&nbsp;(이직 또는 퇴사 등으로 변경 원할 시, 고객지원 전화 또는 1:1문의 요망)
+							</span>
+						</c:when>
+						<c:otherwise>
+							<span style="float:left">${userInfo.userName }</span>
+						</c:otherwise>
+						</c:choose>
+<%-- 						<span style="float:left">${userInfo.userName }</span>
 						<c:if test="${userInfo.userType eq 2 }">
 							<span class="smisCorpMessage">
 								&nbsp;(이직 또는 퇴사 등으로 변경 원할 시, 고객지원 전화 또는 1:1문의 요망)
 							</span>
-						</c:if>
+						</c:if> --%>
 					</span>
 				</div>
 			</div>
@@ -83,12 +95,12 @@
 				<div class="smisRight">
 					<div class="smisCorpNo">
 						<c:set var="compNum" value="${fn:split(userInfo.userCompanyNumber,'-')}"/>
-						<input type="text" class="inp-w60 simsTelInput1 phoneNum" name="cellPhone1" value="${compNum[0]}" data-name="사업자등록번호"/>
+						<input type="text" class="inp-w60 simsTelInput1 phoneNum" name="cellPhone1" value="${compNum[0]}" data-name="사업자등록번호" maxlength="3" data-flag="off"/>
 						<span class="simsTelLine1"></span>
-						<input type="text" class="inp-w60 simsTelInput1 phoneNum" name="cellPhone2" value="${compNum[1]}" data-name="사업자등록번호"/>
-						<span class="simsTelLine2"></span> 
-						<input type="text" class="inp-w60 simsTelInput2 phoneNum" name="cellPhone3" value="${compNum[2]}" data-name="사업자등록번호"/>
-						<input type="hidden" class="phoneNumComp" name="userCompanyNumber" value="${userInfo.userCompanyNumber}"/>
+						<input type="text" class="inp-w60 simsTelInput1 phoneNum" name="cellPhone2" value="${compNum[1]}" data-name="사업자등록번호" maxlength="2" data-flag="off"/>
+						<span class="simsTelLine2"></span>
+						<input type="text" class="inp-w60 simsTelInput2 phoneNum" name="cellPhone3" value="${compNum[2]}" data-name="사업자등록번호" maxlength="5" data-flag="off"/>
+						<input type="hidden" class="phoneNumComp" name="userCompanyNumber" value="${userInfo.userCompanyNumber}" data-flag="off"/>
 						<p class="smisCorpMessage">
 							타 기업의 사업자등록번호를 무단으로 도용하실 경우에는 법적인 처벌을 받습니다.
 						</p>
@@ -100,7 +112,7 @@
 					<span class="smisTitle">담당자명</span>
 				</div>
 				<div class="smisRight">
-					<input type="text" class="smisRepName" name="userStaff"  value="${userInfo.userStaff }"/>
+					<input type="text" class="smisRepName" name="userName"  value="${userInfo.userName }"/>
 				</div>
 			</div>
 			</c:if>

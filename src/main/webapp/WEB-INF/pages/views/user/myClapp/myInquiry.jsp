@@ -127,13 +127,13 @@
     </div>
     <div class="subInquiryContent6">
       <div class="subInquiryContentLeft">
-        <span class="subInquiryContentLeftTitle">파일 첨부</span>
+        <span class="subInquiryContentLeftTitle" style="margin-top:-14px;">파일 첨부</span>
         <span class="subInquiryContentLeftSub">(jpg/gif, zip, pdf 최대 1M)</span>
       </div>
       <div class="subInquiryContentRight">
         <input  type="text" id="fileName" class="sicFileInput" readonly  data-flag="off"/>
         <input type="button" value="찾아보기" class="sicFileBtn" />
-        <input type="file" class="sicFile" name="file" data-flag="off"  onChange="javascript: document.getElementById('fileName').value = this.value" />
+        <input type="file" class="sicFile" name="file" data-flag="off"  onChange="javascript: document.getElementById('fileName').value = this.value.replace('C:\\fakepath\\', '')" />
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@
 <br/>
 <div class="subInquiryContentSubContainer">
   <div class="subInquiryContentSubBox">
-    <p class="subInqP1">
+    <p class="subInqP1">  
       수집하는 개인정보의 항목 및 수집방법
     </p>
     <p class="subInqPSub1">
@@ -152,13 +152,13 @@
       개인정보 수집 및 이용목적 
     </p>
     <p class="subInqPSub1">
-      수집된 개인정보를 문의 및 상담 요청에 대하여 회신을 하거나 회신을 위한 서비스 이용기록 조희를 위하여 활용합니다.
+      수집된 개인정보를 문의 및 상담 요청에 대하여 회신을 하거나 회신을 위한 서비스 이용기록 조회를 위하여 활용합니다.
     </p>
     <p class="subInqP1">
       개인정보의 보유 및 이용기간
     </p>
     <p class="subInqPSub1">
-      수집된 이메일 주소, 이름, 연락처는 관련 법령에 달리 명시되어 있지 않는 한, 문의 처리 후 즉시 파기
+      수집된 이메일 주소, 이름, 연락처는 관련 법령에 달리 명시되어 있지 않는 한, 문의 처리 후 즉시 파기합니다.
     </p>
   </div>
 </div>
@@ -174,7 +174,7 @@
     <img src="${contextPath }/resources/images/buttons_send.png" onclick="inquirySubmit()"  onmouseover="this.src='${contextPath }/resources/images/buttons_send_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_send.png';" alt="보내기" /></a>
     <%-- <input type="image" src="${contextPath }/resources/images/buttons_send.png"data-flag="off"/> --%>
   </div>
-  <div class="submitBtn"  data-action="${contextPath }/introduction/rest/insertSupportInquire" data-msg="등록" style="display:none"></div> 
+  <div class="submitBtn"  data-action="${contextPath }/introduction/rest/insertSupportInquire/myInquiry" data-msg="등록" style="display:none"></div> 
   
 </div>
 </form>

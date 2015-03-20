@@ -53,9 +53,9 @@
 										<c:set var="target" value="_blank"/>
 									</c:if>
 									<a href="${link }" target="${target }">
-										<div class="subTRSocialCHCImgBox">
-											<div class="subTRSocialCHCImg">
-												<img src="${contextPath}/common/imgView?fileType=${boardSocialBlogList.fileTarget}&fileName=${boardSocialBlogList.fileSavedName}" style="max-width:80px;"/>
+										<div class="subTRSocialCHCImgBox alignCenter" style="display:table">
+											<div class="subTRSocialCHCImg" style="display:table-cell;vertical-align:middle;width:80px">
+												<img src="${contextPath}/common/imgView?fileType=${boardSocialBlogList.fileTarget}&fileName=${boardSocialBlogList.fileSavedName}" style="max-width:80px; max-height:80px"/>
 											</div>
 										</div><!-- .subTRSocialContentListRow End -->
 										<div class="subTRSocialCHCTextBox">
@@ -81,9 +81,11 @@
 				<div class="subTRIndusrtyContentBottomBox">
 					<div class="subTRIndusrtyContentMoreImgBox">
 						<div class="subTRIndusrtyContentMoreImg">
-							<span class="nextPage" data-url="socialList" alt="">
-							<img class="images" src="${contextPath}/resources/images/contents_btn_submit_board.png"	onmouseover="this.src='${contextPath}/resources/images/contents_btn_submit_board_more.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_submit_board.png';" alt="more" />
-							</span>
+							<c:if test="${boardEntity.dataSize > 12}">
+								<span class="nextPage" data-url="socialList" alt="">
+									<img class="images" src="${contextPath}/resources/images/contents_btn_submit_board.png"	onmouseover="this.src='${contextPath}/resources/images/contents_btn_submit_board_more.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_submit_board.png';" alt="more" />
+								</span>
+							</c:if>
 							<input type="hidden" id="currentPage" value="${boardEntity.currentPage}" name="currentPage"/>
 						</div><!-- .subTRIndusrtyContentMoreImg End-->
 					</div><!-- .subTRIndusrtyContentMoreImgBox End -->
@@ -126,9 +128,9 @@ $(function(){
 										"<div class='subTRSocialCHCListCols'>"+
 											"<div class='subTRSocialCHCListColsLinkBox'>"+
 												"<a href='"+link +"' target='"+target+"'>"+
-													"<div class='subTRSocialCHCImgBox'>"+
-														"<div class='subTRSocialCHCImg'>"+
-														"<img src='${contextPath}/common/imgView?fileType="+resultList[i].fileTarget+"&fileName="+resultList[i].fileSavedName+"' style='max-width:80px;padding-top: 10px;'/>"+
+													"<div class='subTRSocialCHCImgBox alignCenter' style='display:table'>"+
+														"<div class='subTRSocialCHCImg' style='display:table-cell;vertical-align:middle;width:80px'>"+
+														"<img src='${contextPath}/common/imgView?fileType="+resultList[i].fileTarget+"&fileName="+resultList[i].fileSavedName+"' style='max-width:80px;max-height:80px;'/>"+
 														"</div>"+
 													"</div>"+
 													"<div class='subTRSocialCHCTextBox' style='float:left;width:85%'>"+

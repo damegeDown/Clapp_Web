@@ -14,8 +14,8 @@
     </div>
     <div class="subCISupportFAQOneContainer">
       <c:forEach items="${boardQnaEntity.boardQnaSelectedList }" var="boardQnaSelected" varStatus="j">
-      <div class="subCISupportFOCListArea" style="cursor: pointer;">
-        <div class="titleRow subCISupportFOCListSubjectClose">
+      <div class="subCISupportFOCListArea">
+        <div class="titleRow subCISupportFOCListSubjectClose" style="cursor: pointer;">
           <div class="subCISupportFOCLSC">
             <div class="subCISupportFOCLSCNo">
               <span>${j.index + 1}</span>
@@ -25,7 +25,7 @@
                 ${boardQnaSelected.qnaCategory}
               </span>
             </div><!-- .subCISupportFOCLSOTitle End-->
-            <div class="subCISupportFOCLSCLink">   
+            <div class="subCISupportFOCLSCLink">
                 <div class="subCISupportFOCLSCText qnaQuestion">
                   <span>
                     ${boardQnaSelected.qnaQuestion}
@@ -34,13 +34,13 @@
             </div>
           </div><!-- .subCISupportFOCLSO End -->
         </div><!-- .subCISupportFOCListSubjectOpen -->
-        <div class="subCISupportFOCListContentOpen qnaAnswer" style="display: none; overflow:scroll;">
+        <div class="subCISupportFOCListContentOpen qnaAnswer" style="display: none; overflow:auto;">
           <div class="subCISupportFOCLCO">
             <div class="subCISupportFOCLCOCont">
               <p>
               ${boardQnaSelected.qnaAnswer}
-              <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 서비스별 문의를 이용해 주세요.
               </p>
+              <p><br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.</p>
             </div><!-- .subCISupportFOCLCOCont End-->
           </div><!-- .subCISupportFOCLCO End -->
         </div><!-- .subCISupportFOCListContentOpen End -->
@@ -73,8 +73,8 @@
 
     <div class="subCISupportQAOneContainer">
         <c:forEach items="${boardQnaEntity.boardQnaList }" var="boardQnaList">
-      <div class="subCISupportQOCListArea" style="cursor: pointer;">
-        <div class="titleRow subCISupportQOCListSubjectClose">
+      <div class="subCISupportQOCListArea">
+        <div class="titleRow subCISupportQOCListSubjectClose" style="cursor: pointer;">
           <div class="subCISupportQOCLSC">
             <div class="titleText subCISupportQOCLSCTitle">
               <span>
@@ -92,30 +92,38 @@
             </div>
           </div><!-- .subCISupportQOCLSC End -->
         </div><!-- .subCISupportQOCListSubjectClose End -->
-        <div class="subCISupportQOCListContentOpen qnaAnswer" style="display: none; overflow:scroll;">
+        <div class="subCISupportQOCListContentOpen qnaAnswer" style="display: none; overflow:auto;">
           <div class="subCISupportQOCLCO">
             <div class="subCISupportQOCLCOCont" style="margin-left: -60px;">
               <p>
                 ${boardQnaList.qnaAnswer}
-                <br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 서비스별 문의를 이용해 주세요.
+		            <c:if test="${boardQnaList.fileName ne null}">
+				         <p><img src="${contextPath}/common/imgView?fileType=${boardQnaList.fileTarget}&fileName=${boardQnaList.fileSavedName}" style="max-width:800px"/>
+				         <input type="hidden" name="fileName" value="${boardQnaList.fileName }" data-flag="off"/>
+				         <input type="hidden" name="fileSavedName" value="${boardQnaList.fileSavedName }" data-flag="off"/>
+				         </p>
+		            </c:if>
               </p>
+              <p><br/><br/><br/>※ 더 자세한 답변이 필요하실 때에는 <a href="${contextPath}/introduction/supportInquire?inquiryCategory=5" style="color:#b5d2e6">서비스별 문의</a> 를 이용해 주세요.</p>
             </div><!-- .subCISupportQOCLCOCont End-->
           </div><!-- .subCISupportQOCLCO End -->
         </div><!-- .subCISupportQOCListContentOpen End -->
       </div><!-- .subCISupportQOCList End -->
         </c:forEach>
         <c:if test="${boardQnaEntity.boardQnaList.size() < 1 }">
-        <div class="subCISupportQOCListSubjectClose">
-          <div class="subCISupportQOCLSC">
-            <div class="subCISupportQOCLSCLink">
-                <div class="subCISupportQOCLSCText">
-                  <span>
-                    +++조회된 내용이 없습니다+++
+            <div class="titleRow subCISupportQOCListSubjectClose">
+                <div class="subCISupportQOCLSC">
+                    <div class="titleText subCISupportQOCLSCTitle">
+                    </div>
+                    <div class="subCISupportQOCLSCLink">
+                        <div class="subCISupportQOCLSCText">
+                  <span style="margin-left: 260px;">
+                       +++조회된 내용이 없습니다+++
                   </span>
-                </div><!-- .subCISupportQOCLSCText End-->
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div><!-- .subCISupportQOCLSC End -->
-        </div><!-- .subCISupportQOCListSubjectClose End -->
         </c:if>
 
       <div class="subCISupportQOCPagingWrap">
@@ -148,12 +156,12 @@ $(document).ready(function(){
 		});
 		$(".subCISupportFAQOneContainer .titleRow").each(function() {
 			var titleRow = $(this);
-			titleRow.removeClass("subCISupportFOCListSubjectOpen").addClass("subCISupportFOCListSubjectClose");
-			titleRow.find(".subCISupportFOCLSO").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO");
-			titleRow.find(".subCISupportFOCLSONo").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo");
-			titleRow.find(".subCISupportFOCLSOTitle").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle");
-			titleRow.find(".subCISupportFOCLSOLink").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink");
-			titleRow.find(".subCISupportFOCLSOText").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText");
+			titleRow.removeClass("subCISupportFOCListSubjectOpen1").addClass("subCISupportFOCListSubjectClose");
+			titleRow.find(".subCISupportFOCLSO1").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO1");
+			titleRow.find(".subCISupportFOCLSONo1").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo1");
+			titleRow.find(".subCISupportFOCLSOTitle1").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle1");
+			titleRow.find(".subCISupportFOCLSOLink1").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink1");
+			titleRow.find(".subCISupportFOCLSOText1").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText1");
 		});
   
         onQnaAnswer.toggle();
@@ -187,12 +195,12 @@ $(document).ready(function(){
         
         $(".subCISupportFAQOneContainer .titleRow").each(function() {
           var titleRow = $(this);
-          titleRow.removeClass("subCISupportFOCListSubjectOpen").addClass("subCISupportFOCListSubjectClose");
-          titleRow.find(".subCISupportFOCLSO").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO");
-          titleRow.find(".subCISupportFOCLSONo").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo");
-          titleRow.find(".subCISupportFOCLSOTitle").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle");
-          titleRow.find(".subCISupportFOCLSOLink").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink");
-          titleRow.find(".subCISupportFOCLSOText").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText");
+          titleRow.removeClass("subCISupportFOCListSubjectOpen1").addClass("subCISupportFOCListSubjectClose");
+          titleRow.find(".subCISupportFOCLSO1").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO1");
+          titleRow.find(".subCISupportFOCLSONo1").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo1");
+          titleRow.find(".subCISupportFOCLSOTitle1").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle1");
+          titleRow.find(".subCISupportFOCLSOLink1").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink1");
+          titleRow.find(".subCISupportFOCLSOText1").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText1");
         });
         $(".subCISupportQAOneContainer .titleRow").each(function() {
             var titleRow = $(this);
@@ -207,19 +215,19 @@ $(document).ready(function(){
         onQnaAnswer.toggle();
         var isVisible = onQnaAnswer.is(":visible");
         if (isVisible) {
-            that.children(".titleRow").addClass("subCISupportFOCListSubjectOpen").removeClass("subCISupportFOCListSubjectClose");
-            that.find(".subCISupportFOCLSC").addClass("subCISupportFOCLSO").removeClass("subCISupportFOCLSC");
-            that.find(".subCISupportFOCLSCNo").addClass("subCISupportFOCLSONo").removeClass("subCISupportFOCLSCNo");
-            that.find(".subCISupportFOCLSCTitle").addClass("subCISupportFOCLSOTitle").removeClass("subCISupportFOCLSCTitle");
-            that.find(".subCISupportFOCLSCLink").addClass("subCISupportFOCLSOLink").removeClass("subCISupportFOCLSCLink");
-            that.find(".subCISupportFOCLSCText").addClass("subCISupportFOCLSOText").removeClass("subCISupportFOCLSCText");
+            that.children(".titleRow").addClass("subCISupportFOCListSubjectOpen1").removeClass("subCISupportFOCListSubjectClose");
+            that.find(".subCISupportFOCLSC").addClass("subCISupportFOCLSO1").removeClass("subCISupportFOCLSC");
+            that.find(".subCISupportFOCLSCNo").addClass("subCISupportFOCLSONo1").removeClass("subCISupportFOCLSCNo");
+            that.find(".subCISupportFOCLSCTitle").addClass("subCISupportFOCLSOTitle1").removeClass("subCISupportFOCLSCTitle");
+            that.find(".subCISupportFOCLSCLink").addClass("subCISupportFOCLSOLink1").removeClass("subCISupportFOCLSCLink");
+            that.find(".subCISupportFOCLSCText").addClass("subCISupportFOCLSOText1").removeClass("subCISupportFOCLSCText");
         } else {
-            that.children(".titleRow").addClass("subCISupportFOCListSubjectClose").removeClass("subCISupportFOCListSubjectOpen");
-            that.find(".subCISupportFOCLSO").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO");
-            that.find(".subCISupportFOCLSONo").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo");
-            that.find(".subCISupportFOCLSOTitle").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle");
-            that.find(".subCISupportFOCLSOLink").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink");
-            that.find(".subCISupportFOCLSOText").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText");
+            that.children(".titleRow").addClass("subCISupportFOCListSubjectClose").removeClass("subCISupportFOCListSubjectOpen1");
+            that.find(".subCISupportFOCLSO1").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO1");
+            that.find(".subCISupportFOCLSONo1").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo1");
+            that.find(".subCISupportFOCLSOTitle1").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle1");
+            that.find(".subCISupportFOCLSOLink1").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink1");
+            that.find(".subCISupportFOCLSOText1").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText1");
         }
       });
 });
