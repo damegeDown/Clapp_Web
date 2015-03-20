@@ -89,7 +89,7 @@ public class EcrmRestController {
    * 설문 답변 (홈페이지로 이동되었을시) 
    * @param ecrmEntity
    * @return
-   */
+   **************commoncontroller 로 이동 
   @RequestMapping(value="/insertSurveyAnswer", method=RequestMethod.POST)
   public ResponseEntity insertSurveyAnswer(EcrmEntity ecrmEntity) {
 	ResponseEntity response = new ResponseEntity();
@@ -118,4 +118,5 @@ public class EcrmRestController {
 	}
 	return response;
   }
+  */
 }

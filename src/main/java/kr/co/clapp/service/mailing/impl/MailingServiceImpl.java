@@ -339,10 +339,10 @@ public class MailingServiceImpl implements MailingService {
 		}
 		mailSendInfo.setSentDate(mailSendStartDate);
 
-		ecrmEntity.setMailContent("<a href='"+serviceURL+"/admin/ecrm/surveyAnswerForm?surveyMasterKey="+ecrmEntity.getSurveyMasterKey()+"'>설문 하러가기</a>");
-		
-        // Data
- 		emailData.put("contents", ecrmEntity);
+		ecrmEntity.setMailContent("<a href='"+serviceURL+"/surveyAnswerForm?surveyMasterKey="+ecrmEntity.getSurveyMasterKey()+"'>설문 하러가기</a>");
+		 
+        // Data 
+ 		emailData.put("contents", ecrmEntity); 
  		emailData.put("surveyMasterKey", ecrmEntity.getSurveyMasterKey());
  		//emailData.put("action", serviceURL+"/admin/ecrm/rest/insertSurveyAnswer");
 		result =  sendMail(mailSendInfo, emailData);
