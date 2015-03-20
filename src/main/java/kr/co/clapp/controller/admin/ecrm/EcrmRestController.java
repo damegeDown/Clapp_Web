@@ -60,7 +60,7 @@ public class EcrmRestController {
   }
 
     @RequestMapping(value="/insertSurveyMaster", method=RequestMethod.POST)
-    public ResponseEntity insertSurveyMaster(EcrmEntity ecrmEntity, HttpServletRequest request) {
+    public ResponseEntity insertSurveyMaster(EcrmEntity ecrmEntity) {
         ResponseEntity result = new ResponseEntity();
         try{
             String resultCode = ResultCode.FAIL;
@@ -68,7 +68,7 @@ public class EcrmRestController {
             if(ecrmService.insertSurveyMaster(ecrmEntity) > CommonCode.ZERO) {
                 resultCode = ResultCode.SUCCESS;
                 resultMessage = messages.getMessage("insert.success");
-                if(mailingService.sendSurvey(ecrmEntity,request) > CommonCode.ZERO) {
+                if(mailingService.sendSurvey(ecrmEntity) > CommonCode.ZERO) {
                     // 메일 발송 성공
                     ecrmEntity.setMailState(CommonCode.SUCCESS_NO);
                 } else {
