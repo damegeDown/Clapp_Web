@@ -146,7 +146,7 @@ public class EcrmController {
    * @param ecrmEntity
    * @param model
    * @return
-   */
+   ******* commonController로 이동 
   @RequestMapping("/surveyAnswerForm")
   public String surveyAnswerForm(EcrmEntity ecrmEntity, Model model) {
 	try{
@@ -164,6 +164,7 @@ public class EcrmController {
 	} 
 	return "surveyAnswerForm";
   }
+  */
   /**
    * 메일 확인
    * @param statisticeEntity

@@ -53,7 +53,7 @@
 		</c:forEach>
 	</div>
 	<div class="btnArea">
-		<input type="button" class="btn submitBtn" data-action="${contextPath }/admin/ecrm/rest/insertSurveyAnswer" data-msg="설문발송" value="설문발송"/>
+		<input type="button" class="btn submitBtn" data-action="${contextPath }/insertSurveyAnswer" data-msg="설문발송" value="설문발송"/>
 	</div>
 </form>
 </div> 

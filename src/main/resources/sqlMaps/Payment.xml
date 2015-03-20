@@ -414,12 +414,9 @@
 		  FN_GET_VAT_EXCEPT_AMOUNT(SUM(pm.payment_total_price)) paymentNotVatTotalPrice,
 		  SUM(pm.payment_total_price) paymentTotalPrice
 		FROM 
-			PAYMENT_MASTER pm,
-			PAYMENT_DETAIL pd
+			PAYMENT_MASTER pm 
 		WHERE
-			pm.payment_master_key = pd.payment_master_key
-		AND
-			pm.payment_state = 2
+			pm.payment_state = 1
 		AND	
 			DATE_FORMAT(pm.payment_date, '%Y/%m/%d')  LIKE '${searchValue}%'
 		GROUP BY
@@ -452,7 +449,7 @@
 		AND
 			cm.contract_state = 1
 		AND	
-			cm.contract_start_date LIKE '${searchValue}%'
+			DATE_FORMAT(cm.contract_start_date, '%Y/%m/%d')  LIKE '${searchValue}%'
 		GROUP BY
 		<choose>
 				<when test="searchKey == 'date'">
