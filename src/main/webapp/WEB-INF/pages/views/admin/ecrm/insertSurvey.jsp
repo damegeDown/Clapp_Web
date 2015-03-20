@@ -138,7 +138,7 @@
 	 <div class="btn-area">
 		<input type="button" onclick="SurveyUtils.createSurvey('freeView')" class="btn freeViewBtn" data-type="freeView" value="미리보기"/>
 		<!-- <input type="button" class="btn freeViewBtn" data-type="submit" value="설문발송"/> -->
-		<input type="button" class="btn submitBtn" data-action="${contextPath }/admin/ecrm/rest/insertSurvey" data-msg="설문발송" value="설문발송"/>
+		<input type="button" class="btn submitBtn" data-action="${contextPath }/admin/ecrm/rest/insertSurveyMaster" data-msg="설문발송" value="설문발송"/>
 		<input type="button" class="btn" onclick="SurveyUtils.goBack()" value="취소"/>
 		<input type="hidden" name="surveyTemp" data-flag="off"/>
 	 </div> 
