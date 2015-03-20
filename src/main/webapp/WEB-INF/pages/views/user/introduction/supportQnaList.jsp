@@ -25,7 +25,7 @@
                 ${boardQnaSelected.qnaCategory}
               </span>
             </div><!-- .subCISupportFOCLSOTitle End-->
-            <div class="subCISupportFOCLSCLink">   
+            <div class="subCISupportFOCLSCLink">
                 <div class="subCISupportFOCLSCText qnaQuestion">
                   <span>
                     ${boardQnaSelected.qnaQuestion}
@@ -111,17 +111,19 @@
       </div><!-- .subCISupportQOCList End -->
         </c:forEach>
         <c:if test="${boardQnaEntity.boardQnaList.size() < 1 }">
-        <div class="subCISupportQOCListSubjectClose">
-          <div class="subCISupportQOCLSC">
-            <div class="subCISupportQOCLSCLink">
-                <div class="subCISupportQOCLSCText">
-                  <span>
-                    +++조회된 내용이 없습니다+++
+            <div class="titleRow subCISupportQOCListSubjectClose">
+                <div class="subCISupportQOCLSC">
+                    <div class="titleText subCISupportQOCLSCTitle">
+                    </div>
+                    <div class="subCISupportQOCLSCLink">
+                        <div class="subCISupportQOCLSCText">
+                  <span style="margin-left: 260px;">
+                       +++조회된 내용이 없습니다+++
                   </span>
-                </div><!-- .subCISupportQOCLSCText End-->
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div><!-- .subCISupportQOCLSC End -->
-        </div><!-- .subCISupportQOCListSubjectClose End -->
         </c:if>
 
       <div class="subCISupportQOCPagingWrap">
@@ -154,12 +156,12 @@ $(document).ready(function(){
 		});
 		$(".subCISupportFAQOneContainer .titleRow").each(function() {
 			var titleRow = $(this);
-			titleRow.removeClass("subCISupportFOCListSubjectOpen").addClass("subCISupportFOCListSubjectClose");
-			titleRow.find(".subCISupportFOCLSO").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO");
-			titleRow.find(".subCISupportFOCLSONo").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo");
-			titleRow.find(".subCISupportFOCLSOTitle").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle");
-			titleRow.find(".subCISupportFOCLSOLink").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink");
-			titleRow.find(".subCISupportFOCLSOText").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText");
+			titleRow.removeClass("subCISupportFOCListSubjectOpen1").addClass("subCISupportFOCListSubjectClose");
+			titleRow.find(".subCISupportFOCLSO1").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO1");
+			titleRow.find(".subCISupportFOCLSONo1").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo1");
+			titleRow.find(".subCISupportFOCLSOTitle1").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle1");
+			titleRow.find(".subCISupportFOCLSOLink1").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink1");
+			titleRow.find(".subCISupportFOCLSOText1").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText1");
 		});
   
         onQnaAnswer.toggle();
@@ -193,12 +195,12 @@ $(document).ready(function(){
         
         $(".subCISupportFAQOneContainer .titleRow").each(function() {
           var titleRow = $(this);
-          titleRow.removeClass("subCISupportFOCListSubjectOpen").addClass("subCISupportFOCListSubjectClose");
-          titleRow.find(".subCISupportFOCLSO").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO");
-          titleRow.find(".subCISupportFOCLSONo").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo");
-          titleRow.find(".subCISupportFOCLSOTitle").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle");
-          titleRow.find(".subCISupportFOCLSOLink").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink");
-          titleRow.find(".subCISupportFOCLSOText").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText");
+          titleRow.removeClass("subCISupportFOCListSubjectOpen1").addClass("subCISupportFOCListSubjectClose");
+          titleRow.find(".subCISupportFOCLSO1").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO1");
+          titleRow.find(".subCISupportFOCLSONo1").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo1");
+          titleRow.find(".subCISupportFOCLSOTitle1").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle1");
+          titleRow.find(".subCISupportFOCLSOLink1").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink1");
+          titleRow.find(".subCISupportFOCLSOText1").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText1");
         });
         $(".subCISupportQAOneContainer .titleRow").each(function() {
             var titleRow = $(this);
@@ -213,19 +215,19 @@ $(document).ready(function(){
         onQnaAnswer.toggle();
         var isVisible = onQnaAnswer.is(":visible");
         if (isVisible) {
-            that.children(".titleRow").addClass("subCISupportFOCListSubjectOpen").removeClass("subCISupportFOCListSubjectClose");
-            that.find(".subCISupportFOCLSC").addClass("subCISupportFOCLSO").removeClass("subCISupportFOCLSC");
-            that.find(".subCISupportFOCLSCNo").addClass("subCISupportFOCLSONo").removeClass("subCISupportFOCLSCNo");
-            that.find(".subCISupportFOCLSCTitle").addClass("subCISupportFOCLSOTitle").removeClass("subCISupportFOCLSCTitle");
-            that.find(".subCISupportFOCLSCLink").addClass("subCISupportFOCLSOLink").removeClass("subCISupportFOCLSCLink");
-            that.find(".subCISupportFOCLSCText").addClass("subCISupportFOCLSOText").removeClass("subCISupportFOCLSCText");
+            that.children(".titleRow").addClass("subCISupportFOCListSubjectOpen1").removeClass("subCISupportFOCListSubjectClose");
+            that.find(".subCISupportFOCLSC").addClass("subCISupportFOCLSO1").removeClass("subCISupportFOCLSC");
+            that.find(".subCISupportFOCLSCNo").addClass("subCISupportFOCLSONo1").removeClass("subCISupportFOCLSCNo");
+            that.find(".subCISupportFOCLSCTitle").addClass("subCISupportFOCLSOTitle1").removeClass("subCISupportFOCLSCTitle");
+            that.find(".subCISupportFOCLSCLink").addClass("subCISupportFOCLSOLink1").removeClass("subCISupportFOCLSCLink");
+            that.find(".subCISupportFOCLSCText").addClass("subCISupportFOCLSOText1").removeClass("subCISupportFOCLSCText");
         } else {
-            that.children(".titleRow").addClass("subCISupportFOCListSubjectClose").removeClass("subCISupportFOCListSubjectOpen");
-            that.find(".subCISupportFOCLSO").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO");
-            that.find(".subCISupportFOCLSONo").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo");
-            that.find(".subCISupportFOCLSOTitle").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle");
-            that.find(".subCISupportFOCLSOLink").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink");
-            that.find(".subCISupportFOCLSOText").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText");
+            that.children(".titleRow").addClass("subCISupportFOCListSubjectClose").removeClass("subCISupportFOCListSubjectOpen1");
+            that.find(".subCISupportFOCLSO1").addClass("subCISupportFOCLSC").removeClass("subCISupportFOCLSO1");
+            that.find(".subCISupportFOCLSONo1").addClass("subCISupportFOCLSCNo").removeClass("subCISupportFOCLSONo1");
+            that.find(".subCISupportFOCLSOTitle1").addClass("subCISupportFOCLSCTitle").removeClass("subCISupportFOCLSOTitle1");
+            that.find(".subCISupportFOCLSOLink1").addClass("subCISupportFOCLSCLink").removeClass("subCISupportFOCLSOLink1");
+            that.find(".subCISupportFOCLSOText1").addClass("subCISupportFOCLSCText").removeClass("subCISupportFOCLSOText1");
         }
       });
 });

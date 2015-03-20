@@ -922,25 +922,25 @@
       bq.QNA_INSERT_NAME,
       bq.QNA_INSERT_DATE,
       bq.QNA_REMOVE_DATE,
-			af.FILE_KEY,
-			af.FILE_TARGET_KEY,
-			af.FILE_TARGET,
-			af.FILE_NAME,
-			af.FILE_SAVED_NAME,
-			af.FILE_PATH,
-			af.FILE_SIZE,
-			af.FILE_EXTENSION,
-			af.FILE_WIDTH,
-			af.FILE_HEIGHT 
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT
     FROM 
       BOARD_QNA bq
-				LEFT OUTER JOIN
-					ADMINISTRATION_FILE af
-						ON bq.board_qna_key = af.file_target_key
-							AND af.file_target = 'QNA'
-								<if test="fileType != null and fileType != ''">
-									AND af.file_type = #{fileType}
-								</if>
+        LEFT OUTER JOIN
+            ADMINISTRATION_FILE af
+        ON bq.board_qna_key = af.file_target_key
+           AND af.file_target = 'QNA'
+            <if test="fileType != null and fileType != ''">
+                AND af.file_type = #{fileType}
+            </if>
     WHERE
       bq.QNA_REMOVE_DATE IS NULL
       <if test="qnaTop10Open != '' and qnaTop10Open != null">
@@ -967,6 +967,10 @@
      BOARD_QNA
    WHERE
       QNA_REMOVE_DATE IS NULL
+      <if test="searchValue != '' and searchValue != null">
+          AND
+          QNA_CATEGORY = #{searchValue}
+      </if>
   </select>
   <!-- //사용자 도움말 카운트-->
 </mapper>
