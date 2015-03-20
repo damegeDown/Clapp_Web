@@ -52,7 +52,7 @@ $(function() {
 				setCookie("savedId", "", -1);
 	    	}
 	    	//history.go(-2);
-	    	location.href = contextPath + "/";
+	    	location.href = contextPath+"/myClapp/myTicket";
 	    	
         } else {
         	alert(result.resultMSG);
@@ -108,7 +108,7 @@ $(function() {
       <div class="loginContentTopBox">
         <div class="loginContentTopLeft">
           <div class="loginTopLeft1">
-            <input type="text" class="loginID" name="userId" onblur='check(this)'  placeholder="아이디 (이메일 주소)"  />
+            <input type="text" class="loginID" name="userId"   placeholder="아이디 (이메일 주소)"  />
           </div>
           <div class="loginTopLeft2">
             <input type="password" class="loginPW" name="userPassword"     placeholder="비밀번호 입력"  onkeydown="Enter_Check(event)" />
@@ -119,7 +119,8 @@ $(function() {
           </div>
         </div>
         <div class="loginContentTopRight">
-          <div class="loginBtn"  onclick="check(obj)">
+          <!-- <div class="loginBtn"  onclick="check(obj)"> -->
+          <div class="loginBtn" >
             <img class="mloginBtn" src="${contextPath }/resources/images/buttons_login2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_login2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_login2.png';" alt="로그인" />
           </div>
         </div>

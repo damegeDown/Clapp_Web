@@ -104,7 +104,7 @@
 	</div>
 	<div class="mtGuide02CTCBox02">
 		<div class="mtGuide02CTCImgBox">
-			<div class="mtGuide02CTCImg">
+			<div class="mtGuide02CTCImg">	
 				<img src="${contextPath }/resources/images/popup_mtg_reserve_jnlp_01.png" alt="08" />
 			</div>
 		</div>

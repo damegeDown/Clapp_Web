@@ -5,7 +5,7 @@
 <%@ taglib prefix="numbers" uri="/WEB-INF/tlds/Numbers.tld" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="statisticsLength" value="${statisticsEntity.statisticsList.size() }"/>
-<h3 class="floatL" >> 수시 발송용 / 타켓 메일</h3>
+<div class="floatL" >> 수시 발송용 / 타켓 메일</div>
 <table class="board-list" style="width:1200px">
 	<thead> 
 		<tr>

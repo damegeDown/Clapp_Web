@@ -19,11 +19,6 @@
 						<div class="marT-5">
 						  <div class="floatL">
 							<span class="span-w120">연락처</span>
-							<select class="sel-w100" name="searchKey">
-	              <option value="1"  <c:if test="${memberEntity.searchKey eq 1}"> selected</c:if>>휴대폰</option>
-	              <option value="2"  <c:if test="${memberEntity.searchKey eq 2}"> selected</c:if>>일반</option>
-	              <option value="3"  <c:if test="${memberEntity.searchKey eq 3}"> selected</c:if>>해외</option>
-	            </select>
 	            <c:set var="phoneNum" value="${fn:split(memberEntity.searchValue2,'-')}"/>
 	            <input type="text" class="inp-w60 phoneNum" value="${phoneNum[0]}" maxlength="4" placeholder="국번"/> - 
 	            <input type="text" class="inp-w60 phoneNum" value="${phoneNum[1]}" maxlength="4"/> - 
@@ -31,7 +26,7 @@
 	            <input type="hidden" class="phoneNumComp" name="searchValue2" value="${memberEntity.searchValue2}"/>
 	            </div>
               <div class="floatL">
-              <span class="marL-15 span-w30 floatL" style="padding-right: 22px">지역</span>
+              <span class="marL-15 span-w30 floatL" style="padding-right: 26px; padding-top: 7px; padding-left: 101px;">지역</span>
               <select class="floatL sel-w80" name="userAreaType" data-type="AREA" data-wrap="userArea">
                 <option value="">-선택-</option>
                 <option value="1" data-val="1">국내</option>
@@ -49,8 +44,8 @@
                   <option value="${code.commonCode }" <c:if test="${memberEntity.searchValue3 eq code.commonCode }">selected</c:if>>${code.commonName }</option>
                 </c:forEach>
               </select>
-              <span class="marL-15 span-w30">직종</span>
-              <select class="sel-w140" name="searchValue4">
+              <span class="marL-15 span-w30" style="margin-left: 175px; padding-right: 22px;">직종</span>
+              <select class="sel-w140" name="searchValue4" style="width: 190px;">
                  <option value="">전체</option>
                  <c:forEach items="${userJobTypeCode }" var="code">
                    <option value="${code.commonCode }" <c:if test="${memberEntity.searchValue4 eq code.commonCode }">selected</c:if>>${code.commonName }</option>

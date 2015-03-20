@@ -32,7 +32,7 @@ var sendCertificationNum = function(userCellPhoneNumber) {
 		data : {userCellPhoneNumber : $("input[name=userCellPhoneNumber]").val()},
 		success : function(data) {
 			$("input[name=certificationNum]").val(data);
-			alert("변경하실 휴대폰으로 인증번호를 발송해 드렸습니다. 확인 후, 아래 인증번호 재입력에 6자리 숫자를 입력해 주세요.");
+			alert("회원님의 휴대폰 번호로 인증번호가 발송되었습니다. 확인 후, 아래 인증번호 입력에 6자리 숫자를 입력해 주세요.");
 			CountDownUtils.setMinute(3);
 		},
 		error : function(e) {

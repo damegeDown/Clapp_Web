@@ -234,7 +234,7 @@
               <div class="subTRReviewCHCTextBox">
                 <div class="subTRReviewCHCText">
                   <p>
-                    <a href="#">
+                    <a href="${socialBlogList.facebookLink }" target="_blank">
                     ${socialBlogList.socialBlogTitle}</a>
                   </p>
                   <span>

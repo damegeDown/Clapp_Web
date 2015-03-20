@@ -5,7 +5,7 @@
 <%@ taglib prefix="numbers" uri="/WEB-INF/tlds/Numbers.tld" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
  <div style="width:100%;">
-		<h3 class="floatL" style="margin-top:15px">유선상담 내역</h3>
+		<div class="floatL" style="margin-top:15px">유선상담 내역</div>
 		<a href="${contextPath }/excel/ticketProductReport"><input type="button" class="btn floatR" value="엑셀 다운로드"/></a>
  </div>
  <c:set var="statisticsLength" value="${statisticsEntity.statisticsList.size() }"/>

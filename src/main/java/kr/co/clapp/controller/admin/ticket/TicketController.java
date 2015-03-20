@@ -1,23 +1,24 @@
 package kr.co.clapp.controller.admin.ticket;
 
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.entities.CommonCodeEntity;
+import kr.co.clapp.entities.ProductEntity;
 import kr.co.clapp.entities.TicketEntity;
 import kr.co.clapp.service.common.CommonService;
+import kr.co.clapp.service.product.ProductService;
 import kr.co.clapp.service.ticket.TicketService;
 import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -27,6 +28,8 @@ public class TicketController {
   
   @Autowired
   private TicketService ticketService;
+  @Autowired
+  private ProductService productService;
   
   @Autowired
   private CommonService commonService;
@@ -42,11 +45,12 @@ public class TicketController {
   @RequestMapping("/ticket/userTicketUsedList")
   public String userTicketUsedList(TicketEntity ticketEntity, Model model){
 	  	try{
-		  	Calendar oCalendar = Calendar.getInstance( );
+            java.util.Calendar cal = java.util.Calendar.getInstance();
 			//처음 페이지 접속시 현재달의 날짜로 세팅
 		  	if(StringUtils.isEmpty(ticketEntity.getStartDate())) {
-				ticketEntity.setStartDate(oCalendar.get(Calendar.YEAR)+"/"+(oCalendar.get(Calendar.MONTH) + 1)+"/01"); //시작일
-				ticketEntity.setEndDate(oCalendar.get(Calendar.YEAR)+"/"+(oCalendar.get(Calendar.MONTH) + 1)+"/"+oCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)); //종료일
+                ticketEntity.setStartDate(String.valueOf(cal.get(cal.YEAR)+"/")+String.valueOf(cal.get(cal.MONTH)+1)+"/01"); //시작일
+                ticketEntity.setEndDate(String.valueOf(cal.get(cal.YEAR) + "/") + String.valueOf(cal.get(cal.MONTH) + 1) + "/" + String.valueOf(cal.get(cal.DATE))); //종료일
+
 		  	}
 	  		//공통코드 
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
@@ -141,6 +145,7 @@ public class TicketController {
 	  	String navigation = "티켓 / 상품 적용 서비스 > 신규 적용";
 		String submitType = "등록";
 		String submitAction = "admin/ticket/rest/insertTicketProductService";
+		ProductEntity productInfo = new ProductEntity();
 		try {
 			//공통코드 
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
@@ -156,7 +161,10 @@ public class TicketController {
 			commonCodeEntity.setCodeMasterCode(CommonCode.PRODUCT_TYPE);
 			//공통코드 상품 타입 코드
 			List<CommonCodeEntity> productTypeCode = commonService.getCommonCodeList(commonCodeEntity);
+			//상품정보
+			productInfo = productService.getProductList(productInfo);
 			
+			model.addAttribute("productInfo", productInfo);
 			model.addAttribute("ticketEntity", ticketEntity);														
 			model.addAttribute("userTypeCode", userTypeCode);														//공통코드 유저 일반,기업/단체 구분 코드
 			model.addAttribute("serviceApplyReasonCode", serviceApplyReasonCode);									//공통코드 티켓 적용 사유 코드

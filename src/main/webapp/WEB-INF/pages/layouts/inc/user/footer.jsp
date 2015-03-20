@@ -7,11 +7,11 @@
     <div class="wbcBox1">
       <div class="wbcBox1Con">
         <div class="wbcBox1BtLogo">
-          <img src="${contextPath }/resources/images/clapp_bt_logo.png" alt="CLAPP" />
+          <a href="${contextPath}/"><img src="${contextPath }/resources/images/clapp_bt_logo.png" alt="CLAPP" /></a>
         </div>
         <div class="wbcBox1BtCompanyInfo">
           <span class="wbcCompanyName">(주)메디오피아테크</span>
-          <span class="wbcCeo">대표이사: 장일홍</span>
+          <span class="wbcCeo">대표이사: 신성균</span>
                         <span class="wbcCompanyAddress">주소: 서울 강남구 도곡로 182, 4층</span>
           <span class="wbcCompanyNumber">사업자번호: 220-87-36025<span class="mdash">|</span><a class="corpConfirm" href="http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2208736025" target="_blank">사업자정보확인</a><span class="corparrow"></span></span>
           <span class="wbcCompanyNumber2">통신판매업: 제 강남-15728호</span>
@@ -70,7 +70,7 @@
       </div>
       <div class="wrapFooterMenu">
         <ul>
-          <li><a href="${contextPath }/common/privacy">개인정보 취급방침</a></li>
+          <li><a href="${contextPath }/common/privacy" style="font-size:14px;font-weight: 900;">개인정보 처리방침</a></li>
           <li class="ftmLine"></li>
           <li><a href="${contextPath }/common/terms">이용약관</a></li>
           <li class="ftmLine"></li>
@@ -128,7 +128,7 @@ var JnlpUtils = (function() {
 	
 	var callJnlp = function(userMasterKey , userKey) {
 		var agt = navigator.userAgent.toLowerCase();
-	    $.getJSON("http://system.clapp.co.kr/test_base/jnlpDownload.do?id="+userMasterKey+"&userKey="+userKey,
+	    $.getJSON("//system.clapp.co.kr/test_base/jnlpDownload.do?id="+userMasterKey+"&userKey="+userKey,
 	    	function(data) {
 	            if(data.result) {
                     //사파리 브라우저에서는 파일 다운로드

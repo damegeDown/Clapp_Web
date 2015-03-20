@@ -21,7 +21,7 @@ $(function() {
 					<input type="text" id="from" class="date" name="startDate" value="${ticketEntity.startDate}"/> ~ <input type="text" id="to" class="date" name="endDate" value="${ticketEntity.endDate }"/>
 					<span class="marL-15 span-w60">회원구분</span>
 					<select class="sel-w70" name="searchValue">
-					<option value="">전체</option>
+					<option value="">전체 보기</option>
 						<c:forEach items="${serviceTargetTypeCode}" var="code">
 						 <option value="${code.commonCode }"  <c:if test="${ticketEntity.searchValue eq code.commonCode }">selected</c:if>>${code.commonName }</option>
 						</c:forEach>
@@ -62,16 +62,7 @@ $(function() {
 			</form>
 	</div>
 	<table class="board-list">
-		<colgroup>
-			<col width="5%"/>
-			<col width="10%"/>
-			<col width="7%"/>
-			<col width="15%"/>
-			<col width="20%"/>
-			<col width="7%"/>
-			<col width="10%"/>
-			<col width="20%"/>
-		</colgroup> 
+		 
 		<thead>
 			<tr>
 			<th>No.</th>

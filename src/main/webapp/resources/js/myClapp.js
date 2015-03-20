@@ -13,24 +13,28 @@ var SearchUtils = (function() {
  		 var month = d.getMonth() + 1;
  		 var day = d.getDate();
  		 var toDay =  year +"/"+ month +"/"+ day;
+ 		 $("input[name=searchKey]").val(term);
  		 $(".smccdtTabLi").removeClass('smccdtTabLiActive');
  		 if(!_this) {
  			 _this = $(".smccdtTabLi").eq(0);
  		 }
- 		 $(_this).addClass("smccdtTabLiActive");
  		 if(term == "all") {
  			 $(".dateTerm").val('');
+ 			 $("select").not("select[name=searchListSize]").val("");
+ 			$(".smccdtTabLi").eq(0).addClass("smccdtTabLiActive");
  		 } else if(term == "toDay") {
  			$(".dateTerm").val(toDay);
+ 			$(".smccdtTabLi").eq(1).addClass("smccdtTabLiActive");
  		 } else {  
  			 d.setDate(day - 7);
  			 var after7Day =   d.getFullYear() +"/"+ (d.getMonth() + 1) +"/"+ d.getDate();
  			 $("input[name=endDate]").val(toDay);
  			 $("input[name=startDate]").val(after7Day);
+ 			$(".smccdtTabLi").eq(2).addClass("smccdtTabLiActive");
  		 }
  	 };
  	 return {
- 		 setDataTerm : setDataTerm 
+ 		 setDataTerm : setDataTerm
  	 }
 })($);
 

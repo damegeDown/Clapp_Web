@@ -232,7 +232,7 @@
 
 </form>
 <!--  UTF-8 인코딩 사용 시는 xpay.js 대신 xpay_utf-8.js 을  호출하시기 바랍니다.-->
-<script type="text/javascript" src="<%=request.getScheme()%>://xpay.uplus.co.kr<%="test".equals("${payLgdInfo.CST_PLATFORM}")?(request.getScheme().equals("https")?":7443":":7080"):""%>/xpay/js/xpay_ub_utf-8.js"></script>
+<script type="text/javascript" src="//xpay.uplus.co.kr<%="test".equals("${payLgdInfo.CST_PLATFORM}")?(request.getScheme().equals("https")?":7443":":7080"):""%>/xpay/js/xpay_ub_utf-8.js"></script>
 <script>
 var PaymentUtils = (function() {
 	"use strict";
@@ -277,6 +277,10 @@ var PaymentUtils = (function() {
 		location.href = contextPath+"/myClapp/payment?productMasterKey="+key;
 	};
 	var doPayment = function() {
+		if('${userLoginSession.userType}' == 2) {
+			alert("기업회원은 CLAPP으로 문의 바랍니다.");
+			return false;
+		} 
 		// 암호화된 Hashdata 가져오기
 		$('#LGD_PAYINFO').ajaxSubmit ({
 			type : 'POST',

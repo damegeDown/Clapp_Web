@@ -38,7 +38,7 @@
          <tr>
           <th>문의자</th>
           <td>
-           ${serviceInquiryDetail.inquiryInsertName }
+           ${serviceInquiryDetail.inquiryName}
           </td>
          </tr>
          <tr>
@@ -74,7 +74,7 @@
     <c:if test="${serviceInquiryDetail.serviceInquiryKey ne null}">
     <input type="hidden" name="serviceInquiryKey" value="${serviceInquiryDetail.serviceInquiryKey }"/>
     </c:if>
-    <input type="hidden" name="inquiryInsertName" value="${serviceInquiryDetail.inquiryInsertName }"/>
+    <input type="hidden" name="inquiryName" value="${serviceInquiryDetail.inquiryName }"/>
     <input type="hidden" name="inquiryEmail" value="${serviceInquiryDetail.inquiryEmail}"/>
     <input type="hidden" name="inquiryContents" value=" ${serviceInquiryDetail.inquiryContents}"/>
     <div class="al-center" style="color:#fff !important; background:#f47d21;padding:10px">답변 달기</div>

@@ -371,9 +371,9 @@ public class MyClappController {
 	 * @return
 	 */
 	@RequestMapping(value="/dropOutComplet")
-	public String dropOutComplet(Model model) {
+	public String dropOutComplet(Model model , HttpSession session) {
 		try {
-			
+			session.invalidate();
 		} catch  (Exception e) {
 			logger.error("MyClappController.dropOut:Faild" , e);
 		}

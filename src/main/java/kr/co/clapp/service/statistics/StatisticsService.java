@@ -31,7 +31,7 @@ public interface StatisticsService {
 	 * @param statisticsEntity
 	 * @return
 	 */
-	void getDropOutMemberReport(StatisticsEntity statisticsEntity, Model model);
+	StatisticsEntity getDropOutMemberReport(StatisticsEntity statisticsEntity, Model model);
 	/**
 	 * 수시 / 타켓 발송 메일
 	 * @param statisticsEntity

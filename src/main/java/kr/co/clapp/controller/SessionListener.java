@@ -1,36 +1,55 @@
 package kr.co.clapp.controller;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
 import kr.co.clapp.constants.CommonCode.Session;
 import kr.co.clapp.entities.MemberEntity;
+import kr.co.digigroove.commons.utils.StringUtils;
 
-public class SessionListener implements HttpSessionBindingListener{
+public class SessionListener implements  HttpSessionListener{
 	private static SessionListener sessionListener = null;
-	 private static Hashtable<String, String> loginUsers = new Hashtable<String, String>();
-	 public SessionListener() {
-	  super();
+	private static Hashtable<String, String> loginUsers = new Hashtable<String, String>();
+	public SessionListener() {
+		  super();
 	 }
 	 public static synchronized SessionListener getInstance() {
 	  if (sessionListener == null) {
 		  sessionListener = new SessionListener();
-	  }
+	 }
 	  return sessionListener;
-	 }
-	 
-	 //아이디가 맞는지 체크
-	 public boolean isValid(String userID, String userPW) {
-	  return true; //자세한 로직은 미구현
-	 }
-	 
-	 //해당 세션에 이미 로그인 되있는지 체크
+	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	    System.out.println("Inside doGet(HttpServletRequest,HttpServletResponse)");
+
+	    HttpSession session = request.getSession(true);
+	    System.out.println("Session Id : " +session.getId() );
+	    System.out.println( "Is New Session : " + session.isNew() );
+
+	    int timeout = 10;
+	    session.setMaxInactiveInterval(timeout);
+
+	    System.out.println( "Max Inactive Interval : " + session.getMaxInactiveInterval() );
+
+	    System.out.println("Exiting doGet(HttpServletRequest,HttpServletResponse)");
+	    System.out.println();
+
+	} 
+	//해당 세션에 이미 로그인 되있는지 체크
 	 public boolean isLogin(String sessionID) {
 	  boolean isLogin = false;
 	  Enumeration e = loginUsers.keys();
@@ -43,53 +62,32 @@ public class SessionListener implements HttpSessionBindingListener{
 	  }
 	  return isLogin;
 	 }
-	 
-	 //중복 로그인 막기 위해 아이디 사용중인지 체크
-	 public boolean isUsing(String userID) {
-	  boolean isUsing = false;
-	  Enumeration e = loginUsers.keys();
-	  String key = "";
-	  while (e.hasMoreElements()) {
-	   key = (String)e.nextElement();
-	   if (userID.equals(loginUsers.get(key))) {
-	    isUsing = true;
-	   }
-	  }
-	  return isUsing;
-	 }
-	 
 	 //세션 생성
 	 public void setSession(HttpSession session, String userID) {
-	  loginUsers.put(session.getId(), userID);
+	  loginUsers.put(userID, session.getId());
 	  session.setAttribute("login", this.getInstance());
 	 } 
-	 
-	 //세션 ID로 로긴된 ID 구분
-	 public String getUserID(String sessionID) {
-	  return (String)loginUsers.get(sessionID);
+	//세션 삭제
+	 public void removeSession(String userID) {
+	  loginUsers.remove(userID);
 	 }
-	 
-	 //현재 접속자수
-	 public int getUserCount() {
-	  return loginUsers.size();
-	 }
-    public static ConcurrentHashMap<String, HttpSession> activeUsers = new ConcurrentHashMap<String, HttpSession>();
-	@Override
-	public void valueBound(HttpSessionBindingEvent event) {
-	    ConcurrentHashMap<String, HttpSession> activeUserss = activeUsers;
-		HttpSession    session     = event.getSession();
-        MemberEntity memberInfo = (MemberEntity) session.getAttribute(Session.USER_LOGIN_SESSION);
-        boolean tes = isLogin(memberInfo.getUserId());
-        setSession(session, memberInfo.getUserId());
-        //activeUserss.put(memberInfo.getUserId(), (HttpSession) session.getAttribute(Session.USER_LOGIN_SESSION));
-		
-	} 
-	@Override 
-	public void valueUnbound(HttpSessionBindingEvent event) {
-		//HttpSession    session     = event.getSession();
-       // MemberEntity memberInfo = (MemberEntity) session.getAttribute(Session.USER_LOGIN_SESSION);
+	// SessionEventListener
+
+	public void sessionCreated(HttpSessionEvent httpSessionEvent) {
+	    SessionBindingListener listener = new SessionBindingListener();
+	    HttpSession httpSession = httpSessionEvent.getSession();
+	    MemberEntity memberInfo = (MemberEntity) httpSession.getAttribute(Session.USER_LOGIN_SESSION);
 	}
 
-  
+
+	public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
+	    SessionBindingListener listener = new SessionBindingListener();
+	    HttpSession httpSession = httpSessionEvent.getSession();
+	    MemberEntity memberInfo = (MemberEntity) httpSession.getAttribute(Session.USER_LOGIN_SESSION);
+	    if(!StringUtils.isEmpty(memberInfo)) {
+	    	removeSession(Integer.toString(memberInfo.getUserMasterKey()));
+	    }
+	     
+	}
 
 }

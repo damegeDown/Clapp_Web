@@ -35,7 +35,13 @@
        <tr>
         <th>접수 일시</th>
         <td>
-          <input type="text" class="inp-w160 datetimepicker" name="adviceAcceptDate" value="${cabledAdviceDetail.adviceAcceptDate}" />
+            <c:if test="${cabledAdviceDetail.cabledAdviceKey > 0}">
+                <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${cabledAdviceDetail.adviceAcceptDate  }"></fmt:formatDate>
+            </c:if>
+            <c:if test="${cabledAdviceDetail.cabledAdviceKey <= 0}">
+                <input type="text" class="inp-w160 datetimepicker" name="adviceAcceptDate" value="${cabledAdviceDetail.adviceAcceptDate}" />
+            </c:if>
+
         </td>
        </tr>
        <tr>

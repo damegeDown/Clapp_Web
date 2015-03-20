@@ -10,24 +10,26 @@
     <h3 class="contents-title floatL">${CommonCode.navigation } 제공디바이스 ( 총 : <span class="colorSkyBlue">${insertDeviceCount}</span> 대 )</h3> 
     <div style="clear:both;"></div>
     <div style="width:100%;">
-		<h3 class="floatL part-title">> 대표 디바이스 <span class="colorSkyBlue">10</span>개 : 사이트 메인, 모바일 테스팅, 테스트 자동화 화면에 노출</h3>
+		<h3 class="floatL part-title">> 대표 디바이스 <span class="colorSkyBlue">11</span>개 : 사이트 메인, 모바일 테스팅, 테스트 자동화 화면에 노출</h3>
 	</div>
     <table class="board-list">
       <colgroup>
         <col width="5%"/>
         <col width="5%"/>
+        <col width="5%"/>
         <col width="20%"/> 
         <col width="20%"/> 
         <col width="10%"/> 
         <col width="10%"/> 
-        <col width="10%"/> 
+        <col width="10%"/>  
         <col width="10%"/> 
         <col width="10%"/> 
       </colgroup>
       <thead>
         <tr>
+          <th>위치</th>
           <th>선택</th>
-          <th>No</th>
+          <th>노출 순번</th>
           <th>모델명 (영문명)</th>
           <th>모델명 (한글명)</th>
           <th>제조사</th>
@@ -41,9 +43,21 @@
         <input type="hidden" name="topDeviceCount" class="topDeviceCount" value="${deviceEntity.deviceSelectedList.size()}"/>
         <c:forEach items="${deviceEntity.deviceSelectedList }" var="deviceSelected" varStatus="j">
         <tr>
-          <td><input type="checkbox" name="deviceKeyArr" class="chk" value="${deviceSelected.deviceKey }"></td>
-          <td>${deviceEntity.deviceSelectedList.size()-j.index}</td>
-          <td style="cursor:pointer" class="deviceModelEname" data-key="${deviceSelected.deviceKey }">${deviceSelected.deviceModelEname}</td>
+        	<td>
+            <span class="pointer btnChangeSeq" data-seq="up">
+           	 <img src="${contextPath }/resources/img/device_dropup.png" />
+            </span>
+            <span class="pointer btnChangeSeq" data-seq="down">
+            	<img src="${contextPath }/resources/img/device_dropdown.png" />
+            </span>
+        	</td>
+          <td>
+          	<input type="hidden" name="deviceKey" class="deviceKey" value="${deviceSelected.deviceKey }" data-index="${j.index }"/>
+          	<input type="checkbox" name="deviceKeyArr" class="chk" value="${deviceSelected.deviceKey }">
+          </td>
+          <td>${j.index+1}
+          </td>
+          <td class="deviceModelEname pointer" data-key="${deviceSelected.deviceKey }">${deviceSelected.deviceModelEname}</td>
           <td>${deviceSelected.deviceModelKname}</td>
           <td>${deviceSelected.deviceMakerCode }</td>
           <td>${deviceSelected.deviceOsCode }</td>
@@ -61,6 +75,7 @@
     </table>
     <div style="margin-top:10px">
       <a href="#" id="deviceTop10Close" class="floatL btn-bottom-orenge"><span>선택한 디바이스 대표 비노출</span></a>
+      <a href="#" id="deviceTop10Save" class="floatR btn-bottom-orenge">저장</a>
     </div>
   </div>
   <div style="clear:both;"></div>

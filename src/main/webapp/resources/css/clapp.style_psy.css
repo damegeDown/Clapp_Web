@@ -245,7 +245,7 @@
 }
 .subAGRContentTwoContainer {
   width: inherit;
-  min-height: 5100px;
+  min-height: 5950px;
   height: auto;
   display: block;
   background: #fff;
@@ -887,13 +887,14 @@
   margin-left: 10px;
 }
 .subMTDeviceCOBInput {
-  width: 228px;
+  width: 208px;
   height: 38px;
   padding-left: 10px;
   border: 1px solid #dbe1e7;
   background: #f6f7f8;
   font-size: 15px;
   color: #909090;
+  padding-right:20px;
 }
 .subMTDeviceContentTwoContainer {
   clear: both;
@@ -964,7 +965,7 @@
   display: block;
   width: 960px;
   height: inherit;
-  margin: 0 auto;
+  margin: 0 15px 0 0;
 }
 .subMTDeviceCTBDeviceListBottom{
   display: block;
@@ -977,8 +978,9 @@
 }
 .subMTDeviceCTBDeviceImg{
   display: block;
-/*   padding-top: 29px; */
-  padding-left: 50px;
+  text-align: center;
+/* padding-top: 29px; */
+/* padding-left: 50px; */
 }
 .subMTDeviceCTBDeviceNameBox{
   display: block;
@@ -1207,10 +1209,11 @@
 }
 .subTRReviewCOCImg{
   clear: both;
-  display: block;
+  display: table-cell;
   margin: 0;
   width: 160px;
   height: 160px;
+  vertical-align: middle;
 }
 .subTRReviewCOCTextBox{
   width: 320px;
@@ -1363,10 +1366,11 @@
 }
 .subTRReviewCTCImg{
   clear: both;
-  display: block;
+  display: table-cell;
   margin: 0;
   width: 160px;
   height: 160px;
+  vertical-align: middle;
 }
 .subTRReviewCTCTextBox{
   width: 320px;
@@ -1511,10 +1515,11 @@
 }
 .subTRReviewCHCImg{
   clear: both;
-  display: block;
+  display: table-cell;
   width: inherit;
   height: 80px;
   padding-top: 10px;
+  vertical-align: middle;
 }
 .subTRReviewCHCTextBox{
   width: 880px;
@@ -1672,10 +1677,11 @@
 }
 .subTRIndusrtyContentImg{
   clear: both;
-  display: block;
+  display: table-cell;
   margin: 0;
   width: 160px;
   height: 160px;
+  vertical-align: middle;
 }
 .subTRIndusrtyContentTextBox{
   width: 320px;
@@ -1749,7 +1755,7 @@
   letter-spacing: -0.5px;
   color: #202020;
   display: block;
-  width: 570px;
+  width: 450px;
   height: 110px;
   position: absolute;
   margin-top: -34px;
@@ -1787,9 +1793,10 @@
   right: 0;
 }
 .subTRIndustryCTBImg img{
-  display: block;
-  width: 319px;
-  height: 319px;
+	max-height : 270px;
+	max-width : 428px;
+	
+	/*height: 319px; */
 }
 .subTRIndustryViewContentTwoContainer {
   width: 960px;
@@ -2264,9 +2271,11 @@
   right: 0;
 }
 .subCIArticleCTBImg img{
-  display: block;
-  width: 319px;
-  height: 319px;
+  /*display: block;*/
+  /*width: 319px;*/
+  /*height: 319px;*/
+  max-height : 270px;
+  max-width : 428px;
 }
 .subCIArticleViewContentTwoContainer {
   width: 960px;
@@ -2590,7 +2599,7 @@
   display: block;
   position: absolute;
   min-width: 140px;
-  margin-left: 267px;
+  margin-left: 280px;
   margin-top: 249px;
 }
 .subTACOBItem5Text {
@@ -2640,7 +2649,7 @@
   display: block;
   position: absolute;
   min-width: 140px;
-  margin-left: 752px;
+  margin-left: 762px;
   margin-top: 249px;
 }
 .subTACOBItem7Text {
@@ -2657,7 +2666,7 @@
 }
 .subTAContentTwoContainer {
   width: inherit;
-  height: 640px;
+  height: 715px;
   display: block;
   background: #ecf0f4;
 }
@@ -2666,7 +2675,7 @@
   height: inherit;
   display: block;
   margin: 0 auto;
-  background: url('./../images/at_two_c_bg.png') no-repeat;
+  /* background: url('./../images/at_two_c_bg.png') no-repeat; */
   background-position: center center;
 }
 .subTACTBLine {
@@ -3229,6 +3238,7 @@
 .subTAContentFiveItem2TextBox {
   display: block;
   background: url('./../images/stace-Item2bg.png') no-repeat;
+  /* background: url('./../images/smtce-Item2bg.png') no-repeat; */
   background-position: right top;
   margin-top: 40px;
   position: relative;
@@ -3256,6 +3266,48 @@
   margin-left: 10px;
 }
 .sTACEItems2Text2 {
+  margin: 0;
+  font-size: 14px;
+  color: #606060;
+  margin: 11px 0 0 62px;
+}
+.sTACEItems2Text3Box {
+  width: 330px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  margin-top: 102px;
+  margin-left: 10px;
+}
+.sTACEItems2Text3 {
+  margin: 0;
+  font-size: 14px;
+  color: #606060;
+  margin: 11px 0 0 62px;
+}
+.sTACEItems2Text4Box {
+  width: 330px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  margin-top: 152px;
+  margin-left: 10px;
+}
+.sTACEItems2Text4 {
+  margin: 0;
+  font-size: 14px;
+  color: #606060;
+  margin: 11px 0 0 62px;
+}
+.sTACEItems2Text5Box {
+  width: 330px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  margin-top: 202px;
+  margin-left: 10px;
+}
+.sTACEItems2Text5 {
   margin: 0;
   font-size: 14px;
   color: #606060;
@@ -3320,7 +3372,7 @@
   display: block;
   position: absolute;
   margin-left: 400px;
-  margin-top: 50px;
+  margin-top: 35px;
 }
 
 .subCIContentTwoContainer {
@@ -5186,6 +5238,8 @@
   height: inherit;
   display: block;
   margin: 0 auto;
+	padding-top: 60px;
+	padding-bottom: 60px;
 }
 .subCISupportVOCViewContBox p{
   font-size: 14px;
@@ -5194,9 +5248,7 @@
   color: #606060;
   margin: 0;
   padding: 0;
-  padding-top: 55px;
   padding-left: 20px;
-  padding-bottom: 30px;
 }
 .subCISupportVOCViewLinkWrap{
   display: block;
@@ -5279,7 +5331,7 @@
 .subCISupportFOCLSCTitle{
   display: block;
   float: left;
-  width: 101px;
+  width: 95px;
   height: inherit;
 }
 .subCISupportFOCLSCTitle span{
@@ -5289,7 +5341,7 @@
   color: #808080;
   text-align: center;
   line-height: 30px;
-  width: 100px;
+  width: 94px;
   height: 30px;
   margin-top: 15px;
   border-right: 1px solid #e8ecf0;
@@ -5337,6 +5389,96 @@
   display: block;
   margin-top: 20px;
 }
+.subCISupportFOCListSubjectOpen1{
+    width: inherit;
+    height: 60px;
+    display: block;
+    background: #2b5790;
+}
+.subCISupportFOCLSO1{
+    display: block;
+    width: 960px;
+    height: 60px;
+    margin: 0 auto;
+}
+.subCISupportFOCLSONo1{
+    display: block;
+    float: left;
+    width: 60px;
+    height: inherit;
+}
+.subCISupportFOCLSONo1 span{
+    display: block;
+    clear: both;
+    font-size: 17px;
+    text-align: center;
+    line-height: 30px;
+    color: #bedaeb;
+    width: 60px;
+    height: 30px;
+    margin-top: 15px;
+    border-right: 1px solid #466c9c;
+}
+.subCISupportFOCLSOTitle1{
+    display: block;
+    float: left;
+    width: 95px;
+    height: inherit;
+}
+.subCISupportFOCLSOTitle1 span{
+    display: block;
+    clear: both;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    width: 94px;
+    height: 30px;
+    margin-top: 15px;
+    border-right: 1px solid #466c9c;
+}
+.subCISupportFOCLSOLink1{
+    display: block;
+    float: left;
+    width: 798px;
+    height: inherit;
+}
+.subCISupportFOCLSOLink1 a{
+    text-decoration: none;
+}
+.subCISupportFOCLSOText1{
+    display: block;
+    width: 850px;
+    height: 30px;
+    margin-top: 15px;
+    color: #fff;
+    background: url('./../images/itr_qa4_more_bg.png') no-repeat;
+}
+.subCISupportFOCLSOText1:hover{
+    background: url('./../images/itr_qa4_more_bg_r.png') no-repeat;
+    color: #1484c9;
+}
+
+.subCISupportFOCLSOText1{
+    display: block;
+    float: left;
+    width: 850px;
+    height: inherit;
+}
+.subCISupportFOCLSOText1 span{
+    display: block;
+    clear: both;
+    font-size: 15px;
+    line-height: 30px;
+    width: 754px;
+    height: 30px;
+    padding-left: 20px;
+}
+.subCISupportFOCLSOText1 a{
+    text-decoration: none;
+    font-weight: 700;
+    color: #fff;
+}
 .subCISupportFOCListSubjectOpen{
   width: inherit;
   height: 60px;
@@ -5370,7 +5512,7 @@
 .subCISupportFOCLSOTitle{
   display: block;
   float: left;
-  width: 101px;
+  width: 95px;
   height: inherit;
 }
 .subCISupportFOCLSOTitle span{
@@ -5380,7 +5522,7 @@
   color: #fff;
   text-align: center;
   line-height: 30px;
-  width: 100px;
+  width: 94px;
   height: 30px;
   margin-top: 15px;
   border-right: 1px solid #466c9c;
@@ -5396,7 +5538,7 @@
 }
 .subCISupportFOCLSOText{
   display: block;
-  width: 798px;
+  width: 850px;
   height: 30px;
   margin-top: 15px;
   color: #fff;
@@ -5406,10 +5548,11 @@
   background: url('./../images/itr_qa3_more_bg_r.png') no-repeat;
   color: #1484c9;
 }
+
 .subCISupportFOCLSOText{
   display: block;
   float: left;
-  width: 798px;
+  width: 850px;
   height: inherit;
 }
 .subCISupportFOCLSOText span{
@@ -5428,8 +5571,8 @@
 }
 .subCISupportFOCListContentOpen{
   width: inherit;
-/*   min-height: 220px; */
-  height: auto;
+  min-height: 220px;
+/*   height: auto; */
   display: block;
   background: #33639c;
 }
@@ -5690,8 +5833,8 @@ select::-ms-expand {
 }
 .subCISupportQOCListContentOpen{
   width: inherit;
-/*   min-height: 220px; */
-  height: auto;
+  min-height: 220px;
+/*   height: auto; */
   display: block;
   background: #33639c;
 }
@@ -6695,7 +6838,7 @@ select::-ms-expand {
   width: 400px;
   height: 180px;
   display: block;
-  margin-top: 77px;
+  margin-top: 64px;
   margin-left: 60px;
 }
 .qaTitle {
@@ -7008,6 +7151,12 @@ select::-ms-expand {
   height: 140px;
   border-bottom: 1px solid #d8dfe7;
 }
+.subQACTCColOneCont022{
+  display: block;
+  width: inherit; 
+  height: 140px;
+  /* border-bottom: 1px solid #d8dfe7; */
+}
 .subQACTCColOneCont02Tit, .subQACTCColOneCont03Tit, .subQACTCColOneCont04Tit{
   display: block;
   float: left;
@@ -7137,6 +7286,12 @@ select::-ms-expand {
   border-bottom: 1px solid #d8dfe7;
 }
 .subQACTCColTwoCont03{
+  display: block;
+  width: inherit;
+  height: 53px;
+  border-bottom: 1px solid #d8dfe7;
+}
+.subQACTCColTwoCont033{
   display: block;
   width: inherit;
   height: 53px;
@@ -7794,14 +7949,14 @@ select::-ms-expand {
 .subPGTab01, .subPGTab02, .subPGTab03, .subPGTab04, .subPGTab05, .subPGTab06{
   display: block;
   float: left;
-  width: 158px;
+  width: 190px;
   height: 50px;
   border-right: 1px solid #d1dae4;
 }
 .subPGTab01:hover{
   display: block;
   float: left;
-  width: 158px;
+  width: 190px;
   height: 46px;
   border-top: 4px solid #2f7cd4;
   border-left: 1px solid #d1dae4;
@@ -7810,7 +7965,7 @@ select::-ms-expand {
 .subPGTab02:hover, .subPGTab03:hover, .subPGTab04:hover, .subPGTab05:hover, .subPGTab06:hover{
   display: block;
   float: left;
-  width: 158px;
+  width: 190px;
   height: 46px;
   border-top: 4px solid #2f7cd4;
   border-right: 1px solid #d1dae4;
@@ -8103,7 +8258,7 @@ select::-ms-expand {
 }
 .subPGPOCBtnImg1 img{
   display: block;
-  width: inherit;
+  /* width: inherit; */
   height: inherit;
   position: absolute;
   margin-top: -37px;
@@ -9154,6 +9309,409 @@ select::-ms-expand {
 }
 /* ----- payment_complete2.html End -----*/
 
+
+
+/* ----- mobile_testing_guide1.html Start -----*/
+#atGuideWrap{
+  width: 900px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  background-color: #fff;
+  position: relative;
+}
+.atGuideGraphicContainer{
+  width: inherit;
+  height: 80px;
+  display: block;
+}
+.atGuideHeaderGraphicBgBox {
+  max-width: inherit;
+  width: inherit;
+  height: inherit;
+  display: block;
+  margin: 0 auto;
+  background: url('./../images/mt_device_auto_kv.png') no-repeat;
+  background-position: center center;
+}
+.atGuideHeaderGraphicBox {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+}
+.atGuideHeaderGraphicTxt {
+  display: block;
+  position: absolute;
+  top: 30px;
+  left: 51px;
+  width: 300px;
+  height: 30px;
+}
+.atGuideHeaderGraphicTxt span{
+  display: block;
+  font-size: 25px;
+  letter-spacing: -0.3px;
+  font-weight: 700;
+  color: #fff;
+}
+.atGuideHeaderGraphicClose{
+  display: block;
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 15px;
+  height: 15px;
+}
+.atGuideTabContainer{
+  width: inherit;
+  height: 50px;
+  display: block;
+  background: #292929;
+}
+.atGuideTabBox{
+  display: block;
+  width: 900px;
+  height: inherit;
+}
+.atGuideTab{
+  display: block;
+  width: 960px;
+  height: 22px;
+  padding-top: 15px;
+}
+.atGuideTab a{
+ text-decoration: none;
+ color: #d9d9d9;
+}
+.atGuideTab01{
+  display: block;
+  float: left;
+  width: 155px;
+  height: inherit;
+  border-right: 1px solid #3f3f3f;
+}
+.atGuideTab02{
+  display: block;
+  float: left;
+  width: 180px;
+  height: inherit;
+  border-right: 1px solid #3f3f3f;
+}
+.atGuideTab03{
+  display: block;
+  float: left;
+  width: 128px;
+  height: inherit;
+  border-right: 1px solid #3f3f3f;
+}
+.atGuideTab04{
+  display: block;
+  float: left;
+  width: 238px;
+  height: inherit;
+  border-right: 1px solid #3f3f3f;
+}
+.atGuideTab05{
+  display: block;
+  float: left;
+  width: 195px;
+  height: inherit;
+}
+.atGuideTab01 span, .atGuideTab02 span, .atGuideTab03 span, .atGuideTab04 span, .atGuideTab05 span, .atGuideTab06 span{
+  display: block;
+  clear: both;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  color: #d9d9d9;
+}
+.atGuideTab01:hover span, .atGuideTab02:hover span, .atGuideTab03:hover span, .atGuideTab04:hover span, .atGuideTab05:hover span, .atGuideTab06:hover span{
+  display: block;
+  clear: both;
+  color: #6a5acd;
+}
+.atGuideTabSelect span{
+  color: #6a5acd;
+}
+.atGuide01ContentOneContainer{
+  display: block;
+  width: inherit;
+  height: 620px;
+}
+.atGuide01COCMainBox{
+  display: block;
+  width: 800px;
+  height: 521px;
+  padding-top: 46px;
+  padding-left: 50px;
+}
+.atGuide01COCMainTitle{
+  display: block;
+  width: 800px;
+  height: 48px;
+}
+.atGuide01COCMainTitle span{
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #202020;
+}
+.atGuide01COCMainDesc{
+  display: block;
+  width: 800px;
+  height: 47px;
+}
+.atGuide01COCMainDesc p{
+  display: block;
+  font-size: 15px;
+  color: #494949;
+  margin: 0;
+  padding: 0;
+}
+.atGuide01COCMainImg{
+  display: block;
+  width: 800px;
+  height: 429px;
+}
+.atGuide01ContentTwoContainer{
+  display: block;
+  width: inherit;
+  height: 1044px;
+  background: #ecf0f4;
+}
+.atGuide01CTCBox01{
+  display: block;
+  float: left;
+  width: 450px;
+  height: inherit;
+}
+.atGuide01CTCBox02{
+  display: block;
+  float: left;
+  width: 450px;
+  height: inherit;
+}
+.atGuide01CTCContBox{
+  display: block;
+  clear: both;
+  width: 380px;
+  height: auto;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+.atGuide01CTCContOneBox{
+  display: block;
+  width: 380px;
+  height: 259px;
+  border-bottom: 1px solid #d5dce5;
+}
+.atGuide01CTCContOneNum{
+  display: block;
+  width: inherit;
+  height: 46px;
+}
+.atGuide01CTCContOneNum img{
+  display: block;
+  width: 39px;
+  height: 43px;
+}
+
+.atGuide01CTCContOneDesc{
+  display: block;
+  width: inherit;
+  height: 48px;
+}
+.atGuide01CTCContOneDesc p{
+  display: block;
+  font-size: 15px;
+  line-height: 22px;
+  color: #404040;
+  margin: 0px;
+  padding: 0px;
+}
+.atGuide01CTCContOneCont{
+  display: block;
+  width: inherit;
+  height: 160px;
+}
+.atGuide01CTCContOneCont ul{
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.atGuide01CTCContOneCont li{
+  display: block;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.3px;
+  color: #707070;
+  margin: 0;
+  padding: 0;
+}
+.atGuide01CTCContOneCont span{
+  display: inline;
+  font-size: 25px;
+  color: #d25936;
+  position: relative;
+  top: 4px;
+  padding-right: 5px;
+}
+.atGuide01CTCContTwoBox{
+  display: block;
+  width: 380px;
+  height: 127px;
+  border-bottom: 1px solid #d5dce5;
+}
+.atGuide01CTCContTwoNum{
+  display: block;
+  width: inherit;
+  height: 50px;
+  padding-top: 18px;
+}
+.atGuide01CTCContTwoNum img{
+  display: block;
+  width: 39px;
+  height: 43px;
+}
+.atGuide01CTCContTwoDesc{
+  display: block;
+  width: inherit;
+  height: 48px;
+}
+.atGuide01CTCContTwoDesc p{
+  display: block;
+  font-size: 15px;
+  line-height: 22px;
+  color: #404040;
+  margin: 0px;
+  padding: 0px;
+}
+.atGuide01CTCContThreeBox{
+  display: block;
+  width: 380px;
+  height: 127px;
+  border-bottom: 1px solid #d5dce5;
+}
+.atGuide01CTCContThreeNum{
+  display: block;
+  width: inherit;
+  height: 50px;
+  padding-top: 18px;
+}
+.atGuide01CTCContThreeNum img{
+  display: block;
+  width: 39px;
+  height: 43px;
+}
+.atGuide01CTCContThreeDesc{
+  display: block;
+  width: inherit;
+  height: 48px;
+}
+.atGuide01CTCContThreeDesc p{
+  display: block;
+  font-size: 15px;
+  line-height: 22px;
+  color: #404040;
+  margin: 0px;
+  padding: 0px;
+}
+.atGuide01CTCContFourBox{
+  display: block;
+  width: 380px;
+  height: 316px;
+  border-bottom: 1px solid #d5dce5;
+}
+.atGuide01CTCContFourNum{
+  display: block;
+  width: inherit;
+  height: 48px;
+  padding-top: 20px;
+}
+.atGuide01CTCContFourNum img{
+  display: block;
+  width: 39px;
+  height: 43px;
+}
+.atGuide01CTCContFourDesc{
+  display: block;
+  width: inherit;
+  height: 48px;
+}
+.atGuide01CTCContFourDesc p{
+  display: block;
+  font-size: 15px;
+  line-height: 22px;
+  color: #404040;
+  margin: 0px;
+  padding: 0px;
+}
+.atGuide01CTCContFourCont{
+  display: block;
+  width: 400px;
+  height: 160px;
+}
+.atGuide01CTCContFourCont ul{
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.atGuide01CTCContFourCont li{
+  display: block;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.3px;
+  color: #707070;
+  margin: 0;
+  padding: 0;
+}
+.atGuide01CTCContFourCont span{
+  display: inline;
+  font-size: 25px;
+  color: #d25936;
+  position: relative;
+  top: 4px;
+  padding-right: 5px;
+}
+.atGuide01CTCContFiveBox{
+  display: block;
+  width: 380px;
+  height: 130px;
+}
+.atGuide01CTCContFiveNum{
+  display: block;
+  width: inherit;
+  height: 50px;
+  padding-top: 18px;
+}
+.atGuide01CTCContFiveNum img{
+  display: block;
+  width: 39px;
+  height: 43px;
+}
+.atGuide01CTCContFiveDesc{
+  display: block;
+  width: inherit;
+  height: 48px;
+}
+.atGuide01CTCContFiveDesc p{
+  display: block;
+  font-size: 15px;
+  line-height: 22px;
+  color: #404040;
+  margin: 0px;
+  padding: 0px;
+}
+.atGuide01CTCImgBox{
+  display: block;
+  width: 380px;
+  height: 944px;
+  padding-top: 50px;
+  padding-left: 20px;
+}
+
+/* ----- mobile_testing_guide1.html End -----*/
 
 /* ----- mobile_testing_guide1.html Start -----*/
 #mtGuideWrap{

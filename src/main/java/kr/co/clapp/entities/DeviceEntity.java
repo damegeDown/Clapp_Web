@@ -17,6 +17,7 @@ public class DeviceEntity extends AdministrationFileEntity  implements Serializa
 	private String deviceVersion;							// 디바이스 버전
 	private String deviceTop10Open;							// 상위 10 노출 디바이스 여부(노출 :Y, 미노출: N)
 	private int deviceTop10Count;							// 상위 10 노출 디바이스 총수
+	private int deviceTop10Number;							// 상위 10 노출 순서
 	private String deviceOpen;								// 디바이스 사용 여부
 	private String deviceInsertName;						// 디바이스 등록자
 	private Date deviceInsertDate;							// 디바이스 등록일
@@ -81,6 +82,12 @@ public class DeviceEntity extends AdministrationFileEntity  implements Serializa
 	}
 	public void setDeviceTop10Count(int deviceTop10Count) {
 		this.deviceTop10Count = deviceTop10Count;
+	}
+	public int getDeviceTop10Number() {
+		return deviceTop10Number;
+	}
+	public void setDeviceTop10Number(int deviceTop10Number) {
+		this.deviceTop10Number = deviceTop10Number;
 	}
 	public String getDeviceOpen() {
 		return deviceOpen;

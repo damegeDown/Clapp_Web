@@ -164,6 +164,31 @@ public class DeviceRestController {
 	  return result;
 	}
 	/**
+	 * 디바이스 노출 순번 저장
+	 * @param deviceEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/deviceTopChangeSeq",  method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity deviceTopChangeSeq(@RequestBody DeviceEntity deviceEntity) {
+		ResponseEntity result = new ResponseEntity();
+	  try {
+		String resultCode = ResultCode.FAIL;
+		String resultMessage = messages.getMessage("top10openNumber.fail");
+		if(deviceService.deviceTopChangeSeq(deviceEntity) > CommonCode.ZERO) {
+		  resultCode = ResultCode.SUCCESS;
+		  resultMessage = messages.getMessage("top10openNumber.success"); 
+		  result.setResultURL("/admin/device/deviceList");
+		}
+		result.setResultCode(resultCode);
+		result.setResultMSG(resultMessage); 
+	  } catch (Exception e) {
+		logger.error("DeviceRestController.deviceTopChangeSeq:Faild" , e);
+		result.setResultCode(ResultCode.FAIL);
+		result.setResultMSG(messages.getMessage("top10openNumber.fail"));
+	  }
+	  return result;
+	}
+	/**
 	 * 디바이스 상위 노출 해제
 	 * @param deviceEntity
 	 * @return

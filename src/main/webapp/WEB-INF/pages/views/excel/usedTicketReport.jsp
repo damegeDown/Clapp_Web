@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="statisticsLength" value="${statisticsEntity.statisticsList.size() }"/>
 <div style="width:100%;">
-		<h3 class="floatL" style="margin:15px 0 10px 0">티켓사용 내역</h3>
+		<div class="floatL" style="margin:15px 0 10px 0">티켓사용 내역</div>
  </div>
  <c:set var="statisticsLength" value="${statisticsDateList.statisticsList.size() }"/>
 <table class="board-list">
@@ -21,7 +21,8 @@
 		<tr>
 			<th>날짜(요일)</th>
 			<th>일반</th>
-			<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+            <th>기업 / 단체</th>
+            <th>기업 / 단체 사용율</th>
 			<th>일별 합계</th>
 		</tr>
 	</thead>
@@ -122,7 +123,7 @@
 	</table>
 	<!-- 사용시간대별 -->
 	<div style="width:100%;">
- 		<h3 class="floatL" style="margin:15px 0 10px 0">사용 시간별 건수</h3>
+ 		<div class="floatL" style="margin:15px 0 10px 0">사용 시간별 건수</div>
   </div>
   <c:set var="statisticsLength" value="${statisticsTimeList.statisticsList.size() }"/>
 	<table class="board-list">
@@ -137,7 +138,8 @@
 			<tr>
 				<th>사용 시간</th>
 				<th>일반</th>
-				<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+                <th>기업 / 단체</th>
+                <th>기업 / 단체 사용율</th>
 				<th>일별 합계</th>
 			</tr>
 		</thead>
@@ -150,7 +152,7 @@
 		<tbody>
 		<c:forEach items="${statisticsTimeList.statisticsList }" var="statisticsTimeList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsTimeList.historyUsedTicketAmount * 15 } 분</td> 
+				<td>${statisticsTimeList.usePoint * 15 } 분</td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsTimeList.usedTicketMember } 명
@@ -174,7 +176,7 @@
 	</table>
 	<!-- 사용 디바이스별 -->
 	<div style="width:100%;">
- 		<h3 class="floatL" style="margin:15px 0 10px 0">사용 디바이스별 건수</h3>
+ 		<div class="floatL" style="margin:15px 0 10px 0">사용 디바이스별 건수</div>
   </div>
   <c:set var="statisticsLength" value="${statisticsDeviceList.statisticsList.size() }"/>
 	<table class="board-list">
@@ -189,7 +191,8 @@
 			<tr>
 				<th>디바이스 모델명</th>
 				<th>일반</th>
-				<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+                <th>기업 / 단체</th>
+                <th>기업 / 단체 사용율</th>
 				<th>일별 합계</th>
 			</tr>
 		</thead>
@@ -202,7 +205,7 @@
 		<tbody>
 		<c:forEach items="${statisticsDeviceList.statisticsList }" var="statisticsDeviceList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsDeviceList.deviceModelEname} </td> 
+				<td>${statisticsDeviceList.prodName} </td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsDeviceList.usedTicketMember } 명

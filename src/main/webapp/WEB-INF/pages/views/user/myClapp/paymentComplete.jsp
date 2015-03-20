@@ -32,8 +32,11 @@
 							<span>상품명</span>
 						</div>
 						<div class="subPGCOCCont01TxtBox01Cont">
-							<span>${paymentInfo.paymentProductName }</span>
-						</div>
+							<span>
+								<c:set var="paymentProductName" value="${fn:replace(paymentInfo.paymentProductName,'<br/>', ' ') }"/>
+								${paymentProductName}					
+							</span>
+						</div> 
 					</div>
 					<div class="subPGCOCCont01TxtBox02">
 						<div class="subPGCOCCont01TxtBox02Tit">

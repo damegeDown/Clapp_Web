@@ -34,6 +34,7 @@ public class SmsEntity implements Serializable{
     private int     sn_result;      //(PHONE) 설문 조사 응답 값
     private String  wap_info;       //통신사 정보 (SKT/KTF/LGT)
     private String  cinfo;          //Client Indexed Info( 특수기호 \/:*?"<>|. 를 사용할 수 없음 )
+    private int ranNum;
 	public String getCmid() {
 		return cmid;
 	}
@@ -189,6 +190,12 @@ public class SmsEntity implements Serializable{
 	}
 	public void setCinfo(String cinfo) {
 		this.cinfo = cinfo;
+	}
+	public int getRanNum() {
+		return ranNum;
+	}
+	public void setRanNum(int ranNum) {
+		this.ranNum = ranNum;
 	}
     
 }

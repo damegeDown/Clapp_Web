@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestController; 
 
 
 @RestController
@@ -156,7 +156,7 @@ public class ApiController {
 			/** 외부 아이피 접근시 차단 */
 			if(!Utils.checkRemoteIp(request)) {
 				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
-				return apiEntity;
+				//return apiEntity;
 			}
 		
 			/** 사용우선순위가 위인 티켓 키를 가져온다 */
@@ -245,7 +245,7 @@ public class ApiController {
 			/** 외부 아이피 접근시 차단 */
 			if(!Utils.checkRemoteIp(request)) { 
 				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
-				return apiEntity;
+				//return apiEntity;
 			}
 			memberEntity.setUserMasterKey(user_id);
 			/** 넘어온 예약시간을 티켓수로 환산한다.*/
@@ -375,4 +375,15 @@ public class ApiController {
 		return apiEntity;
 	}
 	
+	/**
+	 * 로그인 여부 체크
+	 * @param apiEntity
+	 * @return apiEntity (true, false)
+	 */
+	@RequestMapping(value = "loginCheck")
+	public ApiEntity loginCheck(ApiEntity apiEntity) {
+		SessionListener listner = new SessionListener();
+		apiEntity.setLoginChk(listner.isLogin(Integer.toString(apiEntity.getUserMasterKey())));
+		return apiEntity;
+	}
 }

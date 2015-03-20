@@ -47,12 +47,15 @@
             <fmt:formatDate value="${newsArticleDetail.socialBlogInsertDate}" pattern="yyyy.MM.dd"/>
           </span>
           <span class="subCIArticleCOBOrigin ">
-            출처: 전자신문
+            출처 : <a href="http://${newsArticleDetail.socialLink }" target="new">${newsArticleDetail.socialOrigin }</a>
           </span>
         </div>
-        <div class="subCIArticleCTBImg">
-          <img src="${contextPath }/resources/images/trr_trend_view_img01.png" alt="" />
+        <div class="subCIArticleCTBImg alignCenter" style="display:table">
+            <div style="display:table-cell;vertical-align:middle;width:428px; height:270px">
+                <img src="${contextPath}/common/imgView?fileType=${newsArticleDetail.fileTarget}&fileName=${newsArticleDetail.fileSavedName}" />
+            </div>
         </div>
+
       </div><!-- .subTRIndustryContentOnebox End -->
     </div> <!-- .subContentOneContainer End -->
 

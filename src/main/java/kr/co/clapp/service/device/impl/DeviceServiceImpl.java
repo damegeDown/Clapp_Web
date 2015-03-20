@@ -34,6 +34,7 @@ public class DeviceServiceImpl implements DeviceService {
 	deviceEntity.setDeviceList(deviceListResult);
 	
 	DeviceEntity deviceEntity2 = new DeviceEntity();
+	deviceEntity2.setPageSize(PageEntity.PAGE_LIST_SIZE_PARAM_11, PageEntity.PAGE_GROUP_SIZE_PARAM);
 	deviceEntity2.setDeviceTop10Open("Y");
 	List<DeviceEntity> deviceSelectedList = deviceDAO.getDeviceList(deviceEntity2);
 	deviceEntity.setDeviceSelectedList(deviceSelectedList);
@@ -84,7 +85,15 @@ public class DeviceServiceImpl implements DeviceService {
   @Transactional(readOnly = false, rollbackFor = Exception.class)
   public int deviceTop10Open(DeviceEntity deviceEntity) throws Exception{
 	  int result = 0;
-	  result = deviceDAO.deviceTop10Open(deviceEntity);
+	  String deviceKeys = deviceEntity.getDeviceKeyList();
+	  if (StringUtils.isNotEmpty(deviceKeys)) {
+		String[] deviceKeyArray = deviceKeys.split(",");
+		for(String deviceKey : deviceKeyArray) {
+			if (StringUtils.isNotEmpty(deviceKey)) {
+				result += deviceDAO.deviceTop10Open(Integer.parseInt(deviceKey));
+			}
+		}
+	  }
 	  return result;
   }
   /**
@@ -119,7 +128,25 @@ public DeviceEntity getDeviceUserList(DeviceEntity deviceEntity) {
 	deviceEntity.setPageParams();
 	List<DeviceEntity> deviceListResult = deviceDAO.getDeviceUserList(deviceEntity);
 	deviceEntity.setDeviceList(deviceListResult);
+	
+	DeviceEntity deviceEntity2 = new DeviceEntity();
+	deviceEntity2.setDeviceTop10Open("Y");
+	List<DeviceEntity> deviceSelectedList = deviceDAO.getDeviceUserList(deviceEntity2);
+	deviceEntity.setDeviceSelectedList(deviceSelectedList);
 	return deviceEntity;
 }
+/**
+ * 디바이스 노출 순번
+ */
+	@Override
+	@Transactional(readOnly = false, rollbackFor = Exception.class)
+	public int deviceTopChangeSeq(DeviceEntity deviceEntity) {
+		int result = 0;
+		List<DeviceEntity> deviceList = deviceEntity.getDeviceSelectedList();
+		for(DeviceEntity device : deviceList){
+			result += deviceDAO.deviceTopChangeSeq(device);
+		}
+		return result;
+	}
 }
 

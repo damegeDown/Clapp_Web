@@ -1,11 +1,14 @@
 package kr.co.clapp.entities.validation;
 
+import java.io.File;
 import java.io.Serializable;
 
+import javax.mail.Multipart;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.clapp.constants.Regex;
 
@@ -29,7 +32,7 @@ public class FormRecruitInfoEntity implements Serializable, CommonFormValidEntit
 	private String depart;								// 이름/ 기업명
 	
 	//@NotEmpty(message="* 이력서를 첨부 해주세요.", groups={RecruitPass.class})
-	//private String file;						// 휴대폰 번호
+	private MultipartFile file;						// 파일 
 
 	private String fileName;
 	
@@ -87,6 +90,17 @@ public class FormRecruitInfoEntity implements Serializable, CommonFormValidEntit
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 

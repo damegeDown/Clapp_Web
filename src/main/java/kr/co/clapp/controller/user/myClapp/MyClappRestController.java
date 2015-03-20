@@ -112,18 +112,20 @@ public class MyClappRestController {
 	 * @return
 	 */
 	@RequestMapping("/responseVirtualAcct")
-	public ResponseEntity responseVirtualAcct(HttpServletRequest request) {
-
+	public String responseVirtualAcct(HttpServletRequest request) {
+		String result = "FAIL";
 		ResponseEntity resultMap = new ResponseEntity();
 		try {
 			resultMap = paymentService.responseVirtualAcct(request);
-			logger.info("무통장입금처리 Success");
+			if(resultMap.getResultCode().equals(CommonCode.SUCCESS)) {
+				result = "OK"; 
+			}
 		} catch (Exception e) {
 			resultMap.setResultCode(ResultCode.FAIL);
 			logger.error("MyClappRestController.responseVirtualAcct:Faild" , e);
 		}
-		return resultMap;
-	}
+		return result;
+	} 
 	
 	/**
 	 * 1:1문의 등록
@@ -250,6 +252,11 @@ public class MyClappRestController {
 		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
 		EcrmEntity ecrmEntity = new EcrmEntity();
 		try {
+			if(userInfo.getUserType().equals(CommonCode.USER_MEMBER)){
+				dropOutUserEntity.setUserName(userInfo.getUserName());
+			} else {
+				dropOutUserEntity.setUserName(userInfo.getUserCompanyName());
+			}
 			dropOutUserEntity.setUserMasterKey(userInfo.getUserMasterKey());
 			dropOutUserEntity.setDropOutUserId(userInfo.getUserId());
 			dropOutUserEntity.setDropOutReason("-");
@@ -260,7 +267,7 @@ public class MyClappRestController {
 			if(memberService.insertDropOutUser(dropOutUserEntity) > CommonCode.ZERO){
 				result.setResultCode(CommonCode.SUCCESS);
 				result.setResultURL("/myClapp/dropOutComplet");
-				session.invalidate();
+//				session.invalidate();
 				if(mailingService.sendDropOutMemberMail(dropOutUserEntity) > CommonCode.ZERO) { 
 		  	    	  // 메일 발송 성공
 			      ecrmEntity.setMailState(CommonCode.SUCCESS_NO);

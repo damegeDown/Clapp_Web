@@ -30,28 +30,39 @@ function copy_trackback() {
 		temp = prompt("이 글의 트랙백 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요", url);
 	}
 }
+
 var goInquiry = function() {
 	var url = location.href;
 	var category = 1;
 	//퀵메뉴 
-	if(url.indexOf("mobileTestingMain") != -1) {
+	if(url.indexOf("mobileTesting") != -1) {
 		category = 1;
 	} else if(url.indexOf("autoMain") != -1){
 		category = 1;
 	} else if(url.indexOf("consulting") != -1){
 		category = 3;
-	} else if(url.indexOf("introductionMain") != -1 || url.indexOf("newsArticleList") != -1 || 
-			url.indexOf("personRecruit") != -1 || url.indexOf("cooperation") != -1 || url.indexOf("supportCustomerList") != -1){
+	} else {
 		category = 5;
 	} 
 	location.href = contextPath+"/introduction/supportInquire?inquiryCategory="+category;
+}
+
+var goGuide = function() {
+	var url = location.href;
+	//퀵메뉴 
+	if(url.indexOf("mobileTestingMain") != -1) {
+		window.open(contextPath+"/guide/testingGuide1",'이용 가이드','width=910,height=600,scrollbars=yes,resizeable=no,left=150,top=150');
+	} else if(url.indexOf("autoMain") != -1){
+		window.open(contextPath+"/autoGuide/autoGuide1",'이용 가이드','width=910,height=600,scrollbars=yes,resizeable=no,left=150,top=150');
+	} 
 }
 </script>
 <div class="floating" style="display:none;">
 	<div class="floatingFrame">
 		<div class="testing" style="display:none">
 			<div class="floatingMenu01 guide">
-				<a href="${contextPath }/guide/testingGuide1" onClick="mtPopup(this.href);return false;">
+				<a href="# return false;" onclick="goGuide()">
+				<%-- <a href="${contextPath }/guide/testingGuide1" onClick="mtPopup(this.href);return false;"> --%>
 					<span>이용 가이드</span>
 				</a>
 			</div>

@@ -34,7 +34,7 @@
        <tr>
         <th>구분</th>
         <td>
-          ${companyDetail.userCompanyGroupType}
+          ${companyDetail.userCompanyGroupTypeText}
         </td>
        </tr>
        <tr>
@@ -75,20 +75,58 @@
        </tr>
        <tr>
         <th>최종 로그인 일시</th>
-        <td>${companyDetail.userLastLoginDate}</td>
+        <td>
+            <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${companyDetail.userLastLoginDate}" />
+        </td>
        </tr>
        <tr>
         <th>보유 티켓수</th>
         <td>
-          <input type="text" class="inp-w160 " name="" value="" data-flag="off"/>
+          ${companyDetail.usedTicketAmount}티켓
           <a href="${contextPath}/admin/ticket/userTicketUsedList" class="btn-bottom-orenge" >티켓관리 바로가기</a>
         </td>
        </tr>
        <tr>
         <th>유료 상품 이용현황</th>
         <td>
-          <input type="text" class="inp-w160 " name="" value="" data-flag="off"/>
-          <a href="${contextPath}/admin/payment/paymentWebList" class="btn-bottom-orenge" >결제내역 바로가기</a>
+        <c:choose>
+        	<c:when test='${companyDetail.productName ne "Free"}'>
+        		유료 상품 이용중 
+        	</c:when>
+        	<c:when test='${companyDetail.productName eq "Free"}'>
+        		무료 상품 이용중 
+        	</c:when>
+        	<c:when test='${companyDetail.productName eq null}'>
+        		-
+        	</c:when>
+        </c:choose>
+         ( ${companyDetail.productName}, 상품 적용기간 
+          <fmt:formatDate pattern="yyyy/MM/dd" value="${companyDetail.ticketStartExpirationDate }" /> ~ 
+          <fmt:formatDate pattern="yyyy/MM/dd" value="${companyDetail.ticketEndExpirationDate }" /> )
+          <%--<a href="${contextPath}/admin/payment/paymentWebList" class="btn-bottom-orenge">결제내역 바로가기</a>--%>
+            <c:choose>
+                <c:when test='${companyDetail.productName eq "Monthly Diamond" }'>
+                    <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                </c:when>
+                <c:when test='${companyDetail.productName eq "Annual Silver" }'>
+                    <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                </c:when>
+                <c:when test='${companyDetail.productName eq "Annual Gold" }'>
+                    <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                </c:when>
+                <c:when test='${companyDetail.productName eq "Annual Diamond" }'>
+                    <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                </c:when>
+                <c:when test='${companyDetail.productName eq "Enterprize Gold" }'>
+                    <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                </c:when>
+                <c:when test='${companyDetail.productName eq "Enterprize Diamond" }'>
+                    <a href="${contextPath}/admin/payment/paymentContractList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${contextPath}/admin/payment/paymentWebList" class="btn-bottom-orenge">결제내역 바로가기</a>
+                </c:otherwise>
+            </c:choose>
         </td>
        </tr>
     </tbody>

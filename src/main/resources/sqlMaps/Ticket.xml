@@ -4,63 +4,71 @@
 <mapper namespace="kr.co.clapp.dao.TicketDAO">
 	<!-- 티켓 사용 내역 목록 -->
 	<select id="getUserTicketUsedList" parameterType="ticketEntity" resultType="ticketEntity">
-		SELECT 
-			UM.USER_MASTER_KEY,
-			UM.USER_ID,
-			FN_GET_COMMON_CODE_NAME('USER_TYPE', UM.USER_TYPE) USER_TYPE,
-			UM.USER_NAME,
-			UD.USER_COMPANY_NAME,
-			UTUH.HISTORY_START_USED_TIME,
-			UTUH.HISTORY_END_USED_TIME,
-			UTUH.HISTORY_USED_TICKET_AMOUNT,
-			D.DEVICE_MODEL_ENAME,
-			FN_GET_COMMON_CODE_NAME('DEVICE_MAKER_CODE', D.DEVICE_MAKER_CODE) DEVICE_MAKER_CODE
-		FROM
-		  USER_MASTER UM, USER_DETAIL UD, USER_TICKET_USED_HISTORY UTUH, DEVICE D
-		WHERE
-		  UM.USER_MASTER_KEY = UD.USER_MASTER_KEY
-		AND
-		  UM.USER_MASTER_KEY = UTUH.USER_MASTER_KEY
-		AND  
-			UTUH.DEVICE_KEY = D.DEVICE_KEY
-			<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-				AND
-				(
-				  UTUH.HISTORY_START_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-				OR
-				  UTUH.HISTORY_END_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-				)
-		</if>
-		<if test="searchValue != '' and searchValue != null">
-			AND
-			 USER_TYPE = #{searchValue}
-		</if>
-		<if test="searchValue1 != '' and searchValue1 != null">
-			AND
-			 DEVICE_MAKER_CODE = #{searchValue1}
-		</if>
-		<if test="searchValue2 != '' and searchValue2 != null">
-			AND
-		  	UM.USER_ID = #{searchValue2}
-		</if>
-		<if test="searchValue3 != '' and searchValue3 != null">
-			AND
-		  	UM.USER_NAME = #{searchValue3}
-		</if>
-		LIMIT  
-		#{rowStartNumber}, #{pageListSize}
+        SELECT
+        um.USER_MASTER_KEY,
+        um.USER_ID,
+        FN_GET_COMMON_CODE_NAME('USER_TYPE', um.USER_TYPE) USER_TYPE,
+        um.USER_NAME,
+        ud.USER_COMPANY_NAME,
+        vr.*,
+        vd.*,
+        vd.manufacturer DEVICE_MAKER_CODE
+        FROM
+        VIEW_RESERVATIONS vr ,
+        VIEW_DEVICES vd,
+        USER_MASTER um,
+        USER_DETAIL ud
+        WHERE
+        vr.user_id = um.user_master_key
+        AND
+        um.user_master_key = ud.user_master_key
+        AND
+        vr.device_id = vd.id
+        <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+            AND
+            (
+            vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            OR
+            vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            )
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            AND
+            um.USER_TYPE = #{searchValue}
+        </if>
+        <if test="searchValue1 != '' and searchValue1 != null">
+            AND
+            vd.manufacturer= #{searchValue1}
+        </if>
+        <if test="searchValue2 != '' and searchValue2 != null">
+            AND
+            um.USER_ID LIKE CONCAT(#{searchValue2}, '%')
+        </if>
+        <if test="searchValue3 != '' and searchValue3 != null">
+            AND
+            (um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%'))
+        </if>
+        ORDER BY
+             start_dttm DESC
+        LIMIT
+        #{rowStartNumber}, #{pageListSize}
 	</select>
 	<!-- //티켓 사용 내역 목록 -->
 	
 	<!-- 이달의 티켓 사용 개수 합계 -->
 	<select id="getTicketSum" parameterType="ticketEntity" resultType="ticketEntity">
 		SELECT 
-	    if(SUM(HISTORY_USED_TICKET_AMOUNT) is null, 0, SUM(HISTORY_USED_TICKET_AMOUNT)) ticketSum
-	  FROM 
-	    USER_TICKET_USED_HISTORY 
+	    	if(SUM(use_point) is null, 0, SUM(use_point)) ticketSum
+	  	FROM 
+	    VIEW_RESERVATIONS
 		WHERE 
-	    HISTORY_START_USED_TIME BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
-	      OR HISTORY_END_USED_TIME BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
+	    	start_dttm 
+	    		BETWEEN 
+	    			DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
+	      	OR 
+	      	end_dttm 
+	      		BETWEEN 
+	      			DATE_FORMAT(NOW() ,'%Y-%m-01') AND last_day(now())
 	</select>
   <!-- //이달의 티켓 사용 개수 합계 -->
 
@@ -69,37 +77,40 @@
 		SELECT 
 		  COUNT(*)
 		FROM
-		  USER_MASTER UM, USER_DETAIL UD, USER_TICKET_USED_HISTORY UTUH, DEVICE D
+		  VIEW_RESERVATIONS vr ,
+		  VIEW_DEVICES vd,
+		  USER_MASTER um,
+		  USER_DETAIL ud
 		WHERE
-		  UM.USER_MASTER_KEY = UD.USER_MASTER_KEY
+		  	vr.user_id = um.user_master_key
 		AND
-		  UM.USER_MASTER_KEY = UTUH.USER_MASTER_KEY
-		AND  
-		  UTUH.DEVICE_KEY = D.DEVICE_KEY
-		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-			AND
-			(
-			  UTUH.HISTORY_START_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			OR
-			  UTUH.HISTORY_END_USED_TIME BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			)
-		</if>
-		<if test="searchValue != '' and searchValue != null">
-			AND
-			 USER_TYPE = #{searchValue}
-		</if>
-		<if test="searchValue1 != '' and searchValue1 != null">
-			AND
-		  	DEVICE_MAKER_CODE = #{searchValue1}
-		</if>
-		<if test="searchValue2 != '' and searchValue2 != null">
-			AND
-		  	UM.USER_ID = #{searchValue2}
-		</if>
-		<if test="searchValue3 != '' and searchValue3 != null">
-			AND
-			 UM.USER_NAME = #{searchValue3}
-		</if>
+			um.user_master_key = ud.user_master_key
+		AND
+			vr.device_id = vd.id
+        <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+            AND
+            (
+            vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            OR
+            vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            )
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            AND
+            um.USER_TYPE = #{searchValue}
+        </if>
+        <if test="searchValue1 != '' and searchValue1 != null">
+            AND
+            vd.manufacturer= #{searchValue1}
+        </if>
+        <if test="searchValue2 != '' and searchValue2 != null">
+            AND
+            um.USER_ID LIKE CONCAT(#{searchValue2}, '%')
+        </if>
+        <if test="searchValue3 != '' and searchValue3 != null">
+            AND
+            (um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%'))
+        </if>
 	</select>
 	<!-- //티켓 사용 내역 카운트 -->
 	
@@ -162,15 +173,17 @@
 		       AND
 		        SERVICE_APPLY_REASON = #{searchValue1}
 		     </if>
-		     <if test="searchValue2 != '' and searchValue2 != null">
-		       AND
-		         um.USER_ID = #{searchValue2}
-		     </if>
 		     <if test="searchValue3 != '' and searchValue3 != null">
 		       AND
 		        TPAS.SERVICE_TARGET_NAME = #{searchValue3}
 		     </if> 
 		  )a
+		  where 
+		  SERVICE_INSERT_DATE is not null
+		  <if test="searchValue2 != '' and searchValue2 != null">
+		       AND
+		         USER_ID = #{searchValue2}
+		     </if>
 		GROUP BY
 		  TICKET_PRODUCT_SERVICE_KEY,
 		  USER_ID
@@ -188,16 +201,38 @@
 		FROM
 		  (
 		    SELECT
+		      TPAS.ticket_product_service_key,
+		      TPAS.SERVICE_APPLY_DATE,
+		      TPAS.SERVICE_PRODUCT_NAME,
+		      TPAS.SERVICE_APPLY_TICKET_AMOUNT,
+		      TPAS.SERVICE_APPLY_TICKET_TOTAL_AMOUNT,
+		      FN_GET_COMMON_CODE_NAME(
+		        'SERVICE_APPLY_REASON',
+		        TPAS.SERVICE_APPLY_REASON
+		      )SERVICE_APPLY_REASON,
+		      TPAS.SERVICE_APPLY_OPERATOR_NAME,
+		      FN_GET_COMMON_CODE_NAME(
+		        'SERVICE_TARGET_TYPE',
+		        TPAS.SERVICE_TARGET_TYPE
+		      )SERVICE_TARGET_TYPE,
+		      TPAS.SERVICE_TARGET_NAME,
+		      TPAS.SERVICE_INSERT_DATE,
 		      CASE(SERVICE_TARGET_TYPE)
-		    WHEN 4 THEN
-		      (
-		        SELECT
-		          um.USER_ID
-		        FROM
-		          USER_MASTER um
-		        WHERE
-		          um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
-		      )
+		      WHEN 1 THEN
+	         'member_all'
+	        WHEN 2 THEN 
+	         'person_all'
+	        WHEN 3 THEN
+	         'company_all'
+		      WHEN 4 THEN
+			      (
+			        SELECT
+			          um.USER_ID
+			        FROM
+			          USER_MASTER um
+			        WHERE
+			          um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
+			      )
 		    ELSE
 		      SERVICE_TARGET_NAME
 		    END AS USER_ID
@@ -206,30 +241,32 @@
 		      APPLY_SERVICE_USER ASU
 		    WHERE
 		      ASU.TICKET_PRODUCT_SERVICE_KEY = TPAS.TICKET_PRODUCT_SERVICE_KEY
-			    <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-			      AND
-			       TPAS.SERVICE_APPLY_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			    </if>
-			    <if test="searchValue != '' and searchValue != null">
-			      AND
-			       SERVICE_TARGET_TYPE = #{searchValue}
-			    </if>
-			    <if test="searchValue1 != '' and searchValue1 != null">
-			      AND
-			       SERVICE_APPLY_REASON = #{searchValue1}
-			    </if>
-			    <if test="searchValue2 != '' and searchValue2 != null">
-			      AND
-			        USER_ID = #{searchValue2}
-			    </if>
-			    <if test="searchValue3 != '' and searchValue3 != null">
-			      AND
-			       TPAS.SERVICE_TARGET_NAME = #{searchValue3}
-			    </if>
+		      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
+		       AND
+		        TPAS.SERVICE_APPLY_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+		     </if>
+		     <if test="searchValue != '' and searchValue != null">
+		       AND
+		        SERVICE_TARGET_TYPE = #{searchValue}
+		     </if>
+		     <if test="searchValue1 != '' and searchValue1 != null">
+		       AND
+		        SERVICE_APPLY_REASON = #{searchValue1}
+		     </if>
+		     <if test="searchValue3 != '' and searchValue3 != null">
+		       AND
+		        TPAS.SERVICE_TARGET_NAME = #{searchValue3}
+		     </if> 
 		    GROUP BY
 		      ASU.TICKET_PRODUCT_SERVICE_KEY,
 		      user_id
 		  )a
+		  where 
+		  SERVICE_INSERT_DATE is not null
+		  <if test="searchValue2 != '' and searchValue2 != null">
+		       AND
+		         USER_ID = #{searchValue2}
+		     </if>
 	</select>
 	<!-- 티켓 적용서비스 카운트 -->
 
@@ -262,7 +299,7 @@
 	         #{serviceTargetName},
 	        </otherwise>
 	        </choose>
-				DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %h:%i'),
+				DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %H:%i'),
 				#{serviceProductName},
 				#{serviceApplyTicketAmount},
 				#{serviceApplyTicketTotalAmount},
@@ -311,7 +348,12 @@
 			USER_TICKET_MASTER 
 		SET 
 			ticket_amount = ticket_amount + ${serviceApplyTicketAmount},
-			ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount}
+			ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount},
+			ticket_end_expiration_date = date_add(ticket_end_expiration_date, interval +${expirationDate} day)
+			<if test="userType == 2">
+				,product_name = #{serviceProductName}
+				,product_master_key = #{productMasterKey}
+			</if>
 		WHERE
 			user_master_key in (
 				SELECT 
@@ -319,6 +361,9 @@
 				FROM 
 				 	USER_MASTER
 				WHERE
+					<if test="serviceTargetType == 1">
+					  USER_TYPE = '1' OR '2'
+					</if>
 					<if test="serviceTargetType == 2">
 					  USER_TYPE = '1'
 					</if>
@@ -326,10 +371,11 @@
 					  USER_TYPE = '2'
 					</if>
 					<if test="serviceTargetType == 4" >
-					    user_id in
+					    <!-- user_id in
 					  <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
 			             #{userIdArr}
-			          </foreach>
+			          </foreach> -->
+			         	user_id = #{userId}
 			        </if>
 			)
 	</update>
@@ -337,7 +383,7 @@
 		INSERT INTO
 			USER_TICKET_HISTORY 
 			(
-				user_ticket_master_key,
+				target_key,
 				user_master_key,
 				product_master_key,
 				product_name,
@@ -347,15 +393,16 @@
 				ticket_apply_date,
 				insert_date
 			)  (
-				SELECT 
-					utm.user_ticket_master_key,
-					utm.user_master_key,
-					utm.product_master_key,
-					#{serviceApplyReason},
+				SELECT  
+					#{ticketProductServiceKey},
+					utm.user_master_key,  
+					#{productMasterKey},
+					#{serviceProductName},
+					<!-- FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', #{serviceApplyReason}), -->
 					#{serviceApplyTicketAmount},
-					utm.ticket_start_expiration_date,
-					utm.ticket_end_expiration_date,
-					DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %h:%i'),
+					date_add(utm.ticket_end_expiration_date, interval +1 day),
+					date_add(utm.ticket_end_expiration_date, interval +${expirationDate} day),
+					DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %H:%i'),
 					NOW()
 				FROM 
 				 	USER_TICKET_MASTER utm,
@@ -363,6 +410,9 @@
 				WHERE
 					utm.user_master_key = um.user_master_key
 				AND 
+					<if test="serviceTargetType == 1">
+					  um.USER_TYPE = '1' OR '2'
+					</if>
 					<if test="serviceTargetType == 2">
 					  um.USER_TYPE = '1'
 					</if>
@@ -370,10 +420,11 @@
 					  um.USER_TYPE = '2'
 					</if>
 					<if test="serviceTargetType == 4" >
-					   um.user_id in
+					   <!-- um.user_id in
 					  <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
 			             #{userIdArr}
-			          </foreach>
+			          </foreach> -->
+			          um.user_id = #{userId}
 			         </if>
 			)
 	</insert>
@@ -489,7 +540,7 @@
   	INSERT INTO
   		USER_TICKET_USED_HISTORY 
   		(
-  			user_ticket_master_key,
+  			target_key,
   			user_master_key,
   			history_start_used_time,
   			history_end_used_time,
@@ -556,7 +607,7 @@
 			VIEW_RESERVATIONS vr,
 			VIEW_DEVICES vd
 		WHERE
-			vr.device_id = vd.device_id
+			vr.device_id = vd.id
 		AND
 			user_id = #{userMasterKey}
 		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
@@ -602,9 +653,18 @@
 			vr.updt_dttm,
 			vr.use_point,
 			vr.status,
-			FN_GET_COMMON_CODE_NAME('RESERVATION_STATUS',  vr.status) statusText,
+			<!-- FN_GET_COMMON_CODE_NAME('RESERVATION_STATUS',  vr.status) statusText, -->
+			(
+	            CASE
+		            WHEN (vr.status = '0') THEN '예약중'
+		            WHEN (vr.status = '1') THEN '사용중'
+		            WHEN ((vr.status = '2') AND (NOW() <![CDATA[<=]]> vr.end_dttm)) THEN '대기중'
+		            WHEN ((vr.status = '2') AND (NOW() > vr.end_dttm)) THEN '종료'
+		            WHEN (vr.status  = '3') THEN '사용종료'
+           		 ELSE '' END
+            ) AS statusText, 
 			vd.manufacturer,
-			vd.prod_name,
+			vd.prod_name, 
 			vd.os,
 			vd.resolution,
 			vd.os_version
@@ -612,7 +672,7 @@
 			VIEW_RESERVATIONS vr,
 			VIEW_DEVICES vd
 		WHERE
-			vr.device_id = vd.device_id
+			vr.device_id = vd.id
 		AND
 			user_id = #{userMasterKey}
 		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
@@ -633,6 +693,8 @@
 			AND
 		  	vr.status = #{searchValue2}
 		</if>
+		ORDER BY
+			vr.start_dttm desc
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
@@ -670,7 +732,7 @@
 			WHERE
 				user_master_key = #{userMasterKey}
 				
-			UNION ALL
+			<!-- UNION ALL
 			
 			SELECT
 				service_apply_date,
@@ -689,13 +751,13 @@
 			AND
 				ut.user_master_key = au.user_master_key
 			AND
-				ut.user_master_key = #{userMasterKey}
+				ut.user_master_key = #{userMasterKey} -->
 				
 			UNION ALL
 		
 			SELECT
 				reserve_time,
-				'사용' ,
+				'차감' ,
 				use_point,
 				start_dttm,
 				end_dttm,
@@ -705,7 +767,7 @@
 				VIEW_RESERVATIONS vr,
 				VIEW_DEVICES vd
 			WHERE
-				vr.device_id = vd.device_id
+				vr.device_id = vd.id
 			AND
 				vr.status != 3
 			AND
@@ -744,20 +806,21 @@
 				
 			UNION ALL -->
 	
-			SELECT
+			SELECT 
 				ticket_apply_date ticketApplyDate,
 				'적립' statusText,
 				CONCAT('+',ticket_avilable_amount) historyUsedTicketAmountText,
 				ticket_start_expiration_date ticketStartExpirationDate,
-				ticket_end_expiration_date ticketEndExpirationDate,
+				ticket_end_expiration_date ticketEndExpirationDate, 
 				product_name productName,
-				user_master_key
+				user_master_key,
+				TO_DAYS(ticket_end_expiration_date) - TO_DAYS(ticket_apply_date) as expirationDate
 			FROM
 				USER_TICKET_HISTORY
 			WHERE
 				user_master_key = #{userMasterKey}
 				 
-			UNION ALL
+			<!-- UNION ALL
 			SELECT
 				service_apply_date,
 				'적립' state,
@@ -776,7 +839,7 @@
 				ut.user_master_key = au.user_master_key
 			AND
 				ut.user_master_key = #{userMasterKey}
-				
+				 -->
 			UNION ALL
 		
 			SELECT
@@ -785,13 +848,16 @@
 				use_point,
 				start_dttm,
 				end_dttm,
-			   (SELECT CONCAT(product_name, '<![CDATA[ <br/><br/> ]]>', '(', vd.prod_name , ' / ' , LEFT(ticket_start_expiration_date,16), ' ~ ', LEFT(RIGHT(ticket_end_expiration_date, 8),5), ')') FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id),
-				vr.user_id
+			   (SELECT CONCAT(product_name, '<![CDATA[ <br/><br/> ]]>', '(', vd.prod_name , ' / ' , LEFT(start_dttm,16), ' ~ ', LEFT(RIGHT(end_dttm, 8),5), ')') FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id),
+				vr.user_id,
+				TO_DAYS(
+					(SELECT ticket_end_expiration_date FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id)	
+				) - TO_DAYS(reserve_time) AS expirationDate
 			FROM 
 				VIEW_RESERVATIONS vr,
 				VIEW_DEVICES vd
 			WHERE
-				vr.device_id = vd.device_id
+				vr.device_id = vd.id
 			AND
 				vr.status != 3
 			AND
@@ -811,6 +877,8 @@
 			AND
 			 a.statusText = #{searchValue} 
 		</if>
+		ORDER BY
+			ticketApplyDate DESC
 		LIMIT 
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
@@ -820,7 +888,7 @@
   <insert id="insertUserTicketHistory" parameterType="ticketEntity" >
   	INSERT INTO
   		USER_TICKET_HISTORY (
-  			user_ticket_master_key,
+  			target_key,
   			user_master_key,
   			product_master_key,
   			product_name,
@@ -830,7 +898,7 @@
   			ticket_apply_date,
   			insert_date
   		) VALUES (
-	  		#{userTicketMasterKey},
+	  		#{targetKey},
 	  		#{userMasterKey},
 	        #{productMasterKey},
 	        #{productName},
@@ -842,6 +910,15 @@
   		)
   </insert>
   <!--  // 사용자 티켓 히스토리에 저장 -->
+  <!-- 사용자 티켓 히스토리 삭제 -->
+  <delete id="removeUserTicketHistory" parameterType="ticketEntity" >
+	DELETE 
+			FROM 
+				USER_TICKET_HISTORY
+			WHERE
+				target_key = #{targetKey}
+  </delete>
+  <!-- //사용자 티켓 히스토리 삭제 -->
   <!-- 자신이 티켓정보 히스토리를 불러온다 -->
   <select id="selectTicketHistoryList" parameterType="ticketEntity" resultType="ticketentity">
     SELECT
@@ -860,7 +937,11 @@
     WHERE
     	user_master_key = #{userMasterKey}
     AND
-    	product_master_key > 1
+    	TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) > 0
+    <!-- AND 
+    	product_master_key > 1 -->
+    ORDER BY
+    	ticket_start_expiration_date desc
   </select>
   <!-- //자신이 티켓정보 히스토리를 불러온다 -->
 </mapper>

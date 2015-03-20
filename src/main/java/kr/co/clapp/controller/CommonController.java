@@ -3,6 +3,7 @@ package kr.co.clapp.controller;
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.controller.admin.member.MemberRestController;
 import kr.co.clapp.entities.CommonCodeEntity;
+import kr.co.clapp.entities.EcrmEntity;
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.PayLgdInfo;
 import kr.co.clapp.entities.PopupEntity;
@@ -10,6 +11,7 @@ import kr.co.clapp.entities.ResponseEntity;
 import kr.co.clapp.entities.ResultEntity;
 import kr.co.clapp.entities.SmsEntity;
 import kr.co.clapp.service.common.CommonService;
+import kr.co.clapp.service.ecrm.EcrmService;
 import kr.co.clapp.service.popup.PopupService;
 import kr.co.clapp.service.sms.SmsService;
 import kr.co.digigroove.commons.utils.NumberUtils;
@@ -40,6 +42,8 @@ public class CommonController {
   private SmsService smsService;
   @Autowired
   private PopupService popupService;
+  @Autowired
+  private EcrmService ecrmService;
   @Value("#{smsConfig['sendNo']}")
   private String sendNo;
   @Value("#{fileConfig['filePath']}")
@@ -244,5 +248,64 @@ public class CommonController {
 		  logger.error("CommonController.mainPopup:Faild" , e);
 	  }
     return result;
+  }
+  
+  /**
+   * 설문 폼
+   * @param ecrmEntity
+   * @param model
+   * @return
+   */
+  @RequestMapping("/surveyAnswerForm")
+  public String surveyAnswerForm(EcrmEntity ecrmEntity, Model model) {
+	try{
+	  //공통코드 
+  	  CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
+  	  commonCodeEntity.setCodeMasterCode(CommonCode.POINT_TEXT);
+  	  //공통코드 목록
+  	  List<CommonCodeEntity> textPoint = commonService.getCommonCodeList(commonCodeEntity);
+  	  
+  	  model.addAttribute("textPoint", textPoint);
+    	  ecrmEntity = ecrmService.getSurveyDetail(ecrmEntity, model);
+    	  model.addAttribute("ecrmEntity", ecrmEntity);
+    } catch (Exception e) {
+	  logger.error("EcrmController.surveyDetail:Faild" , e);
+	} 
+	return "surveyAnswerForm";
+  }
+  
+  /**
+   * 설문 답변 (홈페이지로 이동되었을시) 
+   * @param ecrmEntity
+   * @return
+   */
+  @RequestMapping(value="/insertSurveyAnswer", method=RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity insertSurveyAnswer(EcrmEntity ecrmEntity) {
+	ResponseEntity response = new ResponseEntity();
+	int result = CommonCode.ZERO;
+	try{
+	  int[] surveyQuestionKeyArr = ecrmEntity.getSurveyQuestionKeyArr();
+	  int[] surveyPointTypeArr = ecrmEntity.getSurveyPointTypeArr();
+	  String[] surveyAnswerArr = ecrmEntity.getSurveyAnswerArr();
+	  for(int i = 0; i < surveyQuestionKeyArr.length;i++) {
+		  ecrmEntity.setSurveyQuestionKey(surveyQuestionKeyArr[i]);
+		  if(surveyPointTypeArr[i] == 1) {
+			  ecrmEntity.setSurveyAnswerPoint(Integer.parseInt(surveyAnswerArr[i]));
+		  } else {
+			  ecrmEntity.setSurveyAnswerContents(surveyAnswerArr[i]);
+		  }
+		  ecrmEntity.setSurveyPointType(surveyPointTypeArr[i]);
+		  ecrmEntity.setUserId("test");
+		  result = ecrmService.insertSurveyAnswer(ecrmEntity);
+		  if(result > CommonCode.ZERO) {
+		    response.setResultMSG("설문을 등록 하였습니다.");
+		    response.setResultACT("self.close()");
+		  }
+	  }
+	} catch (Exception e) {
+	  logger.error("EcrmController.insertSurveyAnswer:Faild" , e);
+	}
+	return response;
   }
  }

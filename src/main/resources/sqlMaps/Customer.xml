@@ -390,7 +390,7 @@
         ADVICE_INSERT_DATE
         ) VALUES (
          #{adviceCategory},
-         DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %h:%i'),
+         DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %H:%i'),
          #{adviceInquiryName},
          #{adviceEmail},
          #{advicePhoneNumber},
@@ -406,7 +406,6 @@
   <update id="modifyCabledAdvice" parameterType="cabledAdviceEntity">
     UPDATE CABLED_ADVICE SET 
       ADVICE_CATEGORY = #{adviceCategory},
-      ADVICE_ACCEPT_DATE = DATE_FORMAT(#{adviceAcceptDate}, '%Y-%m-%d %h:%i'),,
       ADVICE_INQUIRY_NAME = #{adviceInquiryName},
       ADVICE_EMAIL = #{adviceEmail},
       ADVICE_PHONE_NUMBER = #{advicePhoneNumber},
@@ -424,7 +423,7 @@
 	    BOARD_NOTICE_KEY,
 	    NOTICE_TITLE,
 	    NOTICE_CONTENTS,
-	    FN_GET_COMMON_CODE_NAME('NOTICE_OPEN', NOTICE_OPEN) NOTICE_OPEN,
+	    if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기') as noticeOpenYn,
 	    NOTICE_OPEN_DATE,
 	    NOTICE_INSERT_NAME,
 	    NOTICE_INSERT_DATE,
@@ -437,10 +436,10 @@
        AND
          NOTICE_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
       </if>
-      <if test="searchValue != '' and searchValue != null">
+       <if test="searchValue != '' and searchValue != null">
         AND
-         NOTICE_OPEN = #{searchValue}
-      </if>
+         if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기')  = #{searchValue}
+      </if> 
       <if test="searchValue1 != '' and searchValue1 != null">
         <choose>
           <when test="searchKey == 1">
@@ -483,10 +482,10 @@
       AND
         NOTICE_INSERT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
      </if>
-     <if test="searchValue != '' and searchValue != null">
-       AND
-        NOTICE_OPEN = #{searchValue}
-     </if>
+       <if test="searchValue != '' and searchValue != null">
+        AND
+         if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기')  = #{searchValue}
+      </if> 
      <if test="searchValue1 != '' and searchValue1 != null">
        <choose>
          <when test="searchKey == 1">
@@ -516,18 +515,36 @@
   <!-- 공지사항 상세-->
     <select id="getBoardNoticeDetail" parameterType="boardNoticeEntity" resultType="boardNoticeEntity" >
     SELECT 
-      BOARD_NOTICE_KEY,
-      NOTICE_TITLE,
-      NOTICE_CONTENTS,
-      NOTICE_OPEN,
-      NOTICE_OPEN_DATE,
-      NOTICE_INSERT_NAME,
-      NOTICE_INSERT_DATE,
-      NOTICE_REMOVE_DATE
+      nt.BOARD_NOTICE_KEY,
+      nt.NOTICE_TITLE,
+      nt.NOTICE_CONTENTS,
+      nt.NOTICE_OPEN_DATE,
+      nt.NOTICE_INSERT_NAME,
+      nt.NOTICE_INSERT_DATE,
+      nt.NOTICE_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT 
     FROM 
-      BOARD_NOTICE
+      BOARD_NOTICE nt
+	    LEFT OUTER JOIN
+	    	ADMINISTRATION_FILE af 
+	    		ON nt.board_notice_key = af.file_target_key 
+	    			AND af.file_target = 'NOTICE' 
+	    			<if test="fileType != null and fileType != ''">
+	    				AND af.file_type = #{fileType}
+	    			</if>
     WHERE
-      BOARD_NOTICE_KEY = #{boardNoticeKey}
+      nt.BOARD_NOTICE_KEY = #{boardNoticeKey}
+	  GROUP BY
+	  	nt.BOARD_NOTICE_KEY
   </select>
   <!-- //공지사항 상세-->
   
@@ -536,15 +553,13 @@
     INSERT INTO BOARD_NOTICE (
      NOTICE_TITLE,
      NOTICE_CONTENTS,
-     NOTICE_OPEN,
      NOTICE_OPEN_DATE,
      NOTICE_INSERT_NAME,
      NOTICE_INSERT_DATE
       ) VALUES (
        #{noticeTitle},
        #{noticeContents},
-       #{noticeOpen},
-       DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i'),
+       DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %H:%i'),
        #{noticeInsertName},
        NOW()
       )
@@ -556,8 +571,7 @@
     UPDATE BOARD_NOTICE SET 
       NOTICE_TITLE = #{noticeTitle},
       NOTICE_CONTENTS = #{noticeContents},
-      NOTICE_OPEN = #{noticeOpen},
-      NOTICE_OPEN_DATE =  DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %h:%i')
+      NOTICE_OPEN_DATE =  DATE_FORMAT(#{noticeOpenDate}, '%Y-%m-%d %H:%i')
     WHERE
       BOARD_NOTICE_KEY = #{boardNoticeKey}
   </update>
@@ -672,19 +686,38 @@
   
   <!-- 도움말 상세-->
   <select id="getBoardQnaDetail" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
-    SELECT 
-      BOARD_QNA_KEY,
-      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
-      QNA_QUESTION,
-      QNA_ANSWER,
-      QNA_TOP10_OPEN,
-      QNA_INSERT_NAME,
-      QNA_INSERT_DATE,
-      QNA_REMOVE_DATE
+    SELECT
+			bq.BOARD_QNA_KEY,
+			FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
+			bq.QNA_QUESTION,
+			bq.QNA_ANSWER,
+			bq.QNA_TOP10_OPEN,
+			bq.QNA_INSERT_NAME,
+			bq.QNA_INSERT_DATE,
+			bq.QNA_REMOVE_DATE,
+			af.FILE_KEY,
+			af.FILE_TARGET_KEY,
+			af.FILE_TARGET,
+			af.FILE_NAME,
+			af.FILE_SAVED_NAME,
+			af.FILE_PATH,
+			af.FILE_SIZE,
+			af.FILE_EXTENSION,
+			af.FILE_WIDTH,
+			af.FILE_HEIGHT 
     FROM 
-      BOARD_QNA
+			BOARD_QNA bq
+				LEFT OUTER JOIN
+					ADMINISTRATION_FILE af
+						ON bq.board_qna_key = af.file_target_key
+							AND af.file_target = 'QNA'
+								<if test="fileType != null and fileType != ''">
+									AND af.file_type = #{fileType}
+								</if>
     WHERE
-      BOARD_QNA_KEY = #{boardQnaKey}
+			bq.BOARD_QNA_KEY = #{boardQnaKey}
+		GROUP BY
+			bq.BOARD_QNA_KEY
   </select>
   <!-- //도움말 상세-->
   
@@ -795,8 +828,8 @@
       BOARD_NOTICE_KEY,
       NOTICE_TITLE,
       NOTICE_CONTENTS,
-      FN_GET_COMMON_CODE_NAME('NOTICE_OPEN', NOTICE_OPEN) NOTICE_OPEN,
       NOTICE_OPEN_DATE,
+      if(NOTICE_OPEN_DATE <![CDATA[ <= ]]> now(), '노출','대기') as noticeOpenYn,
       NOTICE_INSERT_NAME,
       NOTICE_INSERT_DATE,
       NOTICE_REMOVE_DATE
@@ -804,6 +837,8 @@
       BOARD_NOTICE
     WHERE
       NOTICE_REMOVE_DATE IS NULL
+    AND 
+    	NOTICE_OPEN_DATE <![CDATA[ <= ]]> NOW()
     ORDER BY
       NOTICE_INSERT_DATE DESC
     LIMIT  
@@ -817,16 +852,34 @@
       bn.BOARD_NOTICE_KEY,
       bn.NOTICE_TITLE,
       bn.NOTICE_CONTENTS,
-      bn.NOTICE_OPEN,
       bn.NOTICE_OPEN_DATE,
       bn.NOTICE_INSERT_NAME,
       bn.NOTICE_INSERT_DATE,
-      bn.NOTICE_REMOVE_DATE
+      bn.NOTICE_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT 
       <include refid="getNoticeNextNPrev"/>
     FROM 
       BOARD_NOTICE bn
+	    LEFT OUTER JOIN
+	    	ADMINISTRATION_FILE af 
+	    		ON bn.board_notice_key = af.file_target_key 
+	    			AND af.file_target = 'NOTICE' 
+	    			<if test="fileType != null and fileType != ''">
+	    				AND af.file_type = #{fileType}
+	    			</if>
     WHERE
       bn.BOARD_NOTICE_KEY = #{boardNoticeKey}
+ 	  GROUP BY
+	  	bn.BOARD_NOTICE_KEY
   </select>
   <!-- //공지사항 상세-->
   
@@ -853,33 +906,54 @@
      BOARD_NOTICE
    WHERE
      NOTICE_REMOVE_DATE IS NULL
+    AND 
+    	NOTICE_OPEN_DATE <![CDATA[ <= ]]> NOW()
   </select>
   <!-- //사용자 공지사항 카운트-->
   
   <!-- 사용자 도움말 목록-->
   <select id="getBoardQnaUserList" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
     SELECT 
-      BOARD_QNA_KEY,
+      bq.BOARD_QNA_KEY,
       FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
-      QNA_QUESTION,
-      QNA_ANSWER,
-      QNA_TOP10_OPEN,
-      QNA_INSERT_NAME,
-      QNA_INSERT_DATE,
-      QNA_REMOVE_DATE
+      bq.QNA_QUESTION,
+      bq.QNA_ANSWER,
+      bq.QNA_TOP10_OPEN,
+      bq.QNA_INSERT_NAME,
+      bq.QNA_INSERT_DATE,
+      bq.QNA_REMOVE_DATE,
+      af.FILE_KEY,
+      af.FILE_TARGET_KEY,
+      af.FILE_TARGET,
+      af.FILE_NAME,
+      af.FILE_SAVED_NAME,
+      af.FILE_PATH,
+      af.FILE_SIZE,
+      af.FILE_EXTENSION,
+      af.FILE_WIDTH,
+      af.FILE_HEIGHT
     FROM 
-      BOARD_QNA
+      BOARD_QNA bq
+        LEFT OUTER JOIN
+            ADMINISTRATION_FILE af
+        ON bq.board_qna_key = af.file_target_key
+           AND af.file_target = 'QNA'
+            <if test="fileType != null and fileType != ''">
+                AND af.file_type = #{fileType}
+            </if>
     WHERE
-      QNA_REMOVE_DATE IS NULL
+      bq.QNA_REMOVE_DATE IS NULL
       <if test="qnaTop10Open != '' and qnaTop10Open != null">
-        AND QNA_TOP10_OPEN = #{qnaTop10Open}
+        AND bq.QNA_TOP10_OPEN = #{qnaTop10Open}
       </if>
       <if test="searchValue != '' and searchValue != null">
         AND
-         QNA_CATEGORY = #{searchValue}
+         bq.QNA_CATEGORY = #{searchValue}
       </if>
+		GROUP BY
+			bq.BOARD_QNA_KEY
     ORDER BY
-      QNA_INSERT_DATE DESC
+      bq.QNA_INSERT_DATE DESC
     LIMIT  
       #{rowStartNumber}, #{pageListSize}
   </select>
@@ -893,6 +967,10 @@
      BOARD_QNA
    WHERE
       QNA_REMOVE_DATE IS NULL
+      <if test="searchValue != '' and searchValue != null">
+          AND
+          QNA_CATEGORY = #{searchValue}
+      </if>
   </select>
   <!-- //사용자 도움말 카운트-->
 </mapper>
