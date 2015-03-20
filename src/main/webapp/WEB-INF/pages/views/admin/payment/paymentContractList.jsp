@@ -22,7 +22,7 @@
 	          <input type="text" class="inp-w100" id="from" name="startDate" value="${paymentEntity.startDate}"/> ~&nbsp; 
 	          <input type="text" class="inp-w100" id="to" name="endDate" value="${paymentEntity.endDate}"/>
 	          <span class="marL-15 span-w80">신청상품</span>
-	          <select class="sel-w140" name="searchValue">
+	          <select class="sel-w180" name="searchValue">
 	          	<option value="">전체</option>
 		          <c:forEach items="${productCode }" var="code">
 					<option value="${code.commonCode }" <c:if test="${paymentEntity.searchValue eq code.commonCode }">selected</c:if>>${code.commonName }</option>
