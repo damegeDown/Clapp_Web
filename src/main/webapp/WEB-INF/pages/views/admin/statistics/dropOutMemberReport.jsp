@@ -72,7 +72,16 @@
 		</c:if>
 	</table>
 	<div style="width:100%;">
-  	<h3 class="floatL" style="margin-top:15px">${CommonCode.dropOutReason } <span class="colorSkyBlue">${dropOutMaxCount.maxDropOutReason} (${dropOutMaxCount.numDropOutReason} 건)</span></h3>
+  	<h3 class="floatL" style="margin-top:15px">${CommonCode.dropOutReason }
+        <span class="colorSkyBlue">
+         <c:if test="${dropOutMaxCount.maxDropOutReason != null}">
+             ${dropOutMaxCount.maxDropOutReason} ( ${dropOutMaxCount.numDropOutReason} 건 )
+         </c:if>
+         <c:if test="${dropOutMaxCount.maxDropOutReason == null}">
+              ( 0 건 )
+         </c:if>
+        </span>
+    </h3>
   </div>
   <c:set var="reasonLength" value="${dropOutReasonList.size() }"/>
 	<table class="board-list-r">
