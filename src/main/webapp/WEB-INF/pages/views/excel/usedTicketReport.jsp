@@ -21,7 +21,8 @@
 		<tr>
 			<th>날짜(요일)</th>
 			<th>일반</th>
-			<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+            <th>기업 / 단체</th>
+            <th>기업 / 단체 사용율</th>
 			<th>일별 합계</th>
 		</tr>
 	</thead>
@@ -137,7 +138,8 @@
 			<tr>
 				<th>사용 시간</th>
 				<th>일반</th>
-				<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+                <th>기업 / 단체</th>
+                <th>기업 / 단체 사용율</th>
 				<th>일별 합계</th>
 			</tr>
 		</thead>
@@ -150,7 +152,7 @@
 		<tbody>
 		<c:forEach items="${statisticsTimeList.statisticsList }" var="statisticsTimeList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsTimeList.historyUsedTicketAmount * 15 } 분</td> 
+				<td>${statisticsTimeList.usePoint * 15 } 분</td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsTimeList.usedTicketMember } 명
@@ -189,7 +191,8 @@
 			<tr>
 				<th>디바이스 모델명</th>
 				<th>일반</th>
-				<th colspan="2">기업 / 단체 (일반 대비 사용률)</th>
+                <th>기업 / 단체</th>
+                <th>기업 / 단체 사용율</th>
 				<th>일별 합계</th>
 			</tr>
 		</thead>
@@ -202,7 +205,7 @@
 		<tbody>
 		<c:forEach items="${statisticsDeviceList.statisticsList }" var="statisticsDeviceList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsDeviceList.deviceModelEname} </td> 
+				<td>${statisticsDeviceList.prodName} </td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsDeviceList.usedTicketMember } 명

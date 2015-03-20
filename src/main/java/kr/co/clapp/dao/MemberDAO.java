@@ -1,11 +1,11 @@
 package kr.co.clapp.dao;
 
-import java.util.List;
-
 import kr.co.clapp.entities.AdminEntity;
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.TicketEntity;
 import kr.co.clapp.entities.validation.FormUserInfoEntity;
+
+import java.util.List;
 
 public interface MemberDAO {
   /**
@@ -240,5 +240,10 @@ TicketEntity getUserProductInfo(MemberEntity userInfo);
 
 MemberEntity getUserInfoId(MemberEntity memberEntity);
 
-
+/**
+ * 최종 로그인일시
+ * @param memberEntity
+ * @return
+ */
+int userLastLoginDate(MemberEntity memberEntity);
 }

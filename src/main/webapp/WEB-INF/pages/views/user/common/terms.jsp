@@ -421,7 +421,7 @@
         </div>
         <div class="subAGRContentOneBoxArea">
           <div class="subAGRContentOneBoxTitBox">
-            <span class="subAGRContentOneBoxTit">[부칙] (시행일) 본 약관은 2014년 08월 07일부터 시행합니다.</span>
+            <span class="subAGRContentOneBoxTit">[부칙] (시행일) 본 약관은 2015년 3월 2일부터 시행합니다.</span>
           </div>
         </div>
       </div>

@@ -104,7 +104,7 @@
        <tr>
         <th>최종 로그인 일시</th>
         <td>
-          2014-12-12
+          <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${memberDetail.userLastLoginDate}" />
         </td>
        </tr>
        <tr>

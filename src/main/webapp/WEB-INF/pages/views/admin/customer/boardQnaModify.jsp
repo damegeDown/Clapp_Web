@@ -62,7 +62,7 @@
        <tr>
         <th>TOP 10 노출 여부</th>
         <td>
-          <label><input type="radio" name="qnaTop10Open" value="N" <c:if test="${boardQnaDetail.qnaTop10Open == 'N'}">checked="checked" </c:if>/>&nbsp;비노출&nbsp;&nbsp;</label>
+          <label><input type="radio" name="qnaTop10Open" value="N" <c:if test="${boardQnaDetail.qnaTop10Open == 'N'}">checked="checked" </c:if>checked/>&nbsp;비노출&nbsp;&nbsp;</label>
           <label><input type="radio" name="qnaTop10Open" value="Y" <c:if test="${boardQnaDetail.qnaTop10Open == 'Y'}">checked="checked" </c:if>/>&nbsp;노출 (TOP 10 가능개수 : <span class="boardQnaTop10">${10 - countExposedBoardQna }</span>개)&nbsp;&nbsp;</label>
         </td>
        </tr>

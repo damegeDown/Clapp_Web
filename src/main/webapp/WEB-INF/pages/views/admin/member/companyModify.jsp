@@ -34,7 +34,7 @@
        <tr>
         <th>구분</th>
         <td>
-          ${companyDetail.userCompanyGroupType}
+          ${companyDetail.userCompanyGroupTypeText}
         </td>
        </tr>
        <tr>
@@ -114,7 +114,7 @@
        <tr>
         <th>최종 로그인 일시</th>
         <td>
-          <!-- <input type="text" class="inp-w160 " name="userLastLoginDate" value="" readonly="true" data-flag="off"/> -->
+            <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${companyDetail.userLastLoginDate}" />
         </td>
        </tr>
        <tr>

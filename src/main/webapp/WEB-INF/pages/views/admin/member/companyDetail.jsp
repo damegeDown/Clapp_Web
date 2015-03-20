@@ -34,7 +34,7 @@
        <tr>
         <th>구분</th>
         <td>
-          ${companyDetail.userCompanyGroupType}
+          ${companyDetail.userCompanyGroupTypeText}
         </td>
        </tr>
        <tr>
@@ -75,7 +75,9 @@
        </tr>
        <tr>
         <th>최종 로그인 일시</th>
-        <td>${companyDetail.userLastLoginDate}</td>
+        <td>
+            <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${companyDetail.userLastLoginDate}" />
+        </td>
        </tr>
        <tr>
         <th>보유 티켓수</th>

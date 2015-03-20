@@ -69,7 +69,7 @@
         </p>
         <span class="subMTCOBItem3">실시간 네트웍스</span>
         <p class="subMTCOBItem3Text">
-          원격지에서 통신 및 방송<br />사업자의 N/W에 접속
+          원격지에서 통신 및 방송<br />사업자의 Network에 접속
         </p>
         <span class="subMTCOBItem4">디바이스 원격 액세스</span>
         <p class="subMTCOBItem4Text">
@@ -382,12 +382,20 @@
                 http://java.com/ko/download/index.jsp에<br />
                 접속 후 다운로드)
               </p>
+              <p class="sMTCEItem1Text3">
+                운영 체제 : Windows Vista, Windows 7, Windows 8 (32/64 비트)<br />
+                자바 환경 : JRE7 이상<br />
+                프로세서 : 펜티엄2 266MHz 이상<br />
+                설치에 필요한 디스크 용량 : 300MB 이상 (JRE + 자동화툴 + JNLP)<br />
+                메모리 : 128MB 이상
+              </p>
             </div>
           </div>
         </div>
         <div class="subMTContentEightItem2Box">
           <div class="subMTContentEightItem2TitleBox">
             <span class="sMTCEItem2Title">상세 이용<br />가이드</span>
+              <img src="${contextPath }/resources/images/smtce-Item2bg.png" style="margin-top: -60px; margin-left: 147px;"/>
           </div>
           <div class="subMTContentEightItem2TextBox">
             <div class="sMTCEItemsText2Box">

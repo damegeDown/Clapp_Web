@@ -55,7 +55,7 @@
           	<input type="hidden" name="deviceKey" class="deviceKey" value="${deviceSelected.deviceKey }" data-index="${j.index }"/>
           	<input type="checkbox" name="deviceKeyArr" class="chk" value="${deviceSelected.deviceKey }">
           </td>
-          <td>${deviceEntity.deviceSelectedList.size()-j.index}
+          <td>${j.index+1}
           </td>
           <td class="deviceModelEname pointer" data-key="${deviceSelected.deviceKey }">${deviceSelected.deviceModelEname}</td>
           <td>${deviceSelected.deviceModelKname}</td>

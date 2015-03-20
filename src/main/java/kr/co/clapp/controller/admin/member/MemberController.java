@@ -1,26 +1,14 @@
 package kr.co.clapp.controller.admin.member;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.CommonCode.Session;
 import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.entities.AdminEntity;
-import kr.co.clapp.entities.CommonCodeEntity;
-import kr.co.clapp.entities.DropOutUserEntity;
-import kr.co.clapp.entities.MemberEntity; 
-import kr.co.clapp.entities.ResponseEntity;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.messages.Messages;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -503,7 +497,7 @@ public class MemberController {
 					.getCommonCodeList(commonCodeEntity);
 			dropOutUserEntity = memberService
 					.getDropOutUserList(dropOutUserEntity);
-			int dropOutCount = memberService.getDropOutCount();
+			int dropOutCount = memberService.getDropOutUserCount();
 
 			model.addAttribute("dropOutCount", dropOutCount);
 			model.addAttribute("dropOutUserEntity", dropOutUserEntity);

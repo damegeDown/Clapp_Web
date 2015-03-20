@@ -1,23 +1,21 @@
 package kr.co.clapp.service.statistics.impl;
 
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
-import org.apache.ibatis.type.TypeException;
+import kr.co.clapp.controller.admin.statistics.StatisticsController;
+import kr.co.clapp.dao.StatisticsDAO;
+import kr.co.clapp.entities.StatisticsEntity;
+import kr.co.clapp.service.statistics.StatisticsService;
+import kr.co.digigroove.commons.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import kr.co.clapp.controller.admin.statistics.StatisticsController;
-import kr.co.clapp.dao.StatisticsDAO;
-import kr.co.clapp.entities.StatisticsEntity;
-import kr.co.clapp.service.statistics.StatisticsService;
-import kr.co.digigroove.commons.utils.StringUtils;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class StatisticsServiceImpl implements StatisticsService {
@@ -56,7 +54,7 @@ public class StatisticsServiceImpl implements StatisticsService {
    * 탈퇴 회원 현황
    */
   @Override
-  public void getDropOutMemberReport(StatisticsEntity statisticsEntity, Model model) {
+  public StatisticsEntity getDropOutMemberReport(StatisticsEntity statisticsEntity, Model model) {
 	try {
 	  //날짜별 탈퇴 회원수
 	  statisticsEntity.setSearchKey("date");
@@ -64,15 +62,20 @@ public class StatisticsServiceImpl implements StatisticsService {
 	  //탈퇴 사유별 탈퇴 회원수
 	  statisticsEntity.setSearchKey("reason");
 	  List<StatisticsEntity> dropOutReasonList= statisticsDAO.getDropOutMemberReport(statisticsEntity);
-	  
-	  model.addAttribute("dropOutList", dropOutList);
-	  model.addAttribute("dropOutReasonList", dropOutReasonList);
-	  
+      StatisticsEntity dropOutMemberCount  = statisticsDAO.getDropOutMemberCount(statisticsEntity);
+      StatisticsEntity dropOutMaxCount  = statisticsDAO.getDropOutMaxCount(statisticsEntity);
+      StatisticsEntity dropOutSearchCount  = statisticsDAO.getDropOutSearchCount(statisticsEntity);
+	  statisticsEntity.setDropOutList(dropOutList);
+	  statisticsEntity.setDropOutReasonList(dropOutReasonList);
+      model.addAttribute("dropOutMemberCount", dropOutMemberCount);
+      model.addAttribute("dropOutMaxCount", dropOutMaxCount);
+      model.addAttribute("dropOutSearchCount", dropOutSearchCount);
+
 	  //공통
-	  commonCode.put("navigation", "탈퇴 회원 (누적 탈퇴회원 수 : <span class='colorSkyBlue'>"+dropOutList.get(0).getTotDropOutCount()+"</span> 명)");   // 현재 페이지 네비게이션
-	  commonCode.put("searchResult", "> 검색결과 :  <span class='colorSkyBlue'>"+dropOutList.get(0).getSumDropOutCount()+"</span> 명");   // 검색 결과
-	  commonCode.put("dropOutReason", "> 탈퇴 사유별 : <span class='colorSkyBlue'>"+dropOutReasonList.get(0).getDropOutReason()+" ("+dropOutReasonList.get(0).getSumDropOutCount()+"</span> 건)");   // 검색 결과 
-	  commonCode.put("mainMenu", "permissionMaster");				// left main menu 
+	  commonCode.put("navigation", "탈퇴 회원");   // 현재 페이지 네비게이션
+      commonCode.put("searchResult", "> 검색결과 :");   // 검색 결과
+      commonCode.put("dropOutReason", "> 탈퇴 사유별 :");              // 제일 건수 높은 사유
+      commonCode.put("mainMenu", "permissionMaster");				// left main menu
 	  commonCode.put("subMenu", "statistics");				// left sub menu
 	  commonCode.put("subMenu2", "dropOutMemberReport");	// left sub menu
 	  model.addAttribute("CommonCode", commonCode);
@@ -81,7 +84,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 	} catch (Exception e) {
 		logger.error("StatisticsServiceImpl.dropOutMemberReport : Exception", e); 
 	}
-	
+	return statisticsEntity;
   }
   /**
    * 메일수신 현황
@@ -227,10 +230,14 @@ public class StatisticsServiceImpl implements StatisticsService {
 	  if(StringUtils.isEmpty(statisticsEntity.getSearchValue())) {
 		  statisticsEntity.setSearchValue(sdf.format(d));
 	  }
-      statisticsList = statisticsDAO.getMailInquiryReport(statisticsEntity);
-      statisticsEntity.setStatisticsList(statisticsList);
-      model.addAttribute("statisticsList", statisticsList);	
-      
+        StatisticsEntity inquiryCount  = statisticsDAO.getInquiryCount(statisticsEntity);
+        StatisticsEntity inquirySearchCount  = statisticsDAO.getInquirySearchCount(statisticsEntity);
+//      statisticsList = statisticsDAO.getMailInquiryReport(statisticsEntity);
+//      statisticsEntity.setStatisticsList(statisticsList);
+//      model.addAttribute("statisticsList", statisticsList);
+        model.addAttribute("inquiryCount", inquiryCount);
+        model.addAttribute("inquirySearchCount", inquirySearchCount);
+
       // TODO: 답변 만족도 문의후 답변
       List<StatisticsEntity> statisticsAnswerList = statisticsDAO.getMailInquiryReport(statisticsEntity);
       model.addAttribute("statisticsAnswerList", statisticsAnswerList);
@@ -240,8 +247,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 	} 
 	//공통
 	commonCode.put("navigation", "이메일 문의 / 답변");   						// 현재 페이지 네비게이션
-	commonCode.put("searchResult", "> 검색결과 : 문의건수 <span class='colorSkyBlue'>"+statisticsList.get(0).getInquiryCount()+"</span> 건 / 답변건수 <span class='colorSkyBlue'>"+statisticsList.get(1).getInquiryCount()+"</span> 건 / 미답변 건수 <span class='colorSkyBlue'>" +statisticsList.get(2).getInquiryCount()+"</span> 건");   	// 현재 페이지 네비게이션
-	commonCode.put("searchReason", "> 답변 만족도 점수 ");   						// 현재 페이지 네비게이션
+//	commonCode.put("searchResult", "> 검색결과 : 문의건수 <span class='colorSkyBlue'>"+statisticsList.get(0).getInquiryCount()+"</span> 건 / 답변건수 <span class='colorSkyBlue'>"+statisticsList.get(1).getInquiryCount()+"</span> 건 / 미답변 건수 <span class='colorSkyBlue'>" +statisticsList.get(2).getInquiryCount()+"</span> 건");   	// 현재 페이지 네비게이션
+    commonCode.put("searchReason", "> 답변 만족도 점수 ");   						// 현재 페이지 네비게이션
 	commonCode.put("mainMenu", "permissionMaster");							// left main menu 
 	commonCode.put("subMenu", "statistics");							// left sub menu
 	commonCode.put("subMenu2", "mailInquiryReport");							// left sub menu
@@ -259,23 +266,27 @@ public class StatisticsServiceImpl implements StatisticsService {
 		  statisticsEntity.setSearchValue(sdf.format(d));
 	  }
       statisticsList = statisticsDAO.getCableAdviceReprot(statisticsEntity);
+      StatisticsEntity cableAdviceTotalCount  = statisticsDAO.getCableAdviceTotalCount(statisticsEntity);
+      StatisticsEntity cableAdviceSearchCount  = statisticsDAO.getCableAdviceSearchCount(statisticsEntity);
       statisticsEntity.setStatisticsList(statisticsList);
-      model.addAttribute("statisticsList", statisticsList);	
-      
+      model.addAttribute("statisticsList", statisticsList);
+      model.addAttribute("cableAdviceTotalCount", cableAdviceTotalCount);
+      model.addAttribute("cableAdviceSearchCount", cableAdviceSearchCount);
+
       
 	} catch (Exception e) {
 		logger.error("StatisticsController.getMailInquiryReport" , e);
 	} 
 	//공통
 	commonCode.put("navigation", "유선상담 내역");   						// 현재 페이지 네비게이션
-	commonCode.put("searchResult", "> 검색결과 :  <span class='colorSkyBlue'>"+statisticsList.get(0).getAdviceTotal()+"</span> 건");   	// 현재 페이지 네비게이션
+//	commonCode.put("searchResult", "> 검색결과 :  <span class='colorSkyBlue'>"+statisticsList.get(0).getAdviceTotal()+"</span> 건");   	// 현재 페이지 네비게이션
 	commonCode.put("searchReason", "> 답변 만족도 점수 ");   						// 현재 페이지 네비게이션
 	commonCode.put("mainMenu", "permissionMaster");							// left main menu 
 	commonCode.put("subMenu", "statistics");							// left sub menu
 	commonCode.put("subMenu2", "cableAdviceReprot");							// left sub menu
 	model.addAttribute("CommonCode", commonCode);
 		
-	
+
   }
 }
  

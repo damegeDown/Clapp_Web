@@ -1,12 +1,5 @@
 package kr.co.clapp.service.ecrm.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.dao.EcrmDAO;
 import kr.co.clapp.entities.EcrmEntity;
@@ -14,6 +7,12 @@ import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.service.ecrm.EcrmService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.digigroove.commons.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly=true)
@@ -55,9 +54,12 @@ public class EcrmServiceImpl implements EcrmService {
 	//질문
 	List<EcrmEntity> questionList = ecrmDAO.getSurveyQuestion(ecrmEntity);
 	List<EcrmEntity> answerList = ecrmDAO.getSurveyAnswer(ecrmEntity);
-	int answerCount = ecrmDAO.getSurveyAnswerCount(ecrmEntity);
+	int answerCount = 0;
+	if(!StringUtils.isEmpty(ecrmDAO.getSurveyAnswerCount(ecrmEntity))) {
+		answerCount = ecrmEntity.getAnswerCount(); 
+	}
 	ecrmEntity.setAnswerList(answerList);
-	ecrmEntity.setAnswerCount(answerCount);
+	ecrmEntity.setAnswerCount(answerCount); 
 	ecrmEntity.setQuestionList(questionList);
 	//report
 	List<EcrmEntity> reportList = ecrmDAO.getSurveyReport(ecrmEntity);
@@ -98,7 +100,7 @@ public class EcrmServiceImpl implements EcrmService {
 	  //}
 	  
     }
-    return 0;
+    return result;
   }
   @Override
   @Transactional(readOnly=false)

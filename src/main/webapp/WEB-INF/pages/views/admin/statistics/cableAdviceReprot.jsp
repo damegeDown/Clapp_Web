@@ -7,7 +7,7 @@
 <script type="text/javascript" src="${contextPath }/resources/js/statistics.js"></script>
 <div class="sub-content">
   <div>
-			<h3 class="contents-title floatL">${CommonCode.navigation }</h3>
+			<h3 class="contents-title floatL">${CommonCode.navigation }( 누적 상담건수 : <span class="colorSkyBlue">${cableAdviceTotalCount.cableAdviceTotalCount}</span> 건)</h3>
 			<div style="clear:both;"></div>
 	</div>
 	<div class="search-box">
@@ -21,7 +21,10 @@
   <div style="margin:5px; color:red"></div>
   <div style="border-top:2px dotted #999;margin-bottom:30px"></div>
   <div style="width:100%;">
- 		<h3 class="floatL part-title">${CommonCode.searchResult }</h3>
+ 		<h3 class="floatL part-title">
+            >검색결과 :
+            <span class="colorSkyBlue">${cableAdviceSearchCount.cableAdviceSearchCount}</span> 건
+        </h3>
  		<input type="button" class="btn floatR excelDownBtn" value="엑셀 다운로드"/>
   </div>
   <c:set var="statisticsLength" value="${statisticsEntity.statisticsList.size() }"/>

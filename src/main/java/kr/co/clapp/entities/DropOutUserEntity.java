@@ -17,7 +17,7 @@ public class DropOutUserEntity extends PageEntity implements Serializable{
 	private String dropOutReasonCode;						// 탈퇴 사유 코드 
 	private String dropOutPerson;							// 탈퇴 처리자
 	private int userMasterKey;								// user고유키
-	private int dropOutCount;								// user고유키
+	private int dropOutCount;								// 누적카운트
 	private String userName;									//회원이름
 	private List<DropOutUserEntity> dropOutUserList;		// 탈퇴 리스트
 
@@ -85,7 +85,7 @@ public class DropOutUserEntity extends PageEntity implements Serializable{
 		this.dropOutCount = dropOutCount;
 	}
 
-	public String getUserName() {
+    public String getUserName() {
 		return userName;
 	}
 

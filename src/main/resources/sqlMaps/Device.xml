@@ -50,7 +50,7 @@
     ORDER BY
      <choose>
       <when test="deviceSort == 2">
-        DEVICE_MODEL_KNAME ASC
+        DEVICE_INSERT_DATE DESC
       </when>
       <when test="deviceSort == 3">
         DEVICE_MAKER_CODE ASC
@@ -59,10 +59,10 @@
         DEVICE_VERSION DESC
       </when>
  	    <when test='deviceTop10Open == "Y"'>
-        DEVICE_TOP10_NUMBER DESC
+        DEVICE_TOP10_NUMBER ASC
       </when>
       <otherwise>
-	      DEVICE_INSERT_DATE DESC
+          DEVICE_MODEL_ENAME ASC
       </otherwise>
     </choose>
     LIMIT  
@@ -297,10 +297,10 @@
 	         ${searchKey} ${searchKey1}
 	        </when>
 	        <when test='deviceTop10Open == "Y"'>
-        	 DEVICE_TOP10_NUMBER DESC
+        	 DEVICE_TOP10_NUMBER ASC
       		</when>
 	        <otherwise>
-	         DEVICE_INSERT_DATE DESC
+             DEVICE_MODEL_ENAME ASC
 	        </otherwise>
         </choose>
 <!--     LIMIT  

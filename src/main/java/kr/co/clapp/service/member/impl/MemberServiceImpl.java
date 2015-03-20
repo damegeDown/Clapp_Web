@@ -1,37 +1,26 @@
 package kr.co.clapp.service.member.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.controller.SessionBindingListener;
 import kr.co.clapp.dao.DropOutUserDAO;
 import kr.co.clapp.dao.MemberDAO;
 import kr.co.clapp.dao.ProductDAO;
 import kr.co.clapp.dao.TicketDAO;
-import kr.co.clapp.entities.AdminEntity;
-import kr.co.clapp.entities.DropOutUserEntity;
-import kr.co.clapp.entities.MemberEntity;
-import kr.co.clapp.entities.PageEntity;
-import kr.co.clapp.entities.ProductEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.TicketEntity;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.entities.validation.FormUserInfoEntity;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.HashUtils;
 import kr.co.digigroove.commons.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional(readOnly=true)
@@ -237,7 +226,7 @@ public class MemberServiceImpl implements MemberService {
   public DropOutUserEntity getDropOutUserList(DropOutUserEntity dropOutUserEntity) throws Exception {
 	  dropOutUserEntity.setPageParams();
 	  dropOutUserEntity.setPageSize(PageEntity.PAGE_LIST_SIZE_PARAM, PageEntity.PAGE_GROUP_SIZE_PARAM);
-	  dropOutUserEntity.setDataSize(dropOutUserDAO.getDropOutUserCount(dropOutUserEntity));
+	  dropOutUserEntity.setDataSize(dropOutUserDAO.getDropOutUserSearchCount(dropOutUserEntity));
 	List<DropOutUserEntity> dropOutUserListResult = dropOutUserDAO.getDropOutUserList(dropOutUserEntity);
 	dropOutUserEntity.setDropOutUserList(dropOutUserListResult);
     return dropOutUserEntity;
@@ -279,10 +268,9 @@ public class MemberServiceImpl implements MemberService {
    * 탈퇴 회원 누적 카운트
    */
   @Override
-  public int getDropOutCount() {
-	return dropOutUserDAO.getDropOutCount();
+  public int getDropOutUserCount() {
+	return dropOutUserDAO.getDropOutUserCount();
   }
-
 
   @Override
   public  String[] searchUserIdArr(MemberEntity memberEntity) {
@@ -344,13 +332,14 @@ public class MemberServiceImpl implements MemberService {
 	  
 	  MemberEntity userInfo = memberDAO.doUserLogin(memberEntity);
 //	  if(userInfo.getUserLoginState() == 0){
-		  int userLoginState = memberDAO.userLoginState(memberEntity);
 		  //정보 미존재
-		  if(StringUtils.isEmpty(userInfo)){
-			  result.setResultCode(ResultCode.NO_RESULT);
-			  result.setResultMSG(messages.getMessage("notFound"));
-		  //로그인 성공
-		  } else if(memberEntity.getUserPassword().equals(userInfo.getUserPassword())){
+      if(StringUtils.isEmpty(userInfo)){
+          result.setResultCode(ResultCode.NO_RESULT);
+          result.setResultMSG(messages.getMessage("notFound"));
+          //로그인 성공
+      } else if(memberEntity.getUserPassword().equals(userInfo.getUserPassword())){
+              int userLoginState = memberDAO.userLoginState(memberEntity);
+              int userLastLoginDate = memberDAO.userLastLoginDate(memberEntity);
 			  result.setResultDATA(userInfo);
 			  session.setAttribute(CommonCode.Session.USER_LOGIN_SESSION, userInfo);
 		      result.setResultCode(ResultCode.SUCCESS);
@@ -387,6 +376,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberEntity passwordFind(MemberEntity memberEntity) {
 		return memberDAO.passwordFind(memberEntity);
 	}
+
 	@Override
 	@Transactional(readOnly=false)
 	public int modifyPasswrod(FormUserInfoEntity formUserInfoEntity) {

@@ -1,4 +1,3 @@
-<%@page import="java.net.InetAddress"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="dgPageNav" uri="/WEB-INF/tlds/PageNavigation.tld"%>
@@ -85,7 +84,7 @@
 						<a href="#" class="login loginBtn">로그인</a>
 					</div>
 					IP : <c:out value="${remoteIp }"/> 
-					<%-- IP : <c:out value="${localIpAddress }"/>   --%>
+					IP : <c:out value="${localIpAddress }"/>   
 				</form> 
 			</div>
 		</div>
@@ -95,7 +94,7 @@
 		<h3 style="margin-bottom: 5px">※본 관리자 접속 페이지는 권한이 승인된 담당자만 접근
 			가능하며, 권한 승인 및 승격에 관한 부분은 아래 관리자에게 요청하시기 바랍니다.</h3>
 		<h3>
-			(CLAPP 관리자모드 운영 책임자  02-3460-8333 / <a
+			(CLAPP 관리자모드 운영 책임자 : V사업부 / 02-3460-8333 / <a
 				href="mailto:support@clapp.co.kr?Subject=권한 승인 및 승격 문의"
 				target="_top" style="text-decoration: underline;">support@clapp.co.kr</a>)
 		</h3>

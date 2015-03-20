@@ -9,9 +9,7 @@
 			DROP_OUT_DATE,
 			DROP_OUT_REASON,
 			DROP_OUT_REASON_CODE,
-			DROP_OUT_PERSON,
-			(SELECT 
-	      COUNT(*)
+			DROP_OUT_PERSON
 	    FROM
 	      DROP_OUT_USER
 	    WHERE
@@ -27,68 +25,75 @@
 	      <if test="searchValue1 != '' and searchValue1 != null">
 	        AND
 	        DROP_OUT_REASON_CODE = #{searchValue1}
-	      </if>) AS DROP_OUT_COUNT
-		FROM
-			DROP_OUT_USER
-		WHERE
-		  DROP_OUT_USER_ID IS NOT NULL
-      <if test="searchValue != '' and searchValue != null">
-        AND
-        DROP_OUT_USER_ID = #{searchValue}
-      </if>
-      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-       AND
-       DROP_OUT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-      </if>
-      <if test="searchValue1 != '' and searchValue1 != null">
-        AND
-        DROP_OUT_REASON_CODE = #{searchValue1}
-      </if>
-    <choose>
-      <when test="searchValue2 == 1">
-        AND
-        DROP_OUT_PERSON LIKE '관리자%'
-      </when>
-      <when test="searchValue2 == 2">
-        AND
-        DROP_OUT_PERSON LIKE '본인'
-      </when>
-      <otherwise>
-	      AND
-	      DROP_OUT_PERSON LIKE '%%'
-      </otherwise>
-    </choose>
-    ORDER BY
-      DROP_OUT_DATE DESC 
-     LIMIT 
-      #{rowStartNumber}, #{pageGroupSize}
+	      </if>
+          <choose>
+            <when test="searchValue2 == 1">
+              AND
+              DROP_OUT_PERSON LIKE '관리자%'
+            </when>
+            <when test="searchValue2 == 2">
+              AND
+              DROP_OUT_PERSON LIKE '본인'
+            </when>
+            <otherwise>
+              AND
+              DROP_OUT_PERSON LIKE '%%'
+            </otherwise>
+          </choose>
+      ORDER BY
+        DROP_OUT_DATE DESC
+      LIMIT
+        #{rowStartNumber}, #{pageGroupSize}
 	</select>
 	<!-- //탈퇴회원 리스트 -->
 	
 	<!-- 탈퇴회원 카운트 -->
-   <select id="getDropOutUserCount" parameterType="dropOutUserEntity" resultType="int">
+   <select id="getDropOutUserSearchCount" parameterType="dropOutUserEntity" resultType="int">
     SELECT 
       COUNT(*)
     FROM
       DROP_OUT_USER
     WHERE
-      DROP_OUT_USER_ID IS NOT NULL
-      <if test="searchValue != '' and searchValue != null">
-        AND
-        DROP_OUT_USER_ID = #{searchValue}
-      </if>
-      <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-       AND
-       DROP_OUT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-      </if>
+       DROP_OUT_USER_ID IS NOT NULL
+       <if test="searchValue != '' and searchValue != null">
+           AND
+           DROP_OUT_USER_ID = #{searchValue}
+       </if>
+       <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+           AND
+           DROP_OUT_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+       </if>
        <if test="searchValue1 != '' and searchValue1 != null">
-        AND
-        DROP_OUT_REASON_CODE = #{searchValue1}
-      </if> 
+           AND
+           DROP_OUT_REASON_CODE = #{searchValue1}
+       </if>
+       <choose>
+           <when test="searchValue2 == 1">
+               AND
+               DROP_OUT_PERSON LIKE '관리자%'
+           </when>
+           <when test="searchValue2 == 2">
+               AND
+               DROP_OUT_PERSON LIKE '본인'
+           </when>
+           <otherwise>
+               AND
+               DROP_OUT_PERSON LIKE '%%'
+           </otherwise>
+       </choose>
   </select> 
   <!-- //탈퇴회원 카운트 -->
-  
-  
+
+  <!-- 누적 탈퇴회원 카운트 -->
+  <select id="getDropOutUserCount" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      DROP_OUT_USER
+    where
+      DROP_OUT_USER_ID IS NOT NULL
+  </select>
+  <!-- //누적 탈퇴회원 카운트 -->
   <!-- 탈퇴회원 등록 -->
      <insert id="insertDropOutUser" parameterType="dropOutUserEntity">
     INSERT INTO 
@@ -108,15 +113,4 @@
         )
     </insert> 
   <!-- //탈퇴회원 등록 -->
-  
-  <!-- 누적 탈퇴회원 카운트 -->
-  <select id="getDropOutCount" resultType="int">
-    SELECT 
-     COUNT(*)
-    FROM
-     DROP_OUT_USER
-    where
-      DROP_OUT_USER_ID IS NOT NULL
-  </select>
-  <!-- //누적 탈퇴회원 카운트 -->
 </mapper>

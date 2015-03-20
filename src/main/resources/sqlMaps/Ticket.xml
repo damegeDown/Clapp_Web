@@ -4,54 +4,54 @@
 <mapper namespace="kr.co.clapp.dao.TicketDAO">
 	<!-- 티켓 사용 내역 목록 -->
 	<select id="getUserTicketUsedList" parameterType="ticketEntity" resultType="ticketEntity">
-		SELECT 
-			um.USER_MASTER_KEY,
-			um.USER_ID,
-			FN_GET_COMMON_CODE_NAME('USER_TYPE', um.USER_TYPE) USER_TYPE,
-			um.USER_NAME,
-			ud.USER_COMPANY_NAME,
-			vr.*,
-			vd.*,
-			vd.manufacturer DEVICE_MAKER_CODE
-		FROM
-		  VIEW_RESERVATIONS vr ,
-		  VIEW_DEVICES vd,
-		  USER_MASTER um,
-		  USER_DETAIL ud
-		WHERE
-		  	vr.user_id = um.user_master_key
-		AND
-			um.user_master_key = ud.user_master_key
-		AND
-			vr.device_id = vd.id 	
- 		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-			AND
-			(
-			 vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			OR
-			  vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			)
-		</if>
-		<if test="searchValue != '' and searchValue != null">
-			AND
-			 um.USER_TYPE = #{searchValue}
-		</if>
-		<if test="searchValue1 != '' and searchValue1 != null">
-			AND
-		  	vd.manufacturer= #{searchValue1}
-		</if>
-		<if test="searchValue2 != '' and searchValue2 != null">
-			AND
-		  	UM.USER_ID = #{searchValue2}
-		</if>
-		<if test="searchValue3 != '' and searchValue3 != null">
-			AND
-			 UM.USER_NAME = #{searchValue3}
-		</if> 
-		ORDER BY
-			start_dttm DESC
-		LIMIT  
-		#{rowStartNumber}, #{pageListSize}
+        SELECT
+        um.USER_MASTER_KEY,
+        um.USER_ID,
+        FN_GET_COMMON_CODE_NAME('USER_TYPE', um.USER_TYPE) USER_TYPE,
+        um.USER_NAME,
+        ud.USER_COMPANY_NAME,
+        vr.*,
+        vd.*,
+        vd.manufacturer DEVICE_MAKER_CODE
+        FROM
+        VIEW_RESERVATIONS vr ,
+        VIEW_DEVICES vd,
+        USER_MASTER um,
+        USER_DETAIL ud
+        WHERE
+        vr.user_id = um.user_master_key
+        AND
+        um.user_master_key = ud.user_master_key
+        AND
+        vr.device_id = vd.id
+        <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+            AND
+            (
+            vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            OR
+            vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            )
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            AND
+            um.USER_TYPE = #{searchValue}
+        </if>
+        <if test="searchValue1 != '' and searchValue1 != null">
+            AND
+            vd.manufacturer= #{searchValue1}
+        </if>
+        <if test="searchValue2 != '' and searchValue2 != null">
+            AND
+            um.USER_ID LIKE CONCAT(#{searchValue2}, '%')
+        </if>
+        <if test="searchValue3 != '' and searchValue3 != null">
+            AND
+            (um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%'))
+        </if>
+        ORDER BY
+             start_dttm DESC
+        LIMIT
+        #{rowStartNumber}, #{pageListSize}
 	</select>
 	<!-- //티켓 사용 내역 목록 -->
 	
@@ -86,31 +86,31 @@
 		AND
 			um.user_master_key = ud.user_master_key
 		AND
-			vr.device_id = vd.id 	
-		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)"> 
-			AND
-			(
-			 vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			OR
-			  vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-			)
-		</if>
-		<if test="searchValue != '' and searchValue != null">
-			AND
-			 um.USER_TYPE = #{searchValue}
-		</if>
-		<if test="searchValue1 != '' and searchValue1 != null">
-			AND
-		  	vd.manufacturer= #{searchValue1}
-		</if>
-		<if test="searchValue2 != '' and searchValue2 != null">
-			AND
-		  	UM.USER_ID = #{searchValue2}
-		</if>
-		<if test="searchValue3 != '' and searchValue3 != null">
-			AND
-			 UM.USER_NAME = #{searchValue3}
-		</if>
+			vr.device_id = vd.id
+        <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+            AND
+            (
+            vr.start_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            OR
+            vr.end_dttm BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            )
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            AND
+            um.USER_TYPE = #{searchValue}
+        </if>
+        <if test="searchValue1 != '' and searchValue1 != null">
+            AND
+            vd.manufacturer= #{searchValue1}
+        </if>
+        <if test="searchValue2 != '' and searchValue2 != null">
+            AND
+            um.USER_ID LIKE CONCAT(#{searchValue2}, '%')
+        </if>
+        <if test="searchValue3 != '' and searchValue3 != null">
+            AND
+            (um.USER_NAME LIKE CONCAT(#{searchValue3}, '%') OR ud.USER_COMPANY_NAME LIKE CONCAT(#{searchValue3}, '%'))
+        </if>
 	</select>
 	<!-- //티켓 사용 내역 카운트 -->
 	
@@ -653,9 +653,18 @@
 			vr.updt_dttm,
 			vr.use_point,
 			vr.status,
-			FN_GET_COMMON_CODE_NAME('RESERVATION_STATUS',  vr.status) statusText,
+			<!-- FN_GET_COMMON_CODE_NAME('RESERVATION_STATUS',  vr.status) statusText, -->
+			(
+	            CASE
+		            WHEN (vr.status = '0') THEN '예약중'
+		            WHEN (vr.status = '1') THEN '사용중'
+		            WHEN ((vr.status = '2') AND (NOW() <![CDATA[<=]]> vr.end_dttm)) THEN '대기중'
+		            WHEN ((vr.status = '2') AND (NOW() > vr.end_dttm)) THEN '종료'
+		            WHEN (vr.status  = '3') THEN '사용종료'
+           		 ELSE '' END
+            ) AS statusText, 
 			vd.manufacturer,
-			vd.prod_name,
+			vd.prod_name, 
 			vd.os,
 			vd.resolution,
 			vd.os_version
