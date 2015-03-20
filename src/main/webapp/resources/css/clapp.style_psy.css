@@ -5331,7 +5331,7 @@
 .subCISupportFOCLSCTitle{
   display: block;
   float: left;
-  width: 101px;
+  width: 95px;
   height: inherit;
 }
 .subCISupportFOCLSCTitle span{
@@ -5341,7 +5341,7 @@
   color: #808080;
   text-align: center;
   line-height: 30px;
-  width: 100px;
+  width: 94px;
   height: 30px;
   margin-top: 15px;
   border-right: 1px solid #e8ecf0;
@@ -5388,6 +5388,96 @@
 .subCISupportFOCLSCLinkIcon{
   display: block;
   margin-top: 20px;
+}
+.subCISupportFOCListSubjectOpen1{
+    width: inherit;
+    height: 60px;
+    display: block;
+    background: #2b5790;
+}
+.subCISupportFOCLSO1{
+    display: block;
+    width: 960px;
+    height: 60px;
+    margin: 0 auto;
+}
+.subCISupportFOCLSONo1{
+    display: block;
+    float: left;
+    width: 60px;
+    height: inherit;
+}
+.subCISupportFOCLSONo1 span{
+    display: block;
+    clear: both;
+    font-size: 17px;
+    text-align: center;
+    line-height: 30px;
+    color: #bedaeb;
+    width: 60px;
+    height: 30px;
+    margin-top: 15px;
+    border-right: 1px solid #466c9c;
+}
+.subCISupportFOCLSOTitle1{
+    display: block;
+    float: left;
+    width: 95px;
+    height: inherit;
+}
+.subCISupportFOCLSOTitle1 span{
+    display: block;
+    clear: both;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    width: 94px;
+    height: 30px;
+    margin-top: 15px;
+    border-right: 1px solid #466c9c;
+}
+.subCISupportFOCLSOLink1{
+    display: block;
+    float: left;
+    width: 798px;
+    height: inherit;
+}
+.subCISupportFOCLSOLink1 a{
+    text-decoration: none;
+}
+.subCISupportFOCLSOText1{
+    display: block;
+    width: 850px;
+    height: 30px;
+    margin-top: 15px;
+    color: #fff;
+    background: url('./../images/itr_qa4_more_bg.png') no-repeat;
+}
+.subCISupportFOCLSOText1:hover{
+    background: url('./../images/itr_qa4_more_bg_r.png') no-repeat;
+    color: #1484c9;
+}
+
+.subCISupportFOCLSOText1{
+    display: block;
+    float: left;
+    width: 850px;
+    height: inherit;
+}
+.subCISupportFOCLSOText1 span{
+    display: block;
+    clear: both;
+    font-size: 15px;
+    line-height: 30px;
+    width: 754px;
+    height: 30px;
+    padding-left: 20px;
+}
+.subCISupportFOCLSOText1 a{
+    text-decoration: none;
+    font-weight: 700;
+    color: #fff;
 }
 .subCISupportFOCListSubjectOpen{
   width: inherit;
@@ -5458,6 +5548,7 @@
   background: url('./../images/itr_qa3_more_bg_r.png') no-repeat;
   color: #1484c9;
 }
+
 .subCISupportFOCLSOText{
   display: block;
   float: left;
