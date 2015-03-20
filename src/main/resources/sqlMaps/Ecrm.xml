@@ -185,7 +185,7 @@
   	  	WHERE
   	  		survey_master_key = #{surveyMasterKey}
   </select>
-  <select id="getSurveyAnswerCount" parameterType="ecrmEntity" resultType="int">
+  <select id="getSurveyAnswerCount" parameterType="ecrmEntity" resultType="ecrmEntity">
   	   SELECT
   	   		distinct
 			count(*) answerCount

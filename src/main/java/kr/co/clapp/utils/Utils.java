@@ -37,25 +37,25 @@ public class Utils {
 	 */
 	public static String getLocalServerIp(HttpServletRequest request)
 	{
-		return request.getLocalAddr().toString();
-//	try
-//	{    
-//	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
-//	   {
-//	       NetworkInterface intf = en.nextElement();
-//	       for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
-//	       {
-//	           InetAddress inetAddress = enumIpAddr.nextElement();
-//	           if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
-//	           {
-//	           	return inetAddress.getHostAddress().toString();
-//	        	//   return inetAddress;
-//	           }
-//	       }
-//	   }
-//	} 
-//	catch (Exception ex) {}
-//	return null;
+		//return request.getLocalAddr().toString();
+	try 
+	{    
+	   for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+	   {
+	       NetworkInterface intf = en.nextElement();
+	       for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+	       {
+	           InetAddress inetAddress = enumIpAddr.nextElement();
+	           if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress())
+	           {
+	           	return inetAddress.getHostAddress().toString();
+	        	//   return inetAddress;
+	           }
+	       }
+	   }
+	} 
+	catch (Exception ex) {}
+	return null;
 	}
 	/**
 	 * 접속한 아이피와 서버아이피를 비교한다.

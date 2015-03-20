@@ -42,6 +42,6 @@ public interface EcrmDAO {
 
 	int insertSurveyReceiver(EcrmEntity ecrmEntity);
 
-	int getSurveyAnswerCount(EcrmEntity ecrmEntity);
+	EcrmEntity getSurveyAnswerCount(EcrmEntity ecrmEntity);
 
 }

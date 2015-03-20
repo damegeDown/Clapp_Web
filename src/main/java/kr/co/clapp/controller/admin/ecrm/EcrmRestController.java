@@ -1,5 +1,7 @@
 package kr.co.clapp.controller.admin.ecrm;
 
+import javax.servlet.http.HttpServletRequest;
+
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.entities.EcrmEntity;
@@ -8,6 +10,7 @@ import kr.co.clapp.entities.ResultEntity;
 import kr.co.clapp.service.ecrm.EcrmService;
 import kr.co.clapp.service.mailing.MailingService;
 import kr.co.digigroove.commons.messages.Messages;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +60,7 @@ public class EcrmRestController {
   }
 
     @RequestMapping(value="/insertSurveyMaster", method=RequestMethod.POST)
-    public ResponseEntity insertSurveyMaster(EcrmEntity ecrmEntity) {
+    public ResponseEntity insertSurveyMaster(EcrmEntity ecrmEntity, HttpServletRequest request) {
         ResponseEntity result = new ResponseEntity();
         try{
             String resultCode = ResultCode.FAIL;
@@ -65,7 +68,7 @@ public class EcrmRestController {
             if(ecrmService.insertSurveyMaster(ecrmEntity) > CommonCode.ZERO) {
                 resultCode = ResultCode.SUCCESS;
                 resultMessage = messages.getMessage("insert.success");
-                if(mailingService.sendSurvey(ecrmEntity) > CommonCode.ZERO) {
+                if(mailingService.sendSurvey(ecrmEntity,request) > CommonCode.ZERO) {
                     // 메일 발송 성공
                     ecrmEntity.setMailState(CommonCode.SUCCESS_NO);
                 } else {

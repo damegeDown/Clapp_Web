@@ -54,9 +54,12 @@ public class EcrmServiceImpl implements EcrmService {
 	//질문
 	List<EcrmEntity> questionList = ecrmDAO.getSurveyQuestion(ecrmEntity);
 	List<EcrmEntity> answerList = ecrmDAO.getSurveyAnswer(ecrmEntity);
-    int answerCount = ecrmDAO.getSurveyAnswerCount(ecrmEntity);
+	int answerCount = 0;
+	if(!StringUtils.isEmpty(ecrmDAO.getSurveyAnswerCount(ecrmEntity))) {
+		answerCount = ecrmEntity.getAnswerCount(); 
+	}
 	ecrmEntity.setAnswerList(answerList);
-	ecrmEntity.setAnswerCount(answerCount);
+	ecrmEntity.setAnswerCount(answerCount); 
 	ecrmEntity.setQuestionList(questionList);
 	//report
 	List<EcrmEntity> reportList = ecrmDAO.getSurveyReport(ecrmEntity);
