@@ -69,9 +69,9 @@
 			a.statisticsDate,
 			a.statisticsTime,
 			a.day_of_week,
-			FN_GET_DAY_OF_WEEK(a.day_name) day_name,
-			accrueMember,
-			accrueCompany
+			FN_GET_DAY_OF_WEEK(a.day_name) day_name
+-- 			accrueMember,
+-- 			accrueCompany
 		FROM (
 			SELECT
 				COUNT(IF(user_type = 1, um.user_master_key, null)) joinMember,
@@ -79,9 +79,9 @@
 				LEFT(user_join_date, 10) statisticsDate,
 				RIGHT(LEFT(user_join_date, 13),2) statisticsTime,
 				WEEKDAY(LEFT(user_join_date, 10)) day_of_week,
-				DAYNAME(LEFT(user_join_date, 10)) day_name,
-				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 1) accrueMember,
-				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 2) accrueCompany
+				DAYNAME(LEFT(user_join_date, 10)) day_name
+-- 				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 1) accrueMember,
+-- 				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 2) accrueCompany
 			FROM
 				USER_MASTER um,
 				USER_DETAIL ud
@@ -115,6 +115,27 @@
 			</otherwise>
 		</choose>
 	</select>
+    <!-- //회원가입현황 -->
+
+    <!-- 회원가입 누적카운트 -->
+    <select id="getJoinMemberCount" resultType="statisticsEntity" parameterType="statisticsEntity">
+	  SELECT
+			accrueMember,
+			accrueCompany
+		FROM (
+			SELECT
+				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 1) accrueMember,
+				(SELECT COUNT(*) FROM USER_MASTER WHERE user_type = 2) accrueCompany
+			FROM
+				USER_MASTER
+			WHERE
+				user_master_key
+			GROUP BY
+				  accrueMember
+		) a
+    </select>
+    <!-- 회원가입 누적카운트 -->
+
 	<!-- 로그인 현황 -->
 	<select id="getLoginCountReport" resultType="statisticsEntity" parameterType="statisticsEntity">
 	 SELECT

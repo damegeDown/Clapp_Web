@@ -115,4 +115,11 @@ public interface StatisticsDAO {
      * @return
      */
     StatisticsEntity getDropOutSearchCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 회원가입 누적 카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getJoinMemberCount(StatisticsEntity statisticsEntity);
 }

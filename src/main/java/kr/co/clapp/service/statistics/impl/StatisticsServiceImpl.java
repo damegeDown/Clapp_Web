@@ -41,6 +41,16 @@ public class StatisticsServiceImpl implements StatisticsService {
 	statisticsEntity.setStatisticsList(statisticsDAO.getJoinMemberReport(statisticsEntity));
 	return statisticsEntity;
   }
+
+  /**
+   * 회원가입 누적카운트
+   * @param statisticsEntity
+   * @return
+   */
+  @Override
+  public StatisticsEntity getJoinMemberCount(StatisticsEntity statisticsEntity) {
+      return statisticsDAO.getJoinMemberCount(statisticsEntity);
+  }
   /**
    * 로그인 현황
    */
