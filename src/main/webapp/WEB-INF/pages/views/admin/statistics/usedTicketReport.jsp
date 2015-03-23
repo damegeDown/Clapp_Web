@@ -62,7 +62,7 @@
 				</c:otherwise>
 			</c:choose>
 			<tr class="cursor" style="cursor:pointer; ${color} ">
-				<td>	<fmt:formatDate pattern="yyyy/MM/dd " value="${statisticsList.statisticsDate}" /> <br/>(${statisticsDateList.dayName })</td>
+				<td>	<fmt:formatDate pattern="yyyy/MM/dd " value="${statisticsDateList.statisticsDate}" /> <br/>(${statisticsDateList.dayName })</td>
 				<!-- 일반 -->
 				<td>
 					<c:if test="${statisticsDateList.dayOfWeek < 5 }">
