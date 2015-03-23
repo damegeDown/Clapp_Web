@@ -17,8 +17,8 @@
            <span class="span-w50" style="padding-left: 30px;">노출 여부</span>
            <select class="sel-w107" name="searchValue">
              <option value="">전체</option>
-             <option value="노출">노출</option>
-             <option value="대기">대기</option>
+             <option value="노출" <c:if test="${boardNoticeEntity.searchValue eq '노출' }">selected</c:if>>노출</option>
+             <option value="대기" <c:if test="${boardNoticeEntity.searchValue eq '대기' }">selected</c:if>>대기</option>
 <%--              <c:forEach items="${noticeOpenCode }" var="code">
             <option value="${code.commonCode }" <c:if test="${boardNoticeEntity.searchValue eq code.commonCode }">selected</c:if>>${code.commonName }</option>
             </c:forEach> --%>
