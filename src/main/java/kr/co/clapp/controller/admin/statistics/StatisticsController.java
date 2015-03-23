@@ -1,20 +1,19 @@
 package kr.co.clapp.controller.admin.statistics;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-
 import kr.co.clapp.entities.StatisticsEntity;
 import kr.co.clapp.service.statistics.StatisticsService;
 import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/admin/statistics")
@@ -91,9 +90,8 @@ public class StatisticsController {
 		  statisticsEntity.setEndDate(sdf.format(d)+"/"+oCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)); //종료일 
 	  }
 	  statisticsList = statisticsService.getJoinMemberReport(statisticsEntity);
+      StatisticsEntity count = statisticsService.getJoinMemberCount(statisticsEntity);
 	  if(statisticsList.getStatisticsList().size() > 0) {
-		  statisticsList.setAccrueMember(statisticsList.getStatisticsList().get(0).getAccrueMember());
-		  statisticsList.setAccrueCompany(statisticsList.getStatisticsList().get(0).getAccrueCompany());
 		  statisticsList.setSumJoinMember(statisticsList.getStatisticsList().get(0).getSumJoinMember());
 		  statisticsList.setSumJoinCompanyMember(statisticsList.getStatisticsList().get(0).getSumJoinCompanyMember());
 	  }
@@ -101,12 +99,12 @@ public class StatisticsController {
 		  sumJoinMember += statisticsList.getStatisticsList().get(i).getJoinMember();
 		  sumJoinCompanyMember += statisticsList.getStatisticsList().get(i).getJoinCompanyMember();
 	  }
-	  
+      model.addAttribute("count", count);
 	} catch (Exception e) {
 	  logger.error("StatisticsController.joinMemberReport", e);
 	}
     //공통
-    commonCode.put("navigation", "회원가입(누적 일반가입 : <span class='colorSkyBlue'>"+statisticsList.getAccrueMember()+"</span> 명 / 기업,단체가입 : <span class='colorSkyBlue'>"+statisticsList.getAccrueCompany()+"</span> 명)");   // 현재 페이지 네비게이션
+    commonCode.put("navigation", "회원가입");   // 현재 페이지 네비게이션
     commonCode.put("searchResult", "> 검색결과 : 일반가입 : <span class='colorSkyBlue'>"+sumJoinMember+"</span> 명 / 기업,단체 가입 : <span class='colorSkyBlue'>"+sumJoinCompanyMember+"</span> 명");   // 검색 결과
     commonCode.put("mainMenu", "permissionMaster");				// left main menu 
     commonCode.put("subMenu", "statistics");				// left sub menu

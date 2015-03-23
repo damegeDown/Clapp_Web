@@ -1,9 +1,8 @@
 package kr.co.clapp.service.statistics;
 
 
-import org.springframework.ui.Model;
-
 import kr.co.clapp.entities.StatisticsEntity;
+import org.springframework.ui.Model;
 
 
 public interface StatisticsService {
@@ -62,5 +61,11 @@ public interface StatisticsService {
 	 * @param model
 	 */
 	void getCableAdviceReprot(StatisticsEntity statisticsEntity, Model model);
-  
+
+    /**
+     * 회원가입 누적 카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getJoinMemberCount(StatisticsEntity statisticsEntity);
 }
