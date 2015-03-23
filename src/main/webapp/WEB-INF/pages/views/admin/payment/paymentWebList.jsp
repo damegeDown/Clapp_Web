@@ -49,7 +49,7 @@
             <span class="span-w80">결제자명</span>
             <input type="text" class="inp-w100" name="searchValue4" value="${paymentEntity.searchValue4}" placeholder="결제자명"/>
             <span class="marL-15 span-w80">신청상품</span>
-            	<select class="sel-w100" name="searchValue5">
+            	<select class="sel-w210" name="searchValue5">
             		<option value="">전체</option>
 		          <c:forEach items="${productInfo.productList }" var="code">
 					<option value="${code.productName }" data-applyDate="${code.productExpirationDate }" <c:if test="${paymentEntity.searchValue5 eq code.productName }">selected</c:if>>${code.productName }</option>

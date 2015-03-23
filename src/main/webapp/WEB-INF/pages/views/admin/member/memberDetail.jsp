@@ -67,7 +67,7 @@
        </tr>
        <tr>
         <th>최종 로그인 일시</th>
-        <td
+        <td>
            <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${memberDetail.userLastLoginDate}" />
         </td>
        </tr>

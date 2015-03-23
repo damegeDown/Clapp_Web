@@ -196,7 +196,7 @@
 		<tbody>
 		<c:forEach items="${statisticsReasonEntity.statisticsList }" var="statisticsList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsList.sreviceReason}</td> 
+				<td>${statisticsList.serviceReason}</td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsList.dayOfTargetTotal } 건

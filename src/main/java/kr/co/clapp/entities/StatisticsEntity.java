@@ -78,8 +78,11 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 	private int dayOfAmountTotal = 0;				// 일별 총 티켓수
 	private int totDayOfTargetTotal = 0;			// 일별 총 건수 
 	private int totDayOfAmountTotal = 0;			// 일별 총 티켓수
-	private String sreviceReason;					// 서비스 사유
-	
+	private String serviceReason;					// 서비스 사유
+    private int numServiceApplyReason;              // 가장 높은 적용사유 번호
+    private String maxServiceApplyReason;           // 가장 높은 적용사유
+    private int serviceApplyReasonTicketAmount;     // 가장 높은 적용사유의 티켓수
+
 	private String inquiryText;					    //문의
 	private int inquiryCount = 0;					//문의 건수
     private int totalCount = 0;                     //문의 카운트
@@ -614,15 +617,39 @@ public class StatisticsEntity extends PageEntity implements Serializable{
 		this.totDayOfAmountTotal = totDayOfAmountTotal;
 	}
 
-	public String getSreviceReason() {
-		return sreviceReason;
+	public String getServiceReason() {
+		return serviceReason;
 	}
 
-	public void setSreviceReason(String sreviceReason) {
-		this.sreviceReason = sreviceReason;
+	public void setServiceReason(String serviceReason) {
+		this.serviceReason = serviceReason;
 	}
 
-	public String getInquiryText() {
+    public int getNumServiceApplyReason() {
+        return numServiceApplyReason;
+    }
+
+    public void setNumServiceApplyReason(int numServiceApplyReason) {
+        this.numServiceApplyReason = numServiceApplyReason;
+    }
+
+    public String getMaxServiceApplyReason() {
+        return maxServiceApplyReason;
+    }
+
+    public void setMaxServiceApplyReason(String maxServiceApplyReason) {
+        this.maxServiceApplyReason = maxServiceApplyReason;
+    }
+
+    public int getServiceApplyReasonTicketAmount() {
+        return serviceApplyReasonTicketAmount;
+    }
+
+    public void setServiceApplyReasonTicketAmount(int serviceApplyReasonTicketAmount) {
+        this.serviceApplyReasonTicketAmount = serviceApplyReasonTicketAmount;
+    }
+
+    public String getInquiryText() {
 		return inquiryText;
 	}
 
