@@ -694,7 +694,7 @@ var goPayment = function(key) {
 };
 //소개서 다운로드 링크
 var autoJnlpDownload = function(){ 
-	var orgFileName = "CLAPP_INFO.pdf";
+	var orgFileName = "CLAPP_INFO_150318.pdf";
     location.href = contextPath + "/common/fileDownload?path=download&orgFileName="+orgFileName;
 	  
 };

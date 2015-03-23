@@ -7,7 +7,8 @@
 <script type="text/javascript" src="${contextPath }/resources/js/statistics.js"></script>
 <div class="sub-content">
   <div>
-			<h3 class="contents-title floatL">${CommonCode.navigation }</h3>
+			<h3 class="contents-title floatL">${CommonCode.navigation }( 누적 일반가입 : <span class="colorSkyBlue">${count.accrueMember}</span> 명 /
+                기업,단체가입 : <span class="colorSkyBlue">${count.accrueCompany}</span> 명 )</h3>
 			<div style="clear:both;"></div>
 	</div>
 	<div class="search-box">
