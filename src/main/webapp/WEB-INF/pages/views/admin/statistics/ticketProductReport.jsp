@@ -193,7 +193,16 @@
 	</table>
 	<!-- 사유별 -->
 	<div style="width:100%;">
- 		<h3 class="floatL" style="margin:15px 0 10px 0">${CommonCode.searchReason }</h3>
+ 		<h3 class="floatL" style="margin:15px 0 10px 0">${CommonCode.searchReason }
+        <span class="colorSkyBlue">
+           <c:if test="${ticketProductMaxCount.maxServiceApplyReason != null}">
+               ${ticketProductMaxCount.maxServiceApplyReason} ${ticketProductMaxCount.numServiceApplyReason} 건 / ${ticketProductMaxCount.serviceApplyReasonTicketAmount} 개
+           </c:if>
+           <c:if test="${ticketProductMaxCount.maxServiceApplyReason == null}">
+               ( 0 건 )
+           </c:if>
+        </span>
+        </h3>
   </div>
   <c:set var="statisticsReasonLength" value="${statisticsReasonEntity.statisticsList.size() }"/>
 	<table class="board-list-r">
@@ -214,7 +223,7 @@
 		<tbody>
 		<c:forEach items="${statisticsReasonEntity.statisticsList }" var="statisticsList" varStatus="i">
 			<tr class="cursor" style="cursor:pointer; ">
-				<td>${statisticsList.sreviceReason}</td> 
+				<td>${statisticsList.serviceReason}</td>
 				<!-- 일반 -->
 				<td> 
 					${statisticsList.dayOfTargetTotal } 건

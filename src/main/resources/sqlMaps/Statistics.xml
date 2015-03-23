@@ -340,7 +340,7 @@
     </select>
 <select id="getTicketProductReport" resultType="statisticsEntity" parameterType="statisticsEntity">
 	SELECT	
-		FN_GET_COMMON_CODE_NAME("SERVICE_APPLY",tp.service_apply_reason ) sreviceReason,
+		FN_GET_COMMON_CODE_NAME("SERVICE_APPLY",tp.service_apply_reason ) serviceReason,
 		tp.ticket_product_service_key,
 		COUNT(IF(tp.service_target_type = 1,tp.service_target_type,null)) serviceTargetAll,
 		COUNT(IF(tp.service_target_type = 2,tp.service_target_type,null)) serviceTargetGeneral,
@@ -375,6 +375,34 @@
 			 
 		</choose>	
 </select>
+
+    <!-- 적용사유 높은 건수 카운트 -->
+    <select id="getTicketProductMaxCount" resultType="statisticsEntity" parameterType="statisticsEntity">
+        SELECT
+            max(NUM_SERVICE_APPLY_REASON) as NUM_SERVICE_APPLY_REASON,
+            MAX_SERVICE_APPLY_REASON,
+            serviceApplyReasonTicketAmount
+        from (
+            select
+                count(*) as NUM_SERVICE_APPLY_REASON,
+                FN_GET_COMMON_CODE_NAME("SERVICE_APPLY",tp.service_apply_reason ) MAX_SERVICE_APPLY_REASON,
+                SUM(tp.service_apply_ticket_amount) serviceApplyReasonTicketAmount
+            from
+                TICKET_PRODUCT_APPLY_SERVICE tp,
+                APPLY_SERVICE_USER asu
+            WHERE
+                tp.ticket_product_service_key = asu.ticket_product_service_key
+                <if test="searchValue != '' and searchValue != null">
+                AND
+                DATE_FORMAT(service_apply_date, '%Y/%m/%d') LIKE '${searchValue}%'
+                </if>
+            group by service_apply_reason
+
+            order by NUM_SERVICE_APPLY_REASON desc
+            )a
+    </select>
+    <!-- //적용사유 높은 건수 카운트 -->
+
 <select id="getMailInquiryReport" resultType="statisticsEntity" parameterType="statisticsEntity">
 	SELECT
 		'문의건수' inquiry_text,

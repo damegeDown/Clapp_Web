@@ -187,7 +187,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 			  statisticsEntity.setSearchValue(sdf.format(d));
 		  }
 		  statisticsEntity.setSearchKey("date");
-		  List<StatisticsEntity> statisticsDateList = statisticsDAO.getTicketProductReport(statisticsEntity); 
+		  List<StatisticsEntity> statisticsDateList = statisticsDAO.getTicketProductReport(statisticsEntity);
+          StatisticsEntity ticketProductMaxCount  = statisticsDAO.getTicketProductMaxCount(statisticsEntity);
 		  int dataLen = statisticsDateList.size();
 		  //검색 결과 총인원을 구한다
 		  for(int i = 0; i < dataLen; i++) {
@@ -202,9 +203,11 @@ public class StatisticsServiceImpl implements StatisticsService {
 		  }
 		  statisticsDateEntity.setStatisticsList(statisticsDateList);
 		  model.addAttribute("statisticsDateList", statisticsDateList);
-		  
+		  model.addAttribute("ticketProductMaxCount", ticketProductMaxCount);
+
 		  statisticsEntity.setSearchKey("reason");
 		  List<StatisticsEntity> statisticsReasonList = statisticsDAO.getTicketProductReport(statisticsEntity);
+
 		  int reasonLen = statisticsReasonList.size();
 		  //검색 결과 총인원을 구한다
 		  for(int i = 0; i < reasonLen; i++) {
@@ -224,8 +227,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 	  //공통
 	  commonCode.put("navigation", "티켓 / 상품적용 서비스");   						// 현재 페이지 네비게이션
 	  commonCode.put("searchResult", "> 검색결과 : 전체 <span class='colorSkyBlue'>"+targetAll+"</span> 건 / 일반 <span class='colorSkyBlue'>"+targetGeneral+"</span> 건 / 기업/단체 <span class='colorSkyBlue'>"+targetCompany+"</span> 건 / 개별 <span class='colorSkyBlue'>"+targetUnit+"</span> 건");   	// 현재 페이지 네비게이션
-	  commonCode.put("searchReason", "> 적용 사유별 <span class='colorSkyBlue'>"+dayOfTarget+"</span> 건 / <span class='colorSkyBlue'>" +dayOfAmount+ "</span> 개");   						// 현재 페이지 네비게이션
-	  commonCode.put("mainMenu", "permissionMaster");							// left main menu 
+	  commonCode.put("searchReason", "> 적용 사유별 :");   						// 현재 페이지 네비게이션
+	  commonCode.put("mainMenu", "permissionMaster");							// left main menu
 	  commonCode.put("subMenu", "statistics");							// left sub menu
 	  commonCode.put("subMenu2", "ticketProductReport");							// left sub menu
 	  model.addAttribute("CommonCode", commonCode);

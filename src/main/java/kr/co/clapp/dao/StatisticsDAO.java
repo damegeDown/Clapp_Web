@@ -122,4 +122,11 @@ public interface StatisticsDAO {
      * @return
      */
     StatisticsEntity getJoinMemberCount(StatisticsEntity statisticsEntity);
+
+    /**
+     * 티켓적용서비스 적용사유 높은 건수 카운트
+     * @param statisticsEntity
+     * @return
+     */
+    StatisticsEntity getTicketProductMaxCount(StatisticsEntity statisticsEntity);
 }
