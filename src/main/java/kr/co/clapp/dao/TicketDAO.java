@@ -41,6 +41,7 @@ public interface TicketDAO {
 	 * @param ticketEntity
 	 * @return
 	 */
+
 	int selectUserType(TicketEntity ticketEntity);
 	/**
 	 * 이달의 티켓 사용 개수 합
