@@ -309,11 +309,11 @@ $.fn.boardQnaDetail = {
 	  if(qnaAnswer != null && qnaAnswer.length > 0) {
 		qnaAnswer = qnaAnswer.replace(/(\r\n|\n|\r)/g,"<br />");
 	  }
-	  console.log(qnaImage);
-	  $("#popupBoardQna").find(".qnaCategory").html(qnaCategory);
-	  $("#popupBoardQna").find(".qnaQuestion").html(qnaQuestion);
-	  $("#popupBoardQna").find(".qnaAnswer").html(qnaAnswer);
-	  $("#popupBoardQna").find(".qnaAnswer").append(qnaImage);
+        var popupBoardQna = $("#popupBoardQna");
+        popupBoardQna.find(".qnaCategory").html(qnaCategory);
+        popupBoardQna.find(".qnaQuestion").html(qnaQuestion);
+        popupBoardQna.find(".qnaAnswer").html(qnaAnswer);
+        popupBoardQna.find(".qnaAnswer").append($("<p>").append(qnaImage));
     });
   }
 };

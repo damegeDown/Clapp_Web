@@ -24,7 +24,8 @@
 #freeViewMail div{margin:10px}
 #freeViewMail th, #freeViewMail td{text-align:center}
 /* Popup 미리보기 */
-#popupFreeView {border:1px solid #999; position: absolute; background: #fff; z-index:100;top:100px;left:100px;width:400px;height:300px }
+#popupFreeView {border:1px solid #999; position: absolute; background: #fff; z-index:100;width:400px;height:300px }
+/*#popupFreeView {border:1px solid #999; position: absolute; background: #fff; z-index:100;top:100px;left:100px;width:400px;height:300px }*/
 #popupFreeView > h3{background:#999;padding:10px;color:#fff}
 #popupFreeView > h3 span{display:inline-block;width:20px;height:18px;text-align:center;vertical-align:middle;border-radius:5px;background:#000;padding-top:2px;float:right}
 
