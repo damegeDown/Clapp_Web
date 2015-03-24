@@ -18,7 +18,7 @@
         VIEW_DEVICES vd,
         USER_MASTER um,
         USER_DETAIL ud
-        WHERE
+        WHEREgetMyHistoryCount
         vr.user_id = um.user_master_key
         AND
         um.user_master_key = ud.user_master_key
@@ -37,7 +37,7 @@
             um.USER_TYPE = #{searchValue}
         </if>
         <if test="searchValue1 != '' and searchValue1 != null">
-            AND
+            ANDgetMyHistoryCount
             vd.manufacturer= #{searchValue1}
         </if>
         <if test="searchValue2 != '' and searchValue2 != null">
@@ -768,8 +768,8 @@
 				VIEW_DEVICES vd
 			WHERE
 				vr.device_id = vd.id
-			AND
-				vr.status != 3
+-- 			AND
+-- 				vr.status != 3
 			AND
 				vr.user_id = #{userMasterKey}
 		) a
@@ -791,78 +791,75 @@
 	<select id="getMyHistory" parameterType="ticketEntity" resultType="ticketEntity">
 		SELECT 
 			a.*
-		FROM (
-			<!-- SELECT
-				payment_start_date ticketApplyDate,
-				'적립' statusText,
-				CONCAT('+',payment_ticket_amount) historyUsedTicketAmountText,
-				payment_end_date ticketEndExpirationDate,
-				payment_product_name productName,
-				user_master_key
-			FROM
-				PAYMENT_MASTER
-			WHERE
-				user_master_key = #{userMasterKey}
-				
-			UNION ALL -->
-	
-			SELECT 
-				ticket_apply_date ticketApplyDate,
-				'적립' statusText,
-				CONCAT('+',ticket_avilable_amount) historyUsedTicketAmountText,
-				ticket_start_expiration_date ticketStartExpirationDate,
-				ticket_end_expiration_date ticketEndExpirationDate, 
-				product_name productName,
-				user_master_key,
-				TO_DAYS(ticket_end_expiration_date) - TO_DAYS(ticket_apply_date) as expirationDate
-			FROM
-				USER_TICKET_HISTORY
-			WHERE
-				user_master_key = #{userMasterKey}
-				 
-			<!-- UNION ALL
-			SELECT
-				service_apply_date,
-				'적립' state,
-				CONCAT('+',service_apply_ticket_amount),
-				ticket_start_expiration_date,
-				ticket_end_expiration_date,
-				FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', service_apply_reason),
-				ut.user_master_key
-			FROM
-				TICKET_PRODUCT_APPLY_SERVICE tr,
-				APPLY_SERVICE_USER au,
-				USER_TICKET_MASTER ut
-			WHERE
-				tr.ticket_product_service_key = au.ticket_product_service_key
-			AND
-				ut.user_master_key = au.user_master_key
-			AND
-				ut.user_master_key = #{userMasterKey}
-				 -->
-			UNION ALL
-		
-			SELECT
-				reserve_time,
-				'차감' ,
-				use_point,
-				start_dttm,
-				end_dttm,
-			   (SELECT CONCAT(product_name, '<![CDATA[ <br/><br/> ]]>', '(', vd.prod_name , ' / ' , LEFT(start_dttm,16), ' ~ ', LEFT(RIGHT(end_dttm, 8),5), ')') FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id),
-				vr.user_id,
-				TO_DAYS(
-					(SELECT ticket_end_expiration_date FROM USER_TICKET_MASTER WHERE user_master_key = vr.user_id)	
-				) - TO_DAYS(reserve_time) AS expirationDate
-			FROM 
-				VIEW_RESERVATIONS vr,
-				VIEW_DEVICES vd
-			WHERE
-				vr.device_id = vd.id
-			AND
-				vr.status != 3
-			AND
-				vr.user_id = #{userMasterKey}
-		) a  
+        FROM (
+        <!-- SELECT
+            payment_start_date ticketApplyDate,
+            '적립' statusText,
+            payment_ticket_amount,
+            payment_end_date ticketEndExpirationDate,
+            payment_product_name,
+            user_master_key
+        FROM
+            PAYMENT_MASTER
+        WHERE
+            user_master_key = #{userMasterKey}
+
+        UNION ALL -->
+
+        SELECT
+        ticket_apply_date ticketApplyDate,
+        '적립' statusText,
+        ticket_avilable_amount historyUsedTicketAmountText,
+        ticket_start_expiration_date ticketStartExpirationDate,
+        ticket_end_expiration_date ticketEndExpirationDate,
+        product_name productName,
+        user_master_key
+        FROM
+        USER_TICKET_HISTORY
+        WHERE
+        user_master_key = #{userMasterKey}
+
+        <!-- UNION ALL
+
+        SELECT
+            service_apply_date,
+            '적립' state,
+            service_apply_ticket_amount,
+            ticket_start_expiration_date,
+            ticket_end_expiration_date,
+            FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', service_apply_reason) service_apply_reason,
+            ut.user_master_key
+        FROM
+            TICKET_PRODUCT_APPLY_SERVICE tr,
+            APPLY_SERVICE_USER au,
+            USER_TICKET_MASTER ut
+        WHERE
+            tr.ticket_product_service_key = au.ticket_product_service_key
+        AND
+            ut.user_master_key = au.user_master_key
+        AND
+            ut.user_master_key = #{userMasterKey} -->
+
+        UNION ALL
+
+        SELECT
+        reserve_time,
+        '차감' ,
+        use_point,
+        start_dttm,
+        end_dttm,
+        vd.prod_name,
+        vr.user_id
+        FROM
+        VIEW_RESERVATIONS vr,
+        VIEW_DEVICES vd
+        WHERE
+        vr.device_id = vd.id
+--         AND
+--         vr.status != 3
+        AND
+        vr.user_id = #{userMasterKey}
+        ) a
 		WHERE
 			a.user_master_key = #{userMasterKey}
 		<if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">

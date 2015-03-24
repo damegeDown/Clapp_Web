@@ -196,14 +196,15 @@ public class TicketServiceImpl implements TicketService {
 		ticketInfo = ticketDAO.selectTicketInfo(ticketParam);
 		ticketParam.setPageParams();
 		ticketParam.setPageSize(ticketParam.getSearchListSize(), PageEntity.PAGE_GROUP_SIZE_PARAM);
-		ticketParam.setDataSize(ticketDAO.getMyHistoryCount(ticketParam));
+        int dataSize = ticketDAO.getMyHistoryCount(ticketParam);
+		ticketParam.setDataSize(dataSize);
 		if(!StringUtils.isEmpty(ticketInfo)) {
 			ticketParam.setTicketAvilableAmount(ticketInfo.getTicketAvilableAmount());
 			ticketParam.setExpirationDate(ticketInfo.getExpirationDate());
 		}
-		if(CommonCode.ZERO < ticketParam.getDataSize()) {
+		if(CommonCode.ZERO < dataSize) {
 			ticketParam.setHistoryList(ticketDAO.getMyHistory(ticketParam));
 		}
 		return ticketParam;
-	} 
+	}
 }

@@ -8,8 +8,8 @@ import kr.co.clapp.entities.TicketEntity;
 public interface TicketDAO {
 	/**
 	 * 티켓 사용 내역 목록
-	 * @param ticketEntity
-	 * @return
+     * @param ticketEntity
+     * @return
 	 */
 	List<TicketEntity> getUserTicketUsedList(TicketEntity ticketEntity);
 	/**
@@ -59,7 +59,7 @@ public interface TicketDAO {
 	int insertUserTicketMaster(TicketEntity ticketEntity);
 	/**
 	 * 사용가능 티켓수 조회
-	 * @param userMasterKey
+	 * @param ticketEntity
 	 * @return
 	 */
 	TicketEntity  getAvailableTicket(TicketEntity ticketEntity);
