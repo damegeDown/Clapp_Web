@@ -44,11 +44,11 @@
        <tr>
         <th>이미지</th>
         <td>
-        	<img src="${contextPath}/common/imgView?fileType=${boardQnaDetail.fileTarget}&fileName=${boardQnaDetail.fileSavedName}" class="boardQnaImage" style="max-width:800px"/>
+        	<img id="blah" src="${contextPath}/common/imgView?fileType=${boardQnaDetail.fileTarget}&fileName=${boardQnaDetail.fileSavedName}" class="boardQnaImage" style="max-width:800px"/>
 					<input type="hidden" name="fileName" value="${boardQnaDetail.fileName }" data-flag="off"/>
 					<input type="hidden" name="fileSavedName" value="${boardQnaDetail.fileSavedName }" data-flag="off"/>
           <div class="marT-5"><span>등록된 이미지 : </span><a href="">${boardQnaDetail.fileName }</a></div>
-          <div class="marT-5"><input type="file" name="file" data-flag="off"/></div>
+          <div class="marT-5"><input type="file" name="file" data-flag="off" id="imgInp" accept="image/*" /></div>
         </td>
        </tr> 
        <c:if test="${boardQnaDetail.boardQnaKey ne null}">
@@ -93,8 +93,28 @@
 <%@ include file="/WEB-INF/pages/views/popup/popupBoardQna.jsp"%>
 <script>
 $(function() {
-   $.fn.boardQnaDetail.init(); 
+   $.fn.boardQnaDetail.init();
    //스마트 에디터
    EditorUtils.smartEditor('ir1', 'ajax');
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+            reader.onload = function (e) {
+                //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+                $('#blah').attr('src', e.target.result);
+                //이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
+                //(아래 코드에서 읽어들인 dataURL형식)
+            }
+            reader.readAsDataURL(input.files[0]);
+            //File내용을 읽어 dataURL형식의 문자열로 저장
+        }
+    }//readURL()--
+
+    //file 양식으로 이미지를 선택(값이 변경) 되었을때 처리하는 코드
+    $("#imgInp").change(function(){
+        //alert(this.value); //선택한 이미지 경로 표시
+        readURL(this);
+    });
 });
 </script>
