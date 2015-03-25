@@ -57,7 +57,7 @@
 
                 회사의 개인정보 처리방침은 다음과 같은 내용을 담고 있습니다.<br />
                 &nbsp&nbsp&nbsp&nbsp① 수집하는 개인정보의 항목 및 수집방법<br />
-                &nbsp&nbsp&nbsp&nbsp② 개인정보의 수집 및 이용목적<br />
+                &nbsp&nbsp&nbsp&nbsp② 개인정보의 수집, 이용목적 및 동의를 거부할 권리<br />
                 &nbsp&nbsp&nbsp&nbsp③ 개인정보의 보유 및 이용기간<br />
                 &nbsp&nbsp&nbsp&nbsp④ 개인정보의 파기절차 및 방법<br />
                 &nbsp&nbsp&nbsp&nbsp⑤ 개인정보의 공유 및 제공<br />
@@ -115,33 +115,37 @@
         <div class="subAGRContentTwoBoxArea">
           <div class="subAGRContentTwoBoxTitBox">
             <span class="subAGRContentTwoBoxTit">
-              제 2조 (개인정보의 수집 및 이용목적)
+              제 2조 (개인정보의 수집, 이용목적 및 동의를 거부할 권리)
             </span>
           </div>
           <div class="subAGRContentTwoBoxContBox">
             <p class="subAGRContentTwoBoxText">
-                회사가 수집하여 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용하지 않으며, 이용 목적이 변경되는 경우에는 개인정보보호법<br /> 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 것입니다.
+                1. 회사가 수집하여 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용하지 않으며, 이용 목적이 변경되는 경우에는 개인정보보호법<br /> 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 것입니다.
             </p>
             <div class="subAGRContentTwoBoxSubTextBox">
               <span class="subAGRContentTwoBoxSubTit">
-                1. 회원 관리
+                1) 회원 관리
               </span>
               <p class="subAGRContentTwoBoxSubCont">
-                  1) 회원제 서비스 이용에 따른 본인확인, 개인 식별, 불량회원의 부정이용 방지와 비인가 사용 방지, 가입의사 확인, 연령확인, 불만처리 등<br />민원처리, 고지사항 전달
+                  ① 회원제 서비스 이용에 따른 본인확인, 개인 식별, 불량회원의 부정이용 방지와 비인가 사용 방지, 가입의사 확인, 연령확인, 불만처리 등<br />민원처리, 고지사항 전달
               </p>  
               <span class="subAGRContentTwoBoxSubTit">
-                2. 개인정보 처리 및 정보주체의 개인정보 열람, 정정, 삭제, 처리정지 요구 시 본인 확인을 위함<br />
+                2) 개인정보 처리 및 정보주체의 개인정보 열람, 정정, 삭제, 처리정지 요구 시 본인 확인을 위함<br />
               </span>
               <span class="subAGRContentTwoBoxSubTit">
-                3. 마케팅 및 광고에 활용
+                3) 마케팅 및 광고에 활용
               </span>
                 <p class="subAGRContentTwoBoxSubCont">
-                    1) 신규 서비스(제품) 개발 및 특화, 이벤트 등 광고성 정보 전달, 인구 통계학적 특성에 따른 서비스 제공 및 광고 게재, 접속 빈도 파악 또는<br />회원 서비스 이용에 대한 통계
+                    ① 신규 서비스(제품) 개발 및 특화, 이벤트 등 광고성 정보 전달, 인구 통계학적 특성에 따른 서비스 제공 및 광고 게재, 접속 빈도 파악 또는<br />회원 서비스 이용에 대한 통계
                 </p>
               <span class="subAGRContentTwoBoxSubTit">
-                4. 서비스 및 콘텐츠 제공에 관한 계약 이행
+                4) 서비스 및 콘텐츠 제공에 관한 계약 이행
               </span>
             </div>
+            <br />
+            <p class="subAGRContentTwoBoxText">
+                2. 가입을 원하는 회원은 회사의 목적에 필요한 개인정보 수집동의에 거부할 권리가 있습니다. 다만, 동의에 거부할 경우에는 거부에 따른 회원가입의 제한 및 <br />사용권한의 제한 등 불이익을 받을 수 있습니다.
+            </p>
           </div>
         </div>
         <div class="subAGRContentTwoBoxArea">
