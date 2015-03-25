@@ -84,7 +84,7 @@
       <div class="wrapFooterSns">
         <ul>
           <li><a href="http://blog.naver.com/yesclapp" target="_blank"><img src="${contextPath }/resources/images/footer_blog.png" onMouseOver="this.src='${contextPath}/resources/images/footer_blog_r.png';" onMouseOut="this.src='${contextPath}/resources/images/footer_blog.png';" alt="CLAPP BLOG" /></a></li>
-          <li><a href="https://www.facebook.com/profile.php?id=100009049548425" target="_blank"><img src="${contextPath }/resources/images/footer_facebook.png" onMouseOver="this.src='${contextPath}/resources/images/footer_facebook_r.png';" onMouseOut="this.src='${contextPath}/resources/images/footer_facebook.png';" alt="CLAPP FACEBOOK" /></a></li>
+          <li><a href="https://www.facebook.com/clapp.co.kr" target="_blank"><img src="${contextPath }/resources/images/footer_facebook.png" onMouseOver="this.src='${contextPath}/resources/images/footer_facebook_r.png';" onMouseOut="this.src='${contextPath}/resources/images/footer_facebook.png';" alt="CLAPP FACEBOOK" /></a></li>
           <%-- <li><a href="https://www.twitter.com/" target="_blank"><img src="${contextPath }/resources/images/footer_tweeter.png" onMouseOver="this.src='${contextPath}/resources/images/footer_tweeter_r.png';" onMouseOut="this.src='${contextPath}/resources/images/footer_tweeter.png';" alt="CLAPP TWITTER" /></a></li> --%>
         </ul>
       </div>
