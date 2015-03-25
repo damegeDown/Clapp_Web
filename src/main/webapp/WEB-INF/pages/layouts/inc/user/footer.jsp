@@ -2,7 +2,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<div id="wrapBgBottomNav"> 
+<div id="wrapBgBottomNav">
   <div class="wrapBottomNavContainer">
     <div class="wbcBox1">
       <div class="wbcBox1Con">
@@ -70,7 +70,7 @@
       </div>
       <div class="wrapFooterMenu">
         <ul>
-          <li><a href="${contextPath }/common/privacy" style="font-size:14px;font-weight: 900;">개인정보 처리방침</a></li>
+          <li class="privacy"><a href="${contextPath }/common/privacy" style="font-size:14px;font-weight: 900;">개인정보 처리방침</a></li>
           <li class="ftmLine"></li>
           <li><a href="${contextPath }/common/terms">이용약관</a></li>
           <li class="ftmLine"></li>
@@ -152,4 +152,3 @@ var JnlpUtils = (function() {
 })();
 //테스팅 시작하기  
 </script>
-
