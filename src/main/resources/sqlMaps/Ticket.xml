@@ -18,7 +18,7 @@
         VIEW_DEVICES vd,
         USER_MASTER um,
         USER_DETAIL ud
-        WHEREgetMyHistoryCount
+        WHERE
         vr.user_id = um.user_master_key
         AND
         um.user_master_key = ud.user_master_key
@@ -37,7 +37,7 @@
             um.USER_TYPE = #{searchValue}
         </if>
         <if test="searchValue1 != '' and searchValue1 != null">
-            ANDgetMyHistoryCount
+            AND
             vd.manufacturer= #{searchValue1}
         </if>
         <if test="searchValue2 != '' and searchValue2 != null">
