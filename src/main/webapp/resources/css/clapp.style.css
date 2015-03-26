@@ -8256,7 +8256,8 @@ body {
 
 .subCooperationOneContainer {
   width: 100%;
-  height: 310px;
+  /*height: 310px;*/
+  height: auto;
   display: block;
   background: #fff;
 }

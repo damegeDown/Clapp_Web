@@ -34,7 +34,7 @@
              <div class="subCooperationCompany">
               <a href="http://www.credif.co.kr/" target="_blank"><img src="${contextPath }/resources/images/itr_customer_logo_credif.png" alt="크래디프" /></a>
             		<p class="subCooperationCompanyText">
-                    크래디프
+                    크레디프
                </p> 
              </div>
             </div>
@@ -55,23 +55,28 @@
              </div>
             </div>
           </div>
-<!--           <div class="subCoopOneContentBottom">
+          <div class="subCoopOneContentBottom">
             <div class="subCoopOneContentBottom1">
-              
+
             </div>
             <div class="subCoopOneContentBottom2">
-              
+
             </div>
             <div class="subCoopOneContentBottom3">
-              
+
             </div>
             <div class="subCoopOneContentBottom4">
-              
+                <div class="subCooperationCompany">
+                    <a href="http://www.ocu.ac.kr/" target="_blank"><img src="${contextPath }/resources/images/itr_customer_logo_ocu.png" alt="열린사이버대학" /></a>
+                    <p class="subCooperationCompanyText">
+                        열린사이버대학
+                    </p>
+                </div>
             </div>
             <div class="subCoopOneContentBottom5">
-              
+
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
 
