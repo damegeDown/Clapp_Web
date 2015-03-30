@@ -1,9 +1,9 @@
 package kr.co.clapp.dao;
 
-import java.util.List;
-
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.TicketEntity;
+
+import java.util.List;
 
 public interface TicketDAO {
 	/**
@@ -142,5 +142,25 @@ public interface TicketDAO {
 	int insertServiceTicketHistory(TicketEntity ticketEntity);
 	
 	int removeUserTicketHistory(TicketEntity ticketParam);
-	
+
+    /**
+     * 취소할 티켓 정보 히스토리를 불러온다
+     * @param ticketParam
+     * @return
+     */
+    TicketEntity selectTicketHistory(TicketEntity ticketParam);
+
+    /**
+     * 결제 취소시 사용자 티켓 수정
+     * @param ticketParam
+     * @return
+     */
+    int modifyUserTicket(TicketEntity ticketParam);
+
+    /**
+     * 취소할 티켓 정보 히스토리의 다음 히스토리를 불러온다
+     * @param ticketParam
+     * @return
+     */
+    TicketEntity nextTicketHistoryInfo(TicketEntity ticketParam);
 }
