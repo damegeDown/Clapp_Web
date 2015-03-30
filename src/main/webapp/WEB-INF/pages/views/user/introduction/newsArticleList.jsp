@@ -52,11 +52,12 @@
        <div class="subTRIndusrtyContentBottomBox">
           <div class="subTRIndusrtyContentMoreImgBox">
             <div class="subTRIndusrtyContentMoreImg">
-            
+              <c:if test="${boardEntity.dataSize > 12}">
               <span class="nextPage" data-url="socialList" alt="">
-                <img src="${contextPath}/resources/images/contents_btn_submit_board.png"  onmouseover="this.src='${contextPath}/resources/images/contents_btn_submit_board_more.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_submit_board.png';" alt="more" />
-               </span>
-               <input type="hidden" id="currentPage" value="${boardEntity.currentPage}" name="currentPage"/>
+                <img class="images" src="${contextPath}/resources/images/contents_btn_submit_board.png"  onmouseover="this.src='${contextPath}/resources/images/contents_btn_submit_board_more.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_submit_board.png';" alt="more" />
+              </span>
+              </c:if>
+              <input type="hidden" id="currentPage" value="${boardEntity.currentPage}" name="currentPage"/>
             </div><!-- .subTRIndusrtyContentMoreImg End-->
           </div><!-- .subTRIndusrtyContentMoreImgBox End -->
         </div><!-- .subTRIndusrtyContentBottomBox End -->
@@ -91,11 +92,9 @@ $(function(){
             flag = 1;
             if (result.resultCode == 'success') {
               var resultList = result.resultDATA.boardSocialBlogList;
+              var pageTotalCount = result.resultDATA.pageTotalCount;
+              var currentPage = result.resultDATA.currentPage;
               var contents = "";
-              if(resultList.length < 1) {
-                alert("마지막 페이지입니다.");
-                return false;
-              }
               for (var i = 0; i < resultList.length; i++) {
                 contents +=
                   "<div class='subCIArticleContentList direct " + resultList[i].boardSocialBlogKey +"'>"
@@ -128,6 +127,10 @@ $(function(){
               $("#currentPage").val(nextPage);
               selectDetail();
               /* scrollPage(); */
+              if(pageTotalCount <= currentPage) {
+                  $(".images").hide();
+                  return false;
+              }
             }
           },
           fail : function() {
