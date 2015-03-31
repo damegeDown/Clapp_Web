@@ -1,14 +1,5 @@
 package kr.co.clapp.controller.admin.board;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.entities.AdministrationFileEntity;
@@ -16,39 +7,25 @@ import kr.co.clapp.entities.BoardEntity;
 import kr.co.clapp.entities.ResponseEntity;
 import kr.co.clapp.service.board.BoardService;
 import kr.co.clapp.service.file.AdministrationFileService;
+import kr.co.clapp.service.statistics.StatisticsService;
 import kr.co.clapp.utils.SnsClientUtils;
-import kr.co.clapp.utils.Facebook;
 import kr.co.digigroove.commons.entities.SavedFileEntity;
 import kr.co.digigroove.commons.messages.Messages;
-import kr.co.digigroove.commons.utils.StringUtils;
-
-import org.apache.xmlrpc.XmlRpcException;
-import org.apache.xmlrpc.client.XmlRpcClient;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import twitter4j.MediaEntity;
 import twitter4j.Status;
-import twitter4j.StatusUpdate;
-import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
-import twitter4j.auth.AccessToken;
 
-import com.google.gson.JsonObject; 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/admin/board/rest")
-@Transactional(readOnly=true)
 public class BoardRestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardRestController.class);
@@ -61,6 +38,9 @@ public class BoardRestController {
 	
 	@Autowired
 	AdministrationFileService administrationFileService;
+
+    @Autowired
+    StatisticsService statisticsService;
 	
 	@Value("#{fileConfig['filePath']}")
 	private String filePath;
@@ -96,7 +76,6 @@ public class BoardRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/modifyBoardTrand",  method = RequestMethod.POST)
-	@Transactional(readOnly=false)
 	public ResponseEntity modifyBoardTrand(MultipartHttpServletRequest req, BoardEntity boardEntity) {
 	  ResponseEntity result = new ResponseEntity();
 	  AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
@@ -158,7 +137,6 @@ public class BoardRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insertBoardTrand",  method = RequestMethod.POST)
-	@Transactional(readOnly=false)
 	public ResponseEntity insertBoardTrand(BoardEntity boardEntity, MultipartHttpServletRequest req) {
       ResponseEntity result = new ResponseEntity();
 	  AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
@@ -192,7 +170,6 @@ public class BoardRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/removeBoardTrand",  method = RequestMethod.POST)
-	@Transactional(readOnly=false)
 	public ResponseEntity removeBoardTrand(@RequestParam int id) {
 		ResponseEntity result = new ResponseEntity();
 	  try {
@@ -222,7 +199,6 @@ public class BoardRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/modifyBoardSocialBlog",  method = RequestMethod.POST)
-	@Transactional(readOnly=false)
 	public ResponseEntity modifyBoardSocialBlog(MultipartHttpServletRequest req, BoardEntity boardEntity) {
 	  ResponseEntity result = new ResponseEntity();
 	  AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
@@ -262,7 +238,6 @@ public class BoardRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insertBoardSocialBlog",  method = RequestMethod.POST)
-	@Transactional(readOnly=false)
 	public ResponseEntity insertBoardSocialBlog(BoardEntity boardEntity, MultipartHttpServletRequest req) {
       ResponseEntity result = new ResponseEntity();
 	  AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
@@ -300,8 +275,8 @@ public class BoardRestController {
 			 boardEntity.setFacebookLink(facebookLink);
 		  } 
 		  /**트위터글쓰기*/
-		  if(boardEntity.getTwitterFlag().equals("Y")) {
-			  boardEntity.setConsumerKey(consumerKeyStr);
+            boardEntity.setConsumerKey(consumerKeyStr);
+            if(boardEntity.getTwitterFlag().equals("Y")) {
 			  boardEntity.setConsumerSecret(consumerSecretStr);
 			  boardEntity.setAccessToken(accessTokenStr);
 			  boardEntity.setAccessTokenSecret(accessTokenSecretStr);
@@ -332,11 +307,10 @@ public class BoardRestController {
 	 
 	/**
 	 * 소셜 블로그 게시판 삭제
-	 * @param boardEntity
+	 * @param id
 	 * @return
 	 */ 
 	@RequestMapping(value = "/removeBoardSocialBlog",  method = RequestMethod.POST)
-	@Transactional(readOnly=false)
 	public ResponseEntity removeBoardSocialBlog(@RequestParam int id) {
 		ResponseEntity result = new ResponseEntity();
 	  try {
@@ -359,4 +333,56 @@ public class BoardRestController {
 	  }
 	  return result;
 	}
+
+    /**
+     * 트렌드리뷰 게시글 최상단 노출
+     * @param boardEntity
+     * @return
+     */
+    @RequestMapping(value = "/boardTopOpen", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public ResponseEntity boardTopOpen(@RequestBody BoardEntity boardEntity) {
+        ResponseEntity result = new ResponseEntity();
+        try {
+            String resultCode = ResultCode.FAIL;
+            String resultMessage = messages.getMessage("boardTopOpen.fail");
+            if(boardService.boardTopOpen(boardEntity) > CommonCode.ZERO) {
+                resultCode = ResultCode.SUCCESS;
+                resultMessage = messages.getMessage("boardTopOpen.success");
+                result.setResultURL("/admin/device/boardTrandList");
+            }
+            result.setResultCode(resultCode);
+            result.setResultMSG(resultMessage);
+        } catch (Exception e) {
+            logger.error("BoardeRestController.boardTopOpen:Failed" , e);
+            result.setResultCode(ResultCode.FAIL);
+            result.setResultMSG(messages.getMessage("boardTopOpen.fail"));
+        }
+        return result;
+    }
+
+    /**
+     * 소셜 블로그 게시글 최상단 노출
+     * @param boardEntity
+     * @return
+     */
+    @RequestMapping(value = "/socialBlogTopOpen", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public ResponseEntity socialBlogTopOpen(@RequestBody BoardEntity boardEntity) {
+        ResponseEntity result = new ResponseEntity();
+        try {
+            String resultCode = ResultCode.FAIL;
+            String resultMessage = messages.getMessage("boardTopOpen.fail");
+            if(boardService.socialBlogTopOpen(boardEntity) > CommonCode.ZERO) {
+                resultCode = ResultCode.SUCCESS;
+                resultMessage = messages.getMessage("boardTopOpen.success");
+                result.setResultURL("/admin/device/boardTrandList");
+            }
+            result.setResultCode(resultCode);
+            result.setResultMSG(resultMessage);
+        } catch (Exception e) {
+            logger.error("BoardeRestController.socialBlogTopOpen:Failed" , e);
+            result.setResultCode(ResultCode.FAIL);
+            result.setResultMSG(messages.getMessage("boardTopOpen.fail"));
+        }
+        return result;
+    }
 }

@@ -1,3 +1,44 @@
+$.fn.boardSocialBlog = {
+    init : function() {
+        this.socialBlogTopOpen();      //상위 10 노출 디바이스 세팅
+    },
+    socialBlogTopOpen : function() {
+        $(".socialBlogTopOpen").click(function(){
+            if(!confirm('최상단에 노출 하시겠습니까?')) {
+                return false;
+            }
+            var boardSocialBlogKeyList = [];
+            $("input[type=checkbox][name=boardSocialBlogKeyArr]:checked").each(function() {
+                boardSocialBlogKeyList.push($(this).val());
+            });
+
+            var boardEntity = { boardSocialBlogKeyList: boardSocialBlogKeyList.toString()};
+
+            $.ajax ({
+                type : 'POST',
+                contentType: 'application/json',
+                dataType : 'json',
+                data: JSON.stringify(boardEntity),
+                url : '/admin/board/rest/socialBlogTopOpen' ,
+                success : function(result) {
+                    alert(result.resultMSG);
+                    if(result.resultCode == "success"){
+                        location.href = "/admin/board/boardSocialBlogList";
+                    }
+                },
+                error : function (e) {
+                    alert('오류가 발생했습니다.');
+                }
+            });
+            return false;
+        });
+    }
+};
+
+
+
+
+
 /**
  * 트렌드 게시판 리스트 함수
  */
@@ -5,6 +46,7 @@ $.fn.boardTrandList = {
   init : function() {
 	this.openDetail();          //상세페이지 이동
 	this.sortListSize();        //10개,20개,50개,100개씩 보기
+	this.boardTopOpen();        //10개,20개,50개,100개씩 보기
   },
   openDetail : function() {
   $(".trandTitle").click(function() {
@@ -16,6 +58,37 @@ $.fn.boardTrandList = {
   $(".sortListSize").change(function() {
     $("form#searchForm").submit();
    }); 
+  },
+   boardTopOpen : function() {
+   $(".boardTopOpen").click(function(){
+       if(!confirm('최상단에 노출 하시겠습니까?')) {
+           return false;
+       }
+       var boardTrandKeyList = [];
+       $("input[type=checkbox][name=boardTrandKeyArr]:checked").each(function() {
+           boardTrandKeyList.push($(this).val());
+       });
+
+       var boardEntity = { boardTrandKeyList: boardTrandKeyList.toString()};
+
+       $.ajax ({
+           type : 'POST',
+           contentType: 'application/json',
+           dataType : 'json',
+           data: JSON.stringify(boardEntity),
+           url : '/admin/board/rest/boardTopOpen' ,
+           success : function(result) {
+               alert(result.resultMSG);
+               if(result.resultCode == "success"){
+                   location.href = "/admin/board/boardTrandList";
+               }
+           },
+           error : function (e) {
+               alert('오류가 발생했습니다.');
+           }
+       });
+       return false;
+   });
   }
 };
 /**

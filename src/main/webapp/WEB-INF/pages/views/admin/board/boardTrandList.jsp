@@ -56,6 +56,7 @@
 	</div>
 	<table class="board-list">
 		<colgroup>
+			<col width="5%"/>
 			<col width="10%"/>
 			<col width="10%"/>
 			<col width="40%"/>
@@ -64,6 +65,7 @@
 		</colgroup> 
 		<thead>
 			<tr>
+                <th>선택</th>
 				<th>No.</th>
 				<th>게시판 구분</th>
 				<th>제목</th>
@@ -74,6 +76,9 @@
 		<tbody>
 		 <c:forEach items="${boardEntity.boardTrandList }" var="boardTrandList" varStatus="i"> 
 			<tr>
+                <td>
+                <input type="checkbox" name="boardTrandKeyArr" class="chk" value="${boardTrandList.boardTrandKey }">
+                </td>
 				<td>${boardEntity.dataSize-(boardEntity.pageListSize*(boardEntity.currentPage-1))-i.index}</td> 
 				<td>${boardTrandList.trandCategory }</td>
 				<td style="cursor:pointer" class="trandTitle" data-key="${boardTrandList.boardTrandKey }">${boardTrandList.trandTitle}</td>
@@ -89,7 +94,8 @@
 		</tbody>
 	</table>
 	<div class="btn-area">
-    <a href="${contextPath }/admin/board/boardTrandForm" class="floatR btn-bottom-orenge">등록</a>
+        <a href="#" class="floatL btn-bottom-orenge boardTopOpen"><span>최상단 노출</span></a>
+        <a href="${contextPath }/admin/board/boardTrandForm" class="floatR btn-bottom-orenge">등록</a>
   </div>
 	<div class="paging-area">
 	  <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/board/boardTrandList" pageNavigationEntity="${boardEntity}" />

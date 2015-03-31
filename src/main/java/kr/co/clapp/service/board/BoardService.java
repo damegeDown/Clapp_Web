@@ -97,5 +97,19 @@ public interface BoardService {
 	BoardEntity getSocialBlogDetail(BoardEntity boardEntity);
 	
 	int modifyBoardSocialBlogFlag(BoardEntity boardEntity);
+
+    /**
+     * 트렌드리뷰 게시글 최상단 노출
+     * @param boardEntity
+     * @return
+     */
+    int boardTopOpen(BoardEntity boardEntity);
+
+    /**
+     * 소셜블로그 게시글 최상단 노출
+     * @param boardEntity
+     * @return
+     */
+    int socialBlogTopOpen(BoardEntity boardEntity);
 }
 

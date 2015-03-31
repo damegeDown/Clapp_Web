@@ -28,7 +28,8 @@ public class BoardEntity extends AdministrationFileEntity implements Serializabl
 	private List<BoardEntity> socialBlogList;
 	private int sortListSize;				//10개씩/20개/50개/100개씩보기
 	private String fileName;
-	
+    private String boardTrandKeyList;
+
 	private int boardSocialBlogKey;
 	private String socialLink;					//소셜 링크
 	private String socialOrigin;			    //소셜 출처
@@ -42,6 +43,7 @@ public class BoardEntity extends AdministrationFileEntity implements Serializabl
 	private String socialBlogInsertDay;
 	private Date socialBlogRemoveDate;			//삭제일
 	private int directBoardKey;
+    private String boardSocialBlogKeyList;
 	
 	private List<BoardEntity> boardSocialBlogList;
 	private List<BoardEntity> boardSocialBlogUserList;
@@ -314,7 +316,15 @@ public class BoardEntity extends AdministrationFileEntity implements Serializabl
 		this.directBoardKey = directBoardKey;
 	}
 
-	public List<BoardEntity> getBoardSocialBlogList() {
+    public String getBoardSocialBlogKeyList() {
+        return boardSocialBlogKeyList;
+    }
+
+    public void setBoardSocialBlogKeyList(String boardSocialBlogKeyList) {
+        this.boardSocialBlogKeyList = boardSocialBlogKeyList;
+    }
+
+    public List<BoardEntity> getBoardSocialBlogList() {
 		return boardSocialBlogList;
 	}
 
@@ -387,7 +397,15 @@ public class BoardEntity extends AdministrationFileEntity implements Serializabl
 		this.fileName = fileName;
 	}
 
-	public String getFacebookId() {
+    public String getBoardTrandKeyList() {
+        return boardTrandKeyList;
+    }
+
+    public void setBoardTrandKeyList(String boardTrandKeyList) {
+        this.boardTrandKeyList = boardTrandKeyList;
+    }
+
+    public String getFacebookId() {
 		return facebookId;
 	}
 

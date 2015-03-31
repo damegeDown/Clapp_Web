@@ -47,6 +47,7 @@
 	</div>
 	<table class="board-list">
 		<colgroup>
+			<col width="5%"/>
 			<col width="10%"/>
 			<col width="*"/>
 			<col width="15%"/>
@@ -55,6 +56,7 @@
 		</colgroup> 
 		<thead>
 			<tr>
+				<th>선택</th>
 				<th>No.</th>
 				<th>제목</th>
 				<th>소셜 구분별</th>
@@ -65,6 +67,9 @@
 		<tbody>
 		 <c:forEach items="${boardEntity.boardSocialBlogList }" var="boardSocialBlogList" varStatus="i"> 
 			<tr style="font-weight:bold;colof:">
+                <td>
+                    <input type="checkbox" name="boardSocialBlogKeyArr" class="chk" value="${boardSocialBlogList.boardSocialBlogKey }">
+                </td>
 				<td>${boardEntity.dataSize-(boardEntity.pageListSize*(boardEntity.currentPage-1))-i.index}</td> 
 				<td style="cursor:pointer" class="socialBlogTitle" data-key="${boardSocialBlogList.boardSocialBlogKey }">${boardSocialBlogList.socialBlogTitle}</td>
 				<td>
@@ -106,10 +111,15 @@
 		</tbody>
 	</table>
 	<div class="btn-area">
+    <a href="#" class="floatL btn-bottom-orenge socialBlogTopOpen"><span>최상단 노출</span></a>
     <a href="${contextPath }/admin/board/boardSocialBlogForm" class="floatR btn-bottom-orenge">등록</a>
   </div>
 	<div class="paging-area">
 	  <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/board/boardSocialBlogList" pageNavigationEntity="${boardEntity}" />
 	</div>
 </div>
- 
+<script>
+$(function() {
+    $.fn.boardSocialBlog.init();
+});
+</script>

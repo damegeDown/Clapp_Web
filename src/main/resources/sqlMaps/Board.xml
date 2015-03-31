@@ -565,4 +565,25 @@
   </sql>
   <!-- //다음글 이전글 -->
 
+    <!-- 트렌드리뷰 게시글 최상단노출 -->
+    <update id="modifyBoardTop" parameterType="boardEntity">
+        UPDATE
+        BOARD_TRAND
+        SET
+        TRAND_INSERT_DATE = NOW()
+        WHERE
+        BOARD_TRAND_KEY IN (${boardTrandKeyList})
+    </update>
+    <!-- //트렌드리뷰 게시글 최상단노출 -->
+
+    <!-- 소셜블로그 게시글 최상단노출 -->
+    <update id="modifySocialBlogTop" parameterType="boardEntity">
+        UPDATE
+        BOARD_SOCIAL_BLOG
+        SET
+        SOCIAL_BLOG_INSERT_DATE = NOW()
+        WHERE
+        BOARD_SOCIAL_BLOG_KEY IN (${boardSocialBlogKeyList})
+    </update>
+    <!-- //소셜블로그 게시글 최상단노출 -->
 </mapper>

@@ -1,9 +1,9 @@
 package kr.co.clapp.dao;
 
 
-import java.util.List;
-
 import kr.co.clapp.entities.BoardEntity;
+
+import java.util.List;
 
 public interface BoardDAO {
 	/**
@@ -110,4 +110,18 @@ public interface BoardDAO {
 	Integer getTrandPrevPage(BoardEntity boardEntity);
 	BoardEntity getSocialBlogDetail(BoardEntity boardEntity);
 	int modifyBoardSocialBlogFlag(BoardEntity boardEntity);
+
+    /**
+     * 트렌드리뷰 게시글 최상단 노출
+     * @param deviceEntity
+     * @return
+     */
+    int modifyBoardTop(BoardEntity deviceEntity);
+
+    /**
+     * 소셜블로그 게시글 최상단 노출
+     * @param boardEntity
+     * @return
+     */
+    int modifySocialBlogTop(BoardEntity boardEntity);
 }
