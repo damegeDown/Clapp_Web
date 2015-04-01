@@ -701,10 +701,11 @@ body {
 .gnbLink {
   text-decoration: none;
   color: #202020;
-  font-weight: 500;
+  font-weight: bold;
   width: 158px;
   height: inherit;
   display: block;
+  font-size: 16pt;
 }
 .GnbStartContainer {
   float: right;
