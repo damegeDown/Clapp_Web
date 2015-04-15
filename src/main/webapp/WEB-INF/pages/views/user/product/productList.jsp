@@ -40,7 +40,7 @@
 						</a>
 						<a href="#enterprize" class="subPGTab06">
 							<div>
-								<span>Enterprize</span>
+								<span>Enterprise</span>
 							</div><!-- .subPGTab06 End -->
 						</a>
 					</div><!-- .subCIArticleGnbBottomBox End -->
@@ -573,7 +573,7 @@
 				<div class="subPGPNCBox">
 					<div class="subPGPOCKindBox">
 						<div class="subPGPNCKind">
-							<span>Enterprize<br />Gold</span>
+							<span>Enterprise<br />Gold</span>
 						</div>
 					</div>
 					<div class="subPGPOCFncBox">
@@ -622,7 +622,7 @@
 				<div class="subPGPNCBox">
 					<div class="subPGPOCKindBox">
 						<div class="subPGPNCKind">
-							<span>Enterprize<br />Diamond</span>
+							<span>Enterprise<br />Diamond</span>
 						</div>
 					</div>
 					<div class="subPGPOCFncBox">
@@ -694,7 +694,7 @@ var goPayment = function(key) {
 };
 //소개서 다운로드 링크
 var autoJnlpDownload = function(){ 
-	var orgFileName = "CLAPP_INFO_150318.pdf";
+	var orgFileName = "CLAPP_INFO_20150415.pdf";
     location.href = contextPath + "/common/fileDownload?path=download&orgFileName="+orgFileName;
 	  
 };
