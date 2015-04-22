@@ -121,7 +121,8 @@
 			p.card_install_month,
 			if(p.card_acquirer is null, '-', p.card_acquirer) card_acquirer,
 			if(p.finance_name is null , '-', p.finance_name) finance_name,
-			FN_GET_SECRET_CARD_NUMBER(p.card_num) payment_card_number,
+			p.card_num as  payment_card_number, 
+			<!-- FN_GET_SECRET_CARD_NUMBER(p.card_num) payment_card_number, -->
 			FN_GET_SECRET_CELL_NUMBER(p.buyer_phone) payment_cellphone_number,
 			p.pay_dt,
 			p.reg_dt,
