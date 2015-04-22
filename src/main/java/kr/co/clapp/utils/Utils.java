@@ -28,7 +28,11 @@ public class Utils {
 	 */
 	public  static String getRomoteIp(HttpServletRequest request) {
 		//return  request.getRemoteHost().toString();
-		return  request.getRemoteAddr().toString();
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if(ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
+		}
+		return  ipAddress;
 	}
 	/**
 	 * 현재 서버의 IP 주소를 가져옵니다.
