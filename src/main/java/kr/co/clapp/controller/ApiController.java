@@ -404,7 +404,7 @@ public class ApiController {
 		return apiEntity;
 	}
 	/**
-	 * 이메일 발송 
+	 * 이메일 발송
 	 * @param ecrmEntity
 	 * @return
 	 */
