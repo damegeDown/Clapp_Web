@@ -36,9 +36,17 @@
              <a href="${contextPath }/members/memberJoinTerms?userType=1"><img src="${contextPath }/resources/images/join_step01_person.png"onmouseover="this.src='${contextPath }/resources/images/join_step01_person_r.png';" onMouseOut="this.src='${contextPath }/resources/images/join_step01_person.png';" alt="일반 가입" /></a>
            </div>
            <div class="subJoinCompany">
-             <a href="${contextPath }/members/memberJoinTerms?userType=2" ><img src="${contextPath }/resources/images/join_step01_company.png" onMouseOver="this.src='${contextPath }/resources/images/join_step01_company_r.png';" onMouseOut="this.src='${contextPath }/resources/images/join_step01_company.png';" alt="기업/단체 가입" /></a>
+             <a href="javascript:;" ><img src="${contextPath }/resources/images/join_step01_company.png" onMouseOver="this.src='${contextPath }/resources/images/join_step01_company_r.png';" onMouseOut="this.src='${contextPath }/resources/images/join_step01_company.png';" alt="기업/단체 가입" /></a>
            </div>
          </div>
        </div>
      </div>
    </div> <!-- .subJoinMembershipContainer End -->
+<%@ include file="/WEB-INF/pages/views/user/popup/popupCompanyJoin.jsp"%>
+<script>
+    $(function(){
+        $('.subJoinCompany').on('click', function(){
+            popupUtils.popupOpen("#popupCompanyJoin");
+        });
+    })
+</script>
