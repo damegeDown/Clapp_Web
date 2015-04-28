@@ -749,7 +749,8 @@
         ticket_start_expiration_date ticketStartExpirationDate,
         ticket_end_expiration_date ticketEndExpirationDate,
         product_name productName,
-        user_master_key
+        user_master_key,
+        product_name
         FROM
         USER_TICKET_HISTORY
         WHERE
@@ -785,7 +786,8 @@
         start_dttm,
         end_dttm,
         vd.prod_name,
-        vr.user_id
+        vr.user_id,
+        vr.product_name
         FROM
         VIEW_RESERVATIONS vr,
         VIEW_DEVICES vd
@@ -809,6 +811,10 @@
         <if test="searchValue != '' and searchValue != null">
             AND
             a.statusText = #{searchValue}
+        </if>
+        <if test="searchValue2 != '' and searchValue2 != null">
+            AND
+            a.product_name = #{searchValue2}
         </if>
     </select>
     <select id="getMyHistory" parameterType="ticketEntity" resultType="ticketEntity">
@@ -836,7 +842,8 @@
         ticket_start_expiration_date ticketStartExpirationDate,
         ticket_end_expiration_date ticketEndExpirationDate,
         product_name productName,
-        user_master_key
+        user_master_key,
+        product_name
         FROM
         USER_TICKET_HISTORY
         WHERE
@@ -872,14 +879,15 @@
         start_dttm,
         end_dttm,
         vd.prod_name,
-        vr.user_id
+        vr.user_id,
+        vr.product_name
         FROM
         VIEW_RESERVATIONS vr,
         VIEW_DEVICES vd
         WHERE
         vr.device_id = vd.id
-        --         AND
-        --         vr.status != 3
+        <!--         AND
+                 vr.status != 3-->
         AND
         vr.user_id = #{userMasterKey}
         ) a
@@ -896,6 +904,10 @@
         <if test="searchValue != '' and searchValue != null">
             AND
             a.statusText = #{searchValue}
+        </if>
+        <if test="searchValue2 != '' and searchValue2 != null">
+            AND
+            a.product_name = #{searchValue2}
         </if>
         ORDER BY
         ticketApplyDate DESC

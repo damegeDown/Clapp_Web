@@ -22,9 +22,9 @@
 <div class="subMyClappTitleContainer">
 	<div class="subMyClappTitleBox">
 		<div class="subMyClappTitleLine"></div>
-		<span class="subMyClappTitle">티켓 적립/차감</span>
+		<span class="subMyClappTitle">티켓 적립/차감/반환</span>
 		<p class="subMyClappSMessage">
-			클앱을 이용하실 수 있는 티켓의 적립/차감 상세 내역을 조회하실 수 있습니다. 
+			클앱을 이용하실 수 있는 티켓의 적립/차감/반환 상세 내역을 조회하실 수 있습니다.
 		</p>
 		<!-- <div class="subMyClappTaxBox">
 			<a href="#">
@@ -75,11 +75,23 @@
 					<div class="smccdtTitleB">
 						<span class="smccdtTitle">상세 구분</span>
 					</div>
+                    <div class="smccdmSelect1">
+                        <select class="smccdmProduct" name="searchValue2" style="width:250px">
+                            <option value="">-상품명-</option>
+                            <c:forEach items="${productList}" var="product">
+                                <option value="${product.productName}"
+                                        <c:if test="${ticketHistoryInfo.searchValue2 eq product.productName}"> selected="selected" </c:if>>
+                                        ${product.productName}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
 					<div class="smccdmSelect4">
 						<select class="smccdmTicket" name="searchValue">
-							<option value="">적립/차감 전체</option>
+							<option value="">적립/차감/반환 전체</option>
 							<option value="적립" <c:if test="${ticketHistoryInfo.searchValue eq '적립'}">selected</c:if>>적립</option>
 							<option value="차감" <c:if test="${ticketHistoryInfo.searchValue eq '차감'}">selected</c:if>>차감</option>
+							<option value="반환" <c:if test="${ticketHistoryInfo.searchValue eq '반환'}">selected</c:if>>반환</option>
 						</select>
 					</div>
 				</div>
@@ -95,9 +107,9 @@
 			<div class="subMyClappContentResultTotalSectionBox">
 				<div class="sccrtS1">
 					<ul class="sccrtSLists">
-						<li><span class="sccrtSTitle1">현재 잔여 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 티켓</span></li>
+						<li><span class="sccrtSTitle1">이용가능 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 티켓</span></li>
 						<li class="sccrtSListsLine"></li>
-						<li><span class="sccrtSTitle2">유효기간 : &nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.expirationDate }</span><span class="sccrtSQty2"> 일</span></li>
+						<li><span class="sccrtSTitle2">잔여일수 : &nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.expirationDate }</span><span class="sccrtSQty2"> 일</span></li>
 					</ul>
 				</div>
 				<div class="sccrtS2">
@@ -110,16 +122,10 @@
 			</div>
 			<div class="subMyClappPaidProductBox">
 				<table class="subMyClappPaidProductList3">
-					<colgroup>
-						<col width="7%"/>
-						<col width="20%"/>
-						<col width="7%"/>
-						<col width="7%"/>
-						<col width="20%"/>
-						<col width="39%"/>
-					</colgroup>
+
 					<tr>
 						<th>No</th>
+						<th>상품명</th>
 						<th>적용일시</th>
 						<th>상태</th>
 						<th>티켓</th>
@@ -128,19 +134,22 @@
 					</tr>
 					<c:if test="${ticketHistoryInfo.dataSize < 1}">
 						<tr>
-							<td colspan="6">++조회내용이 없습니다.++</td>
+							<td colspan="7">++조회내용이 없습니다.++</td>
 						</tr> 
 					</c:if>
 					<c:forEach items="${ticketHistoryInfo.historyList }" var="history" varStatus="i">
 					<tr>
 						<td>${ticketHistoryInfo.dataSize-(ticketHistoryInfo.pageListSize*(ticketHistoryInfo.currentPage-1))-i.index}</td>
+                        <td>
+                            ${history.productName}
+                        </td>
 						<td><fmt:formatDate value="${history.ticketApplyDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${history.statusText}</td>
 						<td>${history.historyUsedTicketAmountText }</td>
 						<td>
 							<%--${history.expirationDate }--%>
-							 <fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/> ~
-							 <fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
+							 <fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
+							<br/> ~ <fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
 						</td>
 						<td>${history.productName }</td>
 					</tr>

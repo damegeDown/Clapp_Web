@@ -159,6 +159,7 @@ public class MyClappController {
 			ticketParam.setUserMasterKey(memberSession.getUserMasterKey());
 			ticketInfo = ticketService.selectTicketInfo(ticketParam);
 		  	/** 예약내역 */
+            ticketParam.setSearchValue3(ticketParam.getSearchValue3().replace("<br/>",""));
 			ticketHistoryInfo = ticketService.selectTicketUsedHistory(ticketParam);
 			/** 공통코드*/
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
@@ -194,10 +195,16 @@ public class MyClappController {
 		MemberEntity userInfo =  new MemberEntity();
 		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
 		TicketEntity ticketInfo = new TicketEntity();
+        ProductEntity productEntity = new ProductEntity();
 		try {
 			ticketParam.setUserMasterKey(userInfo.getUserMasterKey());
-		  	 /** 적립/차감 리스트 */
+            /** 적립/차감 리스트 */
+            ticketParam.setSearchValue2(ticketParam.getSearchValue2().replace("<br/>",""));
 			ticketInfo = ticketService.getMyHistory(ticketParam);
+
+            /** 상품 목록 */
+            productEntity = productService.getProductList(productEntity);
+            model.addAttribute("productList", productEntity.getProductList());
 		} catch  (Exception e) {
 			  logger.error("MyClappController.myHistory:Faild" , e);
 		}

@@ -20,7 +20,7 @@ $(function() {
 	<div class="subMyClappMenuBox">
 		<ul class="subMyClappMenu">
 			<li class="myClappMenuLi myTicket"><a href="${contextPath }/myClapp/myTicket">이용 현황</a></li>
-			<li class="myClappMenuLi myHistory"><a href="${contextPath }/myClapp/myHistory">티켓 적립/차감</a></li>
+			<li class="myClappMenuLi myHistory"><a href="${contextPath }/myClapp/myHistory">티켓 적립/차감/반환</a></li>
 			<li class="myClappMenuLi myPayment" ><a href="${contextPath }/myClapp/myPayment">결제 내역</a></li>
 			<li class="myClappMenuLi myInquiry"><a href="${contextPath }/myClapp/myInquiry?inquiryCategory=3">1:1 문의</a></li>
 			<li class="myClappMenuLi passwordConfirm mcmLastRightLine"><a href="${contextPath }/myClapp/passwordConfirm">정보 수정·확인</a></li>
