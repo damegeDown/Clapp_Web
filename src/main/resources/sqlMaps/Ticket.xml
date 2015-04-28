@@ -638,6 +638,10 @@
                 </otherwise>
             </choose>
         </if>
+        <if test="searchValue3 != '' and searchValue3 != null">
+            AND
+            vr.product_name = #{searchValue3}
+        </if>
     </select>
     <select id="selectTicketUsedHistory" parameterType="ticketEntity" resultType="ticketEntity">
         SELECT
@@ -660,7 +664,7 @@
         WHEN (vr.status = '0') THEN '예약중'
         WHEN (vr.status = '1') THEN '사용중'
         WHEN ((vr.status = '2') AND (NOW() <![CDATA[<=]]> vr.end_dttm)) THEN '대기중'
-        WHEN ((vr.status = '2') AND (NOW() > vr.end_dttm)) THEN '종료'
+        WHEN ((vr.status = '2') AND (NOW() > vr.end_dttm)) THEN '사용종료'
         WHEN (vr.status  = '3') THEN '사용종료'
         ELSE '' END
         ) AS statusText,
@@ -668,7 +672,8 @@
         vd.prod_name,
         vd.os,
         vd.resolution,
-        vd.os_version
+        vd.os_version,
+        vr.product_name
         FROM
         VIEW_RESERVATIONS vr,
         VIEW_DEVICES vd
@@ -690,9 +695,26 @@
             AND
             vd.prod_name = #{searchValue1}
         </if>
+        <!--<if test="searchValue2 != '' and searchValue2 != null">-->
+            <!--AND-->
+            <!--vr.status = #{searchValue2}-->
+        <!--</if>-->
         <if test="searchValue2 != '' and searchValue2 != null">
             AND
-            vr.status = #{searchValue2}
+            <choose>
+                <when test="searchValue='wait'">
+                    vr.status in (0,6)
+                    AND
+                    vr.end_dttm <![CDATA[ > ]]> NOW()
+                </when>
+                <otherwise>
+                    vr.end_dttm <![CDATA[ < ]]> NOW()
+                </otherwise>
+            </choose>
+        </if>
+        <if test="searchValue3 != '' and searchValue3 != null">
+            AND
+            vr.product_name = #{searchValue3}
         </if>
         ORDER BY
         vr.start_dttm desc

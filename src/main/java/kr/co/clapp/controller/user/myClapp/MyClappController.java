@@ -153,6 +153,7 @@ public class MyClappController {
 		TicketEntity ticketInfo = new TicketEntity();
 		TicketEntity ticketHistoryInfo = new TicketEntity();
 		TicketEntity ticketSearchCount = new TicketEntity();
+        ProductEntity productEntity = new ProductEntity();
 		try {
 			/** 티켓정보 */
 			ticketParam.setUserMasterKey(memberSession.getUserMasterKey());
@@ -170,7 +171,11 @@ public class MyClappController {
 	  	    model.addAttribute("makerList", makerList);
 	  	    /** 디바이스목록*/
 	  	  	List<TicketEntity> deviceList = commonService.getDevice();
-	  	  model.addAttribute("deviceList", deviceList);
+            /** 상품 목록 */
+            productEntity = productService.getProductList(productEntity);
+
+            model.addAttribute("deviceList", deviceList);
+            model.addAttribute("productList", productEntity.getProductList());
 		} catch  (Exception e) {
 			logger.error("MyClappController.myTicket:Faild" , e);
 		}

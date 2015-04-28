@@ -24,14 +24,14 @@
 		<div class="subMyClappTitleLine"></div>
 		<span class="subMyClappTitle">이용 현황</span>
 		<p class="subMyClappSMessage">
-			클앱의 전체 이용 현황 및 상품에 대한 상세 내역을 조회하실 수 있습니다.
+			클앱의 전체 이용 현황 및 상품에 대한 이용 내역을 조회하실 수 있습니다.
 		</p>
 	</div>
 </div> <!-- .subMyClappTitleContainer End -->
 <div class="subMyClappContentContainer">
 	<div class="subMyClappContentBox">
 		<div class="subMyClappTitleSmallLine"></div>
-		<span class="subMyClappSmallTitle">유료 상품</span>
+		<span class="subMyClappSmallTitle">나의 상품</span>
 		<div class="subMyClappPaidProductBox">
 			<table class="subMyClappPaidProductList">
 				<tr>
@@ -84,7 +84,7 @@
 	<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentDetailsBox">
 		<div class="subMyClappTitleSmallLine"></div>
-		<span class="subMyClappSmallTitle">상세 내역 조회</span>
+		<span class="subMyClappSmallTitle">이용 내역 조회</span>
 		<div class="subMyClappContentDetailsSearchBox">
 			<div class="subMyClappContentDetailsSearchTopSection">
 				<div class="subMyClappContentDetailsTopBox">
@@ -120,7 +120,18 @@
 					<div class="smccdtTitleB">
 						<span class="smccdtTitle">상세 구분</span>
 					</div>
-					<div class="smccdmSelect1"> 
+                    <div class="smccdmSelect1">
+                        <select class="smccdmProduct" name="searchValue3" style="width:250px">
+                            <option value="">-상품명-</option>
+                            <c:forEach items="${productList}" var="product">
+                                <option value="${product.productName}"
+                                        <c:if test="${ticketHistoryInfo.searchValue3 eq product.productName}"> selected="selected" </c:if>>
+                                        ${product.productName}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+					<div class="smccdmSelect2">
 						<select class="smccdmCorp" name="searchValue">
 							<option value="">-제조사별-</option>
 							<c:forEach items="${makerList }" var="code">
@@ -128,7 +139,7 @@
 				            </c:forEach>
 						</select>
 					</div>
-					<div class="smccdmSelect2">
+					<div class="smccdmSelect3">
 						<select class="smccdmDevice" name="searchValue1">
 							<option value="">-디바이스별-</option>
 							<c:forEach items="${deviceList }" var="code">
@@ -159,7 +170,7 @@
 				<ul class="sccrtSLists">
 					<li><span class="sccrtSTitle1">총 이용건수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.dataSize}</span><span class="sccrtSQty1"> 건</span></li>
 					<li class="sccrtSListsLine"></li>
-					<li><span class="sccrtSTitle2">예약대기 :&nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.reservationWaitCount}</span><span class="sccrtSQty2"> 건</span></li>
+					<li><span class="sccrtSTitle2">예약중 :&nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.reservationWaitCount}</span><span class="sccrtSQty2"> 건</span></li>
 					<li class="sccrtSListsLine"></li>
 					<li><span class="sccrtSTitle3">사용종료 :&nbsp;</span><span class="sccrtSNo3">${ticketHistoryInfo.reservationFinishCount}</span><span class="sccrtSQty3"> 건</span></li>
 				</ul>
@@ -178,18 +189,20 @@
 					<col width="5%"/>
 					<col width="13%"/>
 					<col width="13%"/>
-					<col width="7%"/>
-					<col width="15%"/>
-					<col width="10%"/>
 					<col width="13%"/>
 					<col width="7%"/>
-					<col width="17%"/>
+					<col width="15%"/>
+					<col width="9%"/>
+					<col width="10%"/>
+					<col width="5%"/>
+					<col width="10%"/>
 				</colgroup>
 				<tr>
 					<th>No</th>
-					<th>예약시간</th>
-					<th>사용시간</th>
-					<th>제조사</th>
+                    <th>상품명</th>
+                    <th>예약시간</th>
+                    <th>사용시간</th>
+                    <th>제조사</th>
 					<th>디바이스명</th>
 					<th>OS</th>
 					<th>해상도</th>
@@ -198,12 +211,15 @@
 				</tr>
 				<c:if test="${ticketHistoryInfo.dataSize < 1}">
 					<tr>
-						<td colspan="9">++조회내용이 없습니다.++</td>
+						<td colspan="10">++조회내용이 없습니다.++</td>
 					</tr>
 				</c:if>
 				<c:forEach items="${ticketHistoryInfo.historyList }" var="history" varStatus="i">
 				<tr class="subMyClappPaidProductList2Select">
 					<td>${ticketHistoryInfo.dataSize-(ticketHistoryInfo.pageListSize*(ticketHistoryInfo.currentPage-1))-i.index}</td>
+                    <td>
+                        ${history.productName}
+                    </td>
 					<td>
 						<fmt:formatDate value="${history.startDttm}" pattern="yyyy-MM-dd"/><br/>
 						<fmt:formatDate value="${history.startDttm}" pattern="HH:mm"/>
@@ -221,10 +237,6 @@
 					<td>${history.usePoint }</td>
 					<td>
 						${history.statusText } 
-						<c:if test="${history.status == 0 or hisotry.status == 6}">						
-						<br />
-						<button class="goBtn">바로가기</button>
-						</c:if>	
 					</td>
 				</tr>
 				</c:forEach>
