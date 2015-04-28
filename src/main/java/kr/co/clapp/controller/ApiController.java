@@ -271,6 +271,57 @@ public class ApiController {
 		}
 		return apiEntity;
 	}
+	
+	/**
+	 * 포인트 반환(시스템 오류시)
+	 * @param session
+	 * @param user_id
+	 * @param reservation_time
+	 * @return
+	 */
+	@RequestMapping(value="doRecoveryTicket")
+	public ApiEntity doRecoveryTicket(
+			HttpSession session,
+			@RequestParam(required = false, value = "user_id") int user_id,
+			@RequestParam(required = false, value = "reservation_time") int reservation_time,
+			HttpServletRequest request
+			) {
+		ApiEntity apiEntity = new ApiEntity();
+		MemberEntity memberEntity = new MemberEntity();
+		TicketEntity ticketEntity = new TicketEntity();
+		int reservationTicketAmount = 0;
+		int ticketAvilableAmount = 0;
+		int usedTicketAmount = 0;
+		try {
+			/** 외부 아이피 접근시 차단 */
+			if(!Utils.checkRemoteIp(request)) { 
+				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
+				//return apiEntity;
+			}
+			memberEntity.setUserMasterKey(user_id);
+			/** 넘어온 예약시간을 티켓수로 환산한다.*/
+			reservationTicketAmount= (reservation_time / CommonCode.TICKET_TIME) * 2;
+			ticketAvilableAmount = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+			/** 사용가능한 티켓에 사용티켓을 더해서 사용가능 티켓을 구한다. */
+		    usedTicketAmount = ticketAvilableAmount + reservationTicketAmount;
+		    ticketEntity.setTicketAvilableAmount(usedTicketAmount);
+			ticketEntity.setUserMasterKey(user_id);
+			/** 티켓반환 */
+			if(ticketService.doUsedTicket(ticketEntity) > CommonCode.ZERO) {
+				apiEntity.setResultState(ResultCode.SUCCESS);
+				apiEntity.setReturnTicketAmount(reservationTicketAmount);
+				apiEntity.setTotalTicketAmount(usedTicketAmount);
+			} else {
+				apiEntity.setResultState(ResultCode.FAIL);
+				apiEntity.setErrorMessage(messages.getMessage("ticket.return.fail"));
+			}
+		} catch (Exception e) {
+			logger.error("ApiController.doRecoveryTicket:Faild" , e);
+			apiEntity.setErrorData(e);
+			apiEntity.setResultState(ResultCode.ERROR);
+		}
+		return apiEntity;
+	}
 	/**
 	 * 사용가능 티켓 
 	 * @param userMasterKey
@@ -353,7 +404,7 @@ public class ApiController {
 		return apiEntity;
 	}
 	/**
-	 * 이메일 발송 
+	 * 이메일 발송
 	 * @param ecrmEntity
 	 * @return
 	 */

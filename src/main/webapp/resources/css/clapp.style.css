@@ -6381,7 +6381,7 @@ body {
   margin-right: 10px;
   margin-top: 15px;
 }
-.smccdmCorp, .smccdmDevice, .smccdmStatus {
+.smccdmProduct, .smccdmCorp, .smccdmDevice, .smccdmStatus {
   width: 146px;
   height: 38px;
   border: 1px solid #dbe1e7;

@@ -84,7 +84,6 @@
 						<a href="#" class="login loginBtn">로그인</a>
 					</div>
 					IP : <c:out value="${remoteIp }"/> 
-					IP : <c:out value="${localIpAddress }"/>   
 				</form> 
 			</div>
 		</div>
