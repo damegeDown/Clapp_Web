@@ -45,7 +45,7 @@ public class PaymentEntity extends PageEntity implements Serializable {
   private String  userCompanyNumber;		 //사업자등록번호
   private Date paymentStartDate;				//사용기간 -시작 
   private Date paymentEndDate;				//사용기간 -종료
-  
+
   /* PaymentDetail */
   private String paymentCardNumber;          //결제 카드번호
   private String    paymentInstallment;         //할부 계월수
@@ -90,7 +90,8 @@ public class PaymentEntity extends PageEntity implements Serializable {
   private String contractOperatorName;       //담당자
   private Date	contractInsertDate;			 //등록일
   private Date	contractUseCloseDate;			 //종료일
-  
+  private String contractApplicant;             //신청인
+
   /* ContractUser */
   private String contractUserId;			 //계약자 아이디
   private List<?> contractUserIdArr;			 //계약자 아이디
@@ -140,7 +141,7 @@ public class PaymentEntity extends PageEntity implements Serializable {
 	private String isCardInterest;		// LGD_CARDNOINTYN.			신용카드 무이자여부(1:무이자, 0:일반)
 	private String cardInstallMonth;		// LGD_CARDINSTALLMONTH.	신용카드할부개월
 	private String cardAcquirer;			// LGD_CARDACQUIRER.		카드사 코드번호
-	
+
 	/**
 	 * 현금영수증 추가 파라미터 (계좌이체, 무통장)
 	 */
@@ -1066,6 +1067,12 @@ public void setUserMasterKeyArr(List<?> userMasterKeyArr) {
 		this.authData = authData;
 	}
 
-	
+    public String getContractApplicant() {
+        return contractApplicant;
+    }
+
+    public void setContractApplicant(String contractApplicant) {
+        this.contractApplicant = contractApplicant;
+    }
 }
 

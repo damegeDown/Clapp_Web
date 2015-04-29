@@ -166,6 +166,7 @@ public class PaymentServiceImpl implements PaymentService {
             /** 개별 계약 회원 등록*/
             userIdArr = (List<String>) paymentEntity.getContractUserIdArr();
             userKeyArr = (List<String>) paymentEntity.getUserMasterKeyArr();
+
             for(int i = 0; i < userIdArr.size(); i++) {
                 paymentEntity.setContractUserId(userIdArr.get(i));
                 paymentEntity.setUserMasterKey(Integer.parseInt(userKeyArr.get(i)));
@@ -188,6 +189,9 @@ public class PaymentServiceImpl implements PaymentService {
                 /** 티켓 히스토리에 저장*/
                 this.insertUserTicketMaster(ticketInfo);
                 //ticketDAO.insertUserTicketHistory(ticketInfo);
+
+                /** 선택한 회원을 기업회원으로 변경 */
+                ticketDAO.updateUserType(paymentEntity);
             }
         }
         return  result;

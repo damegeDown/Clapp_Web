@@ -1040,4 +1040,14 @@
         user_master_key = #{userMasterKey}
     </update>
     <!-- //결제취소시 사용자 티켓 수정 -->
+    <update id="updateUserType" parameterType="paymentEntity">
+        UPDATE
+          USER_MASTER
+        SET
+          user_type = 2
+        WHERE user_master_key in
+            <foreach item="item" index="index" collection="userMasterKeyArr" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+    </update>
 </mapper>

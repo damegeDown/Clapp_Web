@@ -57,6 +57,10 @@
     	 	   <th>기업명</th>
     	 	   <td>${paymentInfo.contractCompanyName }</td>
     	 	 </tr>
+            <tr>
+                <th>신청인</th>
+                <td>${paymentInfo.contractApplicant}</td>
+            </tr>
     	 	 <tr>
     	 	   <th>사업자등록번호</th>
     	 	   <td>${paymentInfo.contractCompanyNumber}</td>

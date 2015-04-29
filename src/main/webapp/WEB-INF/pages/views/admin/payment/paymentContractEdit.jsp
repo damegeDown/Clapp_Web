@@ -56,10 +56,11 @@
     	 	   	<fmt:formatDate var="endDate" pattern="yyyy/MM/dd " value="${paymentInfo.contractEndDate }" />
     	 	   	<input type="text" name="contractStartDate" value="${startDate}" id="from"/> ~ 
     	 	   	<input type="text" name="contractEndDate" value="${endDate }" id="to"/>
+                   <span>(계약기간은 과금개시일부터 서비스 종료일까지 입니다.)</span>
     	 	   </td>
     	 	 </tr>
     	 	 <tr>
-    	 	   <th>계산서 발행일</th>
+    	 	   <th>계산서 발행일(=과금개시일)</th>
     	 	   <td>
     	 	   		<fmt:formatDate var="publicationDate" pattern="yyyy/MM/dd " value="${paymentInfo.contractBillPublicationDate }" />
     	 	   		<input type="text" name="contractBillPublicationDate" value="${publicationDate }" class="datepicker" data-flag="off">
@@ -69,14 +70,25 @@
     	 	   <th>발행금액</th>
     	 	   <td><input class="inp-w185" type="text" name="contractTotalPrice" value="${paymentInfo.contractTotalPrice }" placeholder="공급가액 + 부가가치세 포함 총 금액"/></td>
     	 	 </tr>
+
     	 	 <tr>
     	 	   <th>결제방법</th>
-    	 	   <td><input type="text" class="inp-w160" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제"/></td>
+    	 	   <td><input type="text" class="inp-w190" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제(무통장)"/>
+                    <span>계산서 발행일로부터 15일 이내 입금</span>
+               </td>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>기업명</th>
-    	 	   <td><input type="text" name="contractCompanyName" id="tags" value="${paymentInfo.contractCompanyName }" placeholder="(주) 빼고 입력"/><div class="btn-bottom-orenge searchCompanyBtn">검색</div></td>
+    	 	   <td>
+                   <input type="text" name="contractCompanyName" id="tags" value="${paymentInfo.contractCompanyName }" placeholder="(주) 빼고 입력"/>
+                   <div class="btn-bottom-orenge searchCompanyBtn">검색</div>
+                   <span>(추후 검색 DB로 활용하기 위해서 정확하게 입력해 주시기 바랍니다.)</span>
+               </td>
     	 	 </tr>
+            <tr>
+                <th>신청인</th>
+                <td><input type="text" name="contractApplicant" class="inp-w100" value="${paymentInfo.contractApplicant }"/></td>
+            </tr>
     	 	 <tr>
     	 	   <th>사업자등록번호</th>
     	 	   <td>
@@ -92,18 +104,21 @@
     	 	   <td>
     	 	   <input type="hidden" name="contractProductName" value="${paymentInfo.contractProductName}"/>
     	 	   	<select class="sel-w180" name="productMasterKey">
+                    <option value="">상품</option>
 		          <c:forEach items="${productInfo.productList }" var="code">
-					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
+                      <c:if test="${code.productMasterKey >= 9}">
+					    <option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" data-ticketAmount="${code.productTicketAmount}" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
+                      </c:if>
 				 </c:forEach>
 	           </select>
     	 	 </tr>
+            <tr>
+                <th>유효기간</th>
+                <td><input type="text" name="contractExpirationDate" value="${paymentInfo.contractExpirationDate }" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)</td>
+            </tr>
     	 	 <tr>
     	 	   <th>적용티켓</th>
     	 	   <td><input type="text" name="contractTicketAmount" value="${paymentInfo.contractTicketAmount}" placeholder="숫자만 입력" data-format="num"/> 개</td>
-    	 	 </tr>
-    	 	 <tr>
-    	 	   <th>유효기간</th>
-    	 	   <td><input type="text" name="contractExpirationDate" value="${paymentInfo.contractExpirationDate }" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)</td>
     	 	 </tr>
     	 	 <c:if test="${paymentInfo.contractMasterKey > 0 }">
     	 	 <tr>
@@ -151,8 +166,10 @@
 		$("select[name=productMasterKey]").change(function() {
 			var productName = $("select option[value="+$(this).val()+"]").text();
 			var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
+            var ticketAmount = $("select option[value="+$(this).val()+"]").attr("data-ticketAmount");
 			$("input[name=contractProductName]").val(productName);
 			$("input[name=contractExpirationDate]").val(applyDate);
+			$("input[name=contractTicketAmount]").val(ticketAmount);
 		});
 	});
 	$(function() {

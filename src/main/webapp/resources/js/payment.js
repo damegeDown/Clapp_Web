@@ -58,7 +58,7 @@ $.fn.Common = {
 	      url : "/admin/member/rest/searchUserId",
 	      type : "post",
 	      dataType : "json",
-	      data : {userId : userId, userType : 1},
+	      data : {userId : userId},
 	      success : function(data) {
 	    	$(".resultUserId").html("");
 	    	var dataLen = data.dataList.length;

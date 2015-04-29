@@ -1,6 +1,7 @@
 package kr.co.clapp.dao;
 
 import kr.co.clapp.entities.MemberEntity;
+import kr.co.clapp.entities.PaymentEntity;
 import kr.co.clapp.entities.TicketEntity;
 
 import java.util.List;
@@ -163,4 +164,6 @@ public interface TicketDAO {
      * @return
      */
     TicketEntity nextTicketHistoryInfo(TicketEntity ticketParam);
+
+    int updateUserType(PaymentEntity paymentEntity);
 }

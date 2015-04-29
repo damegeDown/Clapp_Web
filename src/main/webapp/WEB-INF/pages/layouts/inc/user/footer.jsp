@@ -104,11 +104,12 @@ var JnlpUtils = (function() {
 				return false;
 			}
 		} else {
-			if(getCookie("certificationId") == "${userLoginSession.userMasterKey}") {
+            //2015/4/28 김미연 과장 요청으로 테스팅 시작시 인증 삭제
+			//if(getCookie("certificationId") == "${userLoginSession.userMasterKey}") {
 				getUserInfo();
-			} else {
-				popupUtils.popupOpen("#popCertification");
-			}
+			//} else {
+			//	popupUtils.popupOpen("#popCertification");
+			//}
 		}
 	};
 	var getUserInfo = function() {
