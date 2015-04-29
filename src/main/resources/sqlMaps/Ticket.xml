@@ -956,26 +956,28 @@
     <!-- 자신이 티켓정보 히스토리를 불러온다 -->
     <select id="selectTicketHistoryList" parameterType="ticketEntity" resultType="ticketentity">
     SELECT
-        user_ticket_history_key,
-        user_master_key,
-        product_master_key,
-        product_name,
-        ticket_avilable_amount,
-        ticket_start_expiration_date,
-        ticket_end_expiration_date,
-        ticket_apply_date,
-        insert_date,
-        TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) as expirationDate
+	    uth.user_ticket_history_key,
+	    uth.user_master_key,
+	    uth.product_master_key,
+	    uth.product_name,
+	    uth.ticket_avilable_amount,
+	    uth.ticket_start_expiration_date,
+	    uth.ticket_end_expiration_date,
+	    uth.ticket_apply_date,
+	    uth.insert_date,
+      TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) as expirationDate,
+-- 	    ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.product_name =uth.product_name), 0) as usePoint
+	    abs(ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.product_name =uth.product_name), 0)) as usePoint
     FROM
-        USER_TICKET_HISTORY
+        USER_TICKET_HISTORY AS uth
     WHERE
-        user_master_key = #{userMasterKey}
-    AND
-        TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) > 0
+        uth.user_master_key = #{userMasterKey}
+--     AND
+--         TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) > 0
         <!-- AND
             product_master_key > 1 -->
     ORDER BY
-        ticket_start_expiration_date desc
+	   		uth.ticket_start_expiration_date desc
     </select>
     <!-- //자신이 티켓정보 히스토리를 불러온다 -->
 

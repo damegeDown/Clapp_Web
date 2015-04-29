@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<jsp:useBean id="nowDate" class="java.util.Date" />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${ contextPath }/resources/js/myClapp.js"></script>
 <div class="subJoinGnbBottomContainer">
@@ -39,9 +40,10 @@
 					<th>상품적용기간</th>
 					<th>잔여일수</th>
 					<th>총 티켓</th>
-					<!-- <th>사용 티켓</th>
-					<th>잔여 티켓</th> -->
-					<th>티켓내역보기</th>
+					<th>사용 티켓</th>
+					<th>잔여 티켓</th>
+					<th>사용여부</th>
+					<%--<th>티켓내역보기</th>--%>
 				</tr>
 				<%-- <tr>
 					<td>${ticketInfo.productName }</td>
@@ -59,8 +61,8 @@
 				<tr>
 					<td>${history.productName }</td>
 					<td>
-						<fmt:formatDate value="${history.ticketStartExpirationDate }" pattern="yyyy-MM-dd"/> 
-						~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd"/>	
+						<fmt:formatDate value="${history.ticketStartExpirationDate }" pattern="yyyy-MM-dd HH:mm"/>
+						~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd HH:mm"/>
 					</td>
 					<td>
 						<c:choose>
@@ -70,9 +72,10 @@
 						일
 					</td>
 					<td>${history.ticketAvilableAmount }티켓</td>
-					<%-- <td>${history.ticketAmount - ticketInfo.ticketAvilableAmount}티켓</td>
-					<td>${history.ticketAvilableAmount }티켓</td> --%>
-					<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory'">바로가기</button></td>
+					<td>${history.usePoint}티켓</td>
+					<td>${history.ticketAvilableAmount - history.usePoint}티켓</td>
+					<td>${history.ticketEndExpirationDate > nowDate ? '사용가능' : '종료'}</td>
+					<%--<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory'">바로가기</button></td>--%>
 					</tr>
 				</c:forEach>
 			</table>
