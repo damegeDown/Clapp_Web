@@ -48,7 +48,7 @@
 
 #popCertification { width:550px;height:200px}
 
-#popupCompanyJoin {border:1px solid #999; width:500px; height: 225px}
+#popupCompanyJoin {border:1px solid #999; width:500px;height: 225px}
 #popupCompanyJoin h3{background:#999;padding:10px;color:#fff; text-align:left; margin-top: -1px}
 #popupCompanyJoin h3 span{display:inline-block;width:20px;height:18px;text-align:center;vertical-align:middle;border-radius:5px;background:#000;padding-top:2px;float:right}
 #popupCompanyJoin .btnArea{text-align:center}
