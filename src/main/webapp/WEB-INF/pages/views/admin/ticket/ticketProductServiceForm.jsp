@@ -77,12 +77,13 @@
      <tr>
        <th>적용사유</th>
        <td>
-       <select class="sel-w70" name="serviceApplyReason">
-         <option value="">선택</option>
-         <c:forEach items="${serviceApplyReasonCode}" var="code">
-            <option value="${code.commonCode }">${code.commonName }</option>
-         </c:forEach>
-       </select>
+           <select class="sel-w70" name="serviceApplyReason" onchange="reasonChange(this)">
+             <option value="">선택</option>
+             <c:forEach items="${serviceApplyReasonCode}" var="code">
+                <option value="${code.commonCode }">${code.commonName }</option>
+             </c:forEach>
+           </select>
+           <span style="display:none"><input type="text" style="width:600px" name="serviceApplyReasonDetail" maxlength="50"></span>
        </td>
      </tr>
      <tr>
@@ -120,8 +121,8 @@
     $.fn.ticketProductServiceForm.init();
     
     $("select[name=productMasterKey]").change(function() {
-		var productName = $("select option[value="+$(this).val()+"]").text();
-		var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
+		var productName = $(this).find("option[value="+$(this).val()+"]").text();
+		var applyDate = $(this).find("option[value="+$(this).val()+"]").attr("data-applyDate");
 		$("input[name=serviceProductName]").val(productName);
 		$("input[name=expirationDate]").val(applyDate);
 		setDate(applyDate);
@@ -141,4 +142,11 @@
 		var year = dt.getFullYear();
 		console.log(year+'/' +month+ '/' +day);  
 	}
+    var reasonChange = function(_this) {
+        if($(_this).val() == 6) {
+            $("input[name=serviceApplyReasonDetail]").parents("span").show();
+        } else {
+            $("input[name=serviceApplyReasonDetail]").parents("span").hide();
+        }
+    }
 </script>

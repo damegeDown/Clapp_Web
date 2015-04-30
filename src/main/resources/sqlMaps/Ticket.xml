@@ -117,66 +117,67 @@
     <!-- 티켓 적용 서비스 목록 -->
     <select id="getTicketProductServiceList" parameterType="ticketEntity" resultType="ticketEntity">
         SELECT
-        a.*
+          a.*
         FROM
         (
-        SELECT
-        TPAS.ticket_product_service_key,
-        TPAS.SERVICE_APPLY_DATE,
-        TPAS.SERVICE_PRODUCT_NAME,
-        TPAS.SERVICE_APPLY_TICKET_AMOUNT,
-        TPAS.SERVICE_APPLY_TICKET_TOTAL_AMOUNT,
-        FN_GET_COMMON_CODE_NAME(
-        'SERVICE_APPLY_REASON',
-        TPAS.SERVICE_APPLY_REASON
-        )SERVICE_APPLY_REASON,
-        TPAS.SERVICE_APPLY_OPERATOR_NAME,
-        FN_GET_COMMON_CODE_NAME(
-        'SERVICE_TARGET_TYPE',
-        TPAS.SERVICE_TARGET_TYPE
-        )SERVICE_TARGET_TYPE,
-        TPAS.SERVICE_TARGET_NAME,
-        TPAS.SERVICE_INSERT_DATE,
-        CASE(SERVICE_TARGET_TYPE)
-        WHEN 1 THEN
-        'member_all'
-        WHEN 2 THEN
-        'person_all'
-        WHEN 3 THEN
-        'company_all'
-        WHEN 4 THEN
-        (
-        SELECT
-        um.USER_ID
-        FROM
-        USER_MASTER um
-        WHERE
-        um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
-        )
-        ELSE
-        SERVICE_TARGET_NAME
-        END AS USER_ID
-        FROM
-        TICKET_PRODUCT_APPLY_SERVICE TPAS,
-        APPLY_SERVICE_USER ASU
-        WHERE
-        ASU.TICKET_PRODUCT_SERVICE_KEY = TPAS.TICKET_PRODUCT_SERVICE_KEY
-        <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
-            AND
-            TPAS.SERVICE_APPLY_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
-        </if>
-        <if test="searchValue != '' and searchValue != null">
-            AND
-            SERVICE_TARGET_TYPE = #{searchValue}
-        </if>
-        <if test="searchValue1 != '' and searchValue1 != null">
-            AND
-            SERVICE_APPLY_REASON = #{searchValue1}
-        </if>
-        <if test="searchValue3 != '' and searchValue3 != null">
-            AND
-            TPAS.SERVICE_TARGET_NAME = #{searchValue3}
-        </if>
+            SELECT
+                TPAS.ticket_product_service_key,
+                TPAS.SERVICE_APPLY_DATE,
+                TPAS.SERVICE_PRODUCT_NAME,
+                TPAS.SERVICE_APPLY_TICKET_AMOUNT,
+                TPAS.SERVICE_APPLY_TICKET_TOTAL_AMOUNT,
+                FN_GET_COMMON_CODE_NAME(
+                'SERVICE_APPLY_REASON',
+                TPAS.SERVICE_APPLY_REASON
+                )SERVICE_APPLY_REASON,
+                TPAS.SERVICE_APPLY_REASON_DETAIL,
+                TPAS.SERVICE_APPLY_OPERATOR_NAME,
+                FN_GET_COMMON_CODE_NAME(
+                'SERVICE_TARGET_TYPE',
+                TPAS.SERVICE_TARGET_TYPE
+                )SERVICE_TARGET_TYPE,
+                TPAS.SERVICE_TARGET_NAME,
+                TPAS.SERVICE_INSERT_DATE,
+                CASE(SERVICE_TARGET_TYPE)
+                WHEN 1 THEN
+                  'member_all'
+                WHEN 2 THEN
+                  'person_all'
+                WHEN 3 THEN
+                  'company_all'
+                WHEN 4 THEN
+                (
+                    SELECT
+                      um.USER_ID
+                    FROM
+                      USER_MASTER um
+                    WHERE
+                      um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
+                )
+                ELSE
+                  SERVICE_TARGET_NAME
+                END AS USER_ID
+            FROM
+            TICKET_PRODUCT_APPLY_SERVICE TPAS,
+            APPLY_SERVICE_USER ASU
+            WHERE
+            ASU.TICKET_PRODUCT_SERVICE_KEY = TPAS.TICKET_PRODUCT_SERVICE_KEY
+            <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+                AND
+                TPAS.SERVICE_APPLY_DATE BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            </if>
+            <if test="searchValue != '' and searchValue != null">
+                AND
+                SERVICE_TARGET_TYPE = #{searchValue}
+            </if>
+            <if test="searchValue1 != '' and searchValue1 != null">
+                AND
+                SERVICE_APPLY_REASON = #{searchValue1}
+            </if>
+            <if test="searchValue3 != '' and searchValue3 != null">
+                AND
+                TPAS.SERVICE_TARGET_NAME = #{searchValue3}
+            </if>
         )a
         where
         SERVICE_INSERT_DATE is not null
@@ -210,6 +211,7 @@
         'SERVICE_APPLY_REASON',
         TPAS.SERVICE_APPLY_REASON
         )SERVICE_APPLY_REASON,
+        SERVICE_APPLY_REASON_DETAIL,
         TPAS.SERVICE_APPLY_OPERATOR_NAME,
         FN_GET_COMMON_CODE_NAME(
         'SERVICE_TARGET_TYPE',
@@ -281,6 +283,7 @@
         SERVICE_APPLY_TICKET_AMOUNT,
         SERVICE_APPLY_TICKET_TOTAL_AMOUNT,
         SERVICE_APPLY_REASON,
+        SERVICE_APPLY_REASON_DETAIL,
         SERVICE_APPLY_OPERATOR_NAME,
         SERVICE_INSERT_DATE
         ) VALUES (
@@ -304,6 +307,7 @@
         #{serviceApplyTicketAmount},
         #{serviceApplyTicketTotalAmount},
         #{serviceApplyReason},
+        #{serviceApplyReasonDetail},
         #{serviceApplyOperatorName},
         NOW()
         )
@@ -749,14 +753,13 @@
         ticket_start_expiration_date ticketStartExpirationDate,
         ticket_end_expiration_date ticketEndExpirationDate,
         product_name productName,
-        user_master_key,
-        product_name
+        user_master_key
         FROM
         USER_TICKET_HISTORY
         WHERE
         user_master_key = #{userMasterKey}
 
-        <!-- UNION ALL
+        UNION ALL
 
         SELECT
             service_apply_date,
@@ -775,7 +778,7 @@
         AND
             ut.user_master_key = au.user_master_key
         AND
-            ut.user_master_key = #{userMasterKey} -->
+            ut.user_master_key = #{userMasterKey}
 
         UNION ALL
 
@@ -785,16 +788,13 @@
         use_point,
         start_dttm,
         end_dttm,
-        vd.prod_name,
-        vr.user_id,
-        vr.product_name
+        vr.product_name,
+        vr.user_id
         FROM
         VIEW_RESERVATIONS vr,
         VIEW_DEVICES vd
         WHERE
         vr.device_id = vd.id
-        -- 			AND
-        -- 				vr.status != 3
         AND
         vr.user_id = #{userMasterKey}
         ) a
@@ -842,14 +842,15 @@
         ticket_start_expiration_date ticketStartExpirationDate,
         ticket_end_expiration_date ticketEndExpirationDate,
         product_name productName,
-        user_master_key,
-        product_name
+        '' service_apply_reason,
+        '' service_apply_reason_detail,
+        user_master_key
         FROM
         USER_TICKET_HISTORY
         WHERE
         user_master_key = #{userMasterKey}
 
-        <!-- UNION ALL
+        UNION ALL
 
         SELECT
             service_apply_date,
@@ -857,7 +858,12 @@
             service_apply_ticket_amount,
             ticket_start_expiration_date,
             ticket_end_expiration_date,
-            FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', service_apply_reason) service_apply_reason,
+            service_product_name,
+            FN_GET_COMMON_CODE_NAME (
+            'SERVICE_APPLY_REASON',
+            service_apply_reason
+            ) service_apply_reason,
+            service_apply_reason_detail,
             ut.user_master_key
         FROM
             TICKET_PRODUCT_APPLY_SERVICE tr,
@@ -868,7 +874,7 @@
         AND
             ut.user_master_key = au.user_master_key
         AND
-            ut.user_master_key = #{userMasterKey} -->
+            ut.user_master_key = #{userMasterKey}
 
         UNION ALL
 
@@ -878,9 +884,10 @@
         use_point,
         start_dttm,
         end_dttm,
-        vd.prod_name,
-        vr.user_id,
-        vr.product_name
+        vr.product_name,
+        '' service_apply_reason,
+        '' service_apply_reason_detail,
+        vr.user_id
         FROM
         VIEW_RESERVATIONS vr,
         VIEW_DEVICES vd

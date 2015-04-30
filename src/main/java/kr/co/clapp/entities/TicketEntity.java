@@ -49,6 +49,7 @@ public class TicketEntity extends PageEntity implements Serializable{
 	private int serviceApplyTicketAmount;					//계정당 적용 티켓수
 	private int serviceApplyTicketTotalAmount;				//적용 티켓수
 	private String serviceApplyReason;						//적용 사유
+	private String serviceApplyReasonDetail;						//적용 사유 상세 (기타일시)
 	private String serviceApplyOperatorName;				//적용 담당자 이름
 	private Date serviceInsertDate;							//입력 일자
 	private List<TicketEntity> ticketProductServiceList; 
@@ -507,6 +508,11 @@ public class TicketEntity extends PageEntity implements Serializable{
 		this.ticketHistoryList = ticketHistoryList;
 	}
 
+    public String getServiceApplyReasonDetail() {
+        return serviceApplyReasonDetail;
+    }
 
-	
+    public void setServiceApplyReasonDetail(String serviceApplyReasonDetail) {
+        this.serviceApplyReasonDetail = serviceApplyReasonDetail;
+    }
 }

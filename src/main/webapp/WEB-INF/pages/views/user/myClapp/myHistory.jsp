@@ -130,7 +130,7 @@
 						<th>상태</th>
 						<th>티켓</th>
 						<th>유효기간</th>
-						<th>상세내용</th>
+						<th>적용사유</th>
 					</tr>
 					<c:if test="${ticketHistoryInfo.dataSize < 1}">
 						<tr>
@@ -151,7 +151,12 @@
 							 <fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
 							<br/> ~ <fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
 						</td>
-						<td>${history.productName }</td>
+						<td>
+						    ${history.serviceApplyReason }
+                            <c:if test="${history.serviceApplyReasonDetail ne null and history.serviceApplyReasonDetail ne ''}">
+                                <br/>(${history.serviceApplyReasonDetail })
+                            </c:if>
+                        </td>
 					</tr>
 					</c:forEach>
 				</table>
