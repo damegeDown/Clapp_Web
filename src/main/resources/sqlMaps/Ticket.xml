@@ -972,16 +972,16 @@
 	    uth.ticket_end_expiration_date,
 	    uth.ticket_apply_date,
 	    uth.insert_date,
-      TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) as expirationDate,
--- 	    ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.product_name =uth.product_name), 0) as usePoint
+        TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) as expirationDate,
+	    <!--ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.product_name =uth.product_name), 0) as usePoint-->
 	    abs(ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.product_name =uth.product_name), 0)) as usePoint
     FROM
         USER_TICKET_HISTORY AS uth
     WHERE
         uth.user_master_key = #{userMasterKey}
---     AND
---         TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) > 0
-        <!-- AND
+     <!-- AND
+            TO_DAYS(ticket_end_expiration_date) - TO_DAYS(now()) > 0
+        AND
             product_master_key > 1 -->
     ORDER BY
 	   		uth.ticket_start_expiration_date desc
