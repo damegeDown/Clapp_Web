@@ -27,7 +27,7 @@ public class TicketRestController {
 	private TicketService ticketService;
 	/**
 	 * 티켓 신규 적용(등록)
-	 * @param popupEntity
+	 * @param ticketEntity
 	 * @return
 	 */
 	@RequestMapping(value = "/insertTicketProductService",  method = RequestMethod.POST)

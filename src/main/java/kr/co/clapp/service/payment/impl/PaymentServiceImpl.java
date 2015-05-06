@@ -156,7 +156,6 @@ public class PaymentServiceImpl implements PaymentService {
         String tid = payLgdInfo.createOrderNo();
         List<String> userIdArr = null;
         List<String> userKeyArr = null;
-
         paymentEntity.setContractTid(tid);
 
         /** 개별 계약 등록*/
