@@ -39,6 +39,7 @@ public class MemberEntity extends PageEntity implements Serializable{
 	private String applicationField;					// 인재 채용 지원 분야
 	private String dropOutUserid;
 	private String redundancyCheckId;
+	private int contractMasterKey;
 	/**
 	 * v_user_master
 	 */
@@ -288,6 +289,14 @@ public class MemberEntity extends PageEntity implements Serializable{
 
 	public String getRedundancyCheckId() {
 		return redundancyCheckId;
+	}
+
+	public int getContractMasterKey() {
+		return contractMasterKey;
+	}
+
+	public void setContractMasterKey(int contractMasterKey) {
+		this.contractMasterKey = contractMasterKey;
 	}
 
 	public int getUsedTicketAmount() {
