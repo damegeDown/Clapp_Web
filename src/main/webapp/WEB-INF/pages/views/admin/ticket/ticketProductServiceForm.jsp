@@ -29,39 +29,37 @@
           <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="3" /> 기업/단체 전체 (company_all)</label>
           </p>
           <p style="margin-top:5px">
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (개별 회원 또는 별도 계약건)</label>
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (일반 회원)</label>
           </p>  
           <div class="addUser">
-            <input type="text" style="margin-left: 18px;"class="inp-w301 test" name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
-            <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
+            <input type="text" style="margin-left: 18px;"class="inp-w301" name="userIdArr" value="" readonly placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
+            <input type="button" class="btn searchUserIdBtn" value="검색"/>
           </div>
+	        <p style="margin-top:5px">
+		        <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="5" /> 개별 계정 (기업/단체 회원)</label>
+	        </p>
+	        <div class="addUser">
+		        <input type="text" style="margin-left: 18px;"class="inp-w301" name="userIdArr" value="" readonly placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
+		        <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
+	        </div>
       </tr>
-      <tr>
+      <tr class="targetName">
         <th>이름, 기업/단체명</th>
         <td>
-          <input type="text" class="inp-w410" name="serviceTargetName" class="userName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )"/>
-        </td>
-      </tr> 
-      <tr>
-        <th>적용일시</th>
-        <td>
-          <label><input type="radio" name="applyType" class="serviceApplyDateNow" />&nbsp;바로 적용&nbsp;&nbsp;</label>
-          <%--<label><input type="radio" name="applyType" class="serviceApplyDateSelect" />&nbsp;특정일시 지정&nbsp;&nbsp;</label>--%>
-          	<%--<fmt:formatDate var="serviceApplyDate" pattern="yyyy/MM/dd" value="${ticketEntity.serviceApplyDate }" />--%>
-           <%--<input type="text" class="inp-w160 datepicker" name="serviceApplyDate" value="${serviceApplyDate }" data-flag="off"/>--%>
-           <input type="hidden" class="inp-w160" name="serviceApplyDate" value="${serviceApplyDate }" data-flag="off"/>
+          <input type="text" class="inp-w410 userName" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
         </td>
       </tr>
       <tr>
+      <tr class="productName">
         <th>적용상품명</th>
         <td>
-           <input type="hidden" name="serviceProductName"/>
-    	 	   	<select class="sel-w180" name="productMasterKey">
-		          <c:forEach items="${productInfo.productList }" var="code">
-					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>
-				 </c:forEach>
-	           </select>
-          &nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함) 
+           <input type="text" name="serviceProductName" class="serviceProductName" data-flag="off" disabled="true" readonly/>
+    	 	   	<%--<select class="sel-w180" name="productMasterKey">--%>
+		          <%--<c:forEach items="${productInfo.productList }" var="code">--%>
+					<%--<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>--%>
+				 <%--</c:forEach>--%>
+	           <%--</select>--%>
+          <%--&nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)--%>
         </td>
      </tr>
      <tr>
@@ -72,17 +70,18 @@
      </tr>
      <tr>  
 	 	   <th>유효기간</th>
-	 	   <td><input type="text" name="expirationDate" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)</td>
+	 	   <td><input type="text" name="ticketEndExpirationDate" class="expirationDate datetimepicker" disabled="true"/></td>
 	 </tr>
      <tr>
        <th>적용사유</th>
        <td>
-       <select class="sel-w70" name="serviceApplyReason">
+       <select class="sel-w70" name="serviceApplyReason" >
          <option value="">선택</option>
          <c:forEach items="${serviceApplyReasonCode}" var="code">
             <option value="${code.commonCode }">${code.commonName }</option>
          </c:forEach>
        </select>
+	       <input type="text" style="display: none" name="serviceApplyReasonText" data-flag="off">
        </td>
      </tr>
      <tr>
@@ -141,4 +140,14 @@
 		var year = dt.getFullYear();
 		console.log(year+'/' +month+ '/' +day);  
 	}
+	$('.serviceTargetType').on('change',function() {
+	  var serviceTargetTypeVal = $(this, '.serviceTargetType').val();
+	  if(serviceTargetTypeVal > 3) {
+		  $('.userName').attr("disabled", false);
+		  $('.serviceProductName').attr("disabled", false);
+		  $('.expirationDate').attr("disabled", false);
+	  } else { $('.userName').attr("disabled", true);
+		  $('.serviceProductName').attr("disabled", true);
+		  $('.expirationDate').attr("disabled", true);}
+  });
 </script>

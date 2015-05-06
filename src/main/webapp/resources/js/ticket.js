@@ -82,7 +82,7 @@ $.fn.Common = {
 	      url : "/admin/member/rest/searchUserId",
 	      type : "post",
 	      dataType : "json",
-	      data : {userId : userId},
+	      data : {userId : userId },
 	      success : function(data) {
 	    	$(".resultUserId").html("");
 	    	var dataLen = data.dataList.length;
@@ -93,6 +93,8 @@ $.fn.Common = {
 		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].userName));
 		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].userId));
 		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].userType));
+		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].productName));
+		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].contractMasterKey));
 		       	$(".resultUserId").append(userListTrHtml);
 		      }
 	    	} else {
@@ -114,8 +116,10 @@ $.fn.Common = {
 	    var userName = _this.eq(1).html();
 	    var userId = _this.eq(2).html();
 	    var userType = _this.eq(3).html();
+	    var productName = _this.eq(4).html();
 	    var dataId = $("input[name=dataId]").val();
 	    $("input[name=userIdArr][data-id="+dataId+"]").val(userId);
+	    $("input[name=serviceProductName]").val(productName);
 	    enableScreen("#searchUserIdForm");
 	  });
 	}

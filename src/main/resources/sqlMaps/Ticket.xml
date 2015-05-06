@@ -299,7 +299,7 @@
                 #{serviceTargetName},
             </otherwise>
         </choose>
-        DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %H:%i'),
+	   		NOW(),
         #{serviceProductName},
         #{serviceApplyTicketAmount},
         #{serviceApplyTicketTotalAmount},
@@ -349,7 +349,8 @@
         SET
         ticket_amount = ticket_amount + ${serviceApplyTicketAmount},
         ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount},
-        ticket_end_expiration_date = date_add(ticket_end_expiration_date, interval +${expirationDate} day)
+        ticket_end_expiration_date = #{ticketEndExpirationDate}
+--         ticket_end_expiration_date = date_add(ticket_end_expiration_date, interval +${expirationDate} day)
         <if test="userType == 2">
             ,product_name = #{serviceProductName}
             ,product_master_key = #{productMasterKey}
@@ -396,13 +397,22 @@
         SELECT
         #{ticketProductServiceKey},
         utm.user_master_key,
-        #{productMasterKey},
-        #{serviceProductName},
+	    	utm.product_master_key,
+	   		utm.product_name,
         <!-- FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', #{serviceApplyReason}), -->
         #{serviceApplyTicketAmount},
-        date_add(utm.ticket_end_expiration_date, interval +1 day),
-        date_add(utm.ticket_end_expiration_date, interval +${expirationDate} day),
-        DATE_FORMAT(#{serviceApplyDate}, '%Y-%m-%d %H:%i'),
+--         date_add(utm.ticket_end_expiration_date, interval +1 day),
+--         date_add(utm.ticket_end_expiration_date, interval +${expirationDate} day),
+	   		utm.ticket_start_expiration_date,
+		    <choose>
+			    <when test="ticketEndExpirationDate != null and ticketEndExpirationDate != ''">
+				    DATE_FORMAT(#{ticketEndExpirationDate}, '%Y-%m-%d %H:%i'),
+			    </when>
+			    <otherwise>
+				    utm.ticket_end_expiration_date,
+			    </otherwise>
+		    </choose>
+	    	NOW(),
         NOW()
         FROM
         USER_TICKET_MASTER utm,
