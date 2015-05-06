@@ -67,7 +67,7 @@
      <tr>
        <th>계정당 적용 티켓수</th>
         <td>
-         <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;개 ( 반드시 1 계정당 발행될 티켓 수를 입력해 주세요 )
+         <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;개 ( 반드시 1계정당 발행될 티켓수를 입력해 주세요./2티켓 단위로만 적립/차감이 가능합니다. )
        </td>
      </tr>
      <tr>  
