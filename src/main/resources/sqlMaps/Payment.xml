@@ -264,7 +264,8 @@
 			cm.contract_use_close_reason,
 			cm.contract_operator_name,
 			cm.contract_insert_date,
-			cm.contract_use_close_date
+			cm.contract_use_close_date,
+            cm.contract_applicant
 		FROM
 			CONTRACT_MASTER cm,
 			CONTRACT_USER cu
@@ -303,6 +304,7 @@
 			  contract_use_stop_reason,
 			  contract_use_close_reason,
 			  contract_operator_name,
+			  contract_applicant,
 			  contract_insert_date
 			) VALUES (
 			  #{contractTid},
@@ -321,6 +323,7 @@
 			  #{contractUseStopReason},
 			  #{contractUseCloseReason},
 			  #{contractOperatorName},
+			  #{contractApplicant},
 			  NOW()
 			)
 	</insert>
@@ -340,7 +343,8 @@
 				  contract_expiration_date = #{contractExpirationDate},
 				  contract_state = #{contractState},
 				  contract_use_stop_reason = #{contractUseStopReason}, 
-				  contract_use_close_reason = #{contractUseCloseReason}
+				  contract_use_close_reason = #{contractUseCloseReason},
+                  contract_applicant = #{contractApplicant}
 		 	WHERE
 		 		contract_master_key = #{contractMasterKey}
 	</update>
@@ -375,7 +379,8 @@
 			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
 			cm.contract_use_close_reason,
 			cm.contract_operator_name,
-			cm.contract_insert_date 
+			cm.contract_insert_date,
+			cm.contract_applicant
 		FROM
 			CONTRACT_MASTER cm 
 		WHERE

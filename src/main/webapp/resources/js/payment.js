@@ -24,7 +24,7 @@ $.fn.Common = {
 			.find("td")
 			.append($("<input></input>") // create remove button
 						.attr({"type": "button", "class":"btn removeUserIdBtn", "value" : "-"}))
-			.find("input[name=contractUserIdArr]").val('') // reset input value
+			.find("input[name=contractUserIdArr], input[name=userMasterKeyArr]").val('') // reset input value
 			.attr("data-id", dataId);
 		$(".trUserId:last").after(cloneUserIdObj);
 	  });
@@ -58,7 +58,7 @@ $.fn.Common = {
 	      url : "/admin/member/rest/searchUserId",
 	      type : "post",
 	      dataType : "json",
-	      data : {userId : userId, userType : 1},
+	      data : {userId : userId},
 	      success : function(data) {
 	    	$(".resultUserId").html("");
 	    	var dataLen = data.dataList.length;

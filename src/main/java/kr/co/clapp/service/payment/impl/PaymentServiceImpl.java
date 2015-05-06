@@ -156,7 +156,6 @@ public class PaymentServiceImpl implements PaymentService {
         String tid = payLgdInfo.createOrderNo();
         List<String> userIdArr = null;
         List<String> userKeyArr = null;
-
         paymentEntity.setContractTid(tid);
 
         /** 개별 계약 등록*/
@@ -166,6 +165,7 @@ public class PaymentServiceImpl implements PaymentService {
             /** 개별 계약 회원 등록*/
             userIdArr = (List<String>) paymentEntity.getContractUserIdArr();
             userKeyArr = (List<String>) paymentEntity.getUserMasterKeyArr();
+
             for(int i = 0; i < userIdArr.size(); i++) {
                 paymentEntity.setContractUserId(userIdArr.get(i));
                 paymentEntity.setUserMasterKey(Integer.parseInt(userKeyArr.get(i)));
@@ -188,6 +188,9 @@ public class PaymentServiceImpl implements PaymentService {
                 /** 티켓 히스토리에 저장*/
                 this.insertUserTicketMaster(ticketInfo);
                 //ticketDAO.insertUserTicketHistory(ticketInfo);
+
+                /** 선택한 회원을 기업회원으로 변경 */
+                ticketDAO.updateUserType(paymentEntity);
             }
         }
         return  result;
@@ -479,7 +482,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     /**
      * 회원 티켓 저장
-     * @param paymentEntity
+     * @param ticketEntity
      * @return
      */
     @Transactional(readOnly=false, rollbackFor=Throwable.class)
@@ -502,35 +505,37 @@ public class PaymentServiceImpl implements PaymentService {
         if(StringUtils.isEmpty(ticketInfo)) {
             result = ticketDAO.insertUserTicketMaster(ticketParam);
         } else {
-            /** FREE 티켓 사용자가 아닐시 */
+            /** FREE 티켓 사용자가 아닐시 - 2015/5/6 기존 상품은 초기화 한다
             if(ticketInfo.getProductMasterKey() > 1) {
                 Date EndExpirationDate = ticketInfo.getTicketEndExpirationDate();
                 Date current = DateUtils.getDate();
-                /** 기존 정보의 유효기간 종료 날짜가 현재날짜보다 크다면 */
+                /** 기존 정보의 유효기간 종료 날짜가 현재날짜보다 크다면
                 if(EndExpirationDate.after(current)){
-                    /** 유효기간을 새로운 상품 만큼 늘린다.*/
+                    /** 유효기간을 새로운 상품 만큼 늘린다.
                     startDate = Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), 1);
                     endDate = Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), ticketParam.getExpirationDate());
                 } else{
-                    /** 기존 정보의 유효기간 날짜가 현재날짜보다 작다면, 유효기간을 새로운 상품 만큼 늘린다.*/
+                    /** 기존 정보의 유효기간 날짜가 현재날짜보다 작다면, 유효기간을 새로운 상품 만큼 늘린다.
                     startDate = DateUtils.getDate();
                     endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
                     ticketParam.setTicketStartExpirationDate(startDate);
                 }
                 ticketParam.setTicketEndExpirationDate(endDate);
-                /** 기존 티켓수를 새로운 상품 만큼 늘린다*/
-                ticket = ticketParam.getTicketAmount() + ticketInfo.getTicketAmount();
-                avilableTicket = ticketParam.getTicketAvilableAmount() + ticketInfo.getTicketAvilableAmount();
-            } else {
-                /** 기존 정보의 유효기간을 새로운 상품 만큼 늘린다.*/
+                /** 기존 티켓수를 새로운 상품 만큼 늘린다
+                 *  2015/5/6 기존 상품 티켓은 버린다.
+
+                ticket = ticketParam.getTicketAmount();//기존 티켓은 버린다  + ticketInfo.getTicketAmount();
+                avilableTicket = ticketParam.getTicketAvilableAmount(); //기존 티켓은 버린다 + ticketInfo.getTicketAvilableAmount();
+            } else {*/
+                /** 유효기간 설정.*/
                 startDate = DateUtils.getDate();
                 endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
                 ticketParam.setTicketStartExpirationDate(startDate);
                 ticketParam.setTicketEndExpirationDate(endDate);
-                /** 기존 티켓수를 새로운 상품 만큼 늘린다*/
+                /** 티켓 설정. */
                 ticket = ticketParam.getTicketAmount();
                 avilableTicket = ticketParam.getTicketAvilableAmount();
-            }
+            //}
             ticketParam.setTicketAmount(ticket);
             ticketParam.setTicketAvilableAmount(avilableTicket);
             result = ticketDAO.modifyUserTicketMaster(ticketParam);

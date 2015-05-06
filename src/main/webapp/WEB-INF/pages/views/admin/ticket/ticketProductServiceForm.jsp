@@ -29,19 +29,12 @@
           <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="3" /> 기업/단체 전체 (company_all)</label>
           </p>
           <p style="margin-top:5px">
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (일반 회원)</label>
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (개별 회원 또는 별도 계약건)</label>
           </p>  
           <div class="addUser">
-            <input type="text" style="margin-left: 18px;"class="inp-w301" name="userIdArr" value="" readonly placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
-            <input type="button" class="btn searchUserIdBtn" value="검색"/>
+            <input type="text" style="margin-left: 18px;"class="inp-w301 test" name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
+            <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
           </div>
-	        <p style="margin-top:5px">
-		        <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="5" /> 개별 계정 (기업/단체 회원)</label>
-	        </p>
-	        <div class="addUser">
-		        <input type="text" style="margin-left: 18px;"class="inp-w301" name="userIdArr" value="" readonly placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
-		        <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
-	        </div>
       </tr>
       <tr class="targetName">
         <th>이름, 기업/단체명</th>
@@ -49,7 +42,6 @@
           <input type="text" class="inp-w410 userName" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
         </td>
       </tr>
-      <tr>
       <tr class="productName">
         <th>적용상품명</th>
         <td>
@@ -65,7 +57,7 @@
      <tr>
        <th>계정당 적용 티켓수</th>
         <td>
-         <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;개 ( 반드시 1 계정당 발행될 티켓 수를 입력해 주세요 )
+         <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;개 ( 반드시 1계정당 발행될 티켓수를 입력해 주세요./2티켓 단위로만 적립/차감이 가능합니다. )
        </td>
      </tr>
      <tr>  
@@ -75,13 +67,13 @@
      <tr>
        <th>적용사유</th>
        <td>
-       <select class="sel-w70" name="serviceApplyReason" >
-         <option value="">선택</option>
-         <c:forEach items="${serviceApplyReasonCode}" var="code">
-            <option value="${code.commonCode }">${code.commonName }</option>
-         </c:forEach>
-       </select>
-	       <input type="text" style="display: none" name="serviceApplyReasonText" data-flag="off">
+           <select class="sel-w70" name="serviceApplyReason" onchange="reasonChange(this)">
+             <option value="">선택</option>
+             <c:forEach items="${serviceApplyReasonCode}" var="code">
+                <option value="${code.commonCode }">${code.commonName }</option>
+             </c:forEach>
+           </select>
+           <span style="display:none"><input type="text" style="width:600px" name="serviceApplyReasonDetail" maxlength="50"></span>
        </td>
      </tr>
      <tr>
@@ -119,8 +111,8 @@
     $.fn.ticketProductServiceForm.init();
     
     $("select[name=productMasterKey]").change(function() {
-		var productName = $("select option[value="+$(this).val()+"]").text();
-		var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
+		var productName = $(this).find("option[value="+$(this).val()+"]").text();
+		var applyDate = $(this).find("option[value="+$(this).val()+"]").attr("data-applyDate");
 		$("input[name=serviceProductName]").val(productName);
 		$("input[name=expirationDate]").val(applyDate);
 		setDate(applyDate);
@@ -140,6 +132,13 @@
 		var year = dt.getFullYear();
 		console.log(year+'/' +month+ '/' +day);  
 	}
+    var reasonChange = function(_this) {
+        if($(_this).val() == 6) {
+            $("input[name=serviceApplyReasonDetail]").parents("span").show();
+        } else {
+            $("input[name=serviceApplyReasonDetail]").parents("span").hide();
+        }
+    }
 	$('.serviceTargetType').on('change',function() {
 	  var serviceTargetTypeVal = $(this, '.serviceTargetType').val();
 	  if(serviceTargetTypeVal > 3) {

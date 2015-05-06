@@ -199,7 +199,9 @@ public class MyClappController {
 		try {
 			ticketParam.setUserMasterKey(userInfo.getUserMasterKey());
             /** 적립/차감 리스트 */
-            ticketParam.setSearchValue2(ticketParam.getSearchValue2().replace("<br/>",""));
+            if(!StringUtils.isEmpty(ticketParam.getSearchValue2())){
+                ticketParam.setSearchValue2(ticketParam.getSearchValue2().replace("<br/>",""));
+            }
 			ticketInfo = ticketService.getMyHistory(ticketParam);
 
             /** 상품 목록 */
