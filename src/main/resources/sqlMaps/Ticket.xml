@@ -775,7 +775,7 @@
 
         SELECT
             service_apply_date ticketApplyDate,
-            '적립' statusText,
+	    			if(service_apply_ticket_amount > 0,'적립','차감') as statusText,
             service_apply_ticket_amount payment_ticket_amount,
             tr.service_insert_date ticket_start_expiration_date,
             tr.service_apply_date ticket_end_expiration_date,
@@ -866,7 +866,7 @@
 
         SELECT
             service_apply_date ticketApplyDate,
-            '적립' statusText,
+	    			if(service_apply_ticket_amount > 0,'적립','차감') as statusText,
             service_apply_ticket_amount historyUsedTicketAmountText,
             tr.service_insert_date ticket_start_expiration_date,
             tr.service_apply_date ticket_end_expiration_date,
