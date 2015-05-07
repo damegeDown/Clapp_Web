@@ -435,19 +435,31 @@
  
   <!-- 회원 아이디 검색 -->
   <select id="searchUserId" parameterType="memberEntity" resultType="memberEntity">
-    SELECT  
-      user_master_key,
-      user_id,
-      user_name,
-      FN_GET_COMMON_CODE_NAME('USER_TYPE', user_type) user_type
-    FROM
-      USER_MASTER
-    WHERE
-      user_id LIKE '%${userId}%'
-    <if test="userType != '' and userType != null">
-    AND
-    	user_type > #{userType}
-   	</if>
+	  SELECT
+		  um.user_master_key,
+		  um.user_id,
+		  um.user_name,
+		  FN_GET_COMMON_CODE_NAME('USER_TYPE', um.user_type) user_type,
+		  (SELECT utm.product_name from USER_TICKET_MASTER as utm where utm.user_master_key = um.user_master_key) productName,
+	    cm.contract_master_key
+	  from
+	  USER_MASTER um,
+	  CONTRACT_MASTER cm,
+	  CONTRACT_USER cu
+	  WHERE
+	  um.user_master_key = cu.user_master_key
+	  and
+	  cm.contract_master_key = cu.contract_master_key
+
+	  <!--<if test="userId != '' and userId != null">-->
+		  and um.user_id LIKE '%${userId}%'
+	  <!--</if>-->
+
+	  <if test="contractMasterKey != '' and contractMasterKey != null">
+		  and cu.contract_master_key = #{contractMasterKey}
+	  </if>
+	  order by cu.contract_master_key desc
+	  limit 1
   </select>
   <select id="searchUserIdArr" parameterType="memberEntity" resultType="String">
       SELECT  
