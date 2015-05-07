@@ -159,7 +159,9 @@ public class PaymentEntity extends PageEntity implements Serializable {
 	private String casFlag;		        // LGD_CASFLAG.		거래종류(R:할당, I:입금, C:취소)
 	private String casSeqNo;		    // LGD_CASSEQNO.	가상계좌일련번호
 
-	
+    private	Date ticketStartExpirationDate;					//유효기간 시작일
+    private	Date ticketEndExpirationDate;				//유효기간 종료일
+
   public int getPaymentMasterKey() {
 	return paymentMasterKey;
  }
@@ -1073,6 +1075,22 @@ public void setUserMasterKeyArr(List<?> userMasterKeyArr) {
 
     public void setContractApplicant(String contractApplicant) {
         this.contractApplicant = contractApplicant;
+    }
+
+    public Date getTicketStartExpirationDate() {
+        return ticketStartExpirationDate;
+    }
+
+    public void setTicketStartExpirationDate(Date ticketStartExpirationDate) {
+        this.ticketStartExpirationDate = ticketStartExpirationDate;
+    }
+
+    public Date getTicketEndExpirationDate() {
+        return ticketEndExpirationDate;
+    }
+
+    public void setTicketEndExpirationDate(Date ticketEndExpirationDate) {
+        this.ticketEndExpirationDate = ticketEndExpirationDate;
     }
 }
 

@@ -184,7 +184,8 @@ public class PaymentServiceImpl implements PaymentService {
                 ticketInfo.setTicketEndExpirationDate(paymentEntity.getContractEndDate());	//사용가능기한-종료
                 ticketInfo.setExpirationDate(paymentEntity.getContractExpirationDate());	//유효기간(일로 표시)
                 ticketInfo.setTicketApplyDate(DateUtils.getDate());
-
+                ticketInfo.setTicketStartExpirationDate(paymentEntity.getTicketStartExpirationDate());
+                ticketInfo.setTicketEndExpirationDate(paymentEntity.getTicketEndExpirationDate());
                 /** 티켓 히스토리에 저장*/
                 this.insertUserTicketMaster(ticketInfo);
                 //ticketDAO.insertUserTicketHistory(ticketInfo);
@@ -246,7 +247,8 @@ public class PaymentServiceImpl implements PaymentService {
                     ticketInfo.setTicketEndExpirationDate(paymentEntity.getContractEndDate());	//사용가능기한-종료
                     ticketInfo.setExpirationDate(paymentEntity.getContractExpirationDate());	//유효기간(일로 표시)
                     ticketInfo.setTicketApplyDate(DateUtils.getDate());
-
+                    ticketInfo.setTicketStartExpirationDate(paymentEntity.getTicketStartExpirationDate());
+                    ticketInfo.setTicketEndExpirationDate(paymentEntity.getTicketEndExpirationDate());
                     /** 티켓 히스토리에 저장*/
                     this.insertUserTicketMaster(ticketInfo);
                 }
@@ -527,11 +529,15 @@ public class PaymentServiceImpl implements PaymentService {
                 ticket = ticketParam.getTicketAmount();//기존 티켓은 버린다  + ticketInfo.getTicketAmount();
                 avilableTicket = ticketParam.getTicketAvilableAmount(); //기존 티켓은 버린다 + ticketInfo.getTicketAvilableAmount();
             } else {*/
-                /** 유효기간 설정.*/
-                startDate = DateUtils.getDate();
-                endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
-                ticketParam.setTicketStartExpirationDate(startDate);
-                ticketParam.setTicketEndExpirationDate(endDate);
+                /** 유효기간 설정. 유효기간을 설정 안한 상태로 넘어왔을시에 설정해준다 */
+                if(StringUtils.isEmpty(ticketParam.getTicketStartExpirationDate())) {
+                    startDate = DateUtils.getDate();
+                    ticketParam.setTicketStartExpirationDate(startDate);
+                }
+                if(StringUtils.isEmpty(ticketParam.getTicketEndExpirationDate())) {
+                    endDate = Utils.getAddNowDate(DateUtils.getDate(), ticketParam.getExpirationDate());
+                    ticketParam.setTicketEndExpirationDate(endDate);
+                }
                 /** 티켓 설정. */
                 ticket = ticketParam.getTicketAmount();
                 avilableTicket = ticketParam.getTicketAvilableAmount();
@@ -544,8 +550,12 @@ public class PaymentServiceImpl implements PaymentService {
             if(result > CommonCode.ZERO) {
                 ticketParam.setTicketAmount(oriTicket);
                 ticketParam.setTicketAvilableAmount(oriAvilableTicket);
-                ticketEntity.setTicketStartExpirationDate(startDate);
-                ticketEntity.setTicketEndExpirationDate(endDate);
+                if(StringUtils.isEmpty(ticketParam.getTicketStartExpirationDate())) {
+                     ticketEntity.setTicketStartExpirationDate(startDate);
+                }
+                if(StringUtils.isEmpty(ticketParam.getTicketEndExpirationDate())) {
+                    ticketEntity.setTicketEndExpirationDate(endDate);
+                }
                 ticketDAO.insertUserTicketHistory(ticketEntity);
             }
         }

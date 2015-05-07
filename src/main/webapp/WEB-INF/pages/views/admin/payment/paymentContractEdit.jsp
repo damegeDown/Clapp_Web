@@ -114,7 +114,13 @@
     	 	 </tr>
             <tr>
                 <th>유효기간</th>
-                <td><input type="text" name="contractExpirationDate" value="${paymentInfo.contractExpirationDate }" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)</td>
+                <td>
+                    <%--<input type="text" name="contractExpirationDate" value="${paymentInfo.contractExpirationDate }" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)--%>
+                        <jsp:useBean id="toDay" class="java.util.Date" />
+                        <fmt:formatDate value="${toDay}" pattern="yyyy/MM/dd  HH:mm" var="toDay"/>
+                    <input type="text" value="${toDay }" class="datetimepicker" name="ticketStartExpirationDate" data-flag="off"> ~
+                    <input type="text" class="datetimepicker" name="ticketEndExpirationDate" data-flag="off">
+                </td>
             </tr>
     	 	 <tr>
     	 	   <th>적용티켓</th>
@@ -167,8 +173,13 @@
 			var productName = $("select option[value="+$(this).val()+"]").text();
 			var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
             var ticketAmount = $("select option[value="+$(this).val()+"]").attr("data-ticketAmount");
+            var toDay = '${toDay}';
+
+            var myDate = new Date(toDay);
+            myDate.setDate (myDate.getDate() + Number(applyDate));
 			$("input[name=contractProductName]").val(productName);
-			$("input[name=contractExpirationDate]").val(applyDate);
+			//$("input[name=contractExpirationDate]").val(applyDate);
+			$("input[name=ticketEndExpirationDate]").val(myDate.format("yyyy/MM/dd hh:mm"));
 			$("input[name=contractTicketAmount]").val(ticketAmount);
 		});
 	});

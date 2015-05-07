@@ -41,8 +41,8 @@
         <td>
           <input type="text" class="inp-w410 userName" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
         </td>
-      </tr>
-      <tr class="productName">
+      </tr> 
+      <tr>
         <th>적용상품명</th>
         <td>
            <input type="text" name="serviceProductName" class="serviceProductName" data-flag="off" disabled="true" readonly/>
@@ -61,8 +61,13 @@
        </td>
      </tr>
      <tr>  
-	 	   <th>유효기간</th>
-	 	   <td><input type="text" name="ticketEndExpirationDate" class="expirationDate datetimepicker" disabled="true"/></td>
+	 	   <%--<th>유효기간</th>--%>
+	 	   <%--<td><input type="text" name="expirationDate" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)</td>--%>
+         <th>티켓 종료일자 지정</th>
+         <td>
+             <input type="text" name="ticketStartExpirationDate" data-flag="off" readonly disabled> ~
+             <input type="text" class="datetimepicker" name="ticketEndExpirationDate" data-flag="off">
+         </td>
 	 </tr>
      <tr>
        <th>적용사유</th>
@@ -73,7 +78,7 @@
                 <option value="${code.commonCode }">${code.commonName }</option>
              </c:forEach>
            </select>
-           <span style="display:none"><input type="text" style="width:600px" name="serviceApplyReasonDetail" maxlength="50"></span>
+           <span style="display:none"><input type="text" style="width:600px" name="serviceApplyReasonDetail" maxlength="50" data-flag="off"></span>
        </td>
      </tr>
      <tr>

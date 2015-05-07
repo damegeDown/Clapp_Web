@@ -74,7 +74,7 @@
 					<td>${history.ticketAvilableAmount }티켓</td>
 					<td>${history.usePoint}티켓</td>
 					<td>${history.ticketAvilableAmount - history.usePoint}티켓</td>
-					<td>${history.ticketEndExpirationDate > nowDate ? '사용가능' : '종료'}</td>
+					<td>${history.ticketEndExpirationDate > nowDate ? '사용중' : '사용종료'}</td>
 					<%--<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory'">바로가기</button></td>--%>
 					</tr>
 				</c:forEach>
