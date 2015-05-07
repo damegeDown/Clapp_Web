@@ -412,7 +412,7 @@
 	   		utm.ticket_start_expiration_date,
 		    <choose>
 			    <when test="ticketEndExpirationDate != null and ticketEndExpirationDate != ''">
-				    DATE_FORMAT(#{ticketEndExpirationDate}, '%Y-%m-%d %H:%i'),
+				    DATE_FORMAT(#{ticketEndExpirationDate}, '%Y/%m/%d %H:%i'),
 			    </when>
 			    <otherwise>
 				    utm.ticket_end_expiration_date,
