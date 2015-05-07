@@ -20,7 +20,7 @@
         <th>대상 회원 ID</th>
         <td>
           <p class="serviceTargetRow" style="margin-top:5px">
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="1" /> 전체 (member_all)</label>
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="1" checked/> 전체 (member_all)</label>
           </p>
           <p class="serviceTargetRow" style="margin-top:5px">
           <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="2" /> 일반 전체 (person_all)</label>
@@ -32,20 +32,20 @@
           <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (개별 회원 또는 별도 계약건)</label>
           </p>  
           <div class="addUser">
-            <input type="text" style="margin-left: 18px;"class="inp-w301 test" name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
+            <input type="text" style="margin-left: 18px;"class="inp-w301 inactiveMode" disabled="true" readonly name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
             <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
           </div>
       </tr>
       <tr class="targetName">
         <th>이름, 기업/단체명</th>
         <td>
-          <input type="text" class="inp-w410 userName" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
+          <input type="text" class="inp-w410 inactiveMode" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
         </td>
       </tr>
       <tr class="productName">
         <th>적용상품명</th>
         <td>
-           <input type="text" name="serviceProductName" class="serviceProductName" data-flag="off" disabled="true" readonly/>
+           <input type="text" name="serviceProductName" class="inactiveMode" data-flag="off" disabled="true" readonly/>
     	 	   	<%--<select class="sel-w180" name="productMasterKey">--%>
 		          <%--<c:forEach items="${productInfo.productList }" var="code">--%>
 					<%--<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>--%>
@@ -62,7 +62,7 @@
      </tr>
      <tr>  
 	 	   <th>유효기간</th>
-	 	   <td><input type="text" name="ticketEndExpirationDate" class="expirationDate datetimepicker" disabled="true"/></td>
+	 	   <td><input type="text" class="inactiveMode ticketStartDate" data-flag="off" disabled="true" readonly/> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker" data-flag="off" disabled="true"/></td>
 	 </tr>
      <tr>
        <th>적용사유</th>
@@ -73,7 +73,7 @@
                 <option value="${code.commonCode }">${code.commonName }</option>
              </c:forEach>
            </select>
-           <span style="display:none"><input type="text" style="width:600px" name="serviceApplyReasonDetail" maxlength="50"></span>
+           <span style="display:none"><input type="text" style="width:600px" data-flag="off" name="serviceApplyReasonDetail" maxlength="50"></span>
        </td>
      </tr>
      <tr>
@@ -142,11 +142,9 @@
 	$('.serviceTargetType').on('change',function() {
 	  var serviceTargetTypeVal = $(this, '.serviceTargetType').val();
 	  if(serviceTargetTypeVal > 3) {
-		  $('.userName').attr("disabled", false);
-		  $('.serviceProductName').attr("disabled", false);
-		  $('.expirationDate').attr("disabled", false);
-	  } else { $('.userName').attr("disabled", true);
-		  $('.serviceProductName').attr("disabled", true);
-		  $('.expirationDate').attr("disabled", true);}
+		  $('.inactiveMode').attr("disabled", false).val('');
+	  } else {
+		  $('.inactiveMode').attr("disabled", true).val('');
+	  }
   });
 </script>

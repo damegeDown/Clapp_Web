@@ -62,9 +62,14 @@ $.fn.Common = {
 	// 회원 ID 검색 팝업 열기
 	popupOpenSearchUserId : function() {
 	  $("form").delegate(".searchUserIdBtn", "click", function(i) {
+		  var targetTypeChk = $(this).closest('.trUserId').find('input:radio[name=serviceTargetType]:checked');
+		  var targetVal = targetTypeChk.val();
+		  if(targetVal < 4 ) {alert('개별 계정을 선택하셔야 검색이 가능 합니다.'); return false;}
+		  else {
 	    var userIndex = $(this).siblings("input[name=userIdArr]").data("id");
 	    $("input[name=dataId]").val(userIndex);
 	    disableScreen("#searchUserIdForm");
+		  }
 	  });
 	},
 	// 회원 ID 검색 팝업 닫기
@@ -94,7 +99,9 @@ $.fn.Common = {
 		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].userId));
 		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].userType));
 		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].productName));
-		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].contractMasterKey));
+		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].ticketStartDate));
+		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].ticketEndDate));
+//		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].contractMasterKey));
 		       	$(".resultUserId").append(userListTrHtml);
 		      }
 	    	} else {
@@ -117,9 +124,13 @@ $.fn.Common = {
 	    var userId = _this.eq(2).html();
 	    var userType = _this.eq(3).html();
 	    var productName = _this.eq(4).html();
+	    var ticketStartDate = _this.eq(5).html();
+	    var ticketEndDate = _this.eq(6).html();
 	    var dataId = $("input[name=dataId]").val();
 	    $("input[name=userIdArr][data-id="+dataId+"]").val(userId);
 	    $("input[name=serviceProductName]").val(productName);
+	    $(".ticketStartDate").val(ticketStartDate);
+	    $("input[name=ticketEndExpirationDate]").val(ticketEndDate);
 	    enableScreen("#searchUserIdForm");
 	  });
 	}
@@ -153,5 +164,5 @@ $.fn.ticketProductServiceForm = {
 	  var nowAll = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
 	  $("input[name=serviceApplyDate]").val(nowAll);
 	})
-  },
+  }
 };

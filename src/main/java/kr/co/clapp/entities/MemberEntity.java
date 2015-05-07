@@ -40,6 +40,8 @@ public class MemberEntity extends PageEntity implements Serializable{
 	private String dropOutUserid;
 	private String redundancyCheckId;
 	private int contractMasterKey;
+	private String ticketStartDate;
+	private String ticketEndDate;
 	/**
 	 * v_user_master
 	 */
@@ -297,6 +299,22 @@ public class MemberEntity extends PageEntity implements Serializable{
 
 	public void setContractMasterKey(int contractMasterKey) {
 		this.contractMasterKey = contractMasterKey;
+	}
+
+	public String getTicketStartDate() {
+		return ticketStartDate;
+	}
+
+	public void setTicketStartDate(String ticketStartDate) {
+		this.ticketStartDate = ticketStartDate;
+	}
+
+	public String getTicketEndDate() {
+		return ticketEndDate;
+	}
+
+	public void setTicketEndDate(String ticketEndDate) {
+		this.ticketEndDate = ticketEndDate;
 	}
 
 	public int getUsedTicketAmount() {
