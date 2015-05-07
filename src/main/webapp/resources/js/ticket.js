@@ -40,17 +40,21 @@ $.fn.Common = {
 	// 회원 ID 추가
 	addUserId : function() { 
 	  $("form").delegate(".addUserIdBtn", "click", function() {
-		var idIndex = $("input[name=userIdArr]").length;
-		var userIdObj = $(".addUser:first");
-		var cloneUserIdObj = userIdObj.clone(); //tr Object clone
-		var dataId = Number($("input[name=userIdArr]").data("id") +1);
-		console.log(dataId);
-		cloneUserIdObj
-			.append($("<input></input>") // create remove button
-						.attr({"type": "button", "class":"btn removeUserIdBtn", "value" : "-"}))
-			.find("input[name=userIdArr]").val('') // reset input value
-			.attr("data-id", dataId);
-		$(".addUser:last").after(cloneUserIdObj);
+		var contractMasterKeyChk = $('.contractMasterKey').val();
+		  if(contractMasterKeyChk == 0) {alert("일반 회원은 추가 할수 없습니다."); return false;}
+		  else {
+			  var idIndex = $("input[name=userIdArr]").length;
+			  var userIdObj = $(".addUser:first");
+			  var cloneUserIdObj = userIdObj.clone(); //tr Object clone
+			  var dataId = Number($("input[name=userIdArr]").data("id") + 1);
+			  console.log(dataId);
+			  cloneUserIdObj
+				  .append($("<input></input>") // create remove button
+					  .attr({"type": "button", "class": "btn removeUserIdBtn", "value": "-"}))
+				  .find("input[name=userIdArr]").val('') // reset input value
+				  .attr("data-id", dataId);
+			  $(".addUser:last").after(cloneUserIdObj);
+		  }
 	  });
 	},
 	// 회원  ID 삭제

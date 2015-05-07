@@ -33,12 +33,13 @@
           </p>  
           <div class="addUser">
             <input type="text" style="margin-left: 18px;"class="inp-w301 inactiveMode" disabled="true" readonly name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
-            <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+"/>
+            <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+" style="display: none"/>
           </div>
       </tr>
       <tr class="targetName">
         <th>이름, 기업/단체명</th>
         <td>
+	        <input type="hidden" name="contractMasterKey" class="contractMasterKey" data-flag="off">
           <input type="text" class="inp-w410 inactiveMode" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
         </td>
       </tr>
@@ -146,5 +147,8 @@
 	  } else {
 		  $('.inactiveMode').attr("disabled", true).val('');
 	  }
+  });
+  $('.searchUserIdBtn').on('click',function() {
+	  $('.addUserIdBtn').show();
   });
 </script>
