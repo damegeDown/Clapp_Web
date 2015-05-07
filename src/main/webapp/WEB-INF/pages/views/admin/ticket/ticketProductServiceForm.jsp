@@ -61,7 +61,7 @@
        </td>
      </tr>
      <tr>  
-	 	   <th>유효기간</th>
+	 	   <th>티켓종료일자 지정</th>
 	 	   <td><input type="text" class="inactiveMode ticketStartDate" data-flag="off" disabled="true" readonly/> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker" data-flag="off" disabled="true"/></td>
 	 </tr>
      <tr>

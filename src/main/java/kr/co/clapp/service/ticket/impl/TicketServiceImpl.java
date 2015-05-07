@@ -207,4 +207,9 @@ public class TicketServiceImpl implements TicketService {
 		}
 		return ticketParam;
 	}
+
+    @Override
+    public int selectTimeDiff(int reservation_id) {
+        return ticketDAO.selectTimeDiff(reservation_id);
+    }
 }

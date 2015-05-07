@@ -1069,4 +1069,12 @@
                 #{item}
             </foreach>
     </update>
+    <select id="selectTimeDiff" parameterType="int" resultType="int">
+        SELECT
+            SUBSTRING_INDEX(TIMEDIFF(NOW(), del_dttm),':', 1) difftime
+        FROM
+            system.v_reservations_all
+        WHERE
+            id = #{reservation_id}
+    </select>
 </mapper>

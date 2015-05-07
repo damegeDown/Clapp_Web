@@ -436,23 +436,26 @@
   <!-- 회원 아이디 검색 -->
   <select id="searchUserId" parameterType="memberEntity" resultType="memberEntity">
 	  SELECT
-	  um.user_master_key,
-	  um.user_id,
-	  um.user_name,
-	  FN_GET_COMMON_CODE_NAME('USER_TYPE', um.user_type) user_type,
-	  (SELECT utm.product_name FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key) productName,
-	  DATE_FORMAT((SELECT utm.ticket_start_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y-%m-%d %H:%i') ticketStartDate,
-	  DATE_FORMAT((SELECT utm.ticket_end_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y-%m-%d %H:%i') ticketEndDate,
-	  cm.contract_master_key
-	  from
-	  USER_MASTER um,
-	  CONTRACT_MASTER cm,
-	  CONTRACT_USER cu
+          um.user_master_key,
+          um.user_id,
+          um.user_name,
+          FN_GET_COMMON_CODE_NAME('USER_TYPE', um.user_type) user_type,
+          (SELECT utm.product_name FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key) productName,
+          DATE_FORMAT((SELECT utm.ticket_start_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y-%m-%d %H:%i') ticketStartDate,
+          DATE_FORMAT((SELECT utm.ticket_end_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y-%m-%d %H:%i') ticketEndDate,
+          MAX(cm.contract_master_key) contract_master_key
+	  FROM
+          USER_MASTER um
+      LEFT OUTER JOIN CONTRACT_USER cu ON um.user_master_key = cu.user_master_key
+      LEFT OUTER JOIN CONTRACT_MASTER cm ON cm.contract_master_key = cu.contract_master_key
 	  WHERE
-	  um.user_master_key = cu.user_master_key
-	  AND
-	  cm.contract_master_key = cu.contract_master_key
-	  AND um.user_id LIKE '%${userId}%'
+        um.user_id LIKE '%${userId}%'
+      <if test="contractMasterKey > 0">
+          AND
+            cm.contract_master_key = #{contractMasterKey}
+      </if>
+      GROUP BY
+        um.user_master_key
 	  <!--<if test="contractMasterKey != '' and contractMasterKey != null">-->
 		  <!--and cu.contract_master_key = #{contractMasterKey}-->
 	  <!--</if>-->

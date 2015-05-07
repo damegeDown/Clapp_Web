@@ -45,7 +45,7 @@ public interface TicketService {
 	int insertUserTicketMaster(TicketEntity ticketEntity) throws Exception;
 	/**
 	 * 사용가능 티켓 조회
-	 * @param userMasterKey
+	 * @param ticketEntity
 	 * @return
 	 */
 	int getAvailableTicket(TicketEntity ticketEntity);
@@ -69,7 +69,7 @@ public interface TicketService {
 	int insertUsedTicketHistory(TicketEntity ticketEntity);
 	/**
 	 * 사용자 티켓 정보
-	 * @param memberSession
+	 * @param ticketEntity
 	 * @return
 	 */
 	TicketEntity selectTicketInfo(TicketEntity ticketEntity);
@@ -85,7 +85,8 @@ public interface TicketService {
 	 * @return
 	 */
 	TicketEntity getMyHistory(TicketEntity ticketInfo);
-	 
-	
+
+
+     int selectTimeDiff(int reservation_id);
 }
 

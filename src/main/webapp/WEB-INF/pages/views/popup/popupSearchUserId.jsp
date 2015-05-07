@@ -8,6 +8,7 @@
 		<span class="cancelBtn"  onclick="javascript:popupUtils.popupClose('#searchUserIdForm')">X</span>
 	</h3>
 	<div>
+        <input type="hidden" name="contractMasterKey" value="0"/>
 		<input type="text" name="userId" style="width:307px" placeholder="회원으로 가입된 계정만 검색 가능"/><input type="button" class="btn searchBtn" value="검색"/>
 	</div>
 	<div  style="overflow:auto; height:400px">
