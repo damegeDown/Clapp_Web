@@ -81,13 +81,17 @@ $.fn.Common = {
 	// 회원 ID 검색
 	doSearchUserId : function() {
 	  $("#searchUserIdForm").delegate(".searchBtn", "click", function() {
-	    var userId = $(this).siblings("input").val();
+	    var userId = $(this).siblings("input[name=userId]").val();
+        var contractMasterKey = $(this).siblings("input[name=contractMasterKey]").val();
+        if(contractMasterKey == '' || contractMasterKey == null) {
+            contractMasterKey = 0;
+        }
 	    unblockUI(); //검색 완료후 창이 닫기는 문제해결을 위한 처리.
 	    $.ajax({
 	      url : "/admin/member/rest/searchUserId",
 	      type : "post",
 	      dataType : "json",
-	      data : {userId : userId },
+	      data : {userId : userId , contractMasterKey : contractMasterKey},
 	      success : function(data) {
 	    	$(".resultUserId").html("");
 	    	var dataLen = data.dataList.length;
@@ -101,7 +105,7 @@ $.fn.Common = {
 		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].productName));
 		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].ticketStartDate));
 		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].ticketEndDate));
-//		       	userListTrHtml.append($("<td></td>").html(data.dataList[i].contractMasterKey));
+		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].contractMasterKey));
 		       	$(".resultUserId").append(userListTrHtml);
 		      }
 	    	} else {
@@ -126,11 +130,16 @@ $.fn.Common = {
 	    var productName = _this.eq(4).html();
 	    var ticketStartDate = _this.eq(5).html();
 	    var ticketEndDate = _this.eq(6).html();
+	    var contractMasterKey = _this.eq(7).html();
 	    var dataId = $("input[name=dataId]").val();
 	    $("input[name=userIdArr][data-id="+dataId+"]").val(userId);
 	    $("input[name=serviceProductName]").val(productName);
 	    $(".ticketStartDate").val(ticketStartDate);
 	    $("input[name=ticketEndExpirationDate]").val(ticketEndDate);
+        $("input[name=contractMasterKey]").val(contractMasterKey);
+        var userListTrHtml = $("<tr></tr>");
+        userListTrHtml.append($("<td></td>").attr("colspan", "4").html("+++조회된 내용이 없습니다.+++"));
+        $(".resultUserId").html(userListTrHtml);
 	    enableScreen("#searchUserIdForm");
 	  });
 	}

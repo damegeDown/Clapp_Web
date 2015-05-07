@@ -166,4 +166,6 @@ public interface TicketDAO {
     TicketEntity nextTicketHistoryInfo(TicketEntity ticketParam);
 
     int updateUserType(PaymentEntity paymentEntity);
+
+    int selectTimeDiff(int reservation_id);
 }

@@ -72,8 +72,7 @@ public class MemberEntity extends PageEntity implements Serializable{
 	 */
 	private String inquiryContents;
 	private String answerContents;
-	
-	
+
 	public int getUserMasterKey() {
 		return userMasterKey;
 	}
@@ -400,6 +399,6 @@ public class MemberEntity extends PageEntity implements Serializable{
 	public void setAnswerContents(String answerContents) {
 		this.answerContents = answerContents;
 	}
-	
-	
+
+
 }
