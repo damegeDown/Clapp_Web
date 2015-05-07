@@ -349,39 +349,41 @@
     <!-- //서비스 티켓 적용 -->
     <update id="modifyServiceTicketMaster" parameterType="ticketEntity">
         UPDATE
-        USER_TICKET_MASTER
+            USER_TICKET_MASTER
         SET
-        ticket_amount = ticket_amount + ${serviceApplyTicketAmount},
-        ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount},
-        ticket_end_expiration_date = #{ticketEndExpirationDate}
---         ticket_end_expiration_date = date_add(ticket_end_expiration_date, interval +${expirationDate} day)
-        <if test="userType == 2">
-            ,product_name = #{serviceProductName}
-            ,product_master_key = #{productMasterKey}
-        </if>
+            ticket_amount = ticket_amount + ${serviceApplyTicketAmount}
+            ,ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount}
+            <!--ticket_end_expiration_date = date_add(ticket_end_expiration_date, interval +${expirationDate} day)-->
+            <if test="ticketEndExpirationDate != '' and ticketEndExpirationDate != null">
+              ,ticket_end_expiration_date = #{ticketEndExpirationDate}
+            </if>
+            <if test="userType == 2">
+                ,product_name = #{serviceProductName}
+                ,product_master_key = #{productMasterKey}
+            </if>
         WHERE
-        user_master_key in (
+          user_master_key in (
         SELECT
-        user_master_key
+          user_master_key
         FROM
-        USER_MASTER
+          USER_MASTER
         WHERE
-        <if test="serviceTargetType == 1">
-            USER_TYPE = '1' OR '2'
-        </if>
-        <if test="serviceTargetType == 2">
-            USER_TYPE = '1'
-        </if>
-        <if test="serviceTargetType == 3">
-            USER_TYPE = '2'
-        </if>
-        <if test="serviceTargetType == 4" >
-            <!-- user_id in
-          <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
-             #{userIdArr}
-          </foreach> -->
-            user_id = #{userId}
-        </if>
+            <if test="serviceTargetType == 1">
+                USER_TYPE = '1' OR '2'
+            </if>
+            <if test="serviceTargetType == 2">
+                USER_TYPE = '1'
+            </if>
+            <if test="serviceTargetType == 3">
+                USER_TYPE = '2'
+            </if>
+            <if test="serviceTargetType == 4" >
+                <!-- user_id in
+              <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
+                 #{userIdArr}
+              </foreach> -->
+                user_id = #{userId}
+            </if>
         )
     </update>
     <insert id="insertServiceTicketHistory" parameterType="ticketEntity">
@@ -754,7 +756,7 @@
         WHERE
             user_master_key = #{userMasterKey}
 
-        UNION ALL -->
+        UNION ALL
 
         SELECT
         ticket_apply_date ticketApplyDate,
@@ -769,14 +771,14 @@
         WHERE
         user_master_key = #{userMasterKey}
 
-        UNION ALL
+        UNION ALL-->
 
         SELECT
-            service_apply_date,
-            '적립' state,
-            service_apply_ticket_amount,
-            ticket_start_expiration_date,
-            ticket_end_expiration_date,
+            service_apply_date ticketApplyDate,
+            '적립' statusText,
+            service_apply_ticket_amount payment_ticket_amount,
+            tr.service_insert_date ticket_start_expiration_date,
+            tr.service_apply_date ticket_end_expiration_date,
             FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', service_apply_reason) service_apply_reason,
             ut.user_master_key
         FROM
@@ -843,7 +845,7 @@
         WHERE
             user_master_key = #{userMasterKey}
 
-        UNION ALL -->
+        UNION ALL
 
         SELECT
         ticket_apply_date ticketApplyDate,
@@ -860,15 +862,15 @@
         WHERE
         user_master_key = #{userMasterKey}
 
-        UNION ALL
+        UNION ALL-->
 
         SELECT
-            service_apply_date,
-            '적립' state,
-            service_apply_ticket_amount,
-            ticket_start_expiration_date,
-            ticket_end_expiration_date,
-            service_product_name,
+            service_apply_date ticketApplyDate,
+            '적립' statusText,
+            service_apply_ticket_amount historyUsedTicketAmountText,
+            tr.service_insert_date ticket_start_expiration_date,
+            tr.service_apply_date ticket_end_expiration_date,
+            service_product_name productName,
             FN_GET_COMMON_CODE_NAME (
             'SERVICE_APPLY_REASON',
             service_apply_reason

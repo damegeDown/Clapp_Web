@@ -122,7 +122,6 @@
 			</div>
 			<div class="subMyClappPaidProductBox">
 				<table class="subMyClappPaidProductList3">
-
 					<tr>
 						<th>No</th>
 						<th>상품명</th>

@@ -159,7 +159,9 @@ public class MyClappController {
 			ticketParam.setUserMasterKey(memberSession.getUserMasterKey());
 			ticketInfo = ticketService.selectTicketInfo(ticketParam);
 		  	/** 예약내역 */
-            ticketParam.setSearchValue3(ticketParam.getSearchValue3().replace("<br/>",""));
+            if(!StringUtils.isEmpty(ticketParam.getSearchValue3())) {
+                ticketParam.setSearchValue3(ticketParam.getSearchValue3().replace("<br/>", ""));
+            }
 			ticketHistoryInfo = ticketService.selectTicketUsedHistory(ticketParam);
 			/** 공통코드*/
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();

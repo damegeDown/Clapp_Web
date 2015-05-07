@@ -73,7 +73,7 @@
                 <option value="${code.commonCode }">${code.commonName }</option>
              </c:forEach>
            </select>
-           <span style="display:none"><input type="text" style="width:600px" data-flag="off" name="serviceApplyReasonDetail" maxlength="50"></span>
+           <span style="display:none"><input type="text" style="width:600px" name="serviceApplyReasonDetail" maxlength="50" data-flag="off"></span>
        </td>
      </tr>
      <tr>
