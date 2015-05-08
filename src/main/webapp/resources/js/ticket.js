@@ -132,13 +132,13 @@ $.fn.Common = {
 	    var userId = _this.eq(2).html();
 	    var userType = _this.eq(3).html();
 	    var productName = _this.eq(4).html();
-	    var ticketStartDate = _this.eq(5).html();
+	    var ticketStartExpirationDate = _this.eq(5).html();
 	    var ticketEndDate = _this.eq(6).html();
 	    var contractMasterKey = _this.eq(7).html();
 	    var dataId = $("input[name=dataId]").val();
 	    $("input[name=userIdArr][data-id="+dataId+"]").val(userId);
 	    $("input[name=serviceProductName]").val(productName);
-	    $(".ticketStartDate").val(ticketStartDate);
+	    $(".ticketStartExpirationDate").val(ticketStartExpirationDate);
 	    $("input[name=ticketEndExpirationDate]").val(ticketEndDate);
         $("input[name=contractMasterKey]").val(contractMasterKey);
         var userListTrHtml = $("<tr></tr>");
