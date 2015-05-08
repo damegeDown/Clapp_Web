@@ -285,7 +285,9 @@
             SERVICE_APPLY_REASON,
             SERVICE_APPLY_REASON_DETAIL,
             SERVICE_APPLY_OPERATOR_NAME,
-            SERVICE_INSERT_DATE
+            SERVICE_INSERT_DATE,
+            TICKET_START_EXPIRATION_DATE,
+            TICKET_END_EXPIRATION_DATE
         ) VALUES (
             #{serviceTargetType},
             <choose>
@@ -309,7 +311,9 @@
             #{serviceApplyReason},
             #{serviceApplyReasonDetail},
             #{serviceApplyOperatorName},
-            NOW()
+            NOW(),
+            #{ticketStartExpirationDate},
+            #{ticketEndExpirationDate}
         )
     </insert>
     <!-- //티켓 적용서비스 신규 적용 -->
@@ -868,9 +872,9 @@
             service_apply_date ticketApplyDate,
 	    			if(service_apply_ticket_amount > 0,'적립','차감') as statusText,
             service_apply_ticket_amount historyUsedTicketAmountText,
-            tr.service_insert_date ticket_start_expiration_date,
-            tr.service_apply_date ticket_end_expiration_date,
-            service_product_name productName,
+            tr.ticket_start_expiration_date ticket_start_expiration_date,
+            tr.ticket_end_expiration_date ticket_end_expiration_date,
+            ut.product_name productName,
             FN_GET_COMMON_CODE_NAME (
             'SERVICE_APPLY_REASON',
             service_apply_reason

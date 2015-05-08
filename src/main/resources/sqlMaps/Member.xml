@@ -441,8 +441,8 @@
           um.user_name,
           FN_GET_COMMON_CODE_NAME('USER_TYPE', um.user_type) user_type,
           (SELECT utm.product_name FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key) productName,
-          DATE_FORMAT((SELECT utm.ticket_start_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y-%m-%d %H:%i') ticketStartDate,
-          DATE_FORMAT((SELECT utm.ticket_end_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y-%m-%d %H:%i') ticketEndDate,
+          DATE_FORMAT((SELECT utm.ticket_start_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y/%m/%d %H:%i') ticketStartDate,
+          DATE_FORMAT((SELECT utm.ticket_end_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y/%m/%d %H:%i') ticketEndDate,
           MAX(cm.contract_master_key) contract_master_key
 	  FROM
           USER_MASTER um
