@@ -276,6 +276,8 @@
 		) a
 		GROUP BY
 			a.contract_master_key
+		LIMIT
+		#{rowStartNumber}, #{pageListSize}
 	</select>
 	<select id="getSearchContractResult" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT

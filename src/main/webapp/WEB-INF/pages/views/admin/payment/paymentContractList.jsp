@@ -99,7 +99,7 @@
 	        <td class="al-center">${paymentList.contractUserId }</td>
 	        <td class="al-center"><fmt:formatDate pattern="yyyy/MM/dd " value="${paymentList.contractStartDate }" /> ~ <fmt:formatDate pattern="yyyy/MM/dd " value="${paymentList.contractEndDate }" /></td> 
 	        <td class="al-center">${paymentList.contractMasterKey}</td>
-	        <td class="al-center"><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${paymentList.contractBillPublicationDate }" /></td> 
+	        <td class="al-center"><fmt:formatDate pattern="yyyy/MM/dd" value="${paymentList.contractBillPublicationDate }" /></td>
 	        <td class="al-center">${paymentList.contractCompanyName }</td>
 	        <td class="al-center">${paymentList.contractCompanyNumber }</td>
 	        <td class="al-center">${paymentList.contractProductName }</td>
