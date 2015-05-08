@@ -32,7 +32,7 @@
           <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (개별 회원 또는 별도 계약건)</label>
           </p>  
           <div class="addUser">
-            <input type="text" style="margin-left: 18px;"class="inp-w301 inactiveMode" disabled="true" readonly name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
+            <input type="text" style="margin-left: 18px;"class="inp-w360 inactiveMode" disabled="true" readonly name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
             <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+" style="display: none"/>
           </div>
       </tr>
@@ -40,7 +40,7 @@
         <th>이름, 기업/단체명</th>
         <td>
 	        <input type="hidden" name="contractMasterKey" class="contractMasterKey" data-flag="off">
-          <input type="text" class="inp-w410 inactiveMode" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
+          <input type="text" class="inp-w450 inactiveMode" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
         </td>
       </tr>
       <tr class="productName">
@@ -144,8 +144,10 @@
 	  var serviceTargetTypeVal = $(this, '.serviceTargetType').val();
 	  if(serviceTargetTypeVal > 3) {
 		  $('.inactiveMode').attr("disabled", false).val('');
+		  $('.inactiveMode').attr("data-flag", "on");
 	  } else {
 		  $('.inactiveMode').attr("disabled", true).val('');
+		  $('.inactiveMode').attr("data-flag", "off");
 	  }
   });
   $('.searchUserIdBtn').on('click',function() {
