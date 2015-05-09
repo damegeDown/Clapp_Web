@@ -87,7 +87,7 @@
 	<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentDetailsBox">
 		<div class="subMyClappTitleSmallLine"></div>
-		<span class="subMyClappSmallTitle">이용 내역 조회</span>
+		<span class="subMyClappSmallTitle">이용내용 상조회</span>
 		<div class="subMyClappContentDetailsSearchBox">
 			<div class="subMyClappContentDetailsSearchTopSection">
 				<div class="subMyClappContentDetailsTopBox">
