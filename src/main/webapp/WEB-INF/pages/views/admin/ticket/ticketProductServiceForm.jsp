@@ -20,7 +20,7 @@
         <th>대상 회원 ID</th>
         <td>
           <p class="serviceTargetRow" style="margin-top:5px">
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="1" checked/> 전체 (member_all)</label>
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="1" /> 전체 (member_all)</label>
           </p>
           <p class="serviceTargetRow" style="margin-top:5px">
           <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="2" /> 일반 전체 (person_all)</label>
@@ -29,10 +29,10 @@
           <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="3" /> 기업/단체 전체 (company_all)</label>
           </p>
           <p style="margin-top:5px">
-          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" /> 개별 계정 (개별 회원 또는 별도 계약건)</label>
+          <label><input type="radio" class="inp-w40 serviceTargetType" name="serviceTargetType" value="4" checked/> 개별 계정 (개별 회원 또는 별도 계약건)</label>
           </p>  
           <div class="addUser">
-            <input type="text" style="margin-left: 18px;"class="inp-w360 inactiveMode" disabled="true" readonly name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-flag="off" data-id="1"/>
+            <input type="text" style="margin-left: 18px;"class="inp-w360 inactiveMode"  readonly name="userIdArr" value="" placeholder="정확한 이메일주소를 입력해 주세요. 예) aaaaa@aa.co.kr" data-id="1"/>
             <input type="button" class="btn searchUserIdBtn" value="검색"/><input type="button" class="btn addUserIdBtn" value="+" style="display: none"/>
           </div>
       </tr>
@@ -40,13 +40,13 @@
         <th>이름, 기업/단체명</th>
         <td>
 	        <input type="hidden" name="contractMasterKey" class="contractMasterKey" data-flag="off">
-          <input type="text" class="inp-w450 inactiveMode" name="serviceTargetName" data-flag ="off"  placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" disabled="ture"/>
+          <input type="text" class="inp-w450 inactiveMode" name="serviceTargetName" placeholder="개별 계정에 부여할 때만 입력 ( 전체, 일반 전체, 기업/단체 전체는 자동 입력됨 )" />
         </td>
       </tr>
       <tr class="productName">
         <th>적용상품명</th>
         <td>
-           <input type="text" name="serviceProductName" class="inactiveMode" data-flag="off" disabled="true" readonly/>
+           <input type="text" name="serviceProductName" class="inactiveMode" readonly/>
     	 	   	<%--<select class="sel-w180" name="productMasterKey">--%>
 		          <%--<c:forEach items="${productInfo.productList }" var="code">--%>
 					<%--<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>--%>
@@ -63,7 +63,7 @@
      </tr>
      <tr>  
 	 	   <th>티켓종료일자 지정</th>
-	 	   <td><input type="text" class="inactiveMode ticketStartExpirationDate" name="ticketStartExpirationDate"  data-flag="off" disabled="true" readonly/> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker" data-flag="off" disabled="true"/></td>
+	 	   <td><input type="text" class="inactiveMode ticketStartExpirationDate" name="ticketStartExpirationDate" readonly/> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker"/></td>
 	 </tr>
      <tr>
        <th>적용사유</th>
