@@ -10,6 +10,7 @@
         <prop key="db_driver">com.mysql.jdbc.Driver</prop>
     </util:properties>
 
+
     <util:properties id="fileConfig">
         <prop key="filePath">/home/web/web_data/</prop>
     </util:properties>

@@ -226,6 +226,7 @@ public class ApiController {
 	 * @param session
 	 * @param user_id
 	 * @param reservation_time
+     * @param reservation_id
 	 * @return
 	 */
 	@RequestMapping(value="doReturnTicket")
@@ -233,6 +234,7 @@ public class ApiController {
 			HttpSession session,
 			@RequestParam(required = false, value = "user_id") int user_id,
 			@RequestParam(required = false, value = "reservation_time") int reservation_time,
+            @RequestParam(required = false, value = "reservation_id") int reservation_id,
 			HttpServletRequest request
 			) {
 		ApiEntity apiEntity = new ApiEntity();
@@ -241,15 +243,24 @@ public class ApiController {
 		int reservationTicketAmount = 0;
 		int ticketAvilableAmount = 0;
 		int usedTicketAmount = 0;
+        int timeDiff = 0;
 		try {
 			/** 외부 아이피 접근시 차단 */
 			if(!Utils.checkRemoteIp(request)) { 
-				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
+				//apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
 				//return apiEntity;
 			}
 			memberEntity.setUserMasterKey(user_id);
-			/** 넘어온 예약시간을 티켓수로 환산한다.*/
-			reservationTicketAmount= (reservation_time / CommonCode.TICKET_TIME) * 2;
+            /** 현재 시간으로부터 예약 시작 시간과의 차를 불러온다 */
+            timeDiff = ticketService.selectTimeDiff(reservation_id);
+            /** 넘어온 예약시간을 티켓수로 환산한다.*/
+            if(timeDiff >= 72) {  // 72시간전 100% 반환
+                reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME) * 2;   //리턴 티켓
+            } else if(timeDiff >= 24) { //24시간전 50% 반환
+                reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME);   //리턴 티켓
+            } else if(timeDiff < 24) {  // 당일 불가
+                reservationTicketAmount = 0;
+            }
 			ticketAvilableAmount = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
 			/** 사용가능한 티켓에 사용티켓을 더해서 사용가능 티켓을 구한다. */
 		    usedTicketAmount = ticketAvilableAmount + reservationTicketAmount;
@@ -295,7 +306,7 @@ public class ApiController {
 		try {
 			/** 외부 아이피 접근시 차단 */
 			if(!Utils.checkRemoteIp(request)) { 
-				apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
+				//apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
 				//return apiEntity;
 			}
 			memberEntity.setUserMasterKey(user_id);
