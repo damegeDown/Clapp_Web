@@ -86,7 +86,7 @@
                </td>
     	 	 </tr>
             <tr>
-                <th>신청인</th>
+                <th>신청인명(담당자)</th>
                 <td><input type="text" name="contractApplicant" class="inp-w100" value="${paymentInfo.contractApplicant }"/></td>
             </tr>
     	 	 <tr>
