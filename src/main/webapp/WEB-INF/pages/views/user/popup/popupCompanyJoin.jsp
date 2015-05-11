@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/popup.css"/>
 <div id="popupCompanyJoin" class="layerPopup dn" style="display:none;">
-	<h3>기업/단체 가입
+	<h4>기업/단체 가입
 		<span class="cancelBtn"  onclick="javascript:popupUtils.popupClose('#popupCompanyJoin')">X</span>
-	</h3>
+	</h4>
 	<div>
 		<div class="popupCompanyImg">
 			<img src="${contextPath }/resources/images/trr_main_social_list.png" style="width: 100px; height: 100px;"/>

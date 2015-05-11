@@ -73,7 +73,7 @@
 
     	 	 <tr>
     	 	   <th>결제방법</th>
-    	 	   <td><input type="text" class="inp-w190" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제(무통장)"/>
+    	 	   <td><input type="text" class="inp-w190" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="무통장 입금"/>
                     <span>계산서 발행일로부터 15일 이내 입금</span>
                </td>
     	 	 </tr>
@@ -93,8 +93,8 @@
     	 	   <th>사업자등록번호</th>
     	 	   <td>
  					 <c:set var="companyNum" value="${fn:split(paymentInfo.contractCompanyNumber,'-')}"/>
-          	 <input type="text" class="inp-w120 phoneNum" value="${companyNum[0]}" maxlength="3"/> - 
-          	 <input type="text" class="inp-w80 phoneNum" value="${companyNum[1]}" maxlength="2"/> - 
+          	 <input type="text" class="inp-w120 phoneNum" value="${companyNum[0]}" maxlength="3"/> -
+          	 <input type="text" class="inp-w80 phoneNum" value="${companyNum[1]}" maxlength="2"/> -
           	 <input type="text" class="inp-w140 phoneNum" value="${companyNum[2]}" maxlength="5"/>
           	 <input type="hidden" class="phoneNumComp" name="contractCompanyNumber" value="${paymentInfo.contractCompanyNumber}"/>
 					 </td>
