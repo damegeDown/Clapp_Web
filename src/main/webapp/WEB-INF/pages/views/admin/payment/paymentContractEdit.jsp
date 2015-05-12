@@ -179,13 +179,12 @@
 			var productName = $("select option[value="+$(this).val()+"]").text();
 			var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
             var ticketAmount = $("select option[value="+$(this).val()+"]").attr("data-ticketAmount");
-            var toDay = '${toDay}';
-
+            var toDay = $("input[name=ticketStartExpirationDate]").val();//'${toDay}';
             var myDate = new Date(toDay);
             myDate.setDate (myDate.getDate() + Number(applyDate));
 			$("input[name=contractProductName]").val(productName);
 			//$("input[name=contractExpirationDate]").val(applyDate);
-			$("input[name=ticketEndExpirationDate]").val(myDate.format("yyyy/MM/dd hh:mm"));
+			$("input[name=ticketEndExpirationDate]").val(myDate.format("yyyy/MM/dd HH:mm"));
 			$("input[name=contractTicketAmount]").val(ticketAmount);
 		});
 	});

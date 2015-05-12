@@ -761,6 +761,8 @@
     		left(ticket_end_expiration_date,10) >= left(now(), 10)
     	AND
     		product_master_key != 1
+    	AND
+    	  use_yn = 'Y'
     </select>
     <!-- //회원 정보 -->
 </mapper>

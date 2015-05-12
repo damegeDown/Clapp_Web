@@ -96,7 +96,7 @@ public class MyClappController {
 	  	  	
 	  	  	// 결제 인증요청 초기값 설정
 			PayLgdInfo payLgdInfo = commonController.initPayInfo(userInfo);
-			payLgdInfo.setLGD_PRODUCTINFO(productEntity.getProductName());		// 상품 정보
+			payLgdInfo.setLGD_PRODUCTINFO(productEntity.getProductName().replace("<br/>",""));		// 상품 정보
 			model.addAttribute("payLgdInfo", payLgdInfo);
 			model.addAttribute("userInfo", userInfo);
 		} catch  (Exception e) {
