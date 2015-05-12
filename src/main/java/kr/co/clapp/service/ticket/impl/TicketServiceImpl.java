@@ -134,13 +134,13 @@ public class TicketServiceImpl implements TicketService {
    * 사용가능 티켓 
    */
 	@Override 
-	public int getAvailableTicket(TicketEntity ticketEntity) {
+	public TicketEntity getAvailableTicket(TicketEntity ticketEntity) {
 		ticketEntity =ticketDAO.getAvailableTicket(ticketEntity);
 		int result = 0;
 		if(!StringUtils.isEmpty(ticketEntity)){
 			result = ticketEntity.getTicketAvilableAmount();
 		}
-		return result;
+		return ticketEntity;
 	}
 	/**
 	 * 사용자 티켓 사용 우선순위 위인 티켓키
@@ -201,6 +201,7 @@ public class TicketServiceImpl implements TicketService {
 		if(!StringUtils.isEmpty(ticketInfo)) {
 			ticketParam.setTicketAvilableAmount(ticketInfo.getTicketAvilableAmount());
 			ticketParam.setExpirationDate(ticketInfo.getExpirationDate());
+            ticketParam.setProductName(ticketInfo.getProductName());
 		}
 		if(CommonCode.ZERO < dataSize) {
 			ticketParam.setHistoryList(ticketDAO.getMyHistory(ticketParam));

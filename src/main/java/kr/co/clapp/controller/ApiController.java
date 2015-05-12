@@ -64,6 +64,7 @@ public class ApiController {
 		ApiEntity apiEntity = new ApiEntity();
 		ResponseEntity result = new ResponseEntity();
 		MemberEntity memberEntity = new MemberEntity();
+        TicketEntity ticketInfo = new TicketEntity();
 		int ticketAmount = 0;
 		try {
 			memberEntity.setUserId(email);
@@ -78,8 +79,9 @@ public class ApiController {
 				apiEntity.setUserMasterKey(memberEntity.getUserMasterKey());  
 				apiEntity.setUserName(memberEntity.getUserName());
 				/** 사용가능 티켓 불러오기 */
-				ticketAmount = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
-				apiEntity.setTicketAvilableAmount(ticketAmount); 
+				ticketInfo = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+                ticketAmount = ticketInfo.getTicketAvilableAmount();
+                apiEntity.setTicketAvilableAmount(ticketAmount);
 			} else {
 				apiEntity.setErrorMessage(result.getResultMSG());
 			}
@@ -105,6 +107,7 @@ public class ApiController {
 		) {
 		ApiEntity apiEntity = new ApiEntity();
 		MemberEntity memberEntity = new MemberEntity();
+        TicketEntity ticketInfo = new TicketEntity();
 		int ticketAmount = 0;
 		try {
 			memberEntity.setUserMasterKey(user_id);
@@ -114,7 +117,8 @@ public class ApiController {
 				apiEntity.setUserName(memberEntity.getUserName());
 				apiEntity.setUserId(memberEntity.getUserId());
 				/** 사용가능 티켓 불러오기 */
-				ticketAmount = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+                ticketInfo = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+                ticketAmount = ticketInfo.getTicketAvilableAmount();
 				apiEntity.setTicketAvilableAmount(ticketAmount); 
 			} else {
 				apiEntity.setResultState(ResultCode.FAIL);
@@ -240,6 +244,7 @@ public class ApiController {
 		ApiEntity apiEntity = new ApiEntity();
 		MemberEntity memberEntity = new MemberEntity();
 		TicketEntity ticketEntity = new TicketEntity();
+        TicketEntity ticketInfo = new TicketEntity();
 		int reservationTicketAmount = 0;
 		int ticketAvilableAmount = 0;
 		int usedTicketAmount = 0;
@@ -261,16 +266,30 @@ public class ApiController {
             } else if(timeDiff < 24) {  // 당일 불가
                 reservationTicketAmount = 0;
             }
-			ticketAvilableAmount = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+            ticketInfo = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+            ticketAvilableAmount = ticketInfo.getTicketAvilableAmount();
 			/** 사용가능한 티켓에 사용티켓을 더해서 사용가능 티켓을 구한다. */
 		    usedTicketAmount = ticketAvilableAmount + reservationTicketAmount;
 		    ticketEntity.setTicketAvilableAmount(usedTicketAmount);
 			ticketEntity.setUserMasterKey(user_id);
 			/** 티켓반환 */
 			if(ticketService.doUsedTicket(ticketEntity) > CommonCode.ZERO) {
-				apiEntity.setResultState(ResultCode.SUCCESS);
-				apiEntity.setReturnTicketAmount(reservationTicketAmount);
-				apiEntity.setTotalTicketAmount(usedTicketAmount);
+                List<String> userIdArr = null;
+                userIdArr.add(String.valueOf(user_id));
+                ticketEntity.setUserIdArr(userIdArr);
+                ticketEntity.setServiceTargetType("4");
+                ticketEntity.setServiceTargetName("예약취소");
+                ticketEntity.setProductName(ticketInfo.getProductName());
+                ticketEntity.setServiceApplyTicketAmount(reservationTicketAmount);
+                ticketEntity.setServiceApplyTicketTotalAmount(reservationTicketAmount);
+                ticketEntity.setServiceApplyReason("8");
+                ticketEntity.setTicketStartExpirationDate(ticketInfo.getTicketStartExpirationDate());
+                ticketEntity.setTicketEndExpirationDate(ticketInfo.getTicketEndExpirationDate());
+                ticketEntity.setServiceApplyOperatorName("system");
+                if(reservationTicketAmount > 0) ticketService.insertTicketProductService(ticketEntity);
+                apiEntity.setResultState(ResultCode.SUCCESS);
+                apiEntity.setReturnTicketAmount(reservationTicketAmount);
+                apiEntity.setTotalTicketAmount(usedTicketAmount);
 			} else {
 				apiEntity.setResultState(ResultCode.FAIL);
 				apiEntity.setErrorMessage(messages.getMessage("ticket.return.fail"));
@@ -300,6 +319,7 @@ public class ApiController {
 		ApiEntity apiEntity = new ApiEntity();
 		MemberEntity memberEntity = new MemberEntity();
 		TicketEntity ticketEntity = new TicketEntity();
+        TicketEntity ticketInfo = new TicketEntity();
 		int reservationTicketAmount = 0;
 		int ticketAvilableAmount = 0;
 		int usedTicketAmount = 0;
@@ -312,13 +332,15 @@ public class ApiController {
 			memberEntity.setUserMasterKey(user_id);
 			/** 넘어온 예약시간을 티켓수로 환산한다.*/
 			reservationTicketAmount= (reservation_time / CommonCode.TICKET_TIME) * 2;
-			ticketAvilableAmount = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+            ticketInfo = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
+            ticketAvilableAmount = ticketInfo.getTicketAvilableAmount();
 			/** 사용가능한 티켓에 사용티켓을 더해서 사용가능 티켓을 구한다. */
 		    usedTicketAmount = ticketAvilableAmount + reservationTicketAmount;
 		    ticketEntity.setTicketAvilableAmount(usedTicketAmount);
 			ticketEntity.setUserMasterKey(user_id);
 			/** 티켓반환 */
 			if(ticketService.doUsedTicket(ticketEntity) > CommonCode.ZERO) {
+                ticketService.insertTicketProductService(ticketEntity);
 				apiEntity.setResultState(ResultCode.SUCCESS);
 				apiEntity.setReturnTicketAmount(reservationTicketAmount);
 				apiEntity.setTotalTicketAmount(usedTicketAmount);
@@ -338,7 +360,7 @@ public class ApiController {
 	 * @param userMasterKey
 	 * @return
 	 */
-	public int getTicketAvilableAmount(int userMasterKey) {
+	public TicketEntity getTicketAvilableAmount(int userMasterKey) {
 		TicketEntity ticketEntity = new TicketEntity();
 		ticketEntity.setUserMasterKey(userMasterKey);
 		return ticketService.getAvailableTicket(ticketEntity);

@@ -71,7 +71,9 @@
            <select class="sel-w70" name="serviceApplyReason" onchange="reasonChange(this)">
              <option value="">선택</option>
              <c:forEach items="${serviceApplyReasonCode}" var="code">
-                <option value="${code.commonCode }">${code.commonName }</option>
+                 <c:if test="${code.commonCode < 7}">
+                    <option value="${code.commonCode }">${code.commonName }</option>
+                 </c:if>
              </c:forEach>
            </select>
            <span style="display:none"><input type="text" style="width:600px" name="serviceApplyReasonDetail" maxlength="50" data-flag="off"></span>

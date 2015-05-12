@@ -12,7 +12,7 @@
 		   <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
 		   <div style="clear:both;"></div>
 		 </div>
-	  <table class="board-write box-pd">
+        <table class="board-write box-pd">
 	     <colgroup>
 	       <col width="15%"/>
 	       <col width="*"/>
@@ -65,7 +65,7 @@
     	 	   <th>사업자등록번호</th>
     	 	   <td>${paymentInfo.contractCompanyNumber}</td>
     	 	 </tr>
-    	 	 <tr>
+    	 	 <tr>h
     	 	   <th>신청상품</th>
     	 	   <td>${paymentInfo.contractProductName}</td>
     	 	 </tr>
@@ -75,7 +75,10 @@
     	 	 </tr>
     	 	 <tr>
     	 	   <th>유효기간</th>
-    	 	   <td>${paymentInfo.contractExpirationDate } 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 30일 기준 / Annual은 365일 로 지정)</td>
+    	 	   <td>
+                   <fmt:formatDate value="${paymentInfo.ticketStartExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="toDay"/>
+                   <fmt:formatDate value="${paymentInfo.ticketEndExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="lastDay"/>
+                   ${toDay} ~ ${lastDay} </td>
     	 	 </tr>
     	 	 <c:if test="${paymentInfo.contractMasterKey > 0 }">
     	 	 <tr>

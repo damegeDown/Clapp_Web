@@ -544,7 +544,14 @@ public class PaymentServiceImpl implements PaymentService {
             //}
             ticketParam.setTicketAmount(ticket);
             ticketParam.setTicketAvilableAmount(avilableTicket);
-            result = ticketDAO.modifyUserTicketMaster(ticketParam);
+
+            /** 5/12 티켓 마스터 수정 형식에서 전체적으로 추가하는 방식으로 변경 */
+            /** 기존 사용하던 티켓은 미사용으로 변경 */
+            ticketParam.setUseYn("N");
+            if(ticketDAO.modifyUserTicketMasterUse(ticketParam) > 0) {
+                result = ticketDAO.insertUserTicketMaster(ticketParam);
+            }
+            //result = ticketDAO.modifyUserTicketMaster(ticketParam);
 
             /** 티켓 히스토리에 저장 */
             if(result > CommonCode.ZERO) {
@@ -604,7 +611,10 @@ public class PaymentServiceImpl implements PaymentService {
 
                 ticketParam.setTicketAmount(ticket);
                 ticketParam.setTicketAvilableAmount(avilableTicket);
-                result = ticketDAO.modifyUserTicketMaster(ticketParam);
+
+                ticketDAO.deleteUserTicketMaster(ticketParam);
+                ticketParam.setUseYn("Y");
+                result = ticketDAO.modifyUserTicketMasterUse(ticketParam);
             }
 
             /** 히스토리 삭제 */
@@ -746,6 +756,7 @@ public class PaymentServiceImpl implements PaymentService {
         paymentParam.setPageSize(paymentParam.getSearchListSize(), PageEntity.PAGE_GROUP_SIZE_PARAM);
         paymentParam.setDataSize(paymentInfo.getPaymentCount());
         paymentParam.setPaymentWaitCount(paymentInfo.getPaymentWaitCount());
+        paymentParam.setPaymentCancelCount(paymentInfo.getPaymentCancelCount());
         if(CommonCode.ZERO < paymentParam.getDataSize()) {
             paymentParam.setPaymentList(paymentDAO.getPaymentList(paymentParam));
         }

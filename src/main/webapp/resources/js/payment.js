@@ -52,7 +52,7 @@ $.fn.Common = {
 	// 회원 ID 검색
 	doSearchUserId : function() {
 	  $("#searchUserIdForm").delegate(".searchBtn", "click", function() {
-	    var userId = $(this).siblings("input").val();
+	    var userId = $(this).siblings("input[name=userId]").val();
 	    unblockUI(); //검색 완료후 창이 닫기는 문제해결을 위한 처리.
 	    $.ajax({
 	      url : "/admin/member/rest/searchUserId",

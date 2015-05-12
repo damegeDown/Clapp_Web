@@ -48,7 +48,7 @@ public interface TicketService {
 	 * @param ticketEntity
 	 * @return
 	 */
-	int getAvailableTicket(TicketEntity ticketEntity);
+    TicketEntity getAvailableTicket(TicketEntity ticketEntity);
 	/**
 	 * 사용자 티켓 사용우선수위 위인 티켓키를 불러온다.
 	 * @param memberEntity

@@ -35,7 +35,7 @@
 	<script type="text/javascript" src="${contextPath }/resources/js/common.js"></script>
 	<script type="text/javascript">
 		var contextPath = "${contextPath}";
-		 
+            alert(contextPath);
 		/* function onUnload(e, callback) {
 			alert("tt");
 		   // var agt = window.navigator.userAgent.toLocaleLowerCase();
@@ -58,17 +58,17 @@
 		        }
 		    }
 		}
-		 
+
 		function callback() {
 			 $.ajax({
 			      url : '/members/doUserLogout' ,
 			      type : 'post',
 			      data : { userId : '${userLoginSession.userId}'},
-			      dataType : 'json', 
+			      dataType : 'json',
 			      success: function (result) {
 			        alert(result.resultMSG);
 			        if (result.resultCode == 'success') {
-			            location.href = "/user"; 
+			            location.href = "/user";
 			            }
 			          },
 			          fail : function() {
@@ -76,33 +76,33 @@
 			        }
 		    });
 		}
-		 
+
 		// 이벤트 등록 함수
 		function bind(elem, type, handler, capture) {
 		    type = typeof type === 'string' && type || '';
 		    handler = typeof handler === 'function' ? handler : function () { ; };
-		 
+
 		    if (elem.addEventListener) {
 		        elem.addEventListener(type, handler, capture);
 		    }
 		    else if (elem.attachEvent) {
 		        elem.attachEvent('on' + type, handler);
 		    }
-		 
+
 		    return elem;
 		};
-		 
-		 
+
+
 		bind(window, 'beforeunload', function (event) {
 			//alert(event.clientY);
 			if (event.clientY < 0) {
 	            return onUnload.apply(this, [e, callback]);
 	    	}
-		    
+
 		});
 		 */
-		 
-	</script> 
+
+	</script>
 </head>
 <body >
 	<div id="wrapBgContainer">
@@ -118,5 +118,6 @@
 			<tiles:insertAttribute name="footer"/>
 		</div>
 	</div> <!-- #wrapBgContainer End -->
+    <img src='//pixel.mathtag.com/event/img?mt_id=753044&mt_adid=140577&v1=&v2=&v3=&s1=&s2=&s3=' width='1' height='1' />
 </body>
 </html>

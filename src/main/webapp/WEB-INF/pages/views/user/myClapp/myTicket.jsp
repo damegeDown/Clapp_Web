@@ -43,7 +43,7 @@
 					<th>사용 티켓</th>
 					<th>잔여 티켓</th>
 					<th>사용여부</th>
-					<%--<th>티켓내역보기</th>--%>
+					<th>티켓내역보기</th>
 				</tr>
 				<%-- <tr>
 					<td>${ticketInfo.productName }</td>
@@ -74,8 +74,8 @@
 					<td>${history.ticketAvilableAmount }티켓</td>
 					<td>${history.usePoint}티켓</td>
 					<td>${history.ticketAvilableAmount - history.usePoint}티켓</td>
-					<td>${history.ticketEndExpirationDate > nowDate ? '사용중' : '사용종료'}</td>
-					<%--<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory'">바로가기</button></td>--%>
+					<td>${history.useYn}</td>
+					<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory?userTicketMasterKey=${history.userTicketMasterKey}'">바로가기</button></td>
 					</tr>
 				</c:forEach>
 			</table>

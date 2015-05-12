@@ -116,6 +116,8 @@
 						<li><span class="sccrtSTitle1">총 결제 건수 :&nbsp;</span><span class="sccrtSNo1">${paymentInfo.dataSize }</span><span class="sccrtSQty1"> 건</span></li>
 						<li class="sccrtSListsLine"></li>
 						<li><span class="sccrtSTitle2">결제 대기 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentWaitCount }</span><span class="sccrtSQty2"> 건</span></li>
+                        <li class="sccrtSListsLine"></li>
+                        <li><span class="sccrtSTitle3">결제 취소 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentCancelCount }</span><span class="sccrtSQty3"> 건</span></li>
 					</ul>
 				</div>
 				<div class="sccrtS2">
@@ -150,7 +152,6 @@
 						<td>
 							${payment.paymentTypeText }&nbsp; 
 							<c:if test="${payment.paymentTid ne '0'}">
-								<!--  TODO : 전표보기 윈도우 팝업. -->	
 								<button class="goBtn" onclick="javascript:showReceiptByTID('${paymentInfo.mid}', '${payment.paymentTid}', '${payment.authData }')">전표보기</button>
 							</c:if>
 						</td>

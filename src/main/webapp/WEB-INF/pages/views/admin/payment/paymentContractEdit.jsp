@@ -107,19 +107,24 @@
                     <option value="">상품</option>
 		          <c:forEach items="${productInfo.productList }" var="code">
                       <c:if test="${code.productMasterKey >= 9}">
-					    <option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" data-ticketAmount="${code.productTicketAmount}" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
+					    <option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" data-ticketAmount="${code.productTicketAmount}" <c:if test="${paymentInfo.contractProductName eq code.productName }">selected</c:if>>${code.productName }</option>
                       </c:if>
 				 </c:forEach>
 	           </select>
     	 	 </tr>
             <tr>
-                <th>유효기간</th>
+                <th>유효기간${paymentInfo.contractMasterKey}</th>
                 <td>
                     <%--<input type="text" name="contractExpirationDate" value="${paymentInfo.contractExpirationDate }" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)--%>
                         <jsp:useBean id="toDay" class="java.util.Date" />
                         <fmt:formatDate value="${toDay}" pattern="yyyy/MM/dd  HH:mm" var="toDay"/>
+                        <c:set value="" var="lastDay"/>
+                        <c:if test="${paymentInfo.contractMasterKey > 0}">
+                            <fmt:formatDate value="${paymentInfo.ticketStartExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="toDay"/>
+                            <fmt:formatDate value="${paymentInfo.ticketEndExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="lastDay"/>
+                        </c:if>
                     <input type="text" value="${toDay }" class="datetimepicker" name="ticketStartExpirationDate" data-flag="off"> ~
-                    <input type="text" class="datetimepicker" name="ticketEndExpirationDate" data-flag="off">
+                    <input type="text" class="datetimepicker" value="${lastDay}" name="ticketEndExpirationDate" data-flag="off">
                 </td>
             </tr>
     	 	 <tr>
@@ -128,10 +133,11 @@
     	 	 </tr>
     	 	 <c:if test="${paymentInfo.contractMasterKey > 0 }">
     	 	 <tr>
-    	 	   <th>이용정지/해제</th>
+    	 	   <th>이용정지/해제${paymentInfo.contractState}</th>
     	 	   <td>
-    	 	     <label><input type="radio" name="contractState" value="2" data-flag="off" <c:if test="${paymentInfo.contractState == 2 }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용정지</span> <input type="text" name="contaractUseStopReason" placeholder="정지 사유입력" data-flag="off"/></label>
-    	 	     <label style="margin-left:30px"><input type="radio" name="contractState" value="3" data-flag="off" <c:if test="${paymentInfo.contractState == 3 }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용해제</span> <input type="text" name="contaractUseCloseReason" placeholder="해제 사유입력" data-flag="off"/></label>
+                   <label><input type="radio" name="contractState" value="1" data-flag="off" <c:if test="${paymentInfo.contractState eq '1' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용중</span></label>
+                   <label><input type="radio" name="contractState" value="2" data-flag="off" <c:if test="${paymentInfo.contractState eq '2' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용정지</span> <input type="text" name="contaractUseStopReason" placeholder="정지 사유입력" data-flag="off"/></label>
+    	 	     <label style="margin-left:30px"><input type="radio" name="contractState" value="3" data-flag="off" <c:if test="${paymentInfo.contractState eq '3' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용해제</span> <input type="text" name="contaractUseCloseReason" placeholder="해제 사유입력" data-flag="off"/></label>
     	 	   	</td>
     	 	 </tr>
     	 	 </c:if>

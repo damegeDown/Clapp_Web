@@ -109,7 +109,7 @@
 					<ul class="sccrtSLists">
 						<li><span class="sccrtSTitle1">이용가능 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 티켓</span></li>
 						<li class="sccrtSListsLine"></li>
-						<li><span class="sccrtSTitle2">잔여일수 : &nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.expirationDate }</span><span class="sccrtSQty2"> 일</span></li>
+						<li><span class="sccrtSTitle2"><!--${ticketHistoryInfo.productName}--> 잔여일수 : &nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.expirationDate }</span><span class="sccrtSQty2"> 일</span></li>
 					</ul>
 				</div>
 				<div class="sccrtS2">
@@ -122,6 +122,15 @@
 			</div>
 			<div class="subMyClappPaidProductBox">
 				<table class="subMyClappPaidProductList3">
+                    <colgroup>
+                        <col width="5%"/>
+                        <col width="10%"/>
+                        <col width="15%"/>
+                        <col width="5%"/>
+                        <col width="5%"/>
+                        <col width="15%"/>
+                        <col width="*"/>
+                    </colgroup>
 					<tr>
 						<th>No</th>
 						<th>상품명</th>
