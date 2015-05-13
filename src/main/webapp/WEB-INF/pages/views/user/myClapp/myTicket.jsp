@@ -73,7 +73,7 @@
 					</td>
 					<td>${history.ticketAvilableAmount }티켓</td>
 					<td>${history.usePoint}티켓</td>
-					<td>${history.ticketAvilableAmount - history.usePoint}티켓</td>
+					<td>${history.ticketAvilableAmount - (history.usePoint * -1)}티켓</td>
 					<td>${history.useYn}</td>
 					<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory?userTicketMasterKey=${history.userTicketMasterKey}'">바로가기</button></td>
 					</tr>
