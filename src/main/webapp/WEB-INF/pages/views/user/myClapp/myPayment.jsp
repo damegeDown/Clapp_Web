@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${ contextPath }/resources/js/myClapp.js"></script>
-<script language="JavaScript" src="http://pgweb.uplus.co.kr:7085/WEB_SERVER/js/receipt_link.js"></script>
+<script language="JavaScript" src="http://pgweb.uplus.co.kr/WEB_SERVER/js/receipt_link.js"></script>
 <div class="subJoinGnbBottomContainer">
 		<div class="subJoinGnbBottomBg">
 			<div class="subJoinGnbBottomBox">
@@ -117,7 +117,7 @@
 						<li class="sccrtSListsLine"></li>
 						<li><span class="sccrtSTitle2">결제 대기 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentWaitCount }</span><span class="sccrtSQty2"> 건</span></li>
                         <li class="sccrtSListsLine"></li>
-                        <li><span class="sccrtSTitle3">결제 취소 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentCancelCount }</span><span class="sccrtSQty3"> 건</span></li>
+                        <li><span class="sccrtSTitle3">결제 취소 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentCount }</span><span class="sccrtSQty3"> 건</span></li>
 					</ul>
 				</div>
 				<div class="sccrtS2">
