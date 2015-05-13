@@ -255,7 +255,8 @@
 $(function() {
  	if("${ticketHistoryInfo.searchKey}") {
  		var term = "${ticketHistoryInfo.searchKey}";
- 		SearchUtils.setDataTerm('', term);
+        if(term != "all")
+ 		    SearchUtils.setDataTerm('', term);
  	}
 });
 </script>

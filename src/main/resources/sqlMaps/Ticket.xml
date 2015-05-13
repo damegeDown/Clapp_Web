@@ -875,9 +875,9 @@
         <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
             AND
             (
-            ticket_start_expiration_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            tr.ticket_start_expiration_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
             OR
-            ticket_end_expiration_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
+            tr.ticket_end_expiration_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d')
             )
         </if>
         <if test="searchValue != '' and searchValue != null">
@@ -981,7 +981,7 @@
             ticket_start_expiration_date ticketStartExpirationDate,
             ticket_end_expiration_date ticketEndExpirationDate,
             product_name productName,
-            '상품구매' service_apply_reason,
+            if(product_master_key = 1, '가입이벤트','상품구매') service_apply_reason,
             '' service_apply_reason_detail ,
             user_master_key,
             user_ticket_master_key
@@ -1146,8 +1146,8 @@
             uth.ticket_apply_date,
             uth.insert_date,
             if(use_yn = 'N' , 0, TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now())) as expirationDate,
-            (ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.product_name =uth.product_name), 0)) as usePoint1,
-            uth.ticket_amount - uth.ticket_avilable_amount usePoint,
+            (ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.user_ticket_master_key = uth.user_ticket_master_key), 0)) as usePoint,
+            <!--uth.ticket_amount - uth.ticket_avilable_amount usePoint,-->
             if(use_yn = 'Y' and TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) > 0, '사용중', '사용종료') useYn
         FROM
           USER_TICKET_MASTER uth

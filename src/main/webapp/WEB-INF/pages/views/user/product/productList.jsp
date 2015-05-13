@@ -683,14 +683,15 @@ var goPayment = function(key) {
 	
 	var usedProductKey = '${ticketInfo.productMasterKey}';
 	var goProductKey = key;
-    alert(key);
-    alert(usedProductKey)
+
 	if(usedProductKey != '' && usedProductKey <= goProductKey) {
 		if(confirm("현재 (일반)고객님께서는 \n('${ticketInfo.productName}') 상품을 이용하고 계십니다. "+
 				"\n다른 상품을 추가 구매하실 경우 현재 사용중인 상품의 잔여티켓은 모두"+
 				"\n차감 처리되고 새로 구매하신 상품의 티켓만 사용 가능하오니 신중히"+
 			    "\n생각하시고 구매 하시기 바랍니다.")){
             location.href = contextPath+"/myClapp/payment?productMasterKey="+key
+        } else {
+            return false;
         }
 	} else if(usedProductKey != '' && usedProductKey > goProductKey) {
         alert("현재 (일반)고객님께서는 \n('${ticketInfo.productName}') 상품을 이용하고 계십니다. "+
@@ -700,6 +701,7 @@ var goPayment = function(key) {
                 "\nsupport@clapp.co.kr로 문의 주시기 바랍니다.");
         return false
     }
+    location.href = contextPath+"/myClapp/payment?productMasterKey="+key
 
 };
 //소개서 다운로드 링크

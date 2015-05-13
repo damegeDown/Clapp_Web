@@ -180,6 +180,7 @@
 $(function() {
  	if("${ticketHistoryInfo.searchKey}") {
  		var term = "${ticketHistoryInfo.searchKey}";
+        if(term != "all")
  		SearchUtils.setDataTerm('', term);
  	}
 });
