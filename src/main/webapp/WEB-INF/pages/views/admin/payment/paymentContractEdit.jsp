@@ -113,7 +113,7 @@
 	           </select>
     	 	 </tr>
             <tr>
-                <th>유효기간${paymentInfo.contractMasterKey}</th>
+                <th>유효기간</th>
                 <td>
                     <%--<input type="text" name="contractExpirationDate" value="${paymentInfo.contractExpirationDate }" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)--%>
                         <jsp:useBean id="toDay" class="java.util.Date" />
@@ -133,7 +133,7 @@
     	 	 </tr>
     	 	 <c:if test="${paymentInfo.contractMasterKey > 0 }">
     	 	 <tr>
-    	 	   <th>이용정지/해제${paymentInfo.contractState}</th>
+    	 	   <th>이용정지/해제</th>
     	 	   <td>
                    <label><input type="radio" name="contractState" value="1" data-flag="off" <c:if test="${paymentInfo.contractState eq '1' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용중</span></label>
                    <label><input type="radio" name="contractState" value="2" data-flag="off" <c:if test="${paymentInfo.contractState eq '2' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용정지</span> <input type="text" name="contaractUseStopReason" placeholder="정지 사유입력" data-flag="off"/></label>

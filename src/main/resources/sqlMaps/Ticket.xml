@@ -611,7 +611,7 @@
             product_name,
             payment_tid,
             ticket_amount,
-            ticket_avilable_amount,
+            if(0 > ticket_avilable_amount, 0, ticket_avilable_amount) ticket_avilable_amount,
             ticket_start_expiration_date,
             ticket_end_expiration_date,
             ticket_apply_date,
@@ -680,7 +680,7 @@
         <if test="searchValue2 != '' and searchValue2 != null">
             AND
             <choose>
-                <when test="searchValue='wait'">
+                <when test="searchValue2 == 'wait'">
                     vr.status in (0,6)
                     AND
                     vr.end_dttm <![CDATA[ > ]]> NOW()
@@ -754,7 +754,7 @@
         <if test="searchValue2 != '' and searchValue2 != null">
             AND
             <choose>
-                <when test="searchValue='wait'">
+                <when test="searchValue2 == 'wait'">
                     vr.status in (0,6)
                     AND
                     vr.end_dttm <![CDATA[ > ]]> NOW()
@@ -1148,7 +1148,10 @@
             if(use_yn = 'N' , 0, TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now())) as expirationDate,
             (ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.user_ticket_master_key = uth.user_ticket_master_key), 0)) as usePoint,
             <!--uth.ticket_amount - uth.ticket_avilable_amount usePoint,-->
-            if(use_yn = 'Y' and TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) > 0, '사용중', '사용종료') useYn
+            if(use_yn = 'Y' and TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) > 0,
+              if(TO_DAYS(uth.ticket_start_expiration_date) - TO_DAYS(now()) > 0,
+                '사용대기', '사용중'),
+              '사용종료') useYn
         FROM
           USER_TICKET_MASTER uth
         WHERE

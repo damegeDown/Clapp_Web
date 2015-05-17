@@ -6398,7 +6398,7 @@ body {
     margin: 0 auto;
 }
 .smccdsbSearch {
-    float: left;
+    /*float: left;*/
     width: 120px;
     height: 40px;
     line-height: 40px;

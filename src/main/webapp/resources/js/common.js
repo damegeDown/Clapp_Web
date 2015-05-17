@@ -818,6 +818,7 @@ $(function() {
 		if($(this).attr("name") == "userAreaType"){
 			$("div.userArea,div.userAreaDetail").html("");
 			if($(this).val() < 1) return false;
+            if($(this).val() == 2) return false;
 		}
 		
 		$.ajax({

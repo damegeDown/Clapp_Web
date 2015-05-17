@@ -276,6 +276,8 @@
 		) a
 		GROUP BY
 			a.contract_master_key
+        ORDER  BY
+           a.contract_insert_date DESC
 		LIMIT
 		#{rowStartNumber}, #{pageListSize}
 	</select>
@@ -800,7 +802,7 @@
 			SELECT
 				cm.contract_insert_date,
 				cm.contract_state,
-				if(now() > contract_end_date, '이용종료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state)) paymentStateText,
+				if(now() > contract_end_date, '이용종료', if(contract_state = 1, '결제완료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state))) paymentStateText,
 				cm.contract_product_name,
 				0,
 				cm.contract_payment_method,

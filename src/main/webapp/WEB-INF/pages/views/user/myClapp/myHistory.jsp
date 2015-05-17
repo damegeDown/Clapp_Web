@@ -59,11 +59,11 @@
 					<div class="smccdtDate">
 						<div class="smccdtDatebox">
 							<div class="smccdtDateStartBox">
-								<input type="text" name="startDate" class="smccdtDateInput dateTerm" value="${ticketHistoryInfo.startDate}" placeholder="시작일" id="from" readonly />
+								<input type="text" name="startDate" class="smccdtDateInput dateTerm" placeholder="시작일" id="from" readonly />
 							</div>
 							<div class="smccdtDateFrom">~</div>
 							<div class="smccdtDateEndBox">
-								<input type="text" name="endDate" class="smccdtDateInput dateTerm" value="${ticketHistoryInfo.endDate}" placeholder="종료일" id="to" readonly />
+								<input type="text" name="endDate" class="smccdtDateInput dateTerm" placeholder="종료일" id="to" readonly />
 							</div>
 						</div>
 					</div>
@@ -79,8 +79,7 @@
                         <select class="smccdmProduct" name="searchValue2" style="width:250px">
                             <option value="">-상품명-</option>
                             <c:forEach items="${productList}" var="product">
-                                <option value="${product.productName}"
-                                        <c:if test="${ticketHistoryInfo.searchValue2 eq product.productName}"> selected="selected" </c:if>>
+                                <option value="${product.productName}">
                                         ${product.productName}
                                 </option>
                             </c:forEach>
@@ -89,19 +88,20 @@
 					<div class="smccdmSelect4">
 						<select class="smccdmTicket" name="searchValue">
 							<option value="">적립/차감/반환 전체</option>
-							<option value="적립" <c:if test="${ticketHistoryInfo.searchValue eq '적립'}">selected</c:if>>적립</option>
-							<option value="차감" <c:if test="${ticketHistoryInfo.searchValue eq '차감'}">selected</c:if>>차감</option>
-							<option value="반환" <c:if test="${ticketHistoryInfo.searchValue eq '반환'}">selected</c:if>>반환</option>
+							<option value="적립">적립</option>
+							<option value="차감">차감</option>
+							<option value="반환">반환</option>
 						</select>
 					</div>
 				</div>
 			</div>
-			<div class="subMyClappContentDetailsSearchBottomSection">
-				<div class="smccdsbBox">
-					<input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700">
-					<input type="reset" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">
-				</div>
-			</div>
+
+            <div class="subMyClappContentDetailsSearchBottomSection">
+                <div class="smccdsbBox">
+                <input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700;margin:0 auto">
+                <%--<input type="button" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">--%>
+                </div>
+            </div>
 		</div> <!-- .subMyClappContentDetailsSearchBox End -->
 		<div class="subMyClappContentResultBox2">
 			<div class="subMyClappContentResultTotalSectionBox">
@@ -181,7 +181,7 @@ $(function() {
  	if("${ticketHistoryInfo.searchKey}") {
  		var term = "${ticketHistoryInfo.searchKey}";
         if(term != "all")
- 		SearchUtils.setDataTerm('', term);
+ 		//SearchUtils.setDataTerm('', term);
  	}
 });
 </script>

@@ -8,7 +8,7 @@
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <div class="sub-content">
 	<form id="paymentForm">
-		 <div> 
+		 <div>
 		   <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
 		   <div style="clear:both;"></div>
 		 </div>
@@ -17,7 +17,7 @@
 	       <col width="15%"/>
 	       <col width="*"/>
 	     </colgroup>
-    	 <tbody> 
+    	 <tbody>
     	 	<c:choose>
 	    	 	 <c:when test="${paymentInfo.contractMasterKey > 0 }">
 	    	 	 	<c:forEach  items="${userList }" var="user" varStatus="i">
@@ -38,7 +38,7 @@
     	 	   <th>계약기간</th>
     	 	   <td>
 	    	 	   <fmt:formatDate pattern="yyyy/MM/dd " value="${paymentInfo.contractStartDate }" /> ~
-	    	 	   <fmt:formatDate pattern="yyyy/MM/dd " value="${paymentInfo.contractEndDate }" /> 
+	    	 	   <fmt:formatDate pattern="yyyy/MM/dd " value="${paymentInfo.contractEndDate }" />
     	 	   </td>
     	 	 </tr>
     	 	 <tr>
@@ -65,7 +65,7 @@
     	 	   <th>사업자등록번호</th>
     	 	   <td>${paymentInfo.contractCompanyNumber}</td>
     	 	 </tr>
-    	 	 <tr>h
+    	 	 <tr>
     	 	   <th>신청상품</th>
     	 	   <td>${paymentInfo.contractProductName}</td>
     	 	 </tr>
@@ -88,7 +88,7 @@
     	 	 </c:if>
     	 	 <tr>
     	 	   <th>담당자</th>
-    	 	   <td>${adminLoginSession.adminName}(${adminLoginSession.adminId})</td>
+    	 	   <td>${paymentInfo.contractOperatorName}</td>
     	 	 </tr>
     	 </tbody>
    	 </table>
