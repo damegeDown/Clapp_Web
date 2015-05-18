@@ -261,7 +261,8 @@
 			cm.contract_expiration_date,
 			cm.contract_state,
 			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
-			cm.contract_use_close_reason,
+			cm.contract_use_stop_reason,
+            cm.contract_use_close_reason,
 			cm.contract_operator_name,
 			cm.contract_insert_date,
 			cm.contract_use_close_date,
@@ -346,7 +347,7 @@
 				  contract_ticket_amount = #{contractTicketAmount},
 				  contract_expiration_date = #{contractExpirationDate},
 				  contract_state = #{contractState},
-				  contract_use_stop_reason = #{contractUseStopReason}, 
+				  contract_use_stop_reason = #{contractUseStopReason},
 				  contract_use_close_reason = #{contractUseCloseReason},
                   contract_applicant = #{contractApplicant}
 		 	WHERE
@@ -381,6 +382,7 @@
 			cm.contract_expiration_date,
 			cm.contract_state,
 			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
+			cm.contract_use_stop_reason,
 			cm.contract_use_close_reason,
 			cm.contract_operator_name,
 			cm.contract_insert_date,
@@ -802,7 +804,8 @@
 			SELECT
 				cm.contract_insert_date,
 				cm.contract_state,
-				if(now() > contract_end_date, '이용종료', if(contract_state = 1, '결제완료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state))) paymentStateText,
+-- 				if(now() > contract_end_date, '이용종료', if(contract_state = 1, '결제완료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state)))
+                '결제완료' paymentStateText,
 				cm.contract_product_name,
 				0,
 				cm.contract_payment_method,

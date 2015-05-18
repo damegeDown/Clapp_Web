@@ -136,8 +136,8 @@
     	 	   <th>이용정지/해제</th>
     	 	   <td>
                    <label><input type="radio" name="contractState" value="1" data-flag="off" <c:if test="${paymentInfo.contractState eq '1' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용중</span></label>
-                   <label><input type="radio" name="contractState" value="2" data-flag="off" <c:if test="${paymentInfo.contractState eq '2' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용정지</span> <input type="text" name="contaractUseStopReason" placeholder="정지 사유입력" data-flag="off"/></label>
-    	 	     <label style="margin-left:30px"><input type="radio" name="contractState" value="3" data-flag="off" <c:if test="${paymentInfo.contractState eq '3' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용해제</span> <input type="text" name="contaractUseCloseReason" placeholder="해제 사유입력" data-flag="off"/></label>
+                   <label><input type="radio" name="contractState" value="2" data-flag="off" <c:if test="${paymentInfo.contractState eq '2' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용정지</span> <input type="text" name="contractUseStopReason" placeholder="정지 사유입력" value="${paymentInfo.contractUseStopReason}" data-flag="off"/></label>
+    	 	     <label style="margin-left:30px"><input type="radio" name="contractState" value="3" data-flag="off" <c:if test="${paymentInfo.contractState eq '3' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용해제</span> <input type="text" name="contractUseCloseReason" value="${paymentInfo.contractUseCloseReason}" placeholder="해제 사유입력" data-flag="off"/></label>
     	 	   	</td>
     	 	 </tr>
     	 	 </c:if>
@@ -175,6 +175,16 @@
 		$( "#tags" ).autocomplete({
 			source: availableTags
 		});
+        $("input[name=ticketStartExpirationDate]").change(function() {
+           var toDay = '${toDay}';
+           var thisDay = $(this).val();
+            var diffDay = fn_calcDayMonthCount(toDay, thisDay,'D');
+            if(diffDay < 0) {
+                alert("현재 시점보다 과거를 선택하실수 없습니다.");
+                $(this).val(toDay);
+                return false;
+            }
+        });
 		$("select[name=productMasterKey]").change(function() {
 			var productName = $("select option[value="+$(this).val()+"]").text();
 			var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");

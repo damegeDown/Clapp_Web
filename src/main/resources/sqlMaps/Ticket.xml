@@ -479,8 +479,8 @@
           ,modify_date = NOW()
         WHERE
           user_master_key = #{userMasterKey}
-        ORDER BY user_ticket_master_key DESC
-        limit 1
+--         ORDER BY user_ticket_master_key DESC
+--         limit 1
     </update>
     <!-- UserTicketMaster 사용여부 변경 -->
     <!-- 회원 티켓 발급 -->
@@ -623,6 +623,10 @@
           user_master_key = #{userMasterKey}
         and
           use_yn = 'Y'
+        order BY
+          user_ticket_master_key DESC
+        limit 1
+
     </select>
     <!-- //자신이 소유한 티켓정보를 불러온다 -->
     <!-- 사용자 티켓 수정 -->
