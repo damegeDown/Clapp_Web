@@ -14,6 +14,7 @@
          </span>
 		</div>
 	</div>
+
 	<div class="btnArea">
 		<a href="${contextPath}/introduction/supportInquire?inquiryCategory=5">
 			<input type="button" class="authBtn"  value="고객문의"/>
