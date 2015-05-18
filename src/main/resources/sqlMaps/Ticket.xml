@@ -1067,7 +1067,7 @@
         </if>
         <if test="searchValue2 != '' and searchValue2 != null">
             AND
-            a.product_name = #{searchValue2}
+            a.productName = #{searchValue2}
         </if>
         <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
             AND
