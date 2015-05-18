@@ -3,57 +3,58 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-  <util:properties id="dbConfig">
-    <prop key="url">jdbc:mysql://digigroove.co.kr:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
-    <prop key="username">clapp</prop>
-    <prop key="password">c1aPpd!g!</prop>
-    <prop key="db_driver">com.mysql.jdbc.Driver</prop>
-  </util:properties>
- 
-	<util:properties id="fileConfig">
-		<prop key="filePath">/Users/sewoong-wi/Documents/workspace/JavaProject/Clapp_Web/data/</prop>
-	</util:properties>
+    <util:properties id="dbConfig">
+        <prop key="url">jdbc:mysql://58.180.17.145:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
+        <prop key="username">Clapp</prop>
+        <prop key="password">Clapp@015</prop>
+        <prop key="db_driver">com.mysql.jdbc.Driver</prop>
+    </util:properties>
 
-  <util:properties id="mailConfig">
-    <prop key="serviceUrl">https://www.clapp.co.kr</prop>
-    <prop key="emailSender">support@clapp.co.kr</prop>
-    <prop key="recruitSender">recruit@clapp.co.kr</prop>
-    <prop key="emailSenderName">클앱고객센터</prop>
-    <prop key="emailForm">mailForm.jsp</prop>
-	<prop key="emailTemp">mailTemp.jsp</prop>
-	<prop key="apiEmailTemp">apiMailTemp.jsp</prop>
-  </util:properties>
 
-  <util:properties id="pay_prop">
-	<prop key="platform">test</prop>
-	<!--prop key="platform">service</prop--> 
-	<prop key="mid">clapp</prop>
-	<prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3 </prop>
-	<prop key="configPath">/home/web/lgdacom</prop> 
-	<prop key="casnoteUrl">https://www.clapp.co.kr/myClapp/rest/responseVirtualAcct</prop>
-  </util:properties>
-  <util:properties id="snsConfig">
-		<prop key="linkUrl">https://www.clapp.co.kr/trandReview/socialList</prop>
-	  	<!-- 페이스북 -->
-		<prop key="facebookLink">https://www.facebook.com/profile.php?id=100009049548425</prop>
-		<prop key="accessTocken">CAACEdEose0cBAMswp1ncb1H2Wmtwgw5FHLOCPa5ZBQ3AnZA29lkEUnr0Vx8lOPhfI5bLmbFfNwdxVGKp8S8LUsJzSAA8SWiy4v424YiuLcXxXFi8QTftZBRjONV9xw5mHjWHVEhjUTPz5UGZBrrh5kQZC0LVG7keyBMjrcCfZBZBraxTbRgPJDHKqHQq0qP2C7W2pZAXuyonIYjpb0OnIb3CeGM42ZCw3ZAEcZD</prop>
-		<prop key="appId">1563873130519004</prop>
-		<prop key="imgPath">https://www.clapp.co.kr/common/imgView</prop>
-		<!-- 트위터 --> 
-		<prop key="twitterLink">https://twitter.com/dgdev0/status/</prop>
-		<prop key="consumerKeyStr">PsJOhA67aGYxdwIejnCKh1cA2</prop>
-		<prop key="consumerSecretStr">Uw1gE86k5EGGNAfstJlgo3YXReTjKeyl97Ulp0TFu1AlHm8Zrx</prop>
-		<prop key="accessTokenStr">393799070-WEvGeiPe8X78uzxEvFidFjHR9Z7SKjlrg06pLuX0</prop>
-		<prop key="accessTokenSecretStr">WGykB0dSbl37Dkl5kBUuM9EEEZmmDquvHGGAzdpY9BYY4</prop>
-		<!-- 블로그 -->
-		<prop key="xmlrpcUrl">https://api.blog.naver.com/xmlrpc</prop>
-		<prop key="blogApiKey">016450c4f7ab810bb950ab1a481694ba</prop>
-		<prop key="blogLink">https://blog.naver.com/dnltpdnd/</prop>
-		<prop key="blogId">dnltpdnd</prop>
-		<prop key="blogTags">Clapp</prop>
-		<prop key="blogCategory">Clapp Category</prop>
-	</util:properties>
- 	<util:properties id="smsConfig">
-		<prop key="sendNo">1661-7083</prop>
-	</util:properties>
+    <util:properties id="fileConfig">
+        <prop key="filePath">/home/web/web_data/</prop>
+    </util:properties>
+
+    <util:properties id="mailConfig">
+        <prop key="serviceUrl">https://www.clapp.co.kr</prop>
+        <prop key="emailSender">support@clapp.co.kr</prop>
+        <prop key="recruitSender">recruit@clapp.co.kr</prop>
+        <prop key="emailSenderName">클앱고객센터</prop>
+        <prop key="emailForm">mailForm.jsp</prop>
+        <prop key="emailTemp">mailTemp.jsp</prop>
+        <prop key="apiEmailTemp">apiMailTemp.jsp</prop>
+    </util:properties>
+
+    <util:properties id="pay_prop">
+        <!-- <prop key="platform">test</prop> -->
+        <prop key="platform">service</prop>
+        <prop key="mid">clapp</prop>
+        <prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3 </prop>
+        <prop key="configPath">/home/web/lgdacom</prop>
+        <prop key="casnoteUrl">https://www.clapp.co.kr/myClapp/rest/responseVirtualAcct</prop>
+    </util:properties>
+    <util:properties id="snsConfig">
+        <prop key="linkUrl">https://www.clapp.co.kr/trandReview/socialList</prop>
+        <!-- 페이스북 -->
+        <prop key="facebookLink">https://www.facebook.com/profile.php?id=100009049548425</prop>
+        <prop key="accessTocken">CAACEdEose0cBAMswp1ncb1H2Wmtwgw5FHLOCPa5ZBQ3AnZA29lkEUnr0Vx8lOPhfI5bLmbFfNwdxVGKp8S8LUsJzSAA8SWiy4v424YiuLcXxXFi8QTftZBRjONV9xw5mHjWHVEhjUTPz5UGZBrrh5kQZC0LVG7keyBMjrcCfZBZBraxTbRgPJDHKqHQq0qP2C7W2pZAXuyonIYjpb0OnIb3CeGM42ZCw3ZAEcZD</prop>
+        <prop key="appId">1563873130519004</prop>
+        <prop key="imgPath">https://www.clapp.co.kr/common/imgView</prop>
+        <!-- 트위터 -->
+        <prop key="twitterLink">https://twitter.com/dgdev0/status/</prop>
+        <prop key="consumerKeyStr">PsJOhA67aGYxdwIejnCKh1cA2</prop>
+        <prop key="consumerSecretStr">Uw1gE86k5EGGNAfstJlgo3YXReTjKeyl97Ulp0TFu1AlHm8Zrx</prop>
+        <prop key="accessTokenStr">393799070-WEvGeiPe8X78uzxEvFidFjHR9Z7SKjlrg06pLuX0</prop>
+        <prop key="accessTokenSecretStr">WGykB0dSbl37Dkl5kBUuM9EEEZmmDquvHGGAzdpY9BYY4</prop>
+        <!-- 블로그 -->
+        <prop key="xmlrpcUrl">https://api.blog.naver.com/xmlrpc</prop>
+        <prop key="blogApiKey">016450c4f7ab810bb950ab1a481694ba</prop>
+        <prop key="blogLink">https://blog.naver.com/dnltpdnd/</prop>
+        <prop key="blogId">dnltpdnd</prop>
+        <prop key="blogTags">Clapp</prop>
+        <prop key="blogCategory">Clapp Category</prop>
+    </util:properties>
+    <util:properties id="smsConfig">
+        <prop key="sendNo">1661-7083</prop>
+    </util:properties>
 </beans>

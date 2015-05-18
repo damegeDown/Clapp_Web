@@ -50,7 +50,7 @@
     </colgroup>
     <thead>
       <tr>
-        <th>No.</th>
+        <th>No.</th> 
         <th>탈퇴 계정</th>
         <th>탈퇴 일시</th>
         <th>탈퇴 사유</th>

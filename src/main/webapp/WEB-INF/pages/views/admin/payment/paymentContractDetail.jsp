@@ -8,16 +8,16 @@
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <div class="sub-content">
 	<form id="paymentForm">
-		 <div> 
+		 <div>
 		   <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
 		   <div style="clear:both;"></div>
 		 </div>
-	  <table class="board-write box-pd">
+        <table class="board-write box-pd">
 	     <colgroup>
 	       <col width="15%"/>
 	       <col width="*"/>
 	     </colgroup>
-    	 <tbody> 
+    	 <tbody>
     	 	<c:choose>
 	    	 	 <c:when test="${paymentInfo.contractMasterKey > 0 }">
 	    	 	 	<c:forEach  items="${userList }" var="user" varStatus="i">
@@ -38,7 +38,7 @@
     	 	   <th>계약기간</th>
     	 	   <td>
 	    	 	   <fmt:formatDate pattern="yyyy/MM/dd " value="${paymentInfo.contractStartDate }" /> ~
-	    	 	   <fmt:formatDate pattern="yyyy/MM/dd " value="${paymentInfo.contractEndDate }" /> 
+	    	 	   <fmt:formatDate pattern="yyyy/MM/dd " value="${paymentInfo.contractEndDate }" />
     	 	   </td>
     	 	 </tr>
     	 	 <tr>
@@ -75,7 +75,10 @@
     	 	 </tr>
     	 	 <tr>
     	 	   <th>유효기간</th>
-    	 	   <td>${paymentInfo.contractExpirationDate } 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 30일 기준 / Annual은 365일 로 지정)</td>
+    	 	   <td>
+                   <fmt:formatDate value="${paymentInfo.ticketStartExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="toDay"/>
+                   <fmt:formatDate value="${paymentInfo.ticketEndExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="lastDay"/>
+                   ${toDay} ~ ${lastDay} </td>
     	 	 </tr>
     	 	 <c:if test="${paymentInfo.contractMasterKey > 0 }">
     	 	 <tr>
@@ -85,7 +88,7 @@
     	 	 </c:if>
     	 	 <tr>
     	 	   <th>담당자</th>
-    	 	   <td>${adminLoginSession.adminName}(${adminLoginSession.adminId})</td>
+    	 	   <td>${paymentInfo.contractOperatorName}</td>
     	 	 </tr>
     	 </tbody>
    	 </table>

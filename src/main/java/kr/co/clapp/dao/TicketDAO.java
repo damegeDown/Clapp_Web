@@ -168,4 +168,8 @@ public interface TicketDAO {
     int updateUserType(PaymentEntity paymentEntity);
 
     int selectTimeDiff(int reservation_id);
+
+    int modifyUserTicketMasterUse(TicketEntity ticketParam);
+
+    int deleteUserTicketMaster(TicketEntity ticketParam);
 }

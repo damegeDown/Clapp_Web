@@ -280,7 +280,8 @@
       UM.USER_MAIL_RECEPTION_YN,
       UM.USER_AREA_TYPE,
       UM.USER_AREA,
-      UM.USER_AREA_DETAIL,
+      if(UM.USER_AREA_TYPE = 2, '해외', UM.USER_AREA_DETAIL) USER_AREA_DETAIL,
+--       UM.USER_AREA_DETAIL,
       UM.USER_LAST_LOGIN_DATE,
       FN_GET_COMMON_CODE_NAME('USER_AGE_GROUP', UD.USER_AGE_GROUP ) USER_AGE_GROUP,
       UD.USER_JOB_TYPE,
@@ -342,7 +343,8 @@
       UM.USER_MAIL_RECEPTION_YN,
       UM.USER_AREA_TYPE,
       UM.USER_AREA,
-      UM.USER_AREA_DETAIL,
+      if(UM.USER_AREA_TYPE = 2, '해외', UM.USER_AREA_DETAIL) USER_AREA_DETAIL,
+--       UM.USER_AREA_DETAIL,
       UM.USER_LAST_LOGIN_DATE,
       UM.USER_STAFF,
       FN_GET_COMMON_CODE_NAME('USER_AGE_GROUP', UD.USER_AGE_GROUP ) USER_AGE_GROUP,
@@ -440,9 +442,9 @@
           um.user_id,
           um.user_name,
           FN_GET_COMMON_CODE_NAME('USER_TYPE', um.user_type) user_type,
-          (SELECT utm.product_name FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key) productName,
-          DATE_FORMAT((SELECT utm.ticket_start_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y/%m/%d %H:%i') ticketStartDate,
-          DATE_FORMAT((SELECT utm.ticket_end_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key),'%Y/%m/%d %H:%i') ticketEndDate,
+          (SELECT utm.product_name FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key and utm.use_yn = 'Y') productName,
+          DATE_FORMAT((SELECT utm.ticket_start_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key and utm.use_yn = 'Y'),'%Y/%m/%d %H:%i' ) ticketStartDate,
+          DATE_FORMAT((SELECT utm.ticket_end_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key and utm.use_yn = 'Y'),'%Y/%m/%d %H:%i') ticketEndDate,
           MAX(cm.contract_master_key) contract_master_key
 	  FROM
           USER_MASTER um
@@ -761,6 +763,8 @@
     		left(ticket_end_expiration_date,10) >= left(now(), 10)
     	AND
     		product_master_key != 1
+    	AND
+    	  use_yn = 'Y'
     </select>
     <!-- //회원 정보 -->
 </mapper>

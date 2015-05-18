@@ -113,7 +113,7 @@ public class PaymentEntity extends PageEntity implements Serializable {
 	private String payTypeCd;		// 결제 타입 코드
 	private String payTypeNm;		// 결제 타입명
 	private String regDt;
-	
+
 	/**
 	 * LG UPlus 결제 결과 응답 파라미터
 	 */
@@ -161,6 +161,7 @@ public class PaymentEntity extends PageEntity implements Serializable {
 
     private	Date ticketStartExpirationDate;					//유효기간 시작일
     private	Date ticketEndExpirationDate;				//유효기간 종료일
+    private int paymentCancelCount;
 
   public int getPaymentMasterKey() {
 	return paymentMasterKey;
@@ -1091,6 +1092,14 @@ public void setUserMasterKeyArr(List<?> userMasterKeyArr) {
 
     public void setTicketEndExpirationDate(Date ticketEndExpirationDate) {
         this.ticketEndExpirationDate = ticketEndExpirationDate;
+    }
+
+    public int getPaymentCancelCount() {
+        return paymentCancelCount;
+    }
+
+    public void setPaymentCancelCount(int paymentCancelCount) {
+        this.paymentCancelCount = paymentCancelCount;
     }
 }
 

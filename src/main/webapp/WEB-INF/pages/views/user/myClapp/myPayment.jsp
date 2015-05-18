@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${ contextPath }/resources/js/myClapp.js"></script>
-<script language="JavaScript" src="http://pgweb.uplus.co.kr:7085/WEB_SERVER/js/receipt_link.js"></script>
+<script language="JavaScript" src="http://pgweb.uplus.co.kr/WEB_SERVER/js/receipt_link.js"></script>
 <div class="subJoinGnbBottomContainer">
 		<div class="subJoinGnbBottomBg">
 			<div class="subJoinGnbBottomBox">
@@ -60,11 +60,11 @@
 					<div class="smccdtDate">
 						<div class="smccdtDatebox">
 							<div class="smccdtDateStartBox">
-								<input type="text" name="startDate" class="smccdtDateInput dateTerm" value="${paymentInfo.startDate}" placeholder="시작일" id="from" readonly />
+								<input type="text" name="startDate" class="smccdtDateInput dateTerm" placeholder="시작일" id="from" readonly />
 							</div>
 							<div class="smccdtDateFrom">~</div>
 							<div class="smccdtDateEndBox">
-								<input type="text" name="endDate" class="smccdtDateInput dateTerm" value="${paymentInfo.endDate}" placeholder="종료일" id="to" readonly />
+								<input type="text" name="endDate" class="smccdtDateInput dateTerm" placeholder="종료일" id="to" readonly />
 							</div>
 						</div>
 					</div>
@@ -80,7 +80,7 @@
 						<select class="smccdmProducts" name="searchValue">
 							<option value="">-상품별-</option>
 							<c:forEach items="${productList }" var="code">
-				              <option value="${code.productName }" <c:if test="${paymentInfo.searchValue eq code.productName }">selected</c:if>>${code.productName }</option>
+				              <option value="${code.productName }">${code.productName }</option>
 				            </c:forEach>
 						</select>
 					</div>
@@ -88,24 +88,24 @@
 						<select class="smccdmPaymentMethod" name="searchValue1">
 							<option value="">-결제 방법별-</option>
 							 <c:forEach items="${paymentType }" var="code">
-                  				<option value="${code.commonCode }" <c:if test="${paymentInfo.searchValue1 eq code.commonCode }">selected</c:if>>${code.commonName }</option>
+                  				<option value="${code.commonCode }">${code.commonName }</option>
                 			</c:forEach>
 						</select>
 					</div>
 					<div class="smccdmSelect6">
 						<select class="smccdmPaymentMethod" name="searchValue2">
 							<option value="">-결제 상태별-</option>
-							<option value="1" <c:if test="${paymentInfo.searchValue2 eq 1 }">selected</c:if>>결제 완료</option>
-							<option value="2" <c:if test="${paymentInfo.searchValue2 eq 2 }">selected</c:if>>결제 대기</option>
-							<option value="3" <c:if test="${paymentInfo.searchValue2 eq 3 }">selected</c:if>>결제 취소</option>
+							<option value="1">결제 완료</option>
+							<option value="2">결제 대기</option>
+							<option value="3">결제 취소</option>
 						</select>
 					</div>
 				</div>
 			</div>
 			<div class="subMyClappContentDetailsSearchBottomSection">
 				<div class="smccdsbBox">
-					<input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700">
-					<input type="reset" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">
+					<input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700; margin: 0 auto">
+					<%--<input type="reset" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">--%>
 				</div>
 			</div>
 		</div> <!-- .subMyClappContentDetailsSearchBox End -->
@@ -116,6 +116,8 @@
 						<li><span class="sccrtSTitle1">총 결제 건수 :&nbsp;</span><span class="sccrtSNo1">${paymentInfo.dataSize }</span><span class="sccrtSQty1"> 건</span></li>
 						<li class="sccrtSListsLine"></li>
 						<li><span class="sccrtSTitle2">결제 대기 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentWaitCount }</span><span class="sccrtSQty2"> 건</span></li>
+                        <li class="sccrtSListsLine"></li>
+                        <li><span class="sccrtSTitle3">결제 취소 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentCancelCount }</span><span class="sccrtSQty3"> 건</span></li>
 					</ul>
 				</div>
 				<div class="sccrtS2">
@@ -130,11 +132,11 @@
 				<table class="subMyClappPaidProductList3">
 					<tr>
 						<th>No</th>
-						<th>결제일</th>
+						<th>결제일(취소일)</th>
 						<th>상태</th>
 						<th>상품명</th>
 						<th>결제방법</th>
-						<th>결제금액</th>
+						<th>결제(취소)금액</th>
 					</tr>
 					<c:if test="${paymentInfo.dataSize < 1}">
 						<tr>
@@ -149,12 +151,16 @@
 						<td>${payment.paymentProductName }</td>
 						<td>
 							${payment.paymentTypeText }&nbsp; 
-							<c:if test="${payment.paymentTid ne '0'}">
-								<!--  TODO : 전표보기 윈도우 팝업. -->	
+							<c:if test="${payment.paymentTid ne '0' and payment.paymentType ne 'SC0040' and payment.paymentState ne '2'}">
 								<button class="goBtn" onclick="javascript:showReceiptByTID('${paymentInfo.mid}', '${payment.paymentTid}', '${payment.authData }')">전표보기</button>
 							</c:if>
 						</td>
-						<td>&#8361; <fmt:formatNumber value="${payment.paymentTotalPrice }" /></td>
+						<td>
+                            <c:choose>
+                                <c:when test="${payment.paymentType ne '0'}">&#8361; <fmt:formatNumber value="${payment.paymentTotalPrice }" /></c:when>
+                                <c:otherwise>-</c:otherwise>
+                            </c:choose>
+                        </td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -170,7 +176,7 @@
 $(function() {
  	if("${paymentInfo.searchKey}") {
  		var term = "${paymentInfo.searchKey}";
- 		SearchUtils.setDataTerm('', term);
+ 		//SearchUtils.setDataTerm('', term);
  	}
 });
 </script>

@@ -158,8 +158,8 @@ public class PaymentController {
   		searchTotalPrice += paymentEntity.getPaymentList().get(i).getSearchTotalPrice();
   	  }
       //공통
-      commonCode.put( "navigation", "개별 계약 관리 (이 달의 매출 : <span class='colorSkyBlue'>"+searchResult.getSumCount()+"</span> 건 / <span class='colorSkyBlue'>"+searchResult.getSumTotalPrice()+"</span> 원 vat 별도)" );					// 현재 페이지 네비게이션
-      commonCode.put("searchResult", "> 검색결과 : <span class='colorSkyBlue'>"+paymentEntity.getDataSize()+"</span> 건 /  <span class='colorSkyBlue'>"+searchTotalPrice+"</span> vat 별도");   // 검색 결과
+      commonCode.put( "navigation", "개별 계약 관리 (이 달의 매출 : <span class='colorSkyBlue'>"+searchResult.getSumCount()+"</span> 건 / <span class='colorSkyBlue'>"+String.format("%,d", searchResult.getSumTotalPrice()) + "</span> 원 vat 별도)");					// 현재 페이지 네비게이션
+      commonCode.put("searchResult", "> 검색결과 : <span class='colorSkyBlue'>"+paymentEntity.getDataSize()+"</span> 건 /  <span class='colorSkyBlue'>"+String.format("%,d", searchTotalPrice)+"</span> vat 별도");   // 검색 결과
       commonCode.put( "mainMenu", "permissionPayment" );                      // left main menu
       commonCode.put( "subMenu", "paymentContract" );                // left sub menu
       model.addAttribute( "CommonCode", commonCode );

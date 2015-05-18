@@ -683,14 +683,26 @@ var goPayment = function(key) {
 	
 	var usedProductKey = '${ticketInfo.productMasterKey}';
 	var goProductKey = key;
-	if(usedProductKey != '' && usedProductKey != goProductKey) {
-		alert("현재 (일반)고객님께서는 \n(${ticketInfo.productName}) 상품을 이용하고 계십니다. "+
-				"\n동일 상품으로 추가결재하여 연장 가능하지만,"+
-				"\n다른 상품으로의 변경은 사용중인 상품의 티켓을 모두 소진 후 추가 상품 구매가 가능합니다."+
-			    "\n\n기타 상품 결제 관련은 클앱 고객센터 1661-7083으로 문의 바랍니다.");
-		return false;
-	}
-	location.href = contextPath+"/myClapp/payment?productMasterKey="+key
+
+	if(usedProductKey != '' && usedProductKey <= goProductKey) {
+		if(confirm("현재 (일반)고객님께서는 \n('${ticketInfo.productName}') 상품을 이용하고 계십니다. "+
+				"\n다른 상품을 추가 구매하실 경우 현재 사용중인 상품의 잔여티켓은 모두"+
+				"\n차감 처리되고 새로 구매하신 상품의 티켓만 사용 가능하오니 신중히"+
+			    "\n생각하시고 구매 하시기 바랍니다.")){
+            location.href = contextPath+"/myClapp/payment?productMasterKey="+key
+        } else {
+            return false;
+        }
+	} else if(usedProductKey != '' && usedProductKey > goProductKey) {
+        alert("현재 (일반)고객님께서는 \n('${ticketInfo.productName}') 상품을 이용하고 계십니다. "+
+                "\n클앱은 현재 사용중인 상품보다 더 낮은 등급의 상품은 구매가 불가능합니다."+
+                "\n고객 여러분의 많은 양해 부탁 드립니다."+
+                "\n기타 상품구매와 관련하여 고객센터 1661-7083 또는"+
+                "\nsupport@clapp.co.kr로 문의 주시기 바랍니다.");
+        return false
+    }
+    location.href = contextPath+"/myClapp/payment?productMasterKey="+key
+
 };
 //소개서 다운로드 링크
 var autoJnlpDownload = function(){ 

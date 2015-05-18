@@ -261,7 +261,8 @@
 			cm.contract_expiration_date,
 			cm.contract_state,
 			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
-			cm.contract_use_close_reason,
+			cm.contract_use_stop_reason,
+            cm.contract_use_close_reason,
 			cm.contract_operator_name,
 			cm.contract_insert_date,
 			cm.contract_use_close_date,
@@ -276,6 +277,8 @@
 		) a
 		GROUP BY
 			a.contract_master_key
+        ORDER  BY
+           a.contract_insert_date DESC
 		LIMIT
 		#{rowStartNumber}, #{pageListSize}
 	</select>
@@ -344,7 +347,7 @@
 				  contract_ticket_amount = #{contractTicketAmount},
 				  contract_expiration_date = #{contractExpirationDate},
 				  contract_state = #{contractState},
-				  contract_use_stop_reason = #{contractUseStopReason}, 
+				  contract_use_stop_reason = #{contractUseStopReason},
 				  contract_use_close_reason = #{contractUseCloseReason},
                   contract_applicant = #{contractApplicant}
 		 	WHERE
@@ -379,14 +382,20 @@
 			cm.contract_expiration_date,
 			cm.contract_state,
 			FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', cm.contract_state) contractStateText,
+			cm.contract_use_stop_reason,
 			cm.contract_use_close_reason,
 			cm.contract_operator_name,
 			cm.contract_insert_date,
-			cm.contract_applicant
+			cm.contract_applicant,
+			um.ticket_start_expiration_date,
+			um.ticket_end_expiration_date
 		FROM
-			CONTRACT_MASTER cm 
+			CONTRACT_MASTER cm,
+			USER_TICKET_MASTER um
 		WHERE
 			cm.contract_master_key = #{contractMasterKey}
+		AND
+		    cm.contract_tid = um.payment_tid
 	</select>
 	<select id="getPaymentContractUserDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
@@ -713,7 +722,8 @@
 		SELECT
 			COUNT(a.payment_state) paymentCount,
 			COUNT(IF(a.payment_state = 1, 1, null)) paymentFinishCount,
-			COUNT(IF(a.payment_state = 2, 1, null)) paymentWaitCount
+			COUNT(IF(a.payment_state = 2, 1, null)) paymentWaitCount,
+            COUNT(IF(a.payment_state = 3, 1, null)) paymentCancelCount
 		FROM (
 			SELECT
 				payment_date,
@@ -794,7 +804,8 @@
 			SELECT
 				cm.contract_insert_date,
 				cm.contract_state,
-				FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state) paymentStateText,
+-- 				if(now() > contract_end_date, '이용종료', if(contract_state = 1, '결제완료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state)))
+                '결제완료' paymentStateText,
 				cm.contract_product_name,
 				0,
 				cm.contract_payment_method,

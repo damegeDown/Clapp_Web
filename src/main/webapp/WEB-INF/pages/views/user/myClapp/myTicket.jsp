@@ -37,13 +37,13 @@
 			<table class="subMyClappPaidProductList">
 				<tr>
 					<th>상품명</th>
-					<th>상품적용기간</th>
+					<th>상품유효기간</th>
 					<th>잔여일수</th>
 					<th>총 티켓</th>
 					<th>사용 티켓</th>
 					<th>잔여 티켓</th>
 					<th>사용여부</th>
-					<%--<th>티켓내역보기</th>--%>
+					<th>티켓내역보기</th>
 				</tr>
 				<%-- <tr>
 					<td>${ticketInfo.productName }</td>
@@ -71,11 +71,11 @@
 						</c:choose>
 						일
 					</td>
-					<td>${history.ticketAvilableAmount }티켓</td>
-					<td>${history.usePoint}티켓</td>
-					<td>${history.ticketAvilableAmount - history.usePoint}티켓</td>
-					<td>${history.ticketEndExpirationDate > nowDate ? '사용중' : '사용종료'}</td>
-					<%--<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory'">바로가기</button></td>--%>
+					<td>${history.ticketAvilableAmount + (history.usePoint * -1)}티켓</td>
+					<td>${history.usePoint * -1}티켓</td>
+					<td>${history.ticketAvilableAmount}티켓</td>
+					<td>${history.useYn}</td>
+					<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory?userTicketMasterKey=${history.userTicketMasterKey}'">바로가기</button></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -87,7 +87,7 @@
 	<input type="hidden" name="searchKey" value="all"/>
 	<div class="subMyClappContentDetailsBox">
 		<div class="subMyClappTitleSmallLine"></div>
-		<span class="subMyClappSmallTitle">이용내용 상조회</span>
+		<span class="subMyClappSmallTitle">이용내용 상세조회</span>
 		<div class="subMyClappContentDetailsSearchBox">
 			<div class="subMyClappContentDetailsSearchTopSection">
 				<div class="subMyClappContentDetailsTopBox">
@@ -107,11 +107,11 @@
 					<div class="smccdtDate">
 						<div class="smccdtDatebox">
 							<div class="smccdtDateStartBox">
-								<input type="text" name="startDate" class="smccdtDateInput dateTerm" value="${ticketHistoryInfo.startDate}" placeholder="시작일" id="from" readonly />
+								<input type="text" name="startDate" class="smccdtDateInput dateTerm" placeholder="시작일" id="from" readonly />
 							</div>
 							<div class="smccdtDateFrom">~</div>
 							<div class="smccdtDateEndBox">
-								<input type="text" name="endDate" class="smccdtDateInput dateTerm" value="${ticketHistoryInfo.endDate}" placeholder="종료일" id="to" readonly />
+								<input type="text" name="endDate" class="smccdtDateInput dateTerm" placeholder="종료일" id="to" readonly />
 							</div>
 						</div>
 					</div>
@@ -127,8 +127,7 @@
                         <select class="smccdmProduct" name="searchValue3" style="width:250px">
                             <option value="">-상품명-</option>
                             <c:forEach items="${productList}" var="product">
-                                <option value="${product.productName}"
-                                        <c:if test="${ticketHistoryInfo.searchValue3 eq product.productName}"> selected="selected" </c:if>>
+                                <option value="${product.productName}">
                                         ${product.productName}
                                 </option>
                             </c:forEach>
@@ -138,7 +137,7 @@
 						<select class="smccdmCorp" name="searchValue">
 							<option value="">-제조사별-</option>
 							<c:forEach items="${makerList }" var="code">
-				              <option value="${code.manufacturer }" <c:if test="${ticketHistoryInfo.searchValue eq code.manufacturer }">selected</c:if>>${code.manufacturer }</option>
+				              <option value="${code.manufacturer }">${code.manufacturer }</option>
 				            </c:forEach>
 						</select>
 					</div>
@@ -146,24 +145,24 @@
 						<select class="smccdmDevice" name="searchValue1">
 							<option value="">-디바이스별-</option>
 							<c:forEach items="${deviceList }" var="code">
-				              <option value="${code.prodName }" <c:if test="${ticketHistoryInfo.searchValue1 eq code.prodName }">selected</c:if>>${code.prodName }</option>
+				              <option value="${code.prodName }">${code.prodName }</option>
 				            </c:forEach>
 						</select>
 					</div>
 					<div class="smccdmSelect3">
 						<select class="smccdmStatus" name="searchValue2">
 							<option value="">-상태별-</option>
-							<option value="wait" <c:if test="${ticketHistoryInfo.searchValue2 eq 'wait'}">selected</c:if>>예약대기</option>
-				            <option value="finish" <c:if test="${ticketHistoryInfo.searchValue2 eq 'finish' }">selected</c:if>>사용종료</option>
+							<option value="wait">예약대기</option>
+				            <option value="finish">사용종료</option>
 						</select>
 					</div>
 				</div>
 			</div>
 			<div class="subMyClappContentDetailsSearchBottomSection">
-				<div class="smccdsbBox">
-					<input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700">
-					<input type="button" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">
-				</div>
+				<%--<div class="smccdsbBox">--%>
+					<input type="submit" class="smccdsbSearch" value="검색" style="color:#fff; font-weight:700;margin:0 auto">
+					<%--<input type="button" onclick="SearchUtils.setDataTerm('', 'all')" class="smccdsbReset" value="검색초기화" style="color:#fff; font-weight:700">--%>
+				<%--</div>--%>
 			</div>
 		</div>
 	</div> <!-- .subMyClappContentDetailsBox End -->
@@ -255,7 +254,8 @@
 $(function() {
  	if("${ticketHistoryInfo.searchKey}") {
  		var term = "${ticketHistoryInfo.searchKey}";
- 		SearchUtils.setDataTerm('', term);
+        if(term != "all")
+ 		  //  SearchUtils.setDataTerm('', term);
  	}
 });
 </script>

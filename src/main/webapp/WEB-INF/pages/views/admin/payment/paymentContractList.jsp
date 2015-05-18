@@ -111,6 +111,11 @@
 	        		<c:if test="${paymentList.contractState == 4}">
 							(<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${paymentList.contractUseCloseDate }" />)	        		
 	        		</c:if>
+                    <c:if test="${paymentList.contractState == 2}">
+                        <c:if test="${paymentList.contractUseStopReason ne null and paymentList.contractUseStopReason ne ''}">
+                        (${paymentList.contractUseStopReason})
+                        </c:if>
+                    </c:if>
 	        </td>
 	      </tr>
 	    </c:forEach>

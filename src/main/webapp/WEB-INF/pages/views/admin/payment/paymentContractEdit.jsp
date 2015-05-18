@@ -73,7 +73,7 @@
 
     	 	 <tr>
     	 	   <th>결제방법</th>
-    	 	   <td><input type="text" class="inp-w190" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="계산서 청구일 기준 25일 결제(무통장)"/>
+    	 	   <td><input type="text" class="inp-w190" name="contractPaymentMethod" value="${paymentInfo.contractPaymentMethod }" placeholder="무통장 입금"/>
                     <span>계산서 발행일로부터 15일 이내 입금</span>
                </td>
     	 	 </tr>
@@ -93,8 +93,8 @@
     	 	   <th>사업자등록번호</th>
     	 	   <td>
  					 <c:set var="companyNum" value="${fn:split(paymentInfo.contractCompanyNumber,'-')}"/>
-          	 <input type="text" class="inp-w120 phoneNum" value="${companyNum[0]}" maxlength="3"/> - 
-          	 <input type="text" class="inp-w80 phoneNum" value="${companyNum[1]}" maxlength="2"/> - 
+          	 <input type="text" class="inp-w120 phoneNum" value="${companyNum[0]}" maxlength="3"/> -
+          	 <input type="text" class="inp-w80 phoneNum" value="${companyNum[1]}" maxlength="2"/> -
           	 <input type="text" class="inp-w140 phoneNum" value="${companyNum[2]}" maxlength="5"/>
           	 <input type="hidden" class="phoneNumComp" name="contractCompanyNumber" value="${paymentInfo.contractCompanyNumber}"/>
 					 </td>
@@ -107,7 +107,7 @@
                     <option value="">상품</option>
 		          <c:forEach items="${productInfo.productList }" var="code">
                       <c:if test="${code.productMasterKey >= 9}">
-					    <option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" data-ticketAmount="${code.productTicketAmount}" <c:if test="${paymentInfo.productMasterKey eq code.productMasterKey }">selected</c:if>>${code.productName }</option>
+					    <option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" data-ticketAmount="${code.productTicketAmount}" <c:if test="${paymentInfo.contractProductName eq code.productName }">selected</c:if>>${code.productName }</option>
                       </c:if>
 				 </c:forEach>
 	           </select>
@@ -118,8 +118,13 @@
                     <%--<input type="text" name="contractExpirationDate" value="${paymentInfo.contractExpirationDate }" placeholder="숫자만 입력" data-format="num"/> 일 (상품별로 자동입력. 단, 별도 계약건의 경우 Monthly는 31일 기준 / Annual은 365일 로 지정)--%>
                         <jsp:useBean id="toDay" class="java.util.Date" />
                         <fmt:formatDate value="${toDay}" pattern="yyyy/MM/dd  HH:mm" var="toDay"/>
+                        <c:set value="" var="lastDay"/>
+                        <c:if test="${paymentInfo.contractMasterKey > 0}">
+                            <fmt:formatDate value="${paymentInfo.ticketStartExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="toDay"/>
+                            <fmt:formatDate value="${paymentInfo.ticketEndExpirationDate}" pattern="yyyy/MM/dd  HH:mm" var="lastDay"/>
+                        </c:if>
                     <input type="text" value="${toDay }" class="datetimepicker" name="ticketStartExpirationDate" data-flag="off"> ~
-                    <input type="text" class="datetimepicker" name="ticketEndExpirationDate" data-flag="off">
+                    <input type="text" class="datetimepicker" value="${lastDay}" name="ticketEndExpirationDate" data-flag="off">
                 </td>
             </tr>
     	 	 <tr>
@@ -130,8 +135,9 @@
     	 	 <tr>
     	 	   <th>이용정지/해제</th>
     	 	   <td>
-    	 	     <label><input type="radio" name="contractState" value="2" data-flag="off" <c:if test="${paymentInfo.contractState == 2 }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용정지</span> <input type="text" name="contaractUseStopReason" placeholder="정지 사유입력" data-flag="off"/></label>
-    	 	     <label style="margin-left:30px"><input type="radio" name="contractState" value="3" data-flag="off" <c:if test="${paymentInfo.contractState == 3 }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용해제</span> <input type="text" name="contaractUseCloseReason" placeholder="해제 사유입력" data-flag="off"/></label>
+                   <label><input type="radio" name="contractState" value="1" data-flag="off" <c:if test="${paymentInfo.contractState eq '1' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용중</span></label>
+                   <label><input type="radio" name="contractState" value="2" data-flag="off" <c:if test="${paymentInfo.contractState eq '2' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용정지</span> <input type="text" name="contractUseStopReason" placeholder="정지 사유입력" value="${paymentInfo.contractUseStopReason}" data-flag="off"/></label>
+    	 	     <label style="margin-left:30px"><input type="radio" name="contractState" value="3" data-flag="off" <c:if test="${paymentInfo.contractState eq '3' }">checked</c:if>/> <span style="margin:0 20px 0 5px">이용해제</span> <input type="text" name="contractUseCloseReason" value="${paymentInfo.contractUseCloseReason}" placeholder="해제 사유입력" data-flag="off"/></label>
     	 	   	</td>
     	 	 </tr>
     	 	 </c:if>
@@ -169,17 +175,26 @@
 		$( "#tags" ).autocomplete({
 			source: availableTags
 		});
+        $("input[name=ticketStartExpirationDate]").change(function() {
+           var toDay = '${toDay}';
+           var thisDay = $(this).val();
+            var diffDay = fn_calcDayMonthCount(toDay, thisDay,'D');
+            if(diffDay < 0) {
+                alert("현재 시점보다 과거를 선택하실수 없습니다.");
+                $(this).val(toDay);
+                return false;
+            }
+        });
 		$("select[name=productMasterKey]").change(function() {
 			var productName = $("select option[value="+$(this).val()+"]").text();
 			var applyDate = $("select option[value="+$(this).val()+"]").attr("data-applyDate");
             var ticketAmount = $("select option[value="+$(this).val()+"]").attr("data-ticketAmount");
-            var toDay = '${toDay}';
-
+            var toDay = $("input[name=ticketStartExpirationDate]").val();//'${toDay}';
             var myDate = new Date(toDay);
             myDate.setDate (myDate.getDate() + Number(applyDate));
 			$("input[name=contractProductName]").val(productName);
 			//$("input[name=contractExpirationDate]").val(applyDate);
-			$("input[name=ticketEndExpirationDate]").val(myDate.format("yyyy/MM/dd hh:mm"));
+			$("input[name=ticketEndExpirationDate]").val(myDate.format("yyyy/MM/dd HH:mm"));
 			$("input[name=contractTicketAmount]").val(ticketAmount);
 		});
 	});

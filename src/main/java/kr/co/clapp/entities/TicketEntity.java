@@ -36,7 +36,7 @@ public class TicketEntity extends PageEntity implements Serializable{
 	private int ticketSum;									//티켓 합계
 	private int userTypeCount;									//유저 타입 카운트
 	private Date insert_date;
-	
+	private String useYn;                                   //사용여부
 	private List<?> userIdArr;
 	private List<TicketEntity> userTicketUsedList;
 	private int sortListSize;
@@ -514,5 +514,13 @@ public class TicketEntity extends PageEntity implements Serializable{
 
     public void setServiceApplyReasonDetail(String serviceApplyReasonDetail) {
         this.serviceApplyReasonDetail = serviceApplyReasonDetail;
+    }
+
+    public String getUseYn() {
+        return useYn;
+    }
+
+    public void setUseYn(String useYn) {
+        this.useYn = useYn;
     }
 }

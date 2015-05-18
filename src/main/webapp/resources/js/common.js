@@ -761,7 +761,7 @@ function fn_calcDayMonthCount(pStartDate, pEndDate, pType) {
 		sMonth = pStartDate.substring(4,6)-1;
 		sDay = pStartDate.substring(6,8);
 	} else {
-		var sDate = pStartDate.split("-");
+		var sDate = pStartDate.replace(/\//gi, "-").substring(0,10).split("-");
 		sYear = sDate[0];
 		sMonth = sDate[1];
 		sDay = sDate[2];
@@ -771,7 +771,7 @@ function fn_calcDayMonthCount(pStartDate, pEndDate, pType) {
 		eMonth = pEndDate.substring(4,6)-1;
 		eDay = pEndDate.substring(6,8);
 	} else {
-		var eDate = pEndDate.split("-");
+		var eDate = pEndDate.replace(/\//gi, "-").substring(0,10).split("-");
 		eYear = eDate[0];
 		eMonth = eDate[1];
 		eDay = eDate[2];
@@ -779,8 +779,7 @@ function fn_calcDayMonthCount(pStartDate, pEndDate, pType) {
     var strSDT = new Date(sYear, sMonth, sDay);  
     var strEDT = new Date(eYear,eMonth,eDay);  
     var strTermCnt = 0;  
-       
-    if(pType == 'D') {  //일수 차이  
+    if(pType == 'D') {  //일수 차이
         strTermCnt = (strEDT.getTime()-strSDT.getTime())/(1000*60*60*24);  
     } else {            //개월수 차이  
         //년도가 같으면 단순히 월을 마이너스 한다.  
@@ -818,6 +817,7 @@ $(function() {
 		if($(this).attr("name") == "userAreaType"){
 			$("div.userArea,div.userAreaDetail").html("");
 			if($(this).val() < 1) return false;
+            if($(this).val() == 2) return false;
 		}
 		
 		$.ajax({
