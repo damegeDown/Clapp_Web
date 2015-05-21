@@ -213,7 +213,7 @@
           </div>
         </div> <!-- .subMTContentFourTextBox End -->
         <div class="subMTContentFourTextBox2">
-          <span class="smcfTBText1">언제, 어디서든<br /><img src="${contextPath }/resources/images/365.png" alt="365" />일<br /><img class="twentyfourH" src="${contextPath }/resources/images/24h.png" alt="24Hours" />
+          <span class="smcfTBText1"/>언제, 어디서든<br /><img src="${contextPath }/resources/images/365.png" alt="365" />일<br /><img class="twentyfourH" src="${contextPath }/resources/images/24h.png" alt="24Hours" />
           <span class="smcfTBText2">시/공간제약,<br />근무시간내 <img src="${contextPath }/resources/images/8h.png" alt="8Hours" /></span>
           <span class="smcfTBText3"><img src="${contextPath }/resources/images/140.png" alt="140" />명</span>
           <span class="smcfTBText4"><img src="${contextPath }/resources/images/420.png" alt="420" />명</span>
