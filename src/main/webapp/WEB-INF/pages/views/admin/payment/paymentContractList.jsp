@@ -116,6 +116,11 @@
                         (${paymentList.contractUseStopReason})
                         </c:if>
                     </c:if>
+                    <c:if test="${paymentList.contractState == 3}">
+                        <c:if test="${paymentList.contractUseCloseReason ne null and paymentList.contractUseCloseReason ne ''}">
+                            (${paymentList.contractUseCloseReason})
+                        </c:if>
+                    </c:if>
 	        </td>
 	      </tr>
 	    </c:forEach>

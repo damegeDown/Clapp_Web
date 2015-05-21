@@ -287,7 +287,8 @@
             SERVICE_APPLY_OPERATOR_NAME,
             SERVICE_INSERT_DATE,
             TICKET_START_EXPIRATION_DATE,
-            TICKET_END_EXPIRATION_DATE
+            TICKET_END_EXPIRATION_DATE,
+            USER_TICKET_MASTER_KEY
         ) VALUES (
             #{serviceTargetType},
             <choose>
@@ -313,7 +314,8 @@
             #{serviceApplyOperatorName},
             NOW(),
             #{ticketStartExpirationDate},
-            #{ticketEndExpirationDate}
+            #{ticketEndExpirationDate},
+            #{userTicketMasterKey}
         )
     </insert>
     <!-- //티켓 적용서비스 신규 적용 -->
@@ -479,8 +481,10 @@
           ,modify_date = NOW()
         WHERE
           user_master_key = #{userMasterKey}
---         ORDER BY user_ticket_master_key DESC
---         limit 1
+          <if test='useYn == "Y"'>
+         ORDER BY user_ticket_master_key DESC
+         limit 1
+        </if>
     </update>
     <!-- UserTicketMaster 사용여부 변경 -->
     <!-- 회원 티켓 발급 -->
@@ -496,7 +500,8 @@
             ticket_start_expiration_date,
             ticket_end_expiration_date,
             ticket_apply_date,
-            insert_date
+            insert_date,
+            use_yn
         ) VALUES (
             #{userMasterKey},
             #{productMasterKey},
@@ -514,7 +519,8 @@
             #{ticketStartExpirationDate},
             #{ticketEndExpirationDate},
             #{ticketApplyDate},
-            now()
+            now(),
+            #{useYn}
         )
     </insert>
     <!-- 사용가능 티켓수 조회 -->
@@ -534,7 +540,8 @@
         IF(ticket_end_expiration_date IS NULL, NOW(), LEFT(ticket_end_expiration_date,10))
         )
         AND
-          use_yn  ='Y'
+          USE_YN  ='Y'
+
     </select>
     <!-- //사용가능 티켓수 조회 -->
     <!-- 사용자 티켓 사용우선순위가 위인 티켓키와 사용가능 티켓 조회 -->
@@ -651,7 +658,7 @@
     <!-- //사용자 티켓 수정 -->
     <!-- 결제 취소시 사용자 user_ticket_master 삭제 -->
     <delete id="deleteUserTicketMaster" parameterType="ticketEntity">
-        DELETE FROM USER_TICKET_MASTER where user_master_key = #{userMasterKey} AND use_yn = 'Y'
+        DELETE FROM USER_TICKET_MASTER where user_master_key = #{userMasterKey} and payment_tid = #{paymentTid}
     </delete>
     <!-- 결제 취소시 사용자 user_ticket_master 삭제 -->
     <!-- 티켓 사용 히스토리 -->
@@ -868,14 +875,13 @@
             service_apply_reason_detail ,
             au.user_master_key
         FROM
-            TICKET_PRODUCT_APPLY_SERVICE tr,
-            APPLY_SERVICE_USER au,
-            USER_TICKET_MASTER ut
+            TICKET_PRODUCT_APPLY_SERVICE tr
+        INNER JOIN
+            APPLY_SERVICE_USER au on tr.ticket_product_service_key = au.ticket_product_service_key
+        LEFT OUTER JOIN
+            USER_TICKET_MASTER ut on tr.user_ticket_master_key = ut.user_ticket_master_key
         WHERE
-          tr.ticket_product_service_key = au.ticket_product_service_key
-        AND
-        (au.user_master_key = ut.user_master_key and ut.use_yn = 'Y')
-        AND au.user_master_key = #{userMasterKey}
+          au.user_master_key = #{userMasterKey}
         <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
             AND
             (
@@ -1015,14 +1021,12 @@
             au.user_master_key,
             ut.user_ticket_master_key
         FROM
-            TICKET_PRODUCT_APPLY_SERVICE tr,
-            APPLY_SERVICE_USER au,
-            USER_TICKET_MASTER ut
-        WHERE
-          tr.ticket_product_service_key = au.ticket_product_service_key
-        AND
-          (au.user_master_key = ut.user_master_key and ut.use_yn = 'Y')
-        AND au.user_master_key = #{userMasterKey}
+            TICKET_PRODUCT_APPLY_SERVICE tr
+        INNER JOIN
+          APPLY_SERVICE_USER au on tr.ticket_product_service_key = au.ticket_product_service_key
+        LEFT OUTER JOIN
+          USER_TICKET_MASTER ut on tr.user_ticket_master_key = ut.user_ticket_master_key
+        WHERE au.user_master_key = #{userMasterKey}
 
         UNION ALL
 
@@ -1152,16 +1156,17 @@
             if(use_yn = 'N' , 0, TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now())) as expirationDate,
             (ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.user_ticket_master_key = uth.user_ticket_master_key), 0)) as usePoint,
             <!--uth.ticket_amount - uth.ticket_avilable_amount usePoint,-->
-            if(use_yn = 'Y' and TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) > 0,
-              if(TO_DAYS(uth.ticket_start_expiration_date) - TO_DAYS(now()) > 0,
-                '사용대기', '사용중'),
-              '사용종료') useYn
+            if(uth.ticket_avilable_amount > 0,
+                if(use_yn = 'Y' and TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) > 0,
+                  if(TO_DAYS(uth.ticket_start_expiration_date) - TO_DAYS(now()) > 0,
+                    '사용대기', '사용중'),
+                  '사용종료'), '사용종료') useYn
         FROM
           USER_TICKET_MASTER uth
         WHERE
           user_master_key = #{userMasterKey}
         ORDER BY
-          uth.ticket_start_expiration_date desc
+          uth.insert_date desc
     </select>
     <!-- //자신이 티켓정보 히스토리를 불러온다 -->
 
@@ -1182,6 +1187,9 @@
             USER_TICKET_HISTORY
         WHERE
             target_key = #{targetKey}
+        ORDER BY
+          user_ticket_history_key DESC
+        limit 1
     </select>
     <!-- //자신이 취소할 티켓정보 히스토리를 불러온다 -->
 
@@ -1227,18 +1235,24 @@
     </update>
     <!-- //결제취소시 사용자 티켓 수정 -->
     <update id="updateUserType" parameterType="paymentEntity">
-        UPDATE
-          USER_MASTER
-        SET
-          user_type = 2
-        WHERE user_master_key in
+        UPDATE USER_MASTER UM, USER_DETAIL UD SET
+          UM.USER_TYPE = 2
+        <if test="contractCompanyName != '' and contractCompanyName != null">
+            ,UD.USER_COMPANY_NAME = #{contractCompanyName}
+        </if>
+        <if test="contractCompanyNumber != '' and contractCompanyNumber != null">
+            ,UD.USER_COMPANY_NUMBER = #{contractCompanyNumber}
+        </if>
+        WHERE
+           UM.USER_MASTER_KEY = UD.USER_MASTER_KEY
+        AND UM.USER_MASTER_KEY in
             <foreach item="item" index="index" collection="userMasterKeyArr" open="(" separator="," close=")">
                 #{item}
             </foreach>
     </update>
     <select id="selectTimeDiff" parameterType="int" resultType="int">
         SELECT
-            SUBSTRING_INDEX(TIMEDIFF(NOW(), del_dttm),':', 1) difftime
+            SUBSTRING_INDEX(TIMEDIFF(start_dttm, NOW()),':', 1) difftime
         FROM
             system.v_reservations_all
         WHERE

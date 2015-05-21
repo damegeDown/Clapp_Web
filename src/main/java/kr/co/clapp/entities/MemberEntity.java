@@ -16,6 +16,7 @@ public class MemberEntity extends PageEntity implements Serializable{
 	 * user_master
 	 */
 	private int userMasterKey;									// 회원 고유키
+	private int userTicketMasterKey;									// 회원 고유키
 	private String userId;										// 회원 아이디
 	private String userPassword;								// 회원 비밀번호
 	private String userName;									// 회원 이름
@@ -400,5 +401,11 @@ public class MemberEntity extends PageEntity implements Serializable{
 		this.answerContents = answerContents;
 	}
 
+    public int getUserTicketMasterKey() {
+        return userTicketMasterKey;
+    }
 
+    public void setUserTicketMasterKey(int userTicketMasterKey) {
+        this.userTicketMasterKey = userTicketMasterKey;
+    }
 }

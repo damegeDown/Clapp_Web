@@ -25,7 +25,7 @@ public interface PaymentDAO {
 
   List<PaymentEntity> getPaymentContractList(PaymentEntity paymentEntity);
 
-  int getPaymentContractListCount(PaymentEntity paymentEntity);
+    PaymentEntity getPaymentContractListCount(PaymentEntity paymentEntity);
   
   PaymentEntity getSearchContractResult(PaymentEntity paymentEntity);
 

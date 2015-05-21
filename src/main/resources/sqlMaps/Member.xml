@@ -442,14 +442,16 @@
           um.user_id,
           um.user_name,
           FN_GET_COMMON_CODE_NAME('USER_TYPE', um.user_type) user_type,
-          (SELECT utm.product_name FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key and utm.use_yn = 'Y') productName,
+          utm.product_name  productName,
           DATE_FORMAT((SELECT utm.ticket_start_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key and utm.use_yn = 'Y'),'%Y/%m/%d %H:%i' ) ticketStartDate,
           DATE_FORMAT((SELECT utm.ticket_end_expiration_date FROM USER_TICKET_MASTER AS utm WHERE utm.user_master_key = um.user_master_key and utm.use_yn = 'Y'),'%Y/%m/%d %H:%i') ticketEndDate,
-          MAX(cm.contract_master_key) contract_master_key
+          MAX(cm.contract_master_key) contract_master_key,
+          MAX(utm.user_ticket_master_key) user_ticket_master_key
 	  FROM
           USER_MASTER um
       LEFT OUTER JOIN CONTRACT_USER cu ON um.user_master_key = cu.user_master_key
       LEFT OUTER JOIN CONTRACT_MASTER cm ON cm.contract_master_key = cu.contract_master_key
+      LEFT OUTER JOIN USER_TICKET_MASTER utm on cm.contract_tid = utm.payment_tid
 	  WHERE
         um.user_id LIKE '%${userId}%'
       <if test="contractMasterKey > 0">

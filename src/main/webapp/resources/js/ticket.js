@@ -110,6 +110,7 @@ $.fn.Common = {
 		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].ticketStartDate));
 		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].ticketEndDate));
 		       	userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].contractMasterKey));
+                userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].userTicketMasterKey));
 		       	$(".resultUserId").append(userListTrHtml);
 		      }
 	    	} else {
@@ -135,12 +136,16 @@ $.fn.Common = {
 	    var ticketStartExpirationDate = _this.eq(5).html();
 	    var ticketEndDate = _this.eq(6).html();
 	    var contractMasterKey = _this.eq(7).html();
+	    var userTicketMasterKey = _this.eq(8).html();
 	    var dataId = $("input[name=dataId]").val();
 	    $("input[name=userIdArr][data-id="+dataId+"]").val(userId);
 	    $("input[name=serviceProductName]").val(productName);
 	    $(".ticketStartExpirationDate").val(ticketStartExpirationDate);
 	    $("input[name=ticketEndExpirationDate]").val(ticketEndDate);
         $("input[name=contractMasterKey]").val(contractMasterKey);
+          if(userTicketMasterKey != '') {
+              $("input[name=userTicketMasterKey]").val(userTicketMasterKey);
+          }
         var userListTrHtml = $("<tr></tr>");
         userListTrHtml.append($("<td></td>").attr("colspan", "4").html("+++조회된 내용이 없습니다.+++"));
         $(".resultUserId").html(userListTrHtml);

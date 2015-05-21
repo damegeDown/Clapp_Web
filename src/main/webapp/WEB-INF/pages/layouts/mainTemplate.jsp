@@ -35,7 +35,6 @@
 	<script type="text/javascript" src="${contextPath }/resources/js/common.js"></script>
 	<script type="text/javascript">
 		var contextPath = "${contextPath}";
-            alert(contextPath);
 		/* function onUnload(e, callback) {
 			alert("tt");
 		   // var agt = window.navigator.userAgent.toLocaleLowerCase();
