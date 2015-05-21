@@ -240,7 +240,7 @@ wcs_do();
         <span class="wrapBgMTQLText2">CLAPP TESTING</span>
         <p class="wrapBgMTQLText3">온라인 상의 실제 디바이스에 접속,<br /> 
         365일 언제 어디서나, 쉽고 빠른 테스팅을 위해<br />
-        국내 기술로 탄생한 클라우드 테스트 플랫폼 입니다.</p>
+        탄생한 클라우드 기반의 Testing Platform 입니다.</p>
         <span class="wrapBgMTQLMore">
           <a href="${contextPath }/mobileTesting/mobileTestingMain"></a>
         </span>

@@ -38,7 +38,7 @@
             <div class="subMTHeaderTextBox">
               <span class="mtTitle">클앱 테스팅</span>
               <span class="mtSlogan">CLAPP TESTING</span>
-              <p class="mtGpText">온라인 상의 실제 디바이스에 접속하여<br />365일 언제, 어디서나 쉽고 빠른 테스팅을 위해<br />국내 기술로 탄생한 Cloud Test Platform 입니다.</p>
+              <p class="mtGpText">온라인 상의 실제 디바이스에 접속하여<br />365일 언제, 어디서나 쉽고 빠른 테스팅을 위해<br />탄생한 클라우드 기반의 Testing Platform 입니다.</p>
             <div class="taButton">
                 <a href="# return false" class="taButtonStart">
                     <img src="${contextPath }/resources/images/mt_cta_kv_tas.png" onclick="JnlpUtils.startTest()" onMouseOver="this.src='${contextPath }/resources/images/mt_cta_kv_tas_r.png';" onMouseOut="this.src='${contextPath }/resources/images/mt_cta_kv_tas.png';" alt="클앱 테스팅 시작" />
