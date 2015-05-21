@@ -148,7 +148,7 @@
 						<td>${paymentInfo.dataSize-(paymentInfo.pageListSize*(paymentInfo.currentPage-1))-i.index}</td>
 						<td>
                             <c:choose>
-                            <c:when test="${payment.paymentState eq '2'}">-</c:when>
+                            <c:when test="${payment.paymentState ne '1'}">-</c:when>
                             <c:otherwise>
                                 <fmt:formatDate value="${payment.paymentDate}" pattern="yyyy-MM-dd HH:mm"/>
                             </c:otherwise>

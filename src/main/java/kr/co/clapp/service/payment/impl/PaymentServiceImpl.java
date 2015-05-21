@@ -99,26 +99,26 @@ public class PaymentServiceImpl implements PaymentService {
         ticketParam.setUserMasterKey(ticketHistoryInfo.getUserMasterKey());
         ticketParam.setProductName(nextTicketHistoryInfo.getProductName());
 
-        //취소할 티켓 다음 상품 정보가 Free일 경우
-        if("Free".equals(nextTicketHistoryInfo.getProductName())){
-            ticketParam.setTicketAmount(0);
-            ticketParam.setTicketAvilableAmount(0);
-            ticketParam.setTicketStartExpirationDate(nextTicketHistoryInfo.getTicketStartExpirationDate());
-            ticketParam.setTicketEndExpirationDate(nextTicketHistoryInfo.getTicketEndExpirationDate());
-        } else {
-            //자신의 티켓정보에서 취소할 티켓수만큼 뺌
-            int ticket = ticketInfo.getTicketAmount() - ticketHistoryInfo.getTicketAvilableAmount() ;
-            int avilableTicket = ticketInfo.getTicketAvilableAmount() - ticketHistoryInfo.getTicketAvilableAmount();
-            Date endDate = Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), (ticketHistoryInfo.getExpirationDate() * -1) -1);
-
-            ticketParam.setTicketAmount(ticket);
-            ticketParam.setTicketAvilableAmount(avilableTicket);
-            ticketParam.setTicketEndExpirationDate(endDate);
-        }
-        //취소할 히스토리 삭제
-//        ticketDAO.removeUserTicketHistory(ticketParam);
+//        //취소할 티켓 다음 상품 정보가 Free일 경우
+//        if("Free".equals(nextTicketHistoryInfo.getProductName())){
+//            ticketParam.setTicketAmount(0);
+//            ticketParam.setTicketAvilableAmount(0);
+//            ticketParam.setTicketStartExpirationDate(nextTicketHistoryInfo.getTicketStartExpirationDate());
+//            ticketParam.setTicketEndExpirationDate(nextTicketHistoryInfo.getTicketEndExpirationDate());
+//        } else {
+//            //자신의 티켓정보에서 취소할 티켓수만큼 뺌
+//            int ticket = ticketInfo.getTicketAmount() - ticketHistoryInfo.getTicketAvilableAmount() ;
+//            int avilableTicket = ticketInfo.getTicketAvilableAmount() - ticketHistoryInfo.getTicketAvilableAmount();
+//            Date endDate = Utils.getAddNowDate(ticketInfo.getTicketEndExpirationDate(), (ticketHistoryInfo.getExpirationDate() * -1) -1);
 //
-//        result = ticketDAO.modifyUserTicket(ticketParam);
+//            ticketParam.setTicketAmount(ticket);
+//            ticketParam.setTicketAvilableAmount(avilableTicket);
+//            ticketParam.setTicketEndExpirationDate(endDate);
+//        }
+//        //취소할 히스토리 삭제
+////        ticketDAO.removeUserTicketHistory(ticketParam);
+////
+////        result = ticketDAO.modifyUserTicket(ticketParam);
 
 
         ticketDAO.deleteUserTicketMaster(ticketParam);
@@ -131,7 +131,6 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional(readOnly=false)
     public int insertRequestBill(PaymentEntity paymentEntity) {
-        // TODO 결제취소 메일발송, 유료상품 모두 reset, 티켓 보유수 처리, 티켓 적립/차감 내역 취소
         return paymentDAO.insertRequestBill(paymentEntity);
     }
 
