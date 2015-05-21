@@ -106,6 +106,7 @@
 			pm.payment_master_key,
 			pm.payment_oid,
 			pm.payment_tid,
+            pm.user_master_key,
 			IF(p.cash_receipt_self_yn is null, '미신청', '신청') cash_receipt_self_yn,
 			if(p.cash_receipt_kind = 0, '소득공제용', '지출증빙용') cashReceiptKind,
 			FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',p.pay_state_cd) payment_state_text,

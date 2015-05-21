@@ -76,6 +76,8 @@ public class PaymentServiceImpl implements PaymentService {
         result = paymentDAO.cancelPayment(paymentEntity);
         if(result > CommonCode.ZERO){
             ticketInfo.setTargetKey(paymentEntity.getPaymentMasterKey());
+            ticketInfo.setUserMasterKey(paymentEntity.getUserMasterKey());
+            ticketInfo.setPaymentTid(paymentEntity.getPaymentTid());
             this.cancelUserTicket(ticketInfo);
         }
         return result;
@@ -92,12 +94,12 @@ public class PaymentServiceImpl implements PaymentService {
         //자신의 취소할 티켓 히스토리를 불러옴
         TicketEntity ticketHistoryInfo = ticketDAO.selectTicketHistory(ticketParam);
         //자신의 티켓정보를 불러옴
-        TicketEntity ticketInfo = ticketDAO.selectTicketInfo(ticketHistoryInfo);
+        //TicketEntity ticketInfo = ticketDAO.selectTicketInfo(ticketHistoryInfo);
         //자신이 취소할 티켓 히스토리의 다음 히스토리를 불러옴
-        TicketEntity nextTicketHistoryInfo = ticketDAO.nextTicketHistoryInfo(ticketInfo);
+        //TicketEntity nextTicketHistoryInfo = ticketDAO.nextTicketHistoryInfo(ticketInfo);
 
-        ticketParam.setUserMasterKey(ticketHistoryInfo.getUserMasterKey());
-        ticketParam.setProductName(nextTicketHistoryInfo.getProductName());
+        //ticketParam.setUserMasterKey(ticketHistoryInfo.getUserMasterKey());
+        //ticketParam.setProductName(nextTicketHistoryInfo.getProductName());
 
 //        //취소할 티켓 다음 상품 정보가 Free일 경우
 //        if("Free".equals(nextTicketHistoryInfo.getProductName())){
@@ -116,9 +118,7 @@ public class PaymentServiceImpl implements PaymentService {
 //            ticketParam.setTicketEndExpirationDate(endDate);
 //        }
 //        //취소할 히스토리 삭제
-////        ticketDAO.removeUserTicketHistory(ticketParam);
-////
-////        result = ticketDAO.modifyUserTicket(ticketParam);
+        ticketDAO.removeUserTicketHistory(ticketParam);
 
 
         ticketDAO.deleteUserTicketMaster(ticketParam);
