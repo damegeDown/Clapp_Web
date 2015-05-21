@@ -106,6 +106,7 @@
 			pm.payment_master_key,
 			pm.payment_oid,
 			pm.payment_tid,
+            pm.user_master_key,
 			IF(p.cash_receipt_self_yn is null, '미신청', '신청') cash_receipt_self_yn,
 			if(p.cash_receipt_kind = 0, '소득공제용', '지출증빙용') cashReceiptKind,
 			FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',p.pay_state_cd) payment_state_text,
@@ -224,17 +225,19 @@
 		</if>
 	</sql>
 	
-	<select id="getPaymentContractListCount" parameterType="paymentEntity" resultType="int">
+	<select id="getPaymentContractListCount" parameterType="paymentEntity" resultType="paymentEntity">
     SELECT 
-    	COUNT(a.contract_master_key)
+    	COUNT(a.contract_master_key) dataSize,
+        FN_GET_VAT_EXCEPT_AMOUNT(SUM(a.contract_total_price)) sum_total_price
     FROM(
 	    SELECT
-	      COUNT(cm.contract_master_key) contract_master_key
+	      COUNT(cm.contract_master_key) contract_master_key,
+          SUM(cm.contract_total_price) contract_total_price
 	   	FROM
 				CONTRACT_MASTER cm,
-				CONTRACT_USER cu 
+				CONTRACT_USER cu
 			WHERE
-				 1 = 1
+              cm.contract_master_key = cu.contract_master_key
 	   	<include refid="searchPaymentContractList"/>
 	   	GROUP BY cm.contract_master_key
 	   	) a
@@ -242,7 +245,6 @@
   </select>
 	<select id="getPaymentContractList" parameterType="paymentEntity" resultType="paymentEntity">
 	SELECT
-			SUM(a.contract_not_vat_total_price) search_total_price,
 			a.*
 		FROM(
 		SELECT
@@ -285,10 +287,26 @@
 	<select id="getSearchContractResult" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
 			COUNT(*) sum_count,
-			FN_GET_VAT_EXCEPT_AMOUNT(SUM(contract_total_price)) sum_total_price
+			FN_GET_VAT_EXCEPT_AMOUNT(SUM(cm.contract_total_price)) sum_total_price
 		FROM
-			CONTRACT_MASTER
-		 
+			CONTRACT_MASTER cm,
+            CONTRACT_USER cu
+        WHERE
+            cm.contract_master_key = cu.contract_master_key
+        <!-- 기간검색 -->
+        <if test="searchKey != '' and searchKey != null">
+        AND
+        <choose>
+            <when test="searchKey == 'contract_bill_publication_date'">
+                ${searchKey} between #{startDate} and #{endDate}
+            </when>
+            <otherwise>
+                (cm.contract_start_date between #{startDate} and #{endDate}
+                OR
+                cm.contract_end_date between #{startDate} and #{endDate})
+            </otherwise>
+        </choose>
+        </if>
 	</select>
 	<insert id="insertContract" parameterType="paymentEntity" useGeneratedKeys="true" keyProperty="contractMasterKey">
 		INSERT INTO
@@ -845,17 +863,17 @@
      	 #{rowStartNumber}, #{pageListSize}
 	</select>
 	<!-- 결제내역 리스트 -->
-	<!-- 구매하려는 상품이 현재 상용중인 상품에 속하는지 확인 -->
+	<!-- 구매하려는 상품이 현재 상용중인 상품에 속하거나 상위 상품인지 확인 -->
  	<select id="getProductInfo" parameterType="paymentEntity" resultType="int">
 	    SELECT
 	        COUNT(*)
-	    FROM 
+	    FROM
 	        USER_TICKET_MASTER
 	    WHERE
 	    	user_master_key = #{userMasterKey}
 	   	AND
 	   		(
-	   			product_master_key = #{productMasterKey}
+	   			product_master_key >= #{productMasterKey}
 	   				OR
 	   			product_master_key = 1	
 	   		)

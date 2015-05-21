@@ -3,6 +3,8 @@
 <div id="cancelPaymentForm" style="display:none">
 <form id="cancelForm">
 	<input type="hidden" name="paymentMasterKey" value="${paymentInfo.paymentMasterKey }"/>
+	<input type="hidden" name="userMasterKey" value="${paymentInfo.userMasterKey }"/>
+	<input type="hidden" name="paymentTid" value="${paymentInfo.paymentTid }"/>
 	<h3>
 		결제번호 > 결제취소 
 		<span class="cancelBtn"  onclick="javascript:popupUtils.popupClose('#cancelPaymentForm')">X</span>

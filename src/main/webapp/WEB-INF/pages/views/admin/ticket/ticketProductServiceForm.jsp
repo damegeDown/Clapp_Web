@@ -6,6 +6,7 @@
 <script type="text/javascript" src="${contextPath }/resources/js/ticket.js"></script>
 <div class="sub-content">
 <form id="memberForm" enctype="multipart/form-data">
+    <input type="hidden" name="userTicketMasterKey" data-flag="off" value="0"/>
   <div> 
     <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
     <div style="clear:both;"></div>

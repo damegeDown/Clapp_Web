@@ -113,7 +113,7 @@
 			<div class="subMyClappContentResultTotalSectionBox">
 				<div class="sccrtS1">
 					<ul class="sccrtSLists">
-						<li><span class="sccrtSTitle1">총 결제 건수 :&nbsp;</span><span class="sccrtSNo1">${paymentInfo.dataSize }</span><span class="sccrtSQty1"> 건</span></li>
+						<li><span class="sccrtSTitle1">총 결제 건수 :&nbsp;</span><span class="sccrtSNo1">${paymentInfo.paymentFinishCount }</span><span class="sccrtSQty1"> 건</span></li>
 						<li class="sccrtSListsLine"></li>
 						<li><span class="sccrtSTitle2">결제 대기 : &nbsp;</span><span class="sccrtSNo2">${paymentInfo.paymentWaitCount }</span><span class="sccrtSQty2"> 건</span></li>
                         <li class="sccrtSListsLine"></li>
@@ -146,7 +146,14 @@
 					<c:forEach items="${paymentInfo.paymentList }" var="payment" varStatus="i"> 
 					<tr>
 						<td>${paymentInfo.dataSize-(paymentInfo.pageListSize*(paymentInfo.currentPage-1))-i.index}</td>
-						<td><fmt:formatDate value="${payment.paymentDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>
+                            <c:choose>
+                            <c:when test="${payment.paymentState ne '1'}">-</c:when>
+                            <c:otherwise>
+                                <fmt:formatDate value="${payment.paymentDate}" pattern="yyyy-MM-dd HH:mm"/>
+                            </c:otherwise>
+                            </c:choose>
+                        </td>
 						<td>${payment.paymentStateText }</td>
 						<td>${payment.paymentProductName }</td>
 						<td>

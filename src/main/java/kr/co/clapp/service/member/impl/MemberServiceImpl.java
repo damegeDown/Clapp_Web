@@ -304,6 +304,7 @@ public class MemberServiceImpl implements MemberService {
 			ticketEntity.setTicketStartExpirationDate(d);
 			ticketEntity.setTicketEndExpirationDate(Utils.getAddNowDate(30));
 			ticketEntity.setTicketApplyDate(d);
+            ticketEntity.setUseYn("Y");
 			int ticketResult = ticketDAO.insertUserTicketMaster(ticketEntity);
 			/** 티켓 히스토리에 저장*/
 			ticketDAO.insertUserTicketHistory(ticketEntity);
