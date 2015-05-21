@@ -48,9 +48,10 @@
 
 #popCertification { width:550px;height:200px}
 
-#popupCompanyJoin {border:1px solid #999; width:500px;height: 225px}
-#popupCompanyJoin h3{background:#999;padding:10px;color:#fff; text-align:left; margin-top: -1px}
-#popupCompanyJoin h3 span{display:inline-block;width:20px;height:18px;text-align:center;vertical-align:middle;border-radius:5px;background:#000;padding-bottom:2px;float:right}
-#popupCompanyJoin .btnArea{text-align:center}
-#popupCompanyJoin .popupCompanyImg{display:table-cell;vertical-align:middle; padding-left: 10px}
-#popupCompanyJoin .popupCompanyText{display:table-cell;vertical-align:middle; padding-left: 10px; text-align: left; font-size:14px}
+#popupCompanyJoin {border:1px solid #999; width:380px;height: 200px}
+#popupCompanyJoin body{font-family:NanumGothic}
+#popupCompanyJoin .title { height:45px; border:0 ; background-color:#000000 }
+#popupCompanyJoin .contents { width:380px;height:153px ;border:0 ;background-color:#000000 }
+#popupCompanyJoin .contents td{width:380px; background-color:#ffffff;text-align: center}
+#popupCompanyJoin .contents img{ border:0 ; width:59px; height:31px; }
+#popupCompanyJoin .text{color: black;line-height: 150%;font-size: 12px;}
