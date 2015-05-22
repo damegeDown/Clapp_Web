@@ -172,4 +172,6 @@ public interface TicketDAO {
     int modifyUserTicketMasterUse(TicketEntity ticketParam);
 
     int deleteUserTicketMaster(TicketEntity ticketParam);
+
+    int returnTicket(TicketEntity ticketEntity);
 }
