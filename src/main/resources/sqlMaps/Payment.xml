@@ -124,7 +124,7 @@
 			if(p.finance_name is null , '-', p.finance_name) finance_name,
 			p.card_num as  payment_card_number, 
 			<!-- FN_GET_SECRET_CARD_NUMBER(p.card_num) payment_card_number, -->
-			FN_GET_SECRET_CELL_NUMBER(p.buyer_phone) payment_cellphone_number,
+			<!--FN_GET_SECRET_CELL_NUMBER(p.buyer_phone) payment_cellphone_number,-->
 			p.pay_dt,
 			p.reg_dt,
 			p.account_num payment_account_number,
