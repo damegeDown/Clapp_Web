@@ -88,5 +88,7 @@ public interface TicketService {
 
 
      int selectTimeDiff(int reservation_id);
+
+    int returnTicket(TicketEntity ticketEntity);
 }
 

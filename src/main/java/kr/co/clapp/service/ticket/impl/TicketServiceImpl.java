@@ -75,7 +75,7 @@ public class TicketServiceImpl implements TicketService {
 		  selectResult = ticketDAO.selectUserType(ticketEntity);
 		  
 		  List<String> userId = (List<String>) ticketEntity.getUserIdArr();
-		  
+		  //if(userId.size() < 1) userId.add(ticketEntity.getUserId());
 		  /** 개별 계정 부여시 */
 		  if(ticketEntity.getServiceTargetType().equals("4")) {
 			  for(int i = 0; i < userId.size(); i++ ) {
@@ -212,5 +212,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public int selectTimeDiff(int reservation_id) {
         return ticketDAO.selectTimeDiff(reservation_id);
+    }
+    @Override
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public int returnTicket(TicketEntity ticketEntity) {
+        return ticketDAO.returnTicket(ticketEntity);
     }
 }

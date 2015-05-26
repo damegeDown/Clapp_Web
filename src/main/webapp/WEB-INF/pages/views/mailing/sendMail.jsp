@@ -24,97 +24,14 @@
 	<div style="width: 100%">
 
 		<!-- //컨텐츠  -->
-		<div
-			style="PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 0px; width: 630px">
-			<div
-				style="margin: 20px 0; TEXT-ALIGN: left; PADDING-BOTTOM: 20px; LINE-HEIGHT: 21px; PADDING-LEFT: 25px; PADDING-RIGHT: 15px; FONT-FAMILY: gulim,??; COLOR: #444; FONT-SIZE: 12px; PADDING-TOP: 20px; BACKGROUND-COLOR: #f2f2f2; width: 630px">
-				<B> <FONT color=#3369d8> <SPAN style="FONT-SIZE: 14px;">$userName</SPAN></FONT>
-					<SPAN style="FONT-SIZE: 14px;">회원님,</SPAN></B><BR>
-				<BR> 신청하신 유료 서비스의 결제가 정상적으로 완료되어, 서비스 이용이 가능합니다.<BR>
-                      상세 내역은 아래와 같습니다.
-			</div>
-			<div style="clear: both"></div>
-			<div
-				style="PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 15px; PADDING-TOP: 0px; width: 665px">
-				<strong>&#8226; 결제 내역</strong>
-				<TABLE border="0" cellSpacing="0" cellPadding="0" width="663">
-	                <TBODY>
-	                  <TR>
-		                    <TD bgColor="#9dc1d9" height="2" width="150"></TD>
-		                    <TD bgColor="#9dc1d9" width="1"></TD>
-		                    <TD bgColor="#9dc1d9"></TD>
-	                  </TR>
-	                  <TR>
-		                    <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
-		                    	유료 서비스명
-		                    </TD>
-		                    <TD bgColor="#e2e2e2"></TD>
-		                    <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
-		                    	$productName
-		                   	</TD>
-	                  </TR>
-	                  <TR>
-	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD>
-	                  </TR>
-	                  <TR>
-		                    <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
-		                		발급 티켓 / 유효 기간
-		                	</TD>
-		                    <TD bgColor="#e2e2e2"></TD>
-		                    <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
-		                    	$ticketAmount Ticket / $expirationDate 
-		                    </TD>
-	                  </TR>
-	                  <TR>
-	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD>
-	                  </TR>
-	                  <TR>
-		                     <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
-		                     	결제 일시
-		                     </TD>
-		                     <TD bgColor="#e2e2e2"></TD>
-		                     <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
-		                     	$paymentDate
-		                     </TD>
-	                   </TR>
-	                   <TR>
-	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
-	                   <TR>
-		                     <TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
-		                     	결제 금액
-		                     </TD>
-		                     <TD bgColor="#e2e2e2"></TD>
-		                     <TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">
-		                     	$paymentAmount 원
-		                     </TD>
-	                   </TR>
-	                   <TR>
-	                   		<TD bgColor=#e2e2e2 height=1 colSpan=3></TD></TR>
-	                   <TR>
-	                    	<TD style="LINE-HEIGHT: 18px; FONT-FAMILY: 굴림; COLOR: #444444; FONT-SIZE: 12px" bgColor="#fbfbfb" height="38" align="center">
-	                    		결제 방법
-	                    	</TD>
-	                    	<TD bgColor="#e2e2e2"></TD>
-	                    	<TD style="PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; FONT-FAMILY: 굴림; FONT-SIZE: 12px; PADDING-TOP: 0px">신용카드&nbsp;<a href="#">
-	                    		<img src="$contextPath/resources/images/ecrm_04_pay_card_hp_bt03.png" width="60" height="19" border="0" align="bottom"></a>
-	                    	</TD>
-	                  </TR>
-	                  <TR>
-	                    	<TD bgColor=#e2e2e2 height=1 colSpan=3></TD>
-	                  </TR>
-	              </TBODY>
-             </TABLE>
-			</div>
-			<div style="height: 75px; text-align: center; margin-top: 20px">
-				<A href="$contextPath/mobileTesting/mobileTestingMain/" target=_blank>
-					<IMG border=0 alt="클앱 테스팅 이용" src="$contextPath/resources/images/ecrm_04_pay_card_hp_bt01.png">
-				</A>
-				<A href="$contextPath/clappTesting/autoMain" target=_blank>
-					<IMG border="0" alt="클앱 자동화 이용" src="$contextPath/resources/images/ecrm_04_pay_card_hp_bt02.png">
-				</A>
-			</div>
-            <div height="108" align="center" valign="bottom"><img src="$contextPath/resources/images/ecrm_04_pay_card_hp_comments.png" width="663" height="88"></div>
-		</div>
+        <div style="PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 0px;width:630px	">
+            <div style="margin:20px 0 ;TEXT-ALIGN: left; PADDING-BOTTOM: 20px; LINE-HEIGHT: 21px; PADDING-LEFT: 25px; PADDING-RIGHT: 15px; FONT-FAMILY: gulim, 굴림; COLOR: #444; FONT-SIZE: 12px; PADDING-TOP: 20px;BACKGROUND-COLOR: #f2f2f2;width:630px"><B>
+				<SPAN style="FONT-SIZE: 14px;">
+					$startDttm에 $prodName를 예약하셨습니다. 홈페이지를 접속하여 테스트를 진행하시기 바랍니다.
+				</SPAN>
+            </div>
+            <div style="clear:both"></div>
+        </div>
 		<!-- //컨텐츠  -->
 
 		<div style="clear: both"></div>

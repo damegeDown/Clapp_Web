@@ -623,7 +623,7 @@
     	FROM 
     		USER_MASTER 
     	WHERE 
-    		user_id = #{userId}
+    		(user_id = #{userId} OR user_master_key = #{userId})
     </select>
     <!-- //회원 정보 -->
     <!--  회원 로그인 -->

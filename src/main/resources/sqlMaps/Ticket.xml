@@ -364,8 +364,12 @@
               ,ticket_end_expiration_date = #{ticketEndExpirationDate}
             </if>
             <if test="userType == 2">
+              <if test="serviceProductName != '' and serviceProductName != null">
                 ,product_name = #{serviceProductName}
+              </if>
+              <if test="productMasterKey != '' and productMasterKey != null">
                 ,product_master_key = #{productMasterKey}
+              </if>
             </if>
         WHERE
           user_master_key in (
@@ -393,6 +397,17 @@
         )
         AND
           use_yn = 'Y'
+    </update>
+    <!-- //서비스 티켓 적용 -->
+    <update id="returnTicket" parameterType="ticketEntity">
+        UPDATE
+         USER_TICKET_MASTER
+        SET
+            ticket_avilable_amount = ticket_avilable_amount + ${serviceApplyTicketAmount}
+        WHERE
+          user_master_key  = #{userMasterKey}
+        AND
+        use_yn = 'Y'
     </update>
     <insert id="insertServiceTicketHistory" parameterType="ticketEntity">
         INSERT INTO
