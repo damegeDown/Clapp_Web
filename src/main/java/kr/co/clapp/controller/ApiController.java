@@ -252,7 +252,7 @@ public class ApiController {
         int timeDiff = 0;
 		try {
 			/** 외부 아이피 접근시 차단 */
-			if(!Utils.checkRemoteIp(request)) { 
+			if(!Utils.checkRemoteIp(request)) {
 				//apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
 				//return apiEntity;
 			}
@@ -304,7 +304,7 @@ public class ApiController {
 		}
 		return apiEntity;
 	}
-	
+
 	/**
 	 * 포인트 반환(시스템 오류시)
 	 * @param session
@@ -314,49 +314,64 @@ public class ApiController {
 	 */
 	@RequestMapping(value="doRecoveryTicket")
 	public ApiEntity doRecoveryTicket(
-			HttpSession session,
-			@RequestParam(required = false, value = "user_id") int user_id,
-			@RequestParam(required = false, value = "reservation_time") int reservation_time,
-			HttpServletRequest request
+            HttpSession session,
+            @RequestParam(required = false, value = "user_id") int user_id,
+            @RequestParam(required = false, value = "reservation_time") int reservation_time,
+            @RequestParam(required = false, value = "reservation_id") int reservation_id,
+            HttpServletRequest request
 			) {
-		ApiEntity apiEntity = new ApiEntity();
-		MemberEntity memberEntity = new MemberEntity();
-		TicketEntity ticketEntity = new TicketEntity();
+        ApiEntity apiEntity = new ApiEntity();
+        MemberEntity memberEntity = new MemberEntity();
+        TicketEntity ticketEntity = new TicketEntity();
         TicketEntity ticketInfo = new TicketEntity();
-		int reservationTicketAmount = 0;
-		int ticketAvilableAmount = 0;
-		int usedTicketAmount = 0;
-		try {
-			/** 외부 아이피 접근시 차단 */
-			if(!Utils.checkRemoteIp(request)) { 
-				//apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
-				//return apiEntity;
-			}
-			memberEntity.setUserMasterKey(user_id);
-			/** 넘어온 예약시간을 티켓수로 환산한다.*/
-			reservationTicketAmount= (reservation_time / CommonCode.TICKET_TIME) * 2;
+        int reservationTicketAmount = 0;
+        int ticketAvilableAmount = 0;
+        int usedTicketAmount = 0;
+        try {
+            /** 외부 아이피 접근시 차단 */
+            if(!Utils.checkRemoteIp(request)) {
+                //apiEntity.setResultState(ResultCode.IP_NOT_EQUALS);
+                //return apiEntity;
+            }
+            memberEntity.setUserMasterKey(user_id);
+            /** 넘어온 예약시간을 티켓수로 환산한다.*/
+            reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME);   //리턴 티켓
             ticketInfo = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
             ticketAvilableAmount = ticketInfo.getTicketAvilableAmount();
-			/** 사용가능한 티켓에 사용티켓을 더해서 사용가능 티켓을 구한다. */
-		    usedTicketAmount = ticketAvilableAmount + reservationTicketAmount;
-		    ticketEntity.setTicketAvilableAmount(usedTicketAmount);
-			ticketEntity.setUserMasterKey(user_id);
-			/** 티켓반환 */
-			if(ticketService.doUsedTicket(ticketEntity) > CommonCode.ZERO) {
-                ticketService.insertTicketProductService(ticketEntity);
-				apiEntity.setResultState(ResultCode.SUCCESS);
-				apiEntity.setReturnTicketAmount(reservationTicketAmount);
-				apiEntity.setTotalTicketAmount(usedTicketAmount);
-			} else {
-				apiEntity.setResultState(ResultCode.FAIL);
-				apiEntity.setErrorMessage(messages.getMessage("ticket.return.fail"));
-			}
-		} catch (Exception e) {
-			logger.error("ApiController.doRecoveryTicket:Faild" , e);
-			apiEntity.setErrorData(e);
-			apiEntity.setResultState(ResultCode.ERROR);
-		}
-		return apiEntity;
+            /** 사용가능한 티켓에 사용티켓을 더해서 사용가능 티켓을 구한다. */
+            usedTicketAmount = ticketAvilableAmount + reservationTicketAmount;
+            ticketEntity.setTicketAvilableAmount(usedTicketAmount);
+            ticketEntity.setUserMasterKey(user_id);
+            /** 티켓반환 */
+            if(ticketService.doUsedTicket(ticketEntity) > CommonCode.ZERO) {
+                List<String> userIdArr = new ArrayList<String>();
+                userIdArr.add(String.valueOf(user_id));
+                ticketEntity.setUserIdArr(userIdArr);
+                ticketEntity.setServiceTargetType("4");
+                ticketEntity.setServiceTargetName("예약취소");
+                ticketEntity.setProductName(ticketInfo.getProductName());
+                ticketEntity.setServiceApplyTicketAmount(reservationTicketAmount);
+                ticketEntity.setServiceApplyTicketTotalAmount(reservationTicketAmount);
+                ticketEntity.setServiceApplyReason("8");
+                ticketEntity.setTicketStartExpirationDate(ticketInfo.getTicketStartExpirationDate());
+                ticketEntity.setTicketEndExpirationDate(ticketInfo.getTicketEndExpirationDate());
+                ticketEntity.setServiceApplyOperatorName("system");
+                if(reservationTicketAmount > 0) //ticketService.insertTicketProductService(ticketEntity);
+                    ticketService.returnTicket(ticketEntity);
+
+                apiEntity.setResultState(ResultCode.SUCCESS);
+                apiEntity.setReturnTicketAmount(reservationTicketAmount);
+                apiEntity.setTotalTicketAmount(usedTicketAmount);
+            } else {
+                apiEntity.setResultState(ResultCode.FAIL);
+                apiEntity.setErrorMessage(messages.getMessage("ticket.return.fail"));
+            }
+        } catch (Exception e) {
+            logger.error("ApiController.doRecoveryTicket:Faild" , e);
+            apiEntity.setErrorData(e);
+            apiEntity.setResultState(ResultCode.ERROR);
+        }
+        return apiEntity;
 	}
 	/**
 	 * 사용가능 티켓 
