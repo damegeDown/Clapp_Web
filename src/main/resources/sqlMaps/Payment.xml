@@ -805,6 +805,7 @@
 		FROM (
 			SELECT
 				payment_date,
+				payment_cancel_date,
 				payment_state,
 				FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',payment_state) paymentStateText,
 				payment_product_name,
@@ -821,6 +822,7 @@
 			
 			SELECT
 				cm.contract_insert_date,
+				cm.contract_end_date,
 				cm.contract_state,
 -- 				if(now() > contract_end_date, '이용종료', if(contract_state = 1, '결제완료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state)))
                 '결제완료' paymentStateText,
