@@ -134,7 +134,7 @@
 					<tr>
 						<th>No</th>
 						<th>상품명</th>
-						<th>적용일시</th>
+						<th>예약(시작)시간</th>
 						<th>상태</th>
 						<th>티켓</th>
 						<th>유효기간</th>
@@ -151,7 +151,7 @@
                         <td>
                             ${history.productName}
                         </td>
-						<td><fmt:formatDate value="${history.ticketApplyDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td><fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${history.statusText}</td>
 						<td>${history.historyUsedTicketAmountText }</td>
 						<td>

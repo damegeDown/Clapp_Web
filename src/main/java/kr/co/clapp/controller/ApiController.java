@@ -287,7 +287,8 @@ public class ApiController {
                 ticketEntity.setTicketStartExpirationDate(ticketInfo.getTicketStartExpirationDate());
                 ticketEntity.setTicketEndExpirationDate(ticketInfo.getTicketEndExpirationDate());
                 ticketEntity.setServiceApplyOperatorName("system");
-                if(reservationTicketAmount > 0) //ticketService.insertTicketProductService(ticketEntity);
+                //티켓 반환으로 저장
+                if(reservationTicketAmount > 0) ticketService.insertTicketProductService(ticketEntity);
                 ticketService.returnTicket(ticketEntity);
 
                 apiEntity.setResultState(ResultCode.SUCCESS);
