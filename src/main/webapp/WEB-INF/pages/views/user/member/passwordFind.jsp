@@ -50,7 +50,7 @@ $(function() {
 	              data : { userId : userId},
 	              dataType : 'json', 
 	              success: function (result) {
-	                alert(result.resultMSG);
+	                alert('임시 비밀번호가 메일로 발송되었습니다.');
 	                if (result.resultCode == 'success') {
 	                    location.href = "/members/passwordFindComplete"; 
 	                    }
