@@ -380,7 +380,7 @@
 							<div class="subPGPVCBtnTitle">
 								<span class="subPGPVCMedium">개별 계약 상품</span>
 							</div>
-							<a href="${contextPath }/myClapp/myInquiry?inquiryCategory=3">
+							<a href="/introduction/supportInquire?inquiryCategory=3">
 								<div class="subPGPOCBtnImg">
 									<img src="${contextPath }/resources/images/buttons_inquire.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_inquire_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_inquire.png';" alt="" />
 								</div>
@@ -438,7 +438,7 @@
 							<div class="subPGPSCBtnSubTitle">
 								<span>월 5시간 이용 (월 20티켓 제공)</span>
 							</div>
-							<a href="${contextPath }/myClapp/myInquiry?inquiryCategory=3">
+							<a href="/introduction/supportInquire?inquiryCategory=3">
 								<div class="subPGPSCBtnImg">
 									<img src="${contextPath }/resources/images/buttons_inquire2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_inquire2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_inquire2.png';" alt="" />
 								</div>
@@ -500,7 +500,7 @@
 							<div class="subPGPECBtnSubTitle">
 								<span>월 20시간 이용 (월 80티켓 제공)</span>
 							</div>
-							<a href="${contextPath }/myClapp/myInquiry?inquiryCategory=3">
+							<a href="/introduction/supportInquire?inquiryCategory=3">
 								<div class="subPGPECBtnImg">
 									<img src="${contextPath }/resources/images/buttons_inquire2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_inquire2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_inquire2.png';" alt="" />
 								</div>
@@ -557,7 +557,7 @@
 							<div class="subPGPGCBtnTitle">
 								<span class="subPGPGCMedium">개별 계약 상품</span>
 							</div>
-							<a href="${contextPath }/myClapp/myInquiry?inquiryCategory=3">
+							<a href="/introduction/supportInquire?inquiryCategory=3">
 								<div class="subPGPGCBtnImg">
 									<img src="${contextPath }/resources/images/buttons_inquire2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_inquire2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_inquire2.png';" alt="" />
 								</div>
@@ -606,7 +606,7 @@
 							<div class="subPGPNCBtnTitle">
 								<span class="subPGPNCMedium">개별 계약 상품</span>
 							</div>
-							<a href="${contextPath }/myClapp/myInquiry?inquiryCategory=3">
+							<a href="/introduction/supportInquire?inquiryCategory=3">
 								<div class="subPGPNCBtnImg">
 									<img src="${contextPath }/resources/images/buttons_inquire2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_inquire2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_inquire2.png';" alt="" />
 								</div>
@@ -655,7 +655,7 @@
 							<div class="subPGPNCBtnTitle">
 								<span class="subPGPNCMedium">개별 계약 상품</span>
 							</div>
-							<a href="${contextPath }/myClapp/myInquiry?inquiryCategory=3">
+							<a href="/introduction/supportInquire?inquiryCategory=3">
 								<div class="subPGPNCBtnImg">
 									<img src="${contextPath }/resources/images/buttons_inquire2.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_inquire2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_inquire2.png';" alt="" />
 								</div>
