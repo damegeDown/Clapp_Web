@@ -590,7 +590,7 @@
   <select id="getBoardQnaList" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
     SELECT 
       BOARD_QNA_KEY,
-      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
+      FN_GET_COMMON_CODE_NAME('QNA_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
       QNA_QUESTION,
       QNA_ANSWER,
       QNA_TOP10_OPEN,
@@ -688,7 +688,7 @@
   <select id="getBoardQnaDetail" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
     SELECT
 			bq.BOARD_QNA_KEY,
-			FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
+			FN_GET_COMMON_CODE_NAME('QNA_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
 			bq.QNA_QUESTION,
 			bq.QNA_ANSWER,
 			bq.QNA_TOP10_OPEN,
@@ -915,7 +915,7 @@
   <select id="getBoardQnaUserList" parameterType="boardQnaEntity" resultType="boardQnaEntity" >
     SELECT 
       bq.BOARD_QNA_KEY,
-      FN_GET_COMMON_CODE_NAME('INQUIRY_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
+      FN_GET_COMMON_CODE_NAME('QNA_CATEGORY', QNA_CATEGORY) QNA_CATEGORY,
       bq.QNA_QUESTION,
       bq.QNA_ANSWER,
       bq.QNA_TOP10_OPEN,

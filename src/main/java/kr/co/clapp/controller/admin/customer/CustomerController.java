@@ -1,26 +1,21 @@
 package kr.co.clapp.controller.admin.customer;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
 import kr.co.clapp.constants.CommonCode;
-import kr.co.clapp.entities.BoardNoticeEntity;
-import kr.co.clapp.entities.BoardQnaEntity;
-import kr.co.clapp.entities.CabledAdviceEntity;
-import kr.co.clapp.entities.CommonCodeEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.customer.CustomerService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/admin/customer")
@@ -79,7 +74,7 @@ public class CustomerController {
   	  commonCode.put("subMenu", "serviceInquiry");
   	  model.addAttribute("CommonCode", commonCode);
   	} catch (Exception e) {
-  	  logger.error("CustomerController.serviceInquiryList:Faild" , e);	
+  	  logger.error("CustomerController.serviceInquiryList:Failed" , e);
   	}
   	return "admin/customer/serviceInquiryList";
   }
@@ -108,14 +103,14 @@ public class CustomerController {
 	  commonCode.put("mainMenu", "permissionCustomer");								// left main menu 
 	  model.addAttribute("CommonCode", commonCode);
 	} catch (Exception e) {
-	  logger.error("CustomerController.serviceInquiryDetail:Faild" , e);
+	  logger.error("CustomerController.serviceInquiryDetail:Failed" , e);
 	}
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/serviceInquiryDetail";
   }
   /**
    * 유선 상담 내역 목록
-   * @param serviceInquiryEntity
+   * @param cabledAdviceEntity
    * @param model
    * @return
    */
@@ -146,7 +141,7 @@ public class CustomerController {
   	  commonCode.put("subMenu", "cabledAdvice");
   	  model.addAttribute("CommonCode", commonCode);
   	} catch (Exception e) {
-  	  logger.error("CustomerController.cabledAdviceList:Faild" , e);	
+  	  logger.error("CustomerController.cabledAdviceList:Failed" , e);
   	}
   	return "admin/customer/cabledAdviceList";
   }
@@ -168,7 +163,7 @@ public class CustomerController {
 	  commonCode.put("mainMenu", "permissionCustomer"); 										// left main menu 
 	  model.addAttribute("CommonCode", commonCode);
 	} catch (Exception e) {
-	  logger.error("CustomerController.cabledAdviceDetail:Faild" , e);
+	  logger.error("CustomerController.cabledAdviceDetail:Failed" , e);
 	}
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/cabledAdviceDetail";
@@ -213,7 +208,7 @@ public class CustomerController {
 	  commonCode.put("mainMenu", "permissionCustomer"); 										// left main menu 
 	  model.addAttribute("CommonCode", commonCode);
 	} catch (Exception e) {
-	  logger.error("CustomerController.cabledAdviceForm:Faild" , e);
+	  logger.error("CustomerController.cabledAdviceForm:Failed" , e);
 	}
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/cabledAdviceForm";
@@ -248,7 +243,7 @@ public class CustomerController {
   	  commonCode.put("subMenu", "boardNotice");
   	  model.addAttribute("CommonCode", commonCode);
   	} catch (Exception e) {
-  	  logger.error("CustomerController.boardNoticeList:Faild" , e);	
+  	  logger.error("CustomerController.boardNoticeList:Failed" , e);
   	}
   	return "admin/customer/boardNoticeList";
   }
@@ -277,7 +272,7 @@ public class CustomerController {
 	  commonCode.put("mainMenu", "permissionCustomer");										 // left main menu 
 	  model.addAttribute("CommonCode", commonCode);
 	} catch (Exception e) {
-	  logger.error("CustomerController.boardNoticeDetail:Faild" , e);
+	  logger.error("CustomerController.boardNoticeDetail:Failed" , e);
 	}
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/boardNoticeDetail";
@@ -314,7 +309,7 @@ public class CustomerController {
 	  commonCode.put("mainMenu", "permissionCustomer");										 // left main menu 
 	  model.addAttribute("CommonCode", commonCode);
 	} catch (Exception e) {
-	  logger.error("CustomerController.boardNoticeDetail:Faild" , e);
+	  logger.error("CustomerController.boardNoticeDetail:Failed" , e);
 	}
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/boardNoticeModify";
@@ -331,7 +326,7 @@ public class CustomerController {
 	  //공통코드 
 	  CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
 	  //공통코드 이메일답변 분류 
-	  commonCodeEntity.setCodeMasterCode(CommonCode.INQUIRY_CATEGORY);
+	  commonCodeEntity.setCodeMasterCode(CommonCode.QNA_CATEGORY);
 	  //공통코드 이메일답변 분류 코드
 	  List<CommonCodeEntity> qnaCategoryCode = commonService.getCommonCodeList(commonCodeEntity);
   	  //공통코드 10개,20개,50개,100개씩보기
@@ -350,7 +345,7 @@ public class CustomerController {
   	  commonCode.put("subMenu", "boardQna");
   	  model.addAttribute("CommonCode", commonCode);
   	} catch (Exception e) {
-  	  logger.error("CustomerController.boardQnaList:Faild" , e);	
+  	  logger.error("CustomerController.boardQnaList:Failed" , e);
   	}
   	return "admin/customer/boardQnaList";
   }
@@ -376,13 +371,13 @@ public class CustomerController {
 	  commonCode.put("mainMenu", "permissionCustomer");										 // left main menu 
 	  model.addAttribute("CommonCode", commonCode);
 	} catch (Exception e) {
-	  logger.error("CustomerController.boardQnaDetail:Faild" , e);
+	  logger.error("CustomerController.boardQnaDetail:Failed" , e);
 	}
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/boardQnaDetail";
   }
   /**
-   * 도움말 관리 상세
+   * 도움말 관리 등록/수정
    * @param boardQnaEntity
    * @param model
    * @return
@@ -397,7 +392,7 @@ public class CustomerController {
 	  //공통코드 
 	  CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
 	  //공통코드 유선상담 분류
-	  commonCodeEntity.setCodeMasterCode(CommonCode.INQUIRY_CATEGORY);
+	  commonCodeEntity.setCodeMasterCode(CommonCode.QNA_CATEGORY);
 	  //공통코드 유선상담 분류 코드
 	  List<CommonCodeEntity> qnaCategoryCode = commonService.getCommonCodeList(commonCodeEntity);
 	  if(boardQnaEntity.getBoardQnaKey() > CommonCode.ZERO) {
@@ -417,7 +412,7 @@ public class CustomerController {
 	  commonCode.put("mainMenu", "permissionCustomer");										 // left main menu 
 	  model.addAttribute("CommonCode", commonCode);
 	} catch (Exception e) {
-	  logger.error("CustomerController.boardQnaDetail:Faild" , e);
+	  logger.error("CustomerController.boardQnaDetail:Failed" , e);
 	}
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/boardQnaModify";

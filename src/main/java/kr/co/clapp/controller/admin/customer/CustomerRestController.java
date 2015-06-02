@@ -1,33 +1,22 @@
 package kr.co.clapp.controller.admin.customer;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.entities.AdministrationFileEntity;
-import kr.co.clapp.entities.BoardNoticeEntity;
-import kr.co.clapp.entities.BoardQnaEntity;
-import kr.co.clapp.entities.CabledAdviceEntity;
-import kr.co.clapp.entities.MemberEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.service.customer.CustomerService;
 import kr.co.clapp.service.file.AdministrationFileService;
 import kr.co.clapp.service.mailing.MailingService;
 import kr.co.digigroove.commons.entities.SavedFileEntity;
 import kr.co.digigroove.commons.messages.Messages;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -50,7 +39,7 @@ public class CustomerRestController {
 	
 	/**
 	 * 이메일 문의 답변 등록
-	 * @param boardEntity
+	 * @param serviceInquiryEntity
 	 * @return
 	 */
 	@RequestMapping(value = "/insertServiceInquiryAnswer",  method = RequestMethod.POST)
@@ -79,7 +68,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.insertServiceInquiryAnswer:Faild" , e);
+		logger.error("CustomerRestController.insertServiceInquiryAnswer:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("insert.fail"));
 	  }
@@ -104,7 +93,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.insertcabledAdvice:Faild" , e);
+		logger.error("CustomerRestController.insertCabledAdvice:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("insert.fail"));
 	  }
@@ -112,7 +101,7 @@ public class CustomerRestController {
 	}
 	/**
 	 * 유선 상담 등록 완료
-	 * @param boardEntity
+	 * @param cabledAdviceEntity
 	 * @return
 	 */
 	@RequestMapping(value = "/modifyCabledAdvice",  method = RequestMethod.POST)
@@ -130,7 +119,7 @@ public class CustomerRestController {
 		result.setResultMSG(resultMessage);
 		result.setResultURL("/admin/customer/cabledAdviceList");
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.modifyCabledAdvice:Faild" , e);
+		logger.error("CustomerRestController.modifyCabledAdvice:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("modify.fail"));
 	  }
@@ -163,7 +152,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.insertBoardNotice:Faild" , e);
+		logger.error("CustomerRestController.insertBoardNotice:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("insert.fail"));
 	  }
@@ -201,7 +190,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.modifyBoardNotice:Faild" , e);
+		logger.error("CustomerRestController.modifyBoardNotice:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("modify.fail"));
 	  }
@@ -229,7 +218,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.removeBoardNotice:Faild" , e);
+		logger.error("CustomerRestController.removeBoardNotice:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("remove.fail"));
 	  }
@@ -262,7 +251,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.insertBoardQna:Faild" , e);
+		logger.error("CustomerRestController.insertBoardQna:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("insert.fail"));
 	  }
@@ -300,7 +289,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.modifyBoardQna:Faild" , e);
+		logger.error("CustomerRestController.modifyBoardQna:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("modify.fail"));
 	  }
@@ -328,7 +317,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.removeBoardQna:Faild" , e);
+		logger.error("CustomerRestController.removeBoardQna:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("remove.fail"));
 	  }
@@ -353,7 +342,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.qnaTop10Open:Faild" , e);
+		logger.error("CustomerRestController.qnaTop10Open:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("qnaTop10open.fail"));
 	  }
@@ -378,7 +367,7 @@ public class CustomerRestController {
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {
-		logger.error("CustomerRestController.qnaTop10Close:Faild" , e);
+		logger.error("CustomerRestController.qnaTop10Close:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("qnaTop10close.fail"));
 	  }

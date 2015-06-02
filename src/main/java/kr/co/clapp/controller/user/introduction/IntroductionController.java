@@ -1,26 +1,13 @@
 package kr.co.clapp.controller.user.introduction;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.entities.AdministrationFileEntity;
-import kr.co.clapp.entities.BoardEntity;
-import kr.co.clapp.entities.BoardNoticeEntity;
-import kr.co.clapp.entities.BoardQnaEntity;
-import kr.co.clapp.entities.CommonCodeEntity;
-import kr.co.clapp.entities.EcrmEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.entities.validation.FormBindingResultEntity;
 import kr.co.clapp.entities.validation.FormInquireInfoEntity;
 import kr.co.clapp.entities.validation.FormInquireInfoEntity.InquiryPass;
-import kr.co.clapp.entities.validation.FormRecruitInfoEntity.RecruitPass;
 import kr.co.clapp.entities.validation.FormRecruitInfoEntity;
+import kr.co.clapp.entities.validation.FormRecruitInfoEntity.RecruitPass;
 import kr.co.clapp.service.board.BoardService;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.customer.CustomerService;
@@ -30,8 +17,6 @@ import kr.co.clapp.utils.ValidationResultUtils;
 import kr.co.digigroove.commons.entities.SavedFileEntity;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.FileUtils;
-import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +30,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/introduction")
@@ -84,7 +74,7 @@ public class IntroductionController {
 		boardEntity = boardService.getBoardSocialBlogUserList(boardEntity);
 		model.addAttribute("boardEntity", boardEntity);
 		}catch (Exception e){
-			logger.debug("IntroductionController.newsArticleList:fail : "+e);
+			logger.debug("IntroductionController.newsArticleList:Failed", e);
 		}
 		return "user/introduction/newsArticleList";
 	}
@@ -134,7 +124,7 @@ public class IntroductionController {
 			boardNoticeEntity = customerService.getBoardNoticeUserList(boardNoticeEntity);
 			model.addAttribute("boardNoticeEntity", boardNoticeEntity);
 		}catch(Exception e){
-			logger.error("IntroductionController.supportCustomerList:Faild" , e);	
+			logger.error("IntroductionController.supportCustomerList:Failed" , e);
 		}
 		return "user/introduction/supportCustomerList";
 	}
@@ -151,7 +141,7 @@ public class IntroductionController {
 			boardNoticeInfo = customerService.getBoardNoticeUserDetail(boardNoticeEntity);
 			model.addAttribute("supportCustomerDetail", boardNoticeInfo);
 		} catch (Exception e) {
-			logger.error("IntroductionController.supportCustomerDetail:Faild" , e);	
+			logger.error("IntroductionController.supportCustomerDetail:Failed" , e);
 		}
 		return "user/introduction/supportCustomerDetail";
 	}
@@ -162,14 +152,14 @@ public class IntroductionController {
 	public String supportQnaList(BoardQnaEntity boardQnaEntity, Model model){
 		try{
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
-			commonCodeEntity.setCodeMasterCode(CommonCode.INQUIRY_CATEGORY);
+			commonCodeEntity.setCodeMasterCode(CommonCode.QNA_CATEGORY);
 			List<CommonCodeEntity> qnaCategoryCode = commonService.getCommonCodeList(commonCodeEntity);
 			boardQnaEntity = customerService.getBoardQnaUserList(boardQnaEntity);
 			model.addAttribute("boardQnaEntity", boardQnaEntity);
 			model.addAttribute("qnaCategoryCode", qnaCategoryCode);
 			model.addAttribute("CommonCode", commonCode);
 		} catch (Exception e){
-			logger.error("IntroductionController.supportQnaList:Faild" , e);	
+			logger.error("IntroductionController.supportQnaList:Failed" , e);
 		}
 		return "user/introduction/supportQnaList";
 	}
@@ -186,7 +176,7 @@ public class IntroductionController {
   	  	List<CommonCodeEntity> cellPhoneCode = commonService.getCommonCodeList(commonCodeEntity);
   	  	model.addAttribute("cellPhoneCode", cellPhoneCode);	
 		} catch (Exception e){
-			logger.error("IntroductionController.supportInquire:Faild" , e);
+			logger.error("IntroductionController.supportInquire:Failed" , e);
 		}
   	  	model.addAttribute("inquiryInfo", inquiryEntity);
 		return "user/introduction/supportInquire";
@@ -249,7 +239,7 @@ public class IntroductionController {
 //		result.setResultCode(resultCode);
 //		result.setResultMSG(resultMessage);  
 	  } catch (Exception e) {
-		logger.error("IntroductionRestController.insertSupportInquire:Faild" , e);
+		logger.error("IntroductionRestController.insertSupportInquire:Failed" , e);
 		result.setResultCode(ResultCode.FAIL);
 		result.setResultMSG(messages.getMessage("insert.fail"));
 	  }
@@ -267,7 +257,7 @@ public class IntroductionController {
 			administrationFileService.removeAdministrationFile(administrationFileEntity);
 			saveFileList = administrationFileService.saveFileForFormData(req, administrationFileEntity);
 		} catch (Exception e) {
-			logger.error("IntroductionRestController.saveFileForFormData" , e);
+			logger.error("IntroductionRestController.saveFileForFormData:Failed" , e);
 		}
 		
 		return saveFileList;
@@ -316,7 +306,7 @@ public class IntroductionController {
 			 returnUrl = "introduction/popup/companyApplicationComplete";
 		}
 	  } catch (Exception e) {
-		logger.error("IntroductionRestController.insertSupportInquire:Faild" , e);
+		logger.error("IntroductionRestController.insertSupportInquire:Failed" , e);
 	  }
 	  return returnUrl;
 	}

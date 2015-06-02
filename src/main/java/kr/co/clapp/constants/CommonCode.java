@@ -54,6 +54,7 @@ public class CommonCode {
 	public static final String SERVICE_TARGET_TYPE = "SERVICE_TARGET_TYPE";					//회원타입 1: 회원전체, 2:일반 전체, 3:기업/단체 전체, 4:개별 계정
 	public static final String RESERVATION_STATUS = "RESERVATION_STATUS";		//예약 상태
 	public static final String PAYMENT_TYPE = "PAYMENT_TYPE";		//결제방법
+	public static final String QNA_CATEGORY = "QNA_CATEGORY";		//도움말 카테고리
 	public static final int TICKET_TIME = 30;						// 티켓 당 사용 시간
 	
 	
