@@ -143,26 +143,24 @@
 								<td colspan="6">++조회내용이 없습니다.++</td>
 							</tr>
 						</c:if>
-						<c:forEach items="${paymentInfo.paymentList }" var="payment" varStatus="i">
+						<c:forEach items="${paymentInfo.paymentList}" var="payment" varStatus="i">
 							<tr>
 								<td>${paymentInfo.dataSize-(paymentInfo.pageListSize*(paymentInfo.currentPage-1))-i.index}</td>
 								<td>
 									<c:choose>
-										<c:when test="${payment.paymentState eq 2}">
-											-
-										</c:when>
+										<c:when test="${payment.paymentState eq 2}">-</c:when>
 										<c:when test="${payment.paymentState eq 3}">
-											<fmt:formatDate value="${payment.paymentCancelDate}" pattern="yyyy-MM-dd HH:mm"/>
+											<fmt:formatDate value="${payment.paymentCancelDate}" pattern="yyyy-MM-dd HH:mm" />
 										</c:when>
 										<c:otherwise>
-											<fmt:formatDate value="${payment.paymentDate}" pattern="yyyy-MM-dd HH:mm"/>
+											<fmt:formatDate value="${payment.paymentDate}" pattern="yyyy-MM-dd HH:mm" />
 										</c:otherwise>
 									</c:choose>
 								</td>
-								<td>${payment.paymentStateText }</td>
-								<td>${payment.paymentProductName }</td>
+								<td>${payment.paymentStateText}</td>
+								<td>${payment.paymentProductName}</td>
 								<td>
-										${payment.paymentTypeText }&nbsp;
+										${payment.paymentTypeText}&nbsp;
 									<c:if test="${payment.paymentTid ne '0' and payment.paymentType ne 'SC0040' and payment.paymentState ne '2'}">
 										<button class="goBtn" onclick="javascript:showReceiptByTID('${paymentInfo.mid}', '${payment.paymentTid}', '${payment.authData }')">전표보기</button>
 									</c:if>

@@ -805,12 +805,12 @@
 		FROM (
 			SELECT
 				payment_date,
-				payment_cancel_date,
+				DATE_FORMAT(payment_cancel_date, '%Y-%m-%d %H:%i:%s') AS paymentCancelDate,
 				payment_state,
-				FN_GET_COMMON_CODE_NAME('PAYMENT_STATE',payment_state) paymentStateText,
+				FN_GET_COMMON_CODE_NAME('PAYMENT_STATE', payment_state) AS paymentStateText,
 				payment_product_name,
 				payment_type,
-				FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE', payment_type) paymentTypeText,
+				FN_GET_COMMON_CODE_NAME('PAYMENT_TYPE', payment_type) AS paymentTypeText,
 				payment_tid,
 				payment_product_price paymentTotalPrice
 			FROM 
@@ -824,8 +824,10 @@
 				cm.contract_insert_date,
 				cm.contract_end_date,
 				cm.contract_state,
--- 				if(now() > contract_end_date, '이용종료', if(contract_state = 1, '결제완료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE',contract_state)))
-                '결제완료' paymentStateText,
+-- 				IF(DATE_FORMAT(NOW(), '%Y-%m-%d') <![CDATA[ > ]]> contract_end_date, '이용종료'
+-- 					, IF(contract_state = 1, '결제완료', FN_GET_COMMON_CODE_NAME('CONTRACT_STATE', contract_state))
+-- 					) AS paymentStateText,
+        '결제완료' AS paymentStateText,
 				cm.contract_product_name,
 				0,
 				cm.contract_payment_method,
