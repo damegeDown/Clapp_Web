@@ -135,5 +135,18 @@ public class CommonCode {
 		/** 관리자 세션 */
 		public final static String ADMIN_LOGIN_SESSION = "adminLoginSession";
 	}
-	
+
+	/**
+	 * 파일 크기 제한
+	 */
+	public enum FileLimit {
+		INQUIRE(1);
+		public int size;
+		public String text;
+		FileLimit(int value) {
+			this.size = value * 1000000;
+			this.text = value + "MB";
+		}
+	}
+
 }

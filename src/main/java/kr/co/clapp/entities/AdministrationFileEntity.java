@@ -1,9 +1,11 @@
 package kr.co.clapp.entities;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
+import static kr.co.clapp.constants.CommonCode.FileLimit;
 
 public class AdministrationFileEntity extends PageEntity implements Serializable{
 	private static final long serialVersionUID =1L;
@@ -23,6 +25,7 @@ public class AdministrationFileEntity extends PageEntity implements Serializable
 	private int fileWidth;				// 파일 넓이 
 	private int fileHeight;				// 파일 높이
 	private String fileType;				// 파일 타입
+	private FileLimit fileLimit; // 파일 크기 제한
 	
 	private String fileTargetKeyText;		// 파일 대상키
 	private String fileTargetText;			// 파일 대상
@@ -37,7 +40,13 @@ public class AdministrationFileEntity extends PageEntity implements Serializable
 	private List<MultipartFile> fileList;
 	private List<AdministrationFileEntity> saveFileList;
 	private List<AdministrationFileEntity> saveThumbFileList;
-	
+
+	public FileLimit getFileLimit() {
+		return fileLimit;
+	}
+	public void setFileLimit(FileLimit fileLimit) {
+		this.fileLimit = fileLimit;
+	}
 	public int getFileKey() {
 		return fileKey;
 	}

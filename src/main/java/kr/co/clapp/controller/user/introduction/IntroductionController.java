@@ -1,11 +1,8 @@
 package kr.co.clapp.controller.user.introduction;
 
 import kr.co.clapp.constants.CommonCode;
-import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.entities.*;
 import kr.co.clapp.entities.validation.FormBindingResultEntity;
-import kr.co.clapp.entities.validation.FormInquireInfoEntity;
-import kr.co.clapp.entities.validation.FormInquireInfoEntity.InquiryPass;
 import kr.co.clapp.entities.validation.FormRecruitInfoEntity;
 import kr.co.clapp.entities.validation.FormRecruitInfoEntity.RecruitPass;
 import kr.co.clapp.service.board.BoardService;
@@ -197,75 +194,8 @@ public class IntroductionController {
 	}
 	
 	/**
-	 * 서비스별 문의 등록
-	 * @param inquiryEntity
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value = "/insertSupportInquire",  method = RequestMethod.POST)
-	public String insertInquiry(
-			@ModelAttribute("formInquireInfoEntity") @Validated(InquiryPass.class) FormInquireInfoEntity formInquireInfoEntity,
-			BindingResult bindingResult,Model model,
-			ServiceInquiryEntity inquiryEntity, MultipartHttpServletRequest req) {
-      ResponseEntity result = new ResponseEntity();
-	  AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
-	  FormBindingResultEntity resultEntity = new FormBindingResultEntity();
-	  String returnUrl = "user/introduction/supportInquire";
-	  try {
-		 /*공통코드*/
-		CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
-		/*공통코드 핸드폰*/
-  	  	commonCodeEntity.setCodeMasterCode(CommonCode.CELL_PHONE_NUM);
-  	  	List<CommonCodeEntity> cellPhoneCode = commonService.getCommonCodeList(commonCodeEntity);
-  	  	model.addAttribute("cellPhoneCode", cellPhoneCode);	
-		String resultCode = ResultCode.FAIL;
-		String resultMessage = messages.getMessage("insert.fail");
-		resultEntity.setResultEntity(ValidationResultUtils.formValidationResult(formInquireInfoEntity, InquiryPass.class));
-		if(resultEntity.getCode().equals(CommonCode.SUCCESS)) {
-			if(customerService.insertInquiry(inquiryEntity) > CommonCode.ZERO) {
-			  resultCode = ResultCode.SUCCESS; 
-			  resultMessage = messages.getMessage("insert.success"); 
-			  result.setResultURL("/introduction/supportInquireComplete");
-			  returnUrl = "user/introduction/supportInquireComplete";
-			  // 파일 업로드
-			  if(req.getFileNames().hasNext()) { 
-				  administrationFileEntity.setFileTargetKey(inquiryEntity.getServiceInquiryKey());
-				  administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_INQUIRY);
-				  administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
-				  this.saveFileForFormData(req, administrationFileEntity);
-			  }
-			}
-		}
-//		result.setResultCode(resultCode);
-//		result.setResultMSG(resultMessage);  
-	  } catch (Exception e) {
-		logger.error("IntroductionRestController.insertSupportInquire:Failed" , e);
-		result.setResultCode(ResultCode.FAIL);
-		result.setResultMSG(messages.getMessage("insert.fail"));
-	  }
-	  return returnUrl;
-	}
-	/**
-	 * 파일 저장
-	 * @param req
-	 * @param administrationFileEntity
-	 * @return
-	 */
-	public List<SavedFileEntity> saveFileForFormData(MultipartHttpServletRequest req, AdministrationFileEntity administrationFileEntity) {
-		List<SavedFileEntity> saveFileList = new ArrayList<SavedFileEntity>();
-		try {
-			administrationFileService.removeAdministrationFile(administrationFileEntity);
-			saveFileList = administrationFileService.saveFileForFormData(req, administrationFileEntity);
-		} catch (Exception e) {
-			logger.error("IntroductionRestController.saveFileForFormData:Failed" , e);
-		}
-		
-		return saveFileList;
-	}
-	
-	/**
 	 * 입사지원
-	 * @param inquiryEntity
+	 * @param formRecruitInfoEntity
 	 * @param req
 	 * @return
 	 */

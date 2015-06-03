@@ -1,25 +1,5 @@
 package kr.co.clapp.service.file.impl;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.dao.AdministrationFileDAO;
 import kr.co.clapp.entities.AdministrationFileEntity;
@@ -27,6 +7,24 @@ import kr.co.clapp.entities.DeviceEntity;
 import kr.co.clapp.service.file.AdministrationFileService;
 import kr.co.digigroove.commons.entities.SavedFileEntity;
 import kr.co.digigroove.commons.utils.FileUtils;
+import org.apache.commons.fileupload.FileUploadException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class AdministrationFileServiceImpl implements AdministrationFileService {
@@ -38,7 +36,7 @@ public class AdministrationFileServiceImpl implements AdministrationFileService 
 	
 	/**
 	 * 파일 저장 후 정보 리턴 (Basic)
-	 * @param commonAttach (targetType, fileList)
+	 * @param deviceEntity (targetType, fileList)
 	 * @return
 	 * @throws Exception
 	 */
@@ -59,66 +57,61 @@ public class AdministrationFileServiceImpl implements AdministrationFileService 
 	/**
 	 * 파일 저장 후 정보 리턴 (FormData)
 	 * @param req
-	 * @param targetType
+	 * @param administrationFileEntity
 	 * @return
 	 * @throws Exception
 	 */
 	@Override
 	@Transactional(readOnly=false, rollbackFor = Exception.class)
 	public List<SavedFileEntity> saveFileForFormData(MultipartHttpServletRequest req, AdministrationFileEntity administrationFileEntity) throws Exception {
-		//파일 저장 정보 
+		// 파일 저장 정보
 		List<SavedFileEntity> savedFileList = new ArrayList<SavedFileEntity>();
-		
-		//Administration_file 에 저장될 이미지 정보
+		// Administration_file 에 저장될 이미지 정보
 		AdministrationFileEntity insertInfo = new AdministrationFileEntity();
 		List<AdministrationFileEntity> insertFileList = new ArrayList<AdministrationFileEntity>();
-
-		//Administration_file 에 저장될 thumb 이미지 정보
+		// Administration_file 에 저장될 thumb 이미지 정보
 		List<AdministrationFileEntity> savedThumbFileList = new ArrayList<AdministrationFileEntity>();
-		
-		//넘어온 이미지를 저장.
+		// 넘어온 이미지를 저장.
 		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
-		
-		//파일 경로
+		// 파일 경로
 		String path = filePath + administrationFileEntity.getFileTarget() + "/";
 		Iterator<String> itr = req.getFileNames();
+		// 파일 제한
+		CommonCode.FileLimit fileLimit = administrationFileEntity.getFileLimit();
 		int i = 0;
 		while (itr.hasNext()) { fileList.add(req.getFile(itr.next())); }
-		if (fileList != null) {
-			for (MultipartFile file : fileList) {
-				savedFileList.add(FileUtils.saveFile(path, file));
-				insertInfo.setFileTargetKey(administrationFileEntity.getFileTargetKey());		//타켓 키
-				insertInfo.setFileTarget(administrationFileEntity.getFileTarget());				//타켓
-				insertInfo.setFileName(savedFileList.get(i).getOriginalFileName());				//원본 이름
-				insertInfo.setFileSavedName(savedFileList.get(i).getSavedFileName());			//저장 이름
-				insertInfo.setFilePath(savedFileList.get(i).getSavedPath());					//경로
-				insertInfo.setFileExtension(savedFileList.get(i).getSavedFileExtension());		//확장자	
-				insertInfo.setFileSize((int)savedFileList.get(i).getSavedFileSize());			//사이즈
-				insertInfo.setFileType(CommonCode.FILE_ORI_TYPE);								//타입 1: 일반, 2: 썸네일
-				
-				insertFileList.add(insertInfo);
-				
-				//썸네일을 생성할 경우
-				if(CommonCode.FILE_THUMB_Y.equals(administrationFileEntity.getThumbYn())) {
-					savedThumbFileList.add(this.saveThumbFileForFormData(insertInfo));
-				}
-				i++;
-			}
-			//일반 파일
-			administrationFileEntity.setSaveFileList(insertFileList);
-			this.insertSavedFileInfo(administrationFileEntity);
-
-			//썸네일 파일			
+		for (MultipartFile file : fileList) {
+			if (fileLimit != null && fileLimit.size < file.getSize()) throw new FileUploadException(fileLimit.text);
+			savedFileList.add(FileUtils.saveFile(path, file));
+			insertInfo.setFileTargetKey(administrationFileEntity.getFileTargetKey());		//타켓 키
+			insertInfo.setFileTarget(administrationFileEntity.getFileTarget());				//타켓
+			insertInfo.setFileName(savedFileList.get(i).getOriginalFileName());				//원본 이름
+			insertInfo.setFileSavedName(savedFileList.get(i).getSavedFileName());			//저장 이름
+			insertInfo.setFilePath(savedFileList.get(i).getSavedPath());					//경로
+			insertInfo.setFileExtension(savedFileList.get(i).getSavedFileExtension());		//확장자
+			insertInfo.setFileSize((int)savedFileList.get(i).getSavedFileSize());			//사이즈
+			insertInfo.setFileType(CommonCode.FILE_ORI_TYPE);								//타입 1: 일반, 2: 썸네일
+			insertFileList.add(insertInfo);
+			//썸네일을 생성할 경우
 			if(CommonCode.FILE_THUMB_Y.equals(administrationFileEntity.getThumbYn())) {
-				administrationFileEntity.setSaveFileList(savedThumbFileList);
-				this.insertSavedFileInfo(administrationFileEntity);
+				savedThumbFileList.add(this.saveThumbFileForFormData(insertInfo));
 			}
+			i++;
+		}
+		//일반 파일
+		administrationFileEntity.setSaveFileList(insertFileList);
+		this.insertSavedFileInfo(administrationFileEntity);
+		//썸네일 파일
+		if(CommonCode.FILE_THUMB_Y.equals(administrationFileEntity.getThumbYn())) {
+			administrationFileEntity.setSaveFileList(savedThumbFileList);
+			this.insertSavedFileInfo(administrationFileEntity);
 		}
 		return savedFileList;
 	}
+
 	/**
 	 * 썸네일 생성
-	 * @param req
+	 * @param fileInfo
 	 * @return
 	 */
 	@Override
@@ -166,7 +159,7 @@ public class AdministrationFileServiceImpl implements AdministrationFileService 
 	}
 	/**
 	 * 저장된 파일리스트 받아 DB에 저장
-	 * @param savedInfo (targetType, targetKey, savedFileList)
+	 * @param administrationFileEntity (targetType, targetKey, savedFileList)
 	 * @return
 	 * @throws Exception
 	 */
