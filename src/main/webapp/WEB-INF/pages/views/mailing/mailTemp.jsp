@@ -29,7 +29,7 @@ a:hover {
 					<img src="$contextPath/resources/images/ecrm_00_kv_logo.png" border="0" alt="클앱 홈으로 이동" width="425" height="80">
 				</a>
 			</span> 
-			<span style="float: left; height:41px">
+			<span style="float: left; height:41px;line-height:0.5px;">
 				<img src="$contextPath/resources/images/ecrm_00_kv_topimg.png" border="0" width="276" height="41" />
 			</span> 
 			<span style="float: left">
@@ -66,7 +66,7 @@ a:hover {
 					<img src="$contextPath/resources/images/ecrm_00_banner_testing.png" width="334" height="189" border="0" alt="클앱 테스팅">
 				</a>
 			</span> 
-			<span style="float: left">
+			<span style="float: left;line-height:0.5px;">
 				<a href="$contextPath/clappTesting/autoMain">
 					<img src="$contextPath/resources/images/ecrm_00_banner_automation.png" width="330" height="97" border="0" alt="클앱 자동화">
 				</a>
@@ -85,10 +85,10 @@ a:hover {
 					<img src="$contextPath/resources/images/ecrm_00_footer_logo.png" width="164" height="174" border="0" alt="클앱 홈으로 이동">
 				</a>
 			</span> 
-			<span style="float: left; height:28px">
+			<span style="float: left; height:28px;line-height:0.5px;">
 				<img src="$contextPath/resources/images/ecrm_00_footer_topimg.png" width="536" height="28" border="0">
 			</span> 
-			<span style="float: left; height:51px">
+			<span style="float: left; height:51px;line-height:0.5px;">
 				<a href="$contextPath/introduction/supportCustomerList">
 					<img src="$contextPath/resources/images/ecrm_00_footer_gosupport.png" width="536" height="51" border="0" alt="클앱 고객지원">
 				</a>
