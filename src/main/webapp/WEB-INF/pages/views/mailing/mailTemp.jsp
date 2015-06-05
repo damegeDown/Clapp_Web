@@ -30,7 +30,7 @@ a:hover {
 				</a>
 			</span> 
 			<span style="float: left; height:41px;line-height:0.5px;">
-				<img src="$contextPath/resources/images/ecrm_00_kv_topimg.png" border="0" width="276" height="41" />
+				<img src="$contextPath/resources/images/ecrm_00_kv_topimg.png" border="0" width="275" height="41" />
 			</span> 
 			<span style="float: left">
 				<a href="$contextPath/">
@@ -49,7 +49,7 @@ a:hover {
 			</span> 
 			<span style="float: left">
 				<a href="$contextPath/introduction/supportCustomerList">
-					<img src="$contextPath/resources/images/ecrm_00_kv_support.png" border="0" width="87" height="39" alt="고객 지원">
+					<img src="$contextPath/resources/images/ecrm_00_kv_support.png" border="0" width="86" height="39" alt="고객 지원">
 				</a>
 			</span>
 		</div>
