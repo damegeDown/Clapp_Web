@@ -90,5 +90,7 @@ public interface TicketService {
      int selectTimeDiff(int reservation_id);
 
     int returnTicket(TicketEntity ticketEntity);
+
+    int chkReservation(int reservation_id);
 }
 

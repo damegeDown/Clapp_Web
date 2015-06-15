@@ -1273,4 +1273,13 @@
         WHERE
             id = #{reservation_id}
     </select>
+    <!-- 티켓 사용 내역 카운트 -->
+    <select id="chkReservation" parameterType="int" resultType="int">
+      SELECT
+        COUNT(*)
+      FROM
+        system.v_reservations_all
+      WHERE
+        id = #{reservation_id}
+    </select>
 </mapper>

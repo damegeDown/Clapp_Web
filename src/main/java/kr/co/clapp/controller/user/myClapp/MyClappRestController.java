@@ -118,7 +118,7 @@ public class MyClappRestController {
 		try {
 			resultMap = paymentService.responseVirtualAcct(request);
 			if(resultMap.getResultCode().equals(CommonCode.SUCCESS)) {
-				result = "OK"; 
+				result = "OK";
 			}
 		} catch (Exception e) {
 			resultMap.setResultCode(ResultCode.FAIL);
@@ -129,7 +129,7 @@ public class MyClappRestController {
 	
 	/**
 	 * 1:1문의 등록
-	 * @param popupEntity
+	 * @param inquiryEntity
 	 * @return
 	 */
 	@RequestMapping(value = "/insertInquiry",  method = RequestMethod.POST)
@@ -180,7 +180,7 @@ public class MyClappRestController {
 	
 	/**
 	 * 파일 저장
-	 * @param req
+	 * @param administrationFileEntity
 	 * @param administrationFileEntity
 	 * @return
 	 */
@@ -195,7 +195,7 @@ public class MyClappRestController {
 	
 	/**
 	 * 1:1문의 등록
-	 * @param popupEntity
+	 * @param memberEntity
 	 * @return
 	 */
 	@RequestMapping(value = "/doPasswordConfirm",  method = RequestMethod.POST)

@@ -36,7 +36,8 @@
     <util:properties id="snsConfig">
         <prop key="linkUrl">https://www.clapp.co.kr/trandReview/socialList</prop>
         <!-- 페이스북 -->
-        <prop key="facebookLink">https://www.facebook.com/profile.php?id=100009049548425</prop>
+        <!--<prop key="facebookLink">https://www.facebook.com/profile.php?id=100009049548425</prop>-->
+        <prop key="facebookLink">https://www.facebook.com/clapp.co.kr</prop>
         <prop key="accessTocken">CAACEdEose0cBAMswp1ncb1H2Wmtwgw5FHLOCPa5ZBQ3AnZA29lkEUnr0Vx8lOPhfI5bLmbFfNwdxVGKp8S8LUsJzSAA8SWiy4v424YiuLcXxXFi8QTftZBRjONV9xw5mHjWHVEhjUTPz5UGZBrrh5kQZC0LVG7keyBMjrcCfZBZBraxTbRgPJDHKqHQq0qP2C7W2pZAXuyonIYjpb0OnIb3CeGM42ZCw3ZAEcZD</prop>
         <prop key="appId">1563873130519004</prop>
         <prop key="imgPath">https://www.clapp.co.kr/common/imgView</prop>

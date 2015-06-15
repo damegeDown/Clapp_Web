@@ -135,7 +135,7 @@ var JnlpUtils = (function() {
 	            if(data.result) {
                     //사파리 브라우저에서는 파일 다운로드
                     if (agt.indexOf("chrome") == -1 && agt.indexOf("safari") > -1) {
-                         window.location.href = data;
+                         window.location.href = data.url;
 	                     //그외의 브라우저에서는 실행
                     } else {
                        //console.log(data.url);

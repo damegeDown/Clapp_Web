@@ -174,4 +174,6 @@ public interface TicketDAO {
     int deleteUserTicketMaster(TicketEntity ticketParam);
 
     int returnTicket(TicketEntity ticketEntity);
+
+    int chkReservation(int reservation_id);
 }

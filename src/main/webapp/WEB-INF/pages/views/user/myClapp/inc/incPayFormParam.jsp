@@ -15,6 +15,7 @@
 <input type="hidden" name="LGD_VERSION"				id="LGD_VERSION"		value="XPay_2.5">
 <input type="hidden" name="LGD_HASHDATA"			id="LGD_HASHDATA">		<!-- MD5 해쉬암호값 -->
 <input type="hidden" name="LGD_PAYKEY"				id="LGD_PAYKEY">		<!-- LG유플러스 PAYKEY(인증후 자동셋팅)-->
+<input type="hidden" name="LGD_INSTALLRANGE"				id="LGD_INSTALLRANGE" vlaue="0">		<!-- 할부 기간-->
 <!-- <input type="hidden" name="LGD_CLOSEDATE"				id="LGD_CLOSEDATE" value="20150126120000">		입금기한 -->
 
 <!-- 페이지별 개별 셋팅 -->

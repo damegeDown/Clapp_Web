@@ -218,4 +218,9 @@ public class TicketServiceImpl implements TicketService {
     public int returnTicket(TicketEntity ticketEntity) {
         return ticketDAO.returnTicket(ticketEntity);
     }
+
+    @Override
+    public int chkReservation(int reservation_id) {
+        return ticketDAO.chkReservation(reservation_id);
+    }
 }
