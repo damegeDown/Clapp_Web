@@ -5,13 +5,19 @@
   <artifactId>Clapp</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>clapp</name> 
+  <name>clapp</name>
+    <properties>
+    <org.springframework-version>4.1.4.RELEASE</org.springframework-version>
+    <org.slf4j.version>1.7.7</org.slf4j.version>
 
-  <parent>
-    <groupId>kr.co.digigroove</groupId>
-    <artifactId>DigiPomParent</artifactId>
-    <version>1.1-SNAPSHOT</version>
-  </parent>
+            <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+
+    </properties>
+  <!--<parent>-->
+    <!--<groupId>kr.co.digigroove</groupId>-->
+    <!--<artifactId>DigiPomParent</artifactId>-->
+    <!--<version>1.1-SNAPSHOT</version>-->
+  <!--</parent>-->
 
   <dependencies>
     <dependency>
@@ -19,13 +25,153 @@
       <artifactId>DigiCommons</artifactId>
       <version>1.0.2</version>
     </dependency>
-
-    <dependency> 
+      <dependency>
+          <groupId>xerces</groupId>
+          <artifactId>xercesImpl</artifactId>
+          <version>2.11.0</version>
+      </dependency>
+    <dependency>
       <groupId>org.apache.tiles</groupId>
       <artifactId>tiles-extras</artifactId>
       <version>3.0.5</version>
+        <!--<exclusions>-->
+            <!--<exclusion>-->
+                <!--<groupId>commons-digester</groupId>-->
+                <!--<artifactId>commons-digester</artifactId>-->
+            <!--</exclusion>-->
+        <!--</exclusions>-->
     </dependency>
-     
+      <!--<dependency>-->
+          <!--<groupId>commons-digester</groupId>-->
+          <!--<artifactId>commons-digester</artifactId>-->
+          <!--<version>2.1</version>-->
+      <!--</dependency>-->
+      <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-servlet_3.0_spec</artifactId>
+          <version>1.0</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjrt</artifactId>
+          <version>1.7.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.7.3</version>
+      </dependency>
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+          <version>2.5.1</version>
+      </dependency>
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.5.1</version>
+      </dependency>
+
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.5.1</version>
+      </dependency>
+      <!-- Javax Servlet -->
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jsp-api</artifactId>
+          <version>2.0</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+          <version>2.5</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.2</version>
+      </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.0.13</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+          <version>1.7.12</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-jdk14</artifactId>
+          <version>1.7.12</version>
+      </dependency>
+      <!-- Javax Servlet ends -->
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <!-- oxm-->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-oxm</artifactId>
+          <version>${org.springframework-version}</version>
+          <exclusions>
+              <exclusion>
+                  <artifactId>commons-logging</artifactId>
+                  <groupId>commons-logging</groupId>
+              </exclusion>
+          </exclusions>
+      </dependency>
+      <!--spring security-->
     <!-- Database --> 
     <dependency>
       <groupId>mysql</groupId>
@@ -37,16 +183,16 @@
       <artifactId>commons-dbcp</artifactId>
       <version>1.4</version>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-oxm</artifactId>
-      <version>${spring.frameworkversion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>${spring.frameworkversion}</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-oxm</artifactId>-->
+      <!--<version>${spring.frameworkversion}</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-jdbc</artifactId>-->
+      <!--<version>${spring.frameworkversion}</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
@@ -194,7 +340,7 @@
 		<dependency>
 		  <groupId>junit</groupId>
 		  <artifactId>junit</artifactId>
-		  <version>4.7</version>
+		  <version>4.9</version>
 		  <scope>test</scope>
 	  </dependency> 
   </dependencies>
