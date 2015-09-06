@@ -127,12 +127,12 @@ public class AdminEntity extends PageEntity implements Serializable{
 	public void setPermissionMaster(String permissionMaster) {
 		this.permissionMaster = permissionMaster;
 	}
-//    public String getPermissionMain() {
-//        return permissionMain;
-//    }
-//    public void setPermissionMain(String permissionMain) {
-//        this.permissionMain = permissionMain;
-//    }
+    public String getPermissionMain() {
+        return permissionMain;
+    }
+    public void setPermissionMain(String permissionMain) {
+        this.permissionMain = permissionMain;
+    }
 	public String getPermissionUser() {
 		return permissionUser;
 	}

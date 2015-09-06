@@ -48,7 +48,7 @@ $.fn.Menu = {
 		};
 		var showGrantMenu = function(){
 			var permissionMaster = '${adminLoginSession.permissionMaster}';
-            <%--var permissionMain = '${adminLoginSession.permissionMain}';--%>
+            var permissionMain = '${adminLoginSession.permissionMain}';
 			var permissionUser = '${adminLoginSession.permissionUser}';
 			var permissionPayment = '${adminLoginSession.permissionPayment}';
 			var permissionProduct = '${adminLoginSession.permissionProduct}';
@@ -56,7 +56,7 @@ $.fn.Menu = {
 			var permissionTrend = '${adminLoginSession.permissionTrend}';
 			var permissionEcrm = '${adminLoginSession.permissionEcrm}';
 			var permissionCustomer = '${adminLoginSession.permissionCustomer}';
-			var permissionObj = {"permissionMaster" : permissionMaster, "permissionUser" : permissionUser, "permissionPayment" : permissionPayment,
+			var permissionObj = {"permissionMaster" : permissionMaster,"permissionMain" : permissionMain, "permissionUser" : permissionUser, "permissionPayment" : permissionPayment,
 										"permissionProduct" : permissionProduct, "permissionDevice" : permissionDevice, "permissionTrend" : permissionTrend,
 										"permissionEcrm" : permissionEcrm, "permissionCustomer" : permissionCustomer};
 			$(".left-bar > ul > li").filter(function(index) {
@@ -106,7 +106,7 @@ $.fn.Menu = {
             <a href="${contextPath }/admin/management/popupList">메인 관리</a>
             <ul style="display:none">
                 <li class="popup"><a href="${contextPath }/admin/management/popupList">팝업 관리</a></li>
-                <li class="popup"><a href="${contextPath }/admin/management/popupList">베너 관리</a></li>
+                <li class="banner"><a href="${contextPath }/admin/management/popupList">베너 관리</a></li>
             </ul>
         </li>
 		<li id="permissionUser">
