@@ -40,7 +40,7 @@ public class AuthenticationCheckInterceptor  extends HandlerInterceptorAdapter {
 				AdminEntity AdminLoginSession =  (AdminEntity) request.getSession().getAttribute(sessionType);
 				String path = request.getRequestURL().toString();
 				String permissionMaster = AdminLoginSession.getPermissionMaster();
-                String permissionMain = AdminLoginSession.getPermissionMain();
+//                String permissionMain = AdminLoginSession.getPermissionMain();
 				String permissionUser = AdminLoginSession.getPermissionUser();
 				String permissionPayment = AdminLoginSession.getPermissionPayment();
 				String permissionProduct = AdminLoginSession.getPermissionProduct();
@@ -50,7 +50,7 @@ public class AuthenticationCheckInterceptor  extends HandlerInterceptorAdapter {
 				String permissionCustomer = AdminLoginSession.getPermissionCustomer();
 				Map<String, Object> permissionObj = new HashMap<String, Object>();
 				permissionObj.put("management", permissionMaster);
-                permissionObj.put("main", permissionMain);
+//                permissionObj.put("main", permissionMain);
 				permissionObj.put("user", permissionUser);
 				permissionObj.put("payment", permissionPayment);
 				permissionObj.put("product", permissionProduct);

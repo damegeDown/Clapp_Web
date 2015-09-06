@@ -48,7 +48,7 @@ $.fn.Menu = {
 		};
 		var showGrantMenu = function(){
 			var permissionMaster = '${adminLoginSession.permissionMaster}';
-            var permissionMain = '${adminLoginSession.permissionMain}';
+            <%--var permissionMain = '${adminLoginSession.permissionMain}';--%>
 			var permissionUser = '${adminLoginSession.permissionUser}';
 			var permissionPayment = '${adminLoginSession.permissionPayment}';
 			var permissionProduct = '${adminLoginSession.permissionProduct}';
@@ -56,7 +56,7 @@ $.fn.Menu = {
 			var permissionTrend = '${adminLoginSession.permissionTrend}';
 			var permissionEcrm = '${adminLoginSession.permissionEcrm}';
 			var permissionCustomer = '${adminLoginSession.permissionCustomer}';
-			var permissionObj = {"permissionMaster" : permissionMaster,"permissionMain" : permissionMain, "permissionUser" : permissionUser, "permissionPayment" : permissionPayment,
+			var permissionObj = {"permissionMaster" : permissionMaster, "permissionUser" : permissionUser, "permissionPayment" : permissionPayment,
 										"permissionProduct" : permissionProduct, "permissionDevice" : permissionDevice, "permissionTrend" : permissionTrend,
 										"permissionEcrm" : permissionEcrm, "permissionCustomer" : permissionCustomer};
 			$(".left-bar > ul > li").filter(function(index) {
