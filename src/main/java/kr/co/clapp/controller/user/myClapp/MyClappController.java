@@ -1,34 +1,22 @@
 package kr.co.clapp.controller.user.myClapp;
 
 
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
+import kr.co.clapp.constants.CommonCode;
+import kr.co.clapp.controller.CommonController;
+import kr.co.clapp.entities.*;
+import kr.co.clapp.entities.validation.FormBindingResultEntity;
+import kr.co.clapp.entities.validation.FormUserInfoEntity;
+import kr.co.clapp.entities.validation.FormUserInfoEntity.ModifyPass;
+import kr.co.clapp.service.applyform.ApplyformService;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.service.payment.PaymentService;
 import kr.co.clapp.service.product.ProductService;
 import kr.co.clapp.service.ticket.TicketService;
 import kr.co.clapp.utils.ValidationResultUtils;
-import kr.co.clapp.constants.CommonCode;
-import kr.co.clapp.controller.CommonController;
-import kr.co.clapp.entities.CommonCodeEntity;
-import kr.co.clapp.entities.MemberEntity;
-import kr.co.clapp.entities.PayLgdInfo;
-import kr.co.clapp.entities.PaymentEntity;
-import kr.co.clapp.entities.ProductEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.ResultEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
-import kr.co.clapp.entities.TicketEntity;
-import kr.co.clapp.entities.validation.FormBindingResultEntity;
-import kr.co.clapp.entities.validation.FormUserInfoEntity;
-import kr.co.clapp.entities.validation.FormUserInfoEntity.ModifyPass;
+import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.HashUtils;
 import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +29,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/myClapp")
@@ -58,12 +51,17 @@ public class MyClappController {
 	private PaymentService paymentService;
 	@Autowired
 	private TicketService ticketService;
-	
+    @Autowired
+    private ApplyformService applyformService;
+    @Autowired
+    private Messages messages;
 	 @Value("#{pay_prop['mid']}")
 	private String cstMid;
-	 
+    HashMap<String, Object> commonCode  = new HashMap<String, Object>();
 	public MyClappController() {
 	}
+
+
 	/**
 	 * 상품 결제
 	 * @param productEntity
@@ -75,30 +73,52 @@ public class MyClappController {
 	@RequestMapping(value="/payment")
 	public String payment(
 			 ProductEntity productEntity,
+             TicketEntity ticketEntity,
 			 @RequestParam(required = false, value = "productMasterKey") int productMasterKey,
 			 Model model,
 			 HttpSession session
 			) {
-		MemberEntity userInfo =  new MemberEntity();
-		userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
-		try {
-			/*상품 정보*/
-			productEntity.setProductMasterKey(productMasterKey);
+
+        MemberEntity userInfo =  new MemberEntity();
+        userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
+        TicketEntity ticketParam = new TicketEntity();
+//        TicketEntity ticketInfo = new TicketEntity();//클앱 맴버십 과 시간용권의 중복결제 방지
+        List<TicketEntity> ticketProductList = null;
+        ResponseEntity result = new ResponseEntity();
+
+        try {
+            /*상품 정보*/
 			productEntity = productService.getProductInfo(productEntity);
 			model.addAttribute("productInfo", productEntity);
-//			productEntity = productService.getProductList(productEntity);
 			/*공통코드*/
-			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
+            CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
 			/*공통코드 핸드폰*/
-	  	  	commonCodeEntity.setCodeMasterCode(CommonCode.CELL_PHONE_NUM);
-	  	  	List<CommonCodeEntity> cellPhoneCode = commonService.getCommonCodeList(commonCodeEntity);
-	  	  	model.addAttribute("cellPhoneCode", cellPhoneCode);	
-	  	  	
-	  	  	// 결제 인증요청 초기값 설정
-			PayLgdInfo payLgdInfo = commonController.initPayInfo(userInfo);
-			payLgdInfo.setLGD_PRODUCTINFO(productEntity.getProductName().replace("<br/>",""));		// 상품 정보
-			model.addAttribute("payLgdInfo", payLgdInfo);
-			model.addAttribute("userInfo", userInfo);
+            commonCodeEntity.setCodeMasterCode(CommonCode.CELL_PHONE_NUM);
+            List<CommonCodeEntity> cellPhoneCode = commonService.getCommonCodeList(commonCodeEntity);
+            model.addAttribute("cellPhoneCode", cellPhoneCode);
+            // 결제 인증요청 초기값 설정
+            PayLgdInfo payLgdInfo = commonController.initPayInfo(userInfo);
+            payLgdInfo.setLGD_PRODUCTINFO(productEntity.getProductName().replace("<br/>",""));		// 상품 정보
+            model.addAttribute("payLgdInfo", payLgdInfo);
+            model.addAttribute("userInfo", userInfo);
+
+            //클앱 맴버십 과 시간용권의 중복결제 방지
+
+            int pMasterKey = productEntity.getProductMasterKey(); //결제 요청된 상품 키
+            ticketParam.setUserMasterKey(userInfo.getUserMasterKey());// user master key
+
+            if(pMasterKey >= 25){//클앱멤버십 결제요청시
+                ticketParam.setProductMasterKey(1);// 1값이 들어가면 in(15~24) where 절 만듬
+                ticketParam.setTicketProductServiceKey(pMasterKey);
+            }else if(pMasterKey >= 15 && pMasterKey <= 24){//시간이용권 요청시
+                ticketParam.setProductMasterKey(25);
+            }
+
+            ticketProductList=ticketService.getUserTicketProductList(ticketParam);
+
+            logger.debug("{}",ticketProductList.size());
+            model.addAttribute("listLn", ticketProductList.size());
+            model.addAttribute("setProductType", pMasterKey);//클앱 멤버십 상품 중복 방지
 		} catch  (Exception e) {
 			  logger.error("MyClappController.payment:Faild" , e);
 		}
@@ -153,6 +173,7 @@ public class MyClappController {
 		TicketEntity ticketInfo = new TicketEntity();
 		TicketEntity ticketHistoryInfo = new TicketEntity();
 		TicketEntity ticketSearchCount = new TicketEntity();
+//        TicketEntity ticketInfoTotal = new TicketEntity();
         ProductEntity productEntity = new ProductEntity();
 		try {
 			/** 티켓정보 */
@@ -163,6 +184,7 @@ public class MyClappController {
                 ticketParam.setSearchValue3(ticketParam.getSearchValue3().replace("<br/>", ""));
             }
 			ticketHistoryInfo = ticketService.selectTicketUsedHistory(ticketParam);
+//            ticketInfoTotal = ticketService.getMyHistory(ticketParam);
 			/** 공통코드*/
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
 			/** 예약상태*/
@@ -184,6 +206,7 @@ public class MyClappController {
 		}
 		model.addAttribute("ticketInfo", ticketInfo);
 		model.addAttribute("ticketHistoryInfo", ticketHistoryInfo);
+//        model.addAttribute("ticketInfoTotal", ticketInfoTotal);
 		return "user/myClapp/myTicket";
 	}
 	
@@ -291,6 +314,32 @@ public class MyClappController {
 	public String myInquiryComplet(ServiceInquiryEntity inquiryEntity, Model model) {
 		return "user/myClapp/myInquiryComplet";
 	}
+    /**
+     * 클앱 테스트신청
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/myTestRequest")
+    public String myTestRequest(ApplyFormEntity applyFormEntity,Model model) {
+
+        try {
+			/*공통코드*/
+            CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
+			/*공통코드 핸드폰*/
+            commonCodeEntity.setCodeMasterCode(CommonCode.CELL_PHONE_NUM);
+            List<CommonCodeEntity> cellPhoneCode = commonService.getCommonCodeList(commonCodeEntity);
+            model.addAttribute("cellPhoneCode", cellPhoneCode);
+
+        } catch  (Exception e) {
+            logger.error("MyClappController.myInfo:Faild" , e);
+        }
+        return "user/myClapp/myTestRequest";
+    }
+    @RequestMapping(value="/myTestRequestComplet")
+    public String myTestRequestComplet(ApplyFormEntity applyFormEntity, Model model) {
+        return "user/myClapp/myTestRequestComplet";
+    }
+    /**
 	/**
 	 * 비밀번호 확인
 	 * @param model
@@ -395,4 +444,12 @@ public class MyClappController {
 		}
 		return "user/myClapp/dropOutComplet";
 	}
+    /**
+     * 지정디바이스 팝업
+     * @return
+     */
+    @RequestMapping(value="popup/myclappRequestPopup")
+    String freeJoinPopup(){
+        return "introduction/popup/myclappRequestPopup.jsp";
+    }
 }

@@ -149,6 +149,10 @@ public class TicketServiceImpl implements TicketService {
 	public List<TicketEntity> getPrioritieTicketKey(MemberEntity memberEntity) {
 		return ticketDAO.getPrioritieTicketKey(memberEntity);
 	}
+    @Override
+    public List<TicketEntity> getUserTicketProductList(TicketEntity ticketEntity){
+        return ticketDAO.getUserTicketProductList(ticketEntity);
+    }
 	/**
 	 * 사용자 티켓 차감 처리
 	 */
@@ -185,6 +189,7 @@ public class TicketServiceImpl implements TicketService {
 		ticketParam.setDataSize(ticketInfo.getHistoryCount());
 		ticketParam.setReservationWaitCount(ticketInfo.getReservationWaitCount());
 		ticketParam.setReservationFinishCount(ticketInfo.getReservationFinishCount());
+        ticketParam.setUseCount(ticketInfo.getUseCount());
 		if(CommonCode.ZERO < ticketInfo.getHistoryCount()) {
 			ticketParam.setHistoryList(ticketDAO.selectTicketUsedHistory(ticketParam));
 		}

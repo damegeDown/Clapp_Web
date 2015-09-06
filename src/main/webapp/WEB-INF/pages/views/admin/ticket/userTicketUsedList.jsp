@@ -7,7 +7,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <div class="sub-content">
 	<div>
-		<h3 class="contents-title floatL">${CommonCode.navigation } ( 이 달의 티켓 사용 개수: <span class='colorSkyBlue'>${ticketSum.ticketSum }</span> 개 )</h3> 
+		<h3 class="contents-title floatL">${CommonCode.navigation } ( 이 달의 사용 시간: <span class='colorSkyBlue'>${ticketSum.ticketSum * 5 }</span> 분)</h3>
 		<div style="clear:both;"></div>
 		<form id="searchForm">
 		<div class="search-box">
@@ -73,7 +73,7 @@
 				<th>구분</th>
 				<th>이름/기업,단체명</th>
 				<th>사용일시</th>
-				<th class="al-right">사용 티켓</th>
+				<th class="al-right">사용 시간</th>
 				<th>사용 디바이스</th>
 			</tr>
 		</thead>
@@ -95,7 +95,7 @@
 					<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${userTicketUsedList.startDttm }" /> ~
 					<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${userTicketUsedList.endDttm }" />
 				</td>
-				<td class="al-right">${userTicketUsedList.usePoint}</td>
+				<td class="al-right">${userTicketUsedList.usePoint*5} 분</td>
 				<td><input type="hidden" name="deviceMakerCode" value="${userTicketUsedList.deviceMakerCode }"/>
 				${userTicketUsedList.deviceMakerCode }  /  ${userTicketUsedList.prodName }</td>
 			</tr>

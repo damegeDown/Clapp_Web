@@ -65,7 +65,8 @@ public class TicketEntity extends PageEntity implements Serializable{
 	private Date ticketApplyDate;						//적용일
 	private int expirationDate;				//유효기간(일로 표시 )
 	private List<TicketEntity> historyList;
-	private int historyCount;		
+	private int historyCount;
+    private List<TicketEntity>  userTicketProductList;
 	/*reservation*/
 	private int id;								//키 
 	private int deviceId;					//디바이스키 
@@ -86,7 +87,8 @@ public class TicketEntity extends PageEntity implements Serializable{
 	private String os;						//OS
 	private String resolution;				//화면 사이즈
 	private String osVersion;				//os 버전
-	
+
+    private int useCount;
 	private int reservationWaitCount;	//예약대기 카운트 
 	private int reservationFinishCount; //사용종료 카운트
 	
@@ -374,7 +376,12 @@ public class TicketEntity extends PageEntity implements Serializable{
 	public void setHistoryList(List<TicketEntity> historyList) {
 		this.historyList = historyList;
 	}
-	
+    public List<TicketEntity> getUserTicketProductList() {
+        return userTicketProductList;
+    }
+    public void setUserTicketProductList(List<TicketEntity> userTicketProductList) {
+        this.userTicketProductList = userTicketProductList;
+    }
 	public int getHistoryCount() {
 		return historyCount;
 	}
@@ -489,6 +496,12 @@ public class TicketEntity extends PageEntity implements Serializable{
 	public void setOsVersion(String osVersion) {
 		this.osVersion = osVersion;
 	}
+    public int getUseCount() {
+        return useCount;
+    }
+    public void setUseCount(int useCount) {
+        this.useCount = useCount;
+    }
 	public int getReservationWaitCount() {
 		return reservationWaitCount;
 	}

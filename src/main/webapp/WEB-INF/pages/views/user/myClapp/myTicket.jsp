@@ -12,8 +12,9 @@
 				<div class="subJoinGnbBottom">
 					<span class="subJoinTitle">마이 클앱</span>
 				</div>
+
 				<div class="subStartBox">
-					<a href="#"><img src="${contextPath }/resources/images/gnb_start.png" onclick="JnlpUtils.startTest()" onmouseover="this.src='${contextPath }/resources/images/gnb_start_r.png';" onMouseOut="this.src='${contextPath }/resources/images/gnb_start.png';" alt="시작하기" /></a>
+					<a href="#"><img src="${contextPath }/resources/images/gnb_start.png" onclick="JnlpUtils.startTest()" onclick="JnlpUtils.startTest()"onmouseover="this.src='${contextPath }/resources/images/gnb_start_r.png';" onMouseOut="this.src='${contextPath }/resources/images/gnb_start.png';" alt="시작하기" /></a>
 			</div>
 		</div>
 	</div>
@@ -33,17 +34,19 @@
 	<div class="subMyClappContentBox">
 		<div class="subMyClappTitleSmallLine"></div>
 		<span class="subMyClappSmallTitle">나의 상품</span>
+
 		<div class="subMyClappPaidProductBox">
+
 			<table class="subMyClappPaidProductList">
 				<tr>
 					<th>상품명</th>
-					<th>상품유효기간</th>
-					<th>잔여일수</th>
-					<th>총 티켓</th>
-					<th>사용 티켓</th>
-					<th>잔여 티켓</th>
+					<th>결제일시</th>
+					<th>구매시간</th>
+					<th>사용시간</th>
+					<th>사용가능 시간</th>
+					<%--<th>잔여 티켓</th>--%>
 					<th>사용여부</th>
-					<th>티켓내역보기</th>
+					<th>사용내역보기</th>
 				</tr>
 				<%-- <tr>
 					<td>${ticketInfo.productName }</td>
@@ -59,21 +62,31 @@
 				</tr> --%>
 				<c:forEach var="history" items="${ticketInfo.ticketHistoryList }" varStatus="i">
 				<tr>
-					<td>${history.productName }</td>
+					<td> ${history.productName} </td>
 					<td>
-						<fmt:formatDate value="${history.ticketStartExpirationDate }" pattern="yyyy-MM-dd HH:mm"/>
-						~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd HH:mm"/>
+						<fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
+						<%--~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd HH:mm"/>--%>
 					</td>
 					<td>
-						<c:choose>
-							<c:when test="${history.expirationDate < 1}">0</c:when>
-							<c:when test="${history.expirationDate > 0}">${history.expirationDate}</c:when>
-						</c:choose>
-						일
+                            ${(history.ticketAmount  * 5)}분
+						<%--<c:choose>--%>
+							<%--<c:when test="${history.expirationDate < 1}">${(ticketInfo.ticketAmount  *5)}</c:when>--%>
+							<%--&lt;%&ndash;<c:when test="${history.expirationDate > 0}">${history.expirationDate * 300}</c:when>&ndash;%&gt;--%>
+                            <%--<c:when test="${history.expirationDate > 0}">300분/1일</c:when>--%>
+						<%--</c:choose>--%>
 					</td>
-					<td>${history.ticketAvilableAmount + (history.usePoint * -1)}티켓</td>
-					<td>${history.usePoint * -1}티켓</td>
-					<td>${history.ticketAvilableAmount}티켓</td>
+
+                    <%--사용가능 시간--%>
+					<td>${history.ticketAvilableAmount * 5}분
+                        <%--<c:choose>--%>
+                            <%--<c:when test="${history.expirationDate < 1}">${(history.ticketAvilableAmount *5) + (history.usePoint * -5)}분</c:when>--%>
+                            <%--&lt;%&ndash;<c:when test="${history.expirationDate > 0}">${history.expirationDate * 300}</c:when>&ndash;%&gt;--%>
+                            <%--<c:when test="${history.expirationDate > 0}">300분/1일</c:when>--%>
+                        <%--</c:choose>--%>
+					</td>
+                        <%--사용한 시간--%>
+                    <td>${(history.ticketAmount*5)-(history.ticketAvilableAmount*5)}</td>
+                        <%--<td>${history.usePoint * -1}시간</td>--%>
 					<td>${history.useYn}</td>
 					<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory?userTicketMasterKey=${history.userTicketMasterKey}'">바로가기</button></td>
 					</tr>
@@ -168,13 +181,21 @@
 	</div> <!-- .subMyClappContentDetailsBox End -->
 	<div class="subMyClappContentResultBox1">
 		<div class="subMyClappContentResultTotalSectionBox">
-			<div class="sccrtS1">
+			<div class="sccrtS">
 				<ul class="sccrtSLists">
-					<li><span class="sccrtSTitle1">총 이용건수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.dataSize}</span><span class="sccrtSQty1"> 건</span></li>
-					<li class="sccrtSListsLine"></li>
-					<li><span class="sccrtSTitle2">예약중 :&nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.reservationWaitCount}</span><span class="sccrtSQty2"> 건</span></li>
-					<li class="sccrtSListsLine"></li>
-					<li><span class="sccrtSTitle3">사용종료 :&nbsp;</span><span class="sccrtSNo3">${ticketHistoryInfo.reservationFinishCount}</span><span class="sccrtSQty3"> 건</span></li>
+					<%--<li><span class="sccrtSTitle">총 이용건수 :&nbsp;</span><span class="sccrtSNo">${ticketHistoryInfo.dataSize}</span><span class="sccrtSQty"> 건</span></li>--%>
+					<%--<li class="sccrtSListsLine"></li>--%>
+					<%--<li><span class="sccrtSTitle">예약중 :&nbsp;</span><span class="sccrtSNo">${ticketHistoryInfo.reservationWaitCount}</span><span class="sccrtSQty"> 건</span></li>--%>
+					<%--<li class="sccrtSListsLine"></li>--%>
+					<%--<li><span class="sccrtSTitle">사용종료 :&nbsp;</span><span class="sccrtSNo">${ticketHistoryInfo.reservationFinishCount}</span><span class="sccrtSQty"> 건</span></li>--%>
+                    <%--<li class="sccrtSListsLine"></li>--%>
+                    <li><span class="sccrtSTitle">총 사용건수 :&nbsp;</span><span class="sccrtSNo">${ticketHistoryInfo.dataSize}</span><span class="sccrtSQty"> 건</span></li>
+                    <li class="sccrtSListsLine"></li>
+                    <li><span class="sccrtSTitle">사용중 :&nbsp;</span><span class="sccrtSNo">${ticketHistoryInfo.useCount}</span><span class="sccrtSQty"> 건</span></li>
+                    <li class="sccrtSListsLine"></li>
+                    <li><span class="sccrtSTitle">예약중 :&nbsp;</span><span class="sccrtSNo">${ticketHistoryInfo.reservationWaitCount}</span><span class="sccrtSQty"> 건</span></li>
+                    <li class="sccrtSListsLine"></li>
+                    <li><span class="sccrtSTitle">사용종료 :&nbsp;</span><span class="sccrtSNo">${ticketHistoryInfo.reservationFinishCount}</span><span class="sccrtSQty"> 건</span></li>
 				</ul>
 			</div>
 			<div class="sccrtS2">
@@ -208,7 +229,7 @@
 					<th>디바이스명</th>
 					<th>OS</th>
 					<th>해상도</th>
-					<th>차감티켓</th>
+					<th>사용</br>시간</th>
 					<th>현재상태</th>
 				</tr>
 				<c:if test="${ticketHistoryInfo.dataSize < 1}">
@@ -236,7 +257,7 @@
 					<td>${history.prodName }</td>
 					<td>${history.os }<br />${history.osVersion }</td>
 					<td>${history.resolution }</td>
-					<td>${history.usePoint }</td>
+					<td>${history.usePoint}분</td>
 					<td>
 						${history.statusText } 
 					</td>

@@ -209,14 +209,16 @@
 			return false;
 		}
 		// 확장자 체크
-		var fileValue = $('.sicFile').val();
-		var re = /(?:\.([^.]+))?$/;
-		var extension = re.exec(fileValue)[1];
-		var extensionArray = ['jpg', 'jpeg', 'gif', 'pdf', 'zip'];
-		if (fileValue != null && $.inArray(extension, extensionArray) < 0) {
-			alert('jpg, gif, pdf, zip 파일만 첨부 가능합니다.');
-			return false;
-		}
+        if(fileValue) {
+            var fileValue = $('.sicFile').val();
+            var re = /(?:\.([^.]+))?$/;
+            var extension = re.exec(fileValue)[1];
+            var extensionArray = ['jpg', 'jpeg', 'gif', 'pdf', 'zip'];
+            if (fileValue != null && $.inArray(extension, extensionArray) < 0) {
+                alert('jpg, gif, pdf, zip 파일만 첨부 가능합니다.');
+                return false;
+            }
+        }
 		var chkFlag = $("[name=agree_term]").is(":checked");
 		if(!chkFlag){
 			alert("개인정보 수집 및 이용에 동의 하여야 발송 가능합니다.");

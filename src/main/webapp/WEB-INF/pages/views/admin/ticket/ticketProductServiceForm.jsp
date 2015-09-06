@@ -48,22 +48,23 @@
         <th>적용상품명</th>
         <td>
            <input type="text" name="serviceProductName" class="inactiveMode" readonly/>
-    	 	   	<%--<select class="sel-w180" name="productMasterKey">--%>
-		          <%--<c:forEach items="${productInfo.productList }" var="code">--%>
-					<%--<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>--%>
-				 <%--</c:forEach>--%>
-	           <%--</select>--%>
-          <%--&nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)--%>
+    	 	   	<select class="sel-w180" name="productMasterKey">
+		          <c:forEach items="${productInfo.productList }" var="code">
+					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>
+				 </c:forEach>
+	           </select>
+          &nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)
         </td>
      </tr>
      <tr>
-       <th>계정당 적용 티켓수</th>
+       <th>계정당 적용시간</th>
         <td>
-         <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;개 ( 반드시 1계정당 발행될 티켓수를 입력해 주세요./2티켓 단위로만 적립/차감이 가능합니다. )
-       </td>
+            <input type="text" class="inp-w160 serviceApplyTicketAmount_" name="serviceApplyTicketAmount_" placeholder="숫자만 입력"/>&nbsp;&nbsp;분 ( 반드시 1계정당 적용할 시간을 입력해 주세요. 5분 단위로만 적립/차감이 가능합니다. )
+            <input type="hidden" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>
+        </td>
      </tr>
      <tr>  
-	 	   <th>티켓종료일자 지정</th>
+	 	   <th>상품종료일자 지정</th>
 	 	   <td><input type="text" class="inactiveMode ticketStartExpirationDate" name="ticketStartExpirationDate" readonly/> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker"/></td>
 	 </tr>
      <tr>
@@ -97,6 +98,16 @@
 <!-- 회원 검색 팝업 -->
 <%@ include file="/WEB-INF/pages/views/popup/popupSearchUserId.jsp"%>
 <script>
+    //시간 입력 후 포커스 아웃시 실 DB 에 입력할 값을 티켓단위로 변경
+    $("input[name=serviceApplyTicketAmount_]")
+            .focusout(function() {
+                var ticket = Number(5);
+                var ticketAmount = Number($(this).val());
+                var applyTicketAmount = ticketAmount / ticket;
+                $("input[name=serviceApplyTicketAmount]").val(applyTicketAmount);
+            });
+
+
   $(function() {
     var companyName = '${companyNameList}';
     companyName = companyName.replace("[", "").replace("]","").split(",");

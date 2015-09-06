@@ -32,4 +32,5 @@ public class GuideController {
 		}
 		return "autoGuide/"+autoGuide;
 	}
+
 }

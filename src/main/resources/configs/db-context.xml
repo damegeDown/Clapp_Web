@@ -82,4 +82,8 @@
     <property name="mapperInterface" value="kr.co.clapp.dao.SmsDAO" />
     <property name="sqlSessionFactory" ref="sessionFactory" />
   </bean>
+    <bean id="ApplyFormDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="kr.co.clapp.dao.ApplyFormDAO" />
+        <property name="sqlSessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>

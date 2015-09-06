@@ -1,20 +1,9 @@
 package kr.co.clapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.entities.ApiEntity;
-import kr.co.clapp.entities.EcrmEntity;
-import kr.co.clapp.entities.MemberEntity;
-import kr.co.clapp.entities.PaymentEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.SmsEntity;
-import kr.co.clapp.entities.TicketEntity;
+import kr.co.clapp.dao.TicketDAO;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.service.payment.PaymentService;
@@ -23,13 +12,17 @@ import kr.co.clapp.service.ticket.TicketService;
 import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController; 
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -48,7 +41,8 @@ public class ApiController {
 	private MailingService mailingService;
 	@Autowired
 	private Messages messages;
-	
+    @Autowired
+    private TicketDAO ticketDAO;
 	/**
 	 * 회원 로그인
 	 * @param email
@@ -81,7 +75,7 @@ public class ApiController {
 				apiEntity.setUserName(memberEntity.getUserName());
 				/** 사용가능 티켓 불러오기 */
 				ticketInfo = this.getTicketAvilableAmount(memberEntity.getUserMasterKey());
-                ticketAmount = ticketInfo.getTicketAvilableAmount();
+                ticketAmount = ticketInfo.getTicketAvilableAmount()*CommonCode.TICKET_TIME;
                 apiEntity.setTicketAvilableAmount(ticketAmount);
 			} else {
 				apiEntity.setErrorMessage(result.getResultMSG());
@@ -146,16 +140,29 @@ public class ApiController {
 			@RequestParam(required = false, value = "reservation_time") int reservation_time,
 			HttpServletRequest request
 			){
+
 		ApiEntity apiEntity = new ApiEntity();
 		MemberEntity memberEntity = new MemberEntity();
 		TicketEntity ticketEntity = new TicketEntity();
+        TicketEntity ticketInfo = new TicketEntity();
+/////////////
+
+        String useYn = ticketEntity.getUseYn();
+        TicketEntity ticketParam = new TicketEntity();
+        ticketParam = ticketEntity;
+
+
 		List<TicketEntity> ticketList = null;
+        int userMasterKey = ticketEntity.getUserMasterKey();
 		int result = 0;
+        int ticket = 0;
+        int avilableTicket = 0;
 		int reservationTicketAmount = 0;
 		int usedTicketAmount = 0 ;
 		int ticketAvilableAmount = 0;
 		int i = 0;
 		int ticketLen = 0;
+        int userTicketMasterKey =0;
 		
 		try {
 			/** 외부 아이피 접근시 차단 */
@@ -168,21 +175,40 @@ public class ApiController {
 			memberEntity.setUserMasterKey(user_id);
 			ticketList = ticketService.getPrioritieTicketKey(memberEntity);
 			ticketLen = ticketList.size();
+
+            //소유한 티켓 정보를 불러온다.
+            ticketParam.setUserMasterKey(userMasterKey);
+            ticketInfo = ticketDAO.selectTicketInfo(ticketParam);
+            /** 티켓 설정. */
+            ticket = ticketParam.getTicketAmount();
+            avilableTicket = ticketParam.getTicketAvilableAmount();
+            ticketParam.setTicketAmount(ticket);
+            ticketParam.setTicketAvilableAmount(avilableTicket);
+
+
+
+
 			/** 넘어온 예약시간을 티켓수로 환산한다.*/
 			int amount = reservation_time % CommonCode.TICKET_TIME;
 			/** 예약시간이 30분 단위로 떨어지지 않을시  30분단위 값으로 변경한다.*/
+			/** 예약시간이 5분 단위로 떨어지지 않을시  5분단위 값으로 변경한다.*/
 			if(amount > 0) {
 				reservation_time += CommonCode.TICKET_TIME - amount;
 			}
-			reservationTicketAmount=  (reservation_time / CommonCode.TICKET_TIME) * 2;
+			reservationTicketAmount=  reservation_time / CommonCode.TICKET_TIME;
 			if(!StringUtils.isEmpty(ticketList)) {
 				for(; i < ticketLen; i ++) {
 					/** 사용가능한 티켓 */
 					ticketAvilableAmount = ticketList.get(i).getTicketAvilableAmount();
+                    /** 차감상품 번호 */
+                    userTicketMasterKey = ticketList.get(i).getUserTicketMasterKey();
+
 					if(ticketAvilableAmount > CommonCode.ZERO) {
 						/** 사용가능한 티켓에 사용티켓을 빼서 남은 티켓을 구한다. */
 					    usedTicketAmount = ticketAvilableAmount - reservationTicketAmount;
-					    if(usedTicketAmount >= 0) {
+                      //  logger.debug("{}", "ticket master key = " + ticketList.get(i).getUserTicketMasterKey());
+
+                        if(usedTicketAmount >= 0) {
 							ticketEntity.setTicketAvilableAmount(usedTicketAmount);
 							ticketEntity.setUserMasterKey(ticketList.get(i).getUserMasterKey());
 							/** 티켓차감 */
@@ -194,17 +220,27 @@ public class ApiController {
 								ticketService.insertUsedTicketHistory(ticketEntity);
 								*/ 
 								apiEntity.setResultState(ResultCode.SUCCESS);
-								apiEntity.setUsedTicketAmount(reservationTicketAmount);
-								apiEntity.setTicketAvilableAmount(usedTicketAmount);
+								apiEntity.setUsedTicketAmount(reservationTicketAmount*CommonCode.TICKET_TIME);
+								apiEntity.setTicketAvilableAmount(usedTicketAmount*CommonCode.TICKET_TIME);
+
+                               if(usedTicketAmount==0) {
+                                   /**티켓 모두 소진시 사용 종료 처리*/
+                                   ticketParam.setUserTicketMasterKey(userTicketMasterKey);
+                                   ticketParam.setUseYn("N");
+                                   ticketDAO.modifyUserTicketMasterUse(ticketParam);
+                               }
 							} else {
-								apiEntity.setResultState(ResultCode.FAIL);
+
+                                apiEntity.setResultState(ResultCode.FAIL);
 								apiEntity.setErrorMessage(messages.getMessage("ticket.used.fail"));
 							}
+
 					    } else {
 					    	/** 사용가능 티켓이 부족한 경우 */
 							apiEntity.setResultState(ResultCode.LOCK);
-							apiEntity.setErrorMessage(messages.getMessage("ticket.used.fail.shortageTicket"));
+
 					    }
+
 					    result++;
 					}
 				}
@@ -265,9 +301,11 @@ public class ApiController {
                 /** 현재 시간으로부터 예약 시작 시간과의 차를 불러온다 */
                 timeDiff = ticketService.selectTimeDiff(reservation_id);
                 /** 넘어온 예약시간을 티켓수로 환산한다.*/
-                if (timeDiff >= 72) {  // 72시간전 100% 반환
-                    reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME);   //리턴 티켓
-                } else if (timeDiff >= 24) { //24시간전 50% 반환
+//                if (timeDiff >= 72) {  // 72시간전 100% 반환
+//                    reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME);   //리턴 티켓
+//                } else
+//
+                if (timeDiff >= 24) { //24시간전 100% 반환
                     reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME) / 2;   //리턴 티켓
                 } else if (timeDiff < 24) {  // 당일 불가
                     reservationTicketAmount = 0;
@@ -297,8 +335,8 @@ public class ApiController {
                     ticketService.returnTicket(ticketEntity);
 
                     apiEntity.setResultState(ResultCode.SUCCESS);
-                    apiEntity.setReturnTicketAmount(reservationTicketAmount);
-                    apiEntity.setTotalTicketAmount(usedTicketAmount);
+                    apiEntity.setReturnTicketAmount(reservationTicketAmount*CommonCode.TICKET_TIME);
+                    apiEntity.setTotalTicketAmount(usedTicketAmount*CommonCode.TICKET_TIME);
                 } else {
                     apiEntity.setResultState(ResultCode.FAIL);
                     apiEntity.setErrorMessage(messages.getMessage("ticket.return.fail"));
@@ -373,8 +411,8 @@ public class ApiController {
                         ticketService.returnTicket(ticketEntity);
 
                     apiEntity.setResultState(ResultCode.SUCCESS);
-                    apiEntity.setReturnTicketAmount(reservationTicketAmount);
-                    apiEntity.setTotalTicketAmount(usedTicketAmount);
+                    apiEntity.setReturnTicketAmount(reservationTicketAmount*CommonCode.TICKET_TIME);
+                    apiEntity.setTotalTicketAmount(usedTicketAmount*CommonCode.TICKET_TIME);
                 } else {
                     apiEntity.setResultState(ResultCode.FAIL);
                     apiEntity.setErrorMessage(messages.getMessage("ticket.return.fail"));
@@ -395,7 +433,7 @@ public class ApiController {
 	public TicketEntity getTicketAvilableAmount(int userMasterKey) {
 		TicketEntity ticketEntity = new TicketEntity();
 		ticketEntity.setUserMasterKey(userMasterKey);
-		return ticketService.getAvailableTicket(ticketEntity);
+		return ticketService.getAvailableTicket(ticketEntity) ;
 //		PaymentEntity paymentInfo = new PaymentEntity();
 //		paymentInfo.setUserMasterKey(userMasterKey);
 //		return paymentService.getAvailableTicket(paymentInfo);

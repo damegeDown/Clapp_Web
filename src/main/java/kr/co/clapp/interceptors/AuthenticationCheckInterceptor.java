@@ -1,19 +1,15 @@
 package kr.co.clapp.interceptors;
 
-import java.util.HashMap;
-import java.util.Map;
+import kr.co.clapp.constants.CommonCode;
+import kr.co.clapp.entities.AdminEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import kr.co.clapp.constants.CommonCode;
-import kr.co.clapp.entities.AdminEntity;
-import kr.co.clapp.entities.MemberEntity;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthenticationCheckInterceptor  extends HandlerInterceptorAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(AuthenticationCheckInterceptor.class);
@@ -44,6 +40,7 @@ public class AuthenticationCheckInterceptor  extends HandlerInterceptorAdapter {
 				AdminEntity AdminLoginSession =  (AdminEntity) request.getSession().getAttribute(sessionType);
 				String path = request.getRequestURL().toString();
 				String permissionMaster = AdminLoginSession.getPermissionMaster();
+                String permissionMain = AdminLoginSession.getPermissionMain();
 				String permissionUser = AdminLoginSession.getPermissionUser();
 				String permissionPayment = AdminLoginSession.getPermissionPayment();
 				String permissionProduct = AdminLoginSession.getPermissionProduct();
@@ -53,6 +50,7 @@ public class AuthenticationCheckInterceptor  extends HandlerInterceptorAdapter {
 				String permissionCustomer = AdminLoginSession.getPermissionCustomer();
 				Map<String, Object> permissionObj = new HashMap<String, Object>();
 				permissionObj.put("management", permissionMaster);
+                permissionObj.put("main", permissionMain);
 				permissionObj.put("user", permissionUser);
 				permissionObj.put("payment", permissionPayment);
 				permissionObj.put("product", permissionProduct);

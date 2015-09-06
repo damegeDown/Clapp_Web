@@ -34,6 +34,8 @@
   <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.watermark.min.js"></script>
   <script type="text/javascript" src="${contextPath }/resources/js/common.js"></script>
   <script type="text/javascript" src="${contextPath }/resources/js/clapp.js"></script>
+    <script type="text/javascript" src="${contextPath }/resources/js/jq.rolling.js"></script>
+    <%--<script type="text/javascript" src="${contextPath }/resources/js/slide.js"></script>--%>
   <script>
   	var contextPath = "${contextPath }";
   </script>
@@ -44,16 +46,16 @@
         wcs_do();
     </script>
     <google analytics>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-64056275-1', 'auto');
-        ga('send', 'pageview');
+            ga('create', 'UA-64056275-1', 'auto');
+            ga('send', 'pageview');
 
-    </script>
+        </script>
 </head>
 <body >
 	<tiles:insertAttribute name="header" />

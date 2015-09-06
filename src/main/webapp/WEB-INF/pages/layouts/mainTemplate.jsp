@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/clapp.style.css" />
 	<link rel="stylesheet" href="${contextPath }/resources/css/jquery/jquery-ui.min-1.11.2.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/jquery/jquery.datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/slider.css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-ui.min-1.11.2.js"></script>
@@ -33,6 +34,9 @@
     <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.watermark.min.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/clapp.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/common.js"></script>
+    <script type="text/javascript" src="${contextPath }/resources/js/dropdownbanner.js"></script>
+    <script type="text/javascript" src="${contextPath }/resources/js/jquery.banner2.js"></script>
+    <script type="text/javascript" src="${contextPath }/resources/js/slider.min.js"></script>
 	<script type="text/javascript">
 		var contextPath = "${contextPath}";
 		/* function onUnload(e, callback) {
@@ -104,22 +108,22 @@
 	</script>
 
     <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"></script>
-    <script type="text/javascript">
-        if(!wcs_add) var wcs_add = {};
-        wcs_add["wa"] = "5cdfd898d6ee64";
-        wcs_do();
-    </script>
-    <google analytics>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <%--<script type="text/javascript">--%>
+        <%--if(!wcs_add) var wcs_add = {};--%>
+        <%--wcs_add["wa"] = "5cdfd898d6ee64";--%>
+        <%--wcs_do();--%>
+    <%--</script>--%>
+    <%--<google analytics>--%>
+    <%--<script>--%>
+        <%--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){--%>
+            <%--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),--%>
+                <%--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)--%>
+        <%--})(window,document,'script','//www.google-analytics.com/analytics.js','ga');--%>
 
-        ga('create', 'UA-64056275-1', 'auto');
-        ga('send', 'pageview');
+        <%--ga('create', 'UA-64056275-1', 'auto');--%>
+        <%--ga('send', 'pageview');--%>
 
-    </script>
+    <%--</script>--%>
 </head>
 <body >
 	<div id="wrapBgContainer">
@@ -135,6 +139,6 @@
 			<tiles:insertAttribute name="footer"/>
 		</div>
 	</div> <!-- #wrapBgContainer End -->
-    <img src='//pixel.mathtag.com/event/img?mt_id=753044&mt_adid=140577&v1=&v2=&v3=&s1=&s2=&s3=' width='1' height='1' />
+    <%--<img src='//pixel.mathtag.com/event/img?mt_id=753044&mt_adid=140577&v1=&v2=&v3=&s1=&s2=&s3=' width='1' height='1' />--%>
 </body>
 </html>

@@ -27,6 +27,7 @@ public class AdminEntity extends PageEntity implements Serializable{
 	
 	//관리자 권한
 	private String permissionMaster = "N";		// 관리자 관리;
+    private String permissionMain = "N";		// 관리자 관리;
 	private String permissionUser = "N";			// 회원 관리;
 	private String permissionPayment = "N";		// 결제내역 관리;
 	private String permissionProduct = "N";		// 상품 관리;
@@ -126,6 +127,12 @@ public class AdminEntity extends PageEntity implements Serializable{
 	public void setPermissionMaster(String permissionMaster) {
 		this.permissionMaster = permissionMaster;
 	}
+    public String getPermissionMain() {
+        return permissionMain;
+    }
+    public void setPermissionMain(String permissionMain) {
+        this.permissionMain = permissionMain;
+    }
 	public String getPermissionUser() {
 		return permissionUser;
 	}

@@ -1,26 +1,10 @@
 package kr.co.clapp.controller.user.myClapp;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.entities.AdministrationFileEntity;
-import kr.co.clapp.entities.DropOutUserEntity;
-import kr.co.clapp.entities.EcrmEntity;
-import kr.co.clapp.entities.MemberEntity;
-import kr.co.clapp.entities.PayLgdInfo;
-import kr.co.clapp.entities.PaymentEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
-import kr.co.clapp.entities.validation.FormBindingResultEntity;
-import kr.co.clapp.entities.validation.FormUserInfoEntity;
-import kr.co.clapp.entities.validation.FormUserInfoEntity.ModifyPass;
+import kr.co.clapp.entities.*;
+import kr.co.clapp.service.applyform.ApplyformService;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.customer.CustomerService;
 import kr.co.clapp.service.file.AdministrationFileService;
@@ -28,22 +12,22 @@ import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.service.payment.PaymentService;
 import kr.co.clapp.service.product.ProductService;
-import kr.co.clapp.utils.ValidationResultUtils;
 import kr.co.digigroove.commons.entities.SavedFileEntity;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.HashUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value="/myClapp/rest")
@@ -67,7 +51,8 @@ public class MyClappRestController {
 	private AdministrationFileService administrationFileService;
 	@Autowired
 	private MailingService mailingService;
-	
+    @Autowired
+    private ApplyformService applyformService;
 	public MyClappRestController() {
 	}
 	
@@ -125,8 +110,43 @@ public class MyClappRestController {
 			logger.error("MyClappRestController.responseVirtualAcct:Faild" , e);
 		}
 		return result;
-	} 
-	
+	}
+    /**
+
+     * @param applyFormEntity
+     * @return
+     */
+    @RequestMapping(value = "/insertApplyForm", method = RequestMethod.POST)
+    public ResponseEntity insertApplyForm(ApplyFormEntity applyFormEntity,MultipartHttpServletRequest req){
+        ResponseEntity result= new ResponseEntity();
+        AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+        try {
+            String resultMessage = messages.getMessage("insert.success");
+//            String resultCode = ResultCode.SUCCESS;
+//            result.setResultCode(resultCode);
+
+//          result.setResultURL("/myClapp/myTestRequestComplet");
+            applyformService.insertApplyForm(applyFormEntity);
+//          logger.debug("filename===={}",req.getFileNames().hasNext());
+            // 파일 업로드
+            if(req.getFileNames().hasNext()) {
+                administrationFileEntity.setFileTargetKey(applyFormEntity.getApplyFormKey());
+                administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_APPLYFORM);
+                administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_Y);
+
+                //파일 등록
+                this.saveFileForFormData(req, administrationFileEntity);
+            }
+            //result.setResultCode(resultCode);
+            result.setResultMSG(resultMessage);
+        } catch (Exception e) {
+            logger.error("MyClappRestController.insertApplyForm:Faild" , e);
+            result.setResultCode(ResultCode.FAIL);
+            result.setResultMSG(messages.getMessage("insert.fail"));
+        }
+
+        return result;
+    }
 	/**
 	 * 1:1문의 등록
 	 * @param inquiryEntity

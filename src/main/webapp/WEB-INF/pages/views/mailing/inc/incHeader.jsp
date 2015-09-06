@@ -1,8 +1,8 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
 <HTML><HEAD><TITLE>Testing Anywhere, CLAPP</TITLE>
 <META content="text/html; charset=ks_c_5601-1987" http-equiv=Content-Type>
 <STYLE type=text/css> 
@@ -36,11 +36,5 @@ a:hover { color: #fe8500; text-decoration: underline; }
         </TR></TBODY></TABLE>
       <!-- 상단 로고 & 메뉴 끝 --></TD></TR>
   <TR><!-- 메일 콘텐츠 시작 -->
-    <TD colspan="3">
-      <TABLE cellSpacing="0" cellPadding="0" width="100%" align="center">
-        <TBODY>
-          <TR>
-            <TD width="693" 
-          style="PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 0px">
-              <p>&nbsp;</p>
+
                  

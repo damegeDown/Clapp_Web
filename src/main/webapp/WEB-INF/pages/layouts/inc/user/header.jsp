@@ -46,24 +46,24 @@ $(function() {
       </div>
       <div class="subTopMenu">
         <ul>
-          <li><a class="topNavMenuLink" href="${contextPath}/introduction/supportCustomerList">고객 지원</a></li>
-          <li class="topMenuLine"></li>
-          <li><a class="topNavMenuLink" href="${contextPath}/product/productList">상품 안내</a></li>
-        <c:if test = "${userLoginSession.userMasterKey ne null}"> 
-          <li class="topMenuLine"></li>
-          <li><div id="doLogout" style="cursor:pointer" class="topNavMenuLink btn" data-msg="로그아웃" >로그아웃</div></li>
-          <li class="topMenuLine"></li> 
-          <li><a href="${contextPath}/myClapp/myTicket">마이 클앱</a></li>
-          <li class="topMenuLine"></li>
-          <input type="hidden" name="userId" class="userId" value="${userLoginSession.userId}"/>
-         <li>${userLoginSession.userName} 님, 환영합니다!</li>
+        <c:if test = "${userLoginSession.userMasterKey ne null}">
+            <li>${userLoginSession.userName} 님, 환영합니다!</li>
+            <input type="hidden" name="userId" class="userId" value="${userLoginSession.userId}"/>
+            <li class="topMenuLine"></li>
+            <li><a href="${contextPath}/myClapp/myTicket">마이 클앱</a></li>
+            <li class="topMenuLine"></li>
+            <li><div id="doLogout" style="cursor:pointer" class="topNavMenuLink btn" data-msg="로그아웃" >로그아웃</div></li>
         </c:if>
-        <c:if test = "${userLoginSession.userMasterKey eq null}"> 
-          <li class="topMenuLine"></li>
-          <li><a class="topNavMenuLink" href="${contextPath}/members/login">로그인</a></li>
-          <li class="topMenuLine"></li>
-          <li><a class="topNavMenuLink" href="${contextPath}/members/memberJoin">클앱 가입</a></li>
+        <c:if test = "${userLoginSession.userMasterKey eq null}">
+            <li class="topMenuLine"></li>
+            <li><a class="topNavMenuLink" href="${contextPath}/members/memberJoin">클앱 가입</a></li>
+            <li class="topMenuLine"></li>
+            <li><a class="topNavMenuLink" href="${contextPath}/members/login">로그인</a></li>
         </c:if>
+            <li class="topMenuLine"></li>
+            <li><a class="topNavMenuLink" href="${contextPath}/product/productList">상품 안내</a></li>
+            <li class="topMenuLine"></li>
+            <li><a class="topNavMenuLink" href="${contextPath}/introduction/supportCustomerList">고객 지원</a></li>
         </ul>
       </div>
     </div>
@@ -73,9 +73,9 @@ $(function() {
 		<div class="subGnbTopBox">
 			<div class="subGnbTop">
 				<ul>
-	                <li class="smtGline mobileTesting"><a class="smtGRmt" href="${contextPath}/mobileTesting/mobileTestingMain/">클앱 테스팅</a></li>
-	                <li class="smtGline clappTesting"><a class="smtGRTa" href="${contextPath}/clappTesting/autoMain">클앱 자동화</a></li>
-	                <li class="smtGline clappConsulting"><a class="smtGRQa" href="${contextPath}/clappConsulting/consulting">클앱 컨설팅</a></li>
+	                <li class="smtGline serviceinfo"><a class="smtGRmt" href="${contextPath}/serviceinfo/infoMain">서비스 소개</a></li>
+	                <li class="smtGline mobileTesting"><a class="smtGRTa" href="${contextPath}/mobileTesting/mobileTestingMain">수동 테스트</a></li>
+	                <li class="smtGline clappTesting"><a class="smtGRQa" href="${contextPath}/clappTesting/autoMain">자동화 테스트</a></li>
 	                <li class="smtGline trandReview"><a class="smtGRTr" href="${contextPath}/trandReview/trandReviewMain">트렌드 리뷰</a></li>
 	                <li class="blank introduction"><a class="smtGRCi" href="${contextPath}/introduction/introductionMain">브랜드 클앱</a></li>
 	              </ul>

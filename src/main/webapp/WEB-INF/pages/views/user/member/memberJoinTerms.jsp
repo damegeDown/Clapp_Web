@@ -34,12 +34,12 @@ $(function(){
       </div>
     </div> <!-- .subGnbContainer End -->
     <div class="subJoinFlowContainer">
-      <div class="subJoinFlowBox2">
+      <div class="subJoinFlowBox">
         <div class="subJoinFlowStepBox">
-          <span class="subJoinStep1">가입 유형</span>
-          <span class="subJoinStep2 sjsActive2">약관 동의</span>
-          <span class="subJoinStep3">정보 입력</span>
-          <span class="subJoinStep4">가입 완료</span>
+
+          <span class="subJoinStep1 sjsActive">약관 동의</span>
+          <span class="subJoinStep2">정보 입력</span>
+          <span class="subJoinStep3">가입 완료</span>
         </div>
       </div>
     </div> <!-- .subJoinFlowContainer End -->

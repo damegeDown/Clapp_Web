@@ -109,7 +109,7 @@
 		<th>신청금액<br/>(원)</th>
 		<th>결제금액<br/>(vat제외, 원)</th>
 		<th>결제금액<br/>(vat포함, 원)</th>
-		<th>티켓</th>
+		<th>시간</th>
     </tr>
     </thead>
     <tbody>
@@ -139,7 +139,7 @@
 	        <td><fmt:formatNumber value="${paymentList.paymentTotalPrice}" type="number"/></td>
 	        <td><fmt:formatNumber value="${paymentList.paymentNotVatTotalPrice}" type="number"/></td>
 	        <td><fmt:formatNumber value="${paymentList.paymentTotalPrice}" type="number"/></td>
-	        <td><fmt:formatNumber value="${paymentList.paymentTicketAmount}" type="number"/></td>
+	        <td><fmt:formatNumber value="${paymentList.paymentTicketAmount*5}" type="number"/>분</td>
 	      </tr>
 	    </c:forEach> 
 	    </c:otherwise>

@@ -49,7 +49,10 @@
 			<mvc:exclude-mapping path="/admin/common/error"/>
 			<mvc:exclude-mapping path="/members/login*"/>
 			<mvc:exclude-mapping path="/myClapp/rest/responseVirtualAcct"/>
+            <mvc:exclude-mapping path="/myClapp/rest/insertapplyform"/>
 			<mvc:exclude-mapping path="/common/error*"/>
+            <mvc:exclude-mapping path="/serviceinfo/infoMain"/>
+            <mvc:exclude-mapping path="/serviceinfo/exGuide"/>
 			<bean class="kr.co.clapp.interceptors.AuthenticationCheckInterceptor"/>
 		</mvc:interceptor>
   </mvc:interceptors>

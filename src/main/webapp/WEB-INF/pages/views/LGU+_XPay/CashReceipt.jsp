@@ -30,8 +30,8 @@
 	* 예) [Window 계열] C:\inetpub\wwwroot\lgdacom ==> 절대불가(웹 디렉토리)
 	*/
 	
-    String configPath 			  = "C:/lgdacom";  										  //LG유플러스에서 제공한 환경파일("/conf/lgdacom.conf") 위치 지정.
-        
+   // String configPath 			  = "C:/lgdacom";  										  //LG유플러스에서 제공한 환경파일("/conf/lgdacom.conf") 위치 지정.
+    String configPath 			  = "C:/Users/admin/Downloads/eGovFrameDev-3.2.0-64bit/web/lgdacom";    
     LGD_METHOD       		= ( LGD_METHOD == null )?"":LGD_METHOD;
     LGD_OID       		    = ( LGD_OID == null )?"":LGD_OID;
     LGD_PAYTYPE       		= ( LGD_PAYTYPE == null )?"":LGD_PAYTYPE;

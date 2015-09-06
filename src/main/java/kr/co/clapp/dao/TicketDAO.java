@@ -131,14 +131,23 @@ public interface TicketDAO {
 	 * @return
 	 */
 	int insertUserTicketHistory(TicketEntity ticketEntity);
+    /**
+     * 클앱 맴버십 시간용자 간 중복 구매 방지
+     * @param ticketEntity
+     * @return
+     */
+    List<TicketEntity> getUserTicketProductList(TicketEntity ticketEntity);
+
 	/**
 	 * 사용자 티켓 히스토리
 	 * @param ticketEntity
 	 * @return
 	 */
+
+
 	List<TicketEntity> selectTicketHistoryList(TicketEntity ticketEntity);
-	
-	int modifyServiceTicketMaster(TicketEntity ticketEntity);
+
+    int modifyServiceTicketMaster(TicketEntity ticketEntity);
 	
 	int insertServiceTicketHistory(TicketEntity ticketEntity);
 	

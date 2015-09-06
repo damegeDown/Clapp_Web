@@ -58,6 +58,7 @@ public class MembersRestController {
   	  String resultMessage = messages.getMessage("insert.fail");
   	  if(memberService.insertMember(memberEntity) > CommonCode.ZERO) {
   	    resultCode = ResultCode.SUCCESS;
+          logger.debug("{}",resultCode);
   	    if(memberEntity.getUserType().equals(CommonCode.USER_MEMBER)){
   	    	result.setResultURL("/members/memberJoinComplete?userName=" + memberEntity.getUserName());
   	    	if(mailingService.sendJoinMemberMail(memberEntity) > CommonCode.ZERO) {

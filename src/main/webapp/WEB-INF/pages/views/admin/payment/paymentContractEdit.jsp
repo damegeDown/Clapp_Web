@@ -128,8 +128,11 @@
                 </td>
             </tr>
     	 	 <tr>
-    	 	   <th>적용티켓</th>
-    	 	   <td><input type="text" name="contractTicketAmount" value="${paymentInfo.contractTicketAmount}" placeholder="숫자만 입력" data-format="num"/> 개</td>
+    	 	   <th>적용시간</th>
+    	 	   <td>
+                   <input type="text" name="contractTicketAmount_h" value="${paymentInfo.contractTicketAmount}" readonly />분
+                   <input type="hidden" name="contractTicketAmount" value="${paymentInfo.contractTicketAmount}" placeholder="숫자만 입력" data-format="num" />
+               </td>
     	 	 </tr>
     	 	 <c:if test="${paymentInfo.contractMasterKey > 0 }">
     	 	 <tr>
@@ -195,7 +198,13 @@
 			$("input[name=contractProductName]").val(productName);
 			//$("input[name=contractExpirationDate]").val(applyDate);
 			$("input[name=ticketEndExpirationDate]").val(myDate.format("yyyy/MM/dd HH:mm"));
-			$("input[name=contractTicketAmount]").val(ticketAmount);
+
+            if(productName=="클앱멤버십"){
+                $("input[name=contractTicketAmount_h]").val("300분/일");
+            }else {
+                $("input[name=contractTicketAmount_h]").val(ticketAmount * 5);
+            }
+            $("input[name=contractTicketAmount]").val(ticketAmount);
 		});
 	});
 	$(function() {

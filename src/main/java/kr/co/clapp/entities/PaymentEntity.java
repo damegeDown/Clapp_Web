@@ -32,10 +32,10 @@ public class PaymentEntity extends PageEntity implements Serializable {
   private String paymentName;                //결제자명
   private String paymentUserId;              //결제자 아이디
   private String paymentCompanyNumber;       //사업자번호
-  private int productMasterKey;         //신청 상품 키
+  private int productMasterKey;             //신청 상품 키
   private String paymentProductName;         //신청상품
   private int paymentProductPrice;           //신청금액
-  private int paymentUseTime;           //사용가능시간
+  private int paymentUseTime;               //사용가능시간
   private int paymentTicketAmount;           //티켓 수
   private int paymentNotVatTotalPrice;       //결제금액(vat미포함, 원)
   private int paymentTotalPrice;             //결제금액(vat포함, 원)

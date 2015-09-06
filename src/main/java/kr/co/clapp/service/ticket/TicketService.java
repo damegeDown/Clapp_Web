@@ -1,9 +1,9 @@
 package kr.co.clapp.service.ticket;
 
-import java.util.List;
-
 import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.TicketEntity;
+
+import java.util.List;
 
 public interface TicketService {
 	/**
@@ -81,9 +81,15 @@ public interface TicketService {
 	TicketEntity selectTicketUsedHistory(TicketEntity ticketParam);
 	/**
 	 * 사용자 티켓 사용 히스토리 
-	 * @param ticketInfo
+	 * @param ticketEntity
 	 * @return
 	 */
+    List<TicketEntity> getUserTicketProductList(TicketEntity ticketEntity);
+    /**
+     * 사용자 티켓 차감
+     * @param ticketInfo
+     * @return
+     */
 	TicketEntity getMyHistory(TicketEntity ticketInfo);
 
 

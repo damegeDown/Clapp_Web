@@ -34,9 +34,10 @@ public class CommonCode {
 	public static final String CELL_PHONE_NUM = "CELL_PHONE_NUM";							//공통코드 핸드폰
 	public static final String TELE_PHONE_NUM = "TELE_PHONE_NUM";							//공통코드 전화번호
 	public static final String FILE_TARGET_NOTICE = "notice";								//디바이스 파일 저장 폴더 
-	public static final String FILE_TARGET_QNA = "qna";								//디바이스 파일 저장 폴더 
+	public static final String FILE_TARGET_QNA = "qna";								        //디바이스 파일 저장 폴더
 	public static final String FILE_TARGET_DEVICE = "device";								//디바이스 파일 저장 폴더 
-	public static final String FILE_TARGET_INQUIRY = "inquiry";								//상담 파일 저장 폴더 
+	public static final String FILE_TARGET_INQUIRY = "inquiry";								//상담 파일 저장 폴더
+    public static final String FILE_TARGET_APPLYFORM = "applyform";							//테스트신청 파일 저장 폴더
 	public static final String FILE_TARGET_BOARD_TRAND = "boardTrand";						//트렌드리뷰 파일 저장 폴더 
 	public static final String FILE_TARGET_BOARD_SOCIAL_BLOG = "boardSocialBlog";			//소셜/블로그 파일 저장 폴더 
 	public static final String FILE_THUMB_Y = "Y";									     	//파일 썸네일 생성여부 
@@ -55,7 +56,7 @@ public class CommonCode {
 	public static final String RESERVATION_STATUS = "RESERVATION_STATUS";		//예약 상태
 	public static final String PAYMENT_TYPE = "PAYMENT_TYPE";		//결제방법
 	public static final String QNA_CATEGORY = "QNA_CATEGORY";		//도움말 카테고리
-	public static final int TICKET_TIME = 15;						// 티켓 당 사용 시간
+	public static final int TICKET_TIME = 5;						// 티켓 당 사용 시간
 	
 	
 	public static final class MailType {
@@ -81,7 +82,7 @@ public class CommonCode {
 		public final static int MAIL_SYSTEM_ERROR = 20;					// 시스템 에러시 
 		public final static int MAIL_RESERVE_NOT_USED = 21;			// 예약후 사용하지 않을시 
 		public final static int MAIL_TARGET_ALL = 22;						// 타켓메일(전체)
-		public final static int MAIL_TARGET_GENERAL = 23;				// 타켓메일(일반)
+		public final static int MAIL_TARGET_GENERAL = 23;				// 타켓메일(일반)`
 		public final static int MAIL_TARGET_COMPANY = 24;				// 타켓메일(기업)
 		
 		public final static int MAIL_ANY_TIME = 1;			        			// 메일구분 - 수시

@@ -539,12 +539,15 @@ public class PaymentServiceImpl implements PaymentService {
         /** 기존 사용하던 티켓은 미사용으로 변경
          * 새로 저장일 때만 기존 마스터 사용여부를 N 으로 변경한다
          * */
-        if(!useYn.equals("N")) {
+		 /*2015-08-14 기존 일괄 사용종료 처리하던 방식에서 시간사용자인경우 추가로 결제해도 일괄 종료되지 않도록 변경*/
+       /*
+		if(!useYn.equals("N")) {
             ticketParam.setUseYn("N");
         } else {
             ticketParam.setUseYn("Y");
         }
-            ticketDAO.modifyUserTicketMasterUse(ticketParam);
+		*/
+        ticketDAO.modifyUserTicketMasterUse(ticketParam);
 
         ticketParam.setUseYn(useYn);
         result = ticketDAO.insertUserTicketMaster(ticketParam);

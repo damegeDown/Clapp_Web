@@ -1,6 +1,8 @@
 /**
  * 검색
  */
+
+
 var SearchUtils = (function() {
  	"user strict";
  	 /**

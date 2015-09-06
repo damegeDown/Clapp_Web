@@ -22,9 +22,9 @@
 <div class="subMyClappTitleContainer">
 	<div class="subMyClappTitleBox">
 		<div class="subMyClappTitleLine"></div>
-		<span class="subMyClappTitle">티켓 적립/차감/반환</span>
+		<span class="subMyClappTitle">적립/차감/반환</span>
 		<p class="subMyClappSMessage">
-			클앱을 이용하실 수 있는 티켓의 적립/차감/반환 상세 내역을 조회하실 수 있습니다.
+			클앱을 이용하실 수 있는 시간의 적립/차감/반환 상세 내역을 조회하실 수 있습니다.
 		</p>
 		<!-- <div class="subMyClappTaxBox">
 			<a href="#">
@@ -107,7 +107,7 @@
 			<div class="subMyClappContentResultTotalSectionBox">
 				<div class="sccrtS1">
 					<ul class="sccrtSLists">
-						<li><span class="sccrtSTitle1">이용가능 티켓수 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount }</span><span class="sccrtSQty1"> 티켓</span></li>
+						<li><span class="sccrtSTitle1">사용가능 시간 :&nbsp;</span><span class="sccrtSNo1">${ticketHistoryInfo.ticketAvilableAmount *5  }</span><span class="sccrtSQty1"> 분</span></li>
 						<li class="sccrtSListsLine"></li>
 						<li><span class="sccrtSTitle2"><!--${ticketHistoryInfo.productName}--> 잔여일수 : &nbsp;</span><span class="sccrtSNo2">${ticketHistoryInfo.expirationDate }</span><span class="sccrtSQty2"> 일</span></li>
 					</ul>
@@ -127,17 +127,17 @@
                         <col width="10%"/>
                         <col width="15%"/>
                         <col width="5%"/>
-                        <col width="5%"/>
+                        <col width="10%"/>
                         <col width="15%"/>
                         <col width="*"/>
                     </colgroup>
 					<tr>
 						<th>No</th>
 						<th>상품명</th>
-						<th>예약(시작)시간</th>
+						<th>적용일시</th>
 						<th>상태</th>
-						<th>티켓</th>
-						<th>유효기간</th>
+						<th>적용시간</th>
+						<th>사용가능 시간</th>
 						<th>적용사유</th>
 					</tr>
 					<c:if test="${ticketHistoryInfo.dataSize < 1}">
@@ -153,11 +153,12 @@
                         </td>
 						<td><fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${history.statusText}</td>
-						<td>${history.historyUsedTicketAmountText }</td>
+						<td>${history.historyUsedTicketAmountText} 분</td>
 						<td>
-							<%--${history.expirationDate }--%>
-							 <fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
-							<br/> ~ <fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
+							<%--&lt;%&ndash;${history.expirationDate }&ndash;%&gt;--%>
+							 <%--<fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>--%>
+							<%--<br/> ~ <fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>--%>
+                                    ${history.ticketAvilableAmount*5} 분
 						</td>
 						<td>
 						    ${history.serviceApplyReason }

@@ -96,7 +96,7 @@
          	out.println("최종결제요청 결과 성공 DB처리하시기 바랍니다.<br>");
          	            	
          	//최종결제요청 결과 성공 DB처리 실패시 Rollback 처리
-         	boolean isDBOK = true; //DB처리 실패시 false로 변경해 주세요.
+         	boolean isDBOK = false; //DB처리 실패시 false로 변경해 주세요.
          	if( !isDBOK ) {
          		xpay.Rollback("상점 DB처리 실패로 인하여 Rollback 처리 [TID:" +xpay.Response("LGD_TID",0)+",MID:" + xpay.Response("LGD_MID",0)+",OID:"+xpay.Response("LGD_OID",0)+"]");
          		

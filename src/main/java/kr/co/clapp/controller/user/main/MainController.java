@@ -2,9 +2,11 @@ package kr.co.clapp.controller.user.main;
 
 import javax.servlet.http.HttpServletRequest;
 
-import kr.co.clapp.entities.BoardEntity;
-import kr.co.clapp.entities.DeviceEntity;
+import kr.co.clapp.constants.CommonCode;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.service.board.BoardService;
+import kr.co.clapp.service.common.CommonService;
+import kr.co.clapp.service.customer.CustomerService;
 import kr.co.clapp.service.device.DeviceService;
 
 import org.slf4j.Logger;
@@ -15,28 +17,46 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Controller
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger( MainController.class );
 	@Autowired
 	private BoardService boardService;
-	
+    @Autowired
+    private CustomerService customerService;
 	@Autowired
 	private DeviceService deviceService;
-	
+    @Autowired
+    private CommonService commonService;
+
+    HashMap<String, Object> commonCode  = new HashMap<String, Object>();
+
+    CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
+
     @RequestMapping(value = {"/user", "/"}, method = RequestMethod.GET)
-	public String userMain(DeviceEntity deviceEntity, BoardEntity boardEntity, Model model, HttpServletRequest request) {
+	public String userMain(DeviceEntity deviceEntity,  HttpServletRequest request,BoardNoticeEntity boardNoticeEntity, BoardQnaEntity boardQnaEntity,Model model) {
     	String url = request.getRequestURL().toString();
     	String returnUrl = "user/main";
     	/**티저페이지 이동*/
     	//if(!url.contains("8080")) { 
     		//returnUrl = "teaser"; 
     	//}
-    	deviceEntity = deviceService.getDeviceUserList(deviceEntity);
-    	boardEntity = boardService.getTrandList(boardEntity);
-		boardEntity = boardService.getSocialBlogList(boardEntity);
+
+//         CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
+//        commonCodeEntity.setCodeMasterCode(CommonCode.QNA_CATEGORY);
+//        List<CommonCodeEntity> qnaCategoryCode = commonService.getCommonCodeList(commonCodeEntity);
+        boardNoticeEntity = customerService.getBoardNoticeUserList(boardNoticeEntity);
+        boardQnaEntity = customerService.getBoardQnaUserList(boardQnaEntity);
+        deviceEntity = deviceService.getDeviceUserList(deviceEntity);
+        model.addAttribute("boardNoticeEntity", boardNoticeEntity);
+        model.addAttribute("boardQnaEntity", boardQnaEntity);
+//        model.addAttribute("qnaCategoryCode", qnaCategoryCode);
+        model.addAttribute("CommonCode", commonCode);
 		model.addAttribute("deviceEntity", deviceEntity);
-		model.addAttribute("boardEntity", boardEntity);
+
     	
 		return returnUrl; 
 	}
@@ -55,5 +75,15 @@ public class MainController {
     @RequestMapping(value = "/common/privacy")
     public String privacy(){
     	return "user/common/privacy";
+    }
+
+
+    /**
+     * 공사중
+     * @return
+     */
+    @RequestMapping(value="popup/noticePopup")
+    String freeJoinPopup(){
+        return "introduction/popup/noticePopup";
     }
 }

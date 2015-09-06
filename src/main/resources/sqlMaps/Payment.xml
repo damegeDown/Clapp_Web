@@ -385,6 +385,7 @@
 	</insert>
 	<select id="getPaymentContractDetail" parameterType="paymentEntity" resultType="paymentEntity">
 		SELECT
+		    DISTINCT
 			cm.contract_master_key,
 			cm.contract_tid,
 			cm.contract_start_date,

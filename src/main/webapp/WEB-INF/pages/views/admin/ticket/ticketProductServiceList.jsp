@@ -71,7 +71,7 @@ $(function() {
 			<th>이름/기업,단체명</th>
 			<th>적용일시</th>
 			<th>적용 상품명</th>
-			<th class="al-right">적용 티켓수</th>
+			<th class="al-right">적용시간</th>
 			<th>적용 사유</th>
 			<th>적용 담당자</th>
 			</tr>
@@ -85,7 +85,7 @@ $(function() {
 					<td>${ticketProductServiceList.serviceTargetName  }</td>
  					<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${ticketProductServiceList.serviceApplyDate }" /></td>
 					<td>${ticketProductServiceList.serviceProductName == null ? '-': ticketProductServiceList.serviceProductName }</td>
-					<td class="al-right">${ticketProductServiceList.serviceApplyTicketTotalAmount }</td>
+					<td class="al-right">${ticketProductServiceList.serviceApplyTicketTotalAmount *5 } 분</td>
 					<td>${ticketProductServiceList.serviceApplyReason }</td>
 					<td>${ticketProductServiceList.serviceApplyOperatorName }</td>
 				</tr>

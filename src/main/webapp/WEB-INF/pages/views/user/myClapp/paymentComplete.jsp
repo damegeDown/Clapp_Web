@@ -51,7 +51,11 @@
 							<span>사용시간</span>
 						</div>
 						<div class="subPGCOCCont01TxtBox03Cont">
-							<span>${paymentInfo.paymentUseTime }시간 ( ${paymentInfo.paymentTicketAmount }티켓 제공 )</span>
+							<span>
+							${paymentInfo.paymentUseTime }분<c:if test = "${paymentInfo.productMasterKey>=25}">/ 일</c:if>
+                                <%--( ${paymentInfo.paymentTicketAmount }티켓 제공 )--%>
+
+                            </span>
 						</div>
 					</div>
 					<c:choose>

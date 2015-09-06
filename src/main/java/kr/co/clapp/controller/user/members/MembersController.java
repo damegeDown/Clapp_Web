@@ -1,17 +1,9 @@
 package kr.co.clapp.controller.user.members;
 
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import kr.co.clapp.constants.CommonCode;
-import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.constants.CommonCode.Session;
-import kr.co.clapp.controller.SessionBindingListener;
+import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.controller.SessionListener;
 import kr.co.clapp.entities.CommonCodeEntity;
 import kr.co.clapp.entities.MemberEntity;
@@ -19,7 +11,6 @@ import kr.co.clapp.entities.ResponseEntity;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.digigroove.commons.messages.Messages;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/members")
@@ -51,8 +48,10 @@ public class MembersController {
 	 */
     @RequestMapping(value = "/memberJoin")
     public String memberJoin(){
-    	return "user/member/memberJoin";
+//    	return "user/member/memberJoin";
+        return "user/member/memberJoinTerms";
     }
+
     /**
      * 회원 가입 약관 동의
      * @return
@@ -99,7 +98,7 @@ public class MembersController {
     
     /**
      * 기업/단체 회원 가입 폼
-     * @return
+     * @return/
      */
     @RequestMapping(value = "/memberJoinFormCompany")
     public String memberJoinFormCompany(MemberEntity memberEntity, Model model){
@@ -108,7 +107,7 @@ public class MembersController {
 	  MemberEntity memberInfo = null;
 	  try {
 		
-		//공통코드 
+		//공통코드
 		CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
 		//공통코드 핸드폰
   	  	commonCodeEntity.setCodeMasterCode(CommonCode.CELL_PHONE_NUM);

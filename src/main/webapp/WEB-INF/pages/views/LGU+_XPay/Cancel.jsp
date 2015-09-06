@@ -19,7 +19,8 @@
 	* 해당 환경파일이 외부에 노출이 되는 경우 해킹의 위험이 존재하므로 반드시 외부에서 접근이 불가능한 경로에 두시기 바랍니다. 
 	* 예) [Window 계열] C:\inetpub\wwwroot\lgdacom ==> 절대불가(웹 디렉토리)
 	*/
-    String configPath 			= "C:/lgdacom";  										//LG유플러스에서 제공한 환경파일("/conf/lgdacom.conf") 위치 지정.
+    //String configPath 			= "C:/lgdacom";  										//LG유플러스에서 제공한 환경파일("/conf/lgdacom.conf") 위치 지정.
+	String configPath 			  = "C:/Users/admin/Downloads/eGovFrameDev-3.2.0-64bit/web/lgdacom";
         
     LGD_TID     				= ( LGD_TID == null )?"":LGD_TID; 
     

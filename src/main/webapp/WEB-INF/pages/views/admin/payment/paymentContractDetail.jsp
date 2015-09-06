@@ -70,8 +70,8 @@
     	 	   <td>${paymentInfo.contractProductName}</td>
     	 	 </tr>
     	 	 <tr>
-    	 	   <th>적용티켓</th>
-    	 	   <td>${paymentInfo.contractTicketAmount} 개</td>
+    	 	   <th>적용시간</th>
+    	 	   <td>${paymentInfo.contractTicketAmount*5} 분</td>
     	 	 </tr>
     	 	 <tr>
     	 	   <th>유효기간</th>

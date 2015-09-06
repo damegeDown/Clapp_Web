@@ -28,7 +28,7 @@ $(function() {
 $(function() {
 	var url = location.href;
 	//브렌드 클앱 메뉴
-	var classArr = ["smtGActive", "staGActive", "sqaGActive", "strGActive", "sciGActive"];
+	var classArr = ["ssiGActive", "smtGActive", "staGActive", "strGActive", "sciGActive"];
 	$("div.subGnbTop > ul li").each(function(index) {
 		var thisClass = $(this).attr("class").split(" ")[1];
 		if(url.indexOf(thisClass) != -1) {
@@ -37,6 +37,19 @@ $(function() {
 	});
 	 
 });
+
+function itrPopup(linkUrl,num){
+    console.log(linkUrl);
+//        if(num == "pop1"){
+//            window.open(linkUrl,  "startpop", "width=720, height=850, scrollbars=no, resizable=no ,status=no ,toolbar=no");
+//
+//        }
+    if(num =="pop2" ) {
+        window.open(linkUrl, "startpop", "width=400, height=248, scrollbars=no, resizable=no ,status=no ,toolbar=no");
+    }
+}
+
+
 </script>
  <%@ include file="/WEB-INF/pages/layouts/inc/user/qickMenu.jsp"%>
  <div id="subWrap">
@@ -47,42 +60,51 @@ $(function() {
             <a href="/user"><img src="${contextPath }/resources/images/clapp_logo_sub.png" alt="CLAPP LOGO" /></a>
           </div>
           <div class="subTopMenu">
-	          <ul>
-	            <li><a class="topNavMenuLink" href="${contextPath}/introduction/supportCustomerList">고객 지원</a></li>
-	            <li class="topMenuLine"></li>
-	            <li><a class="topNavMenuLink" href="${contextPath}/product/productList">상품 안내</a></li>
-	          <c:if test = "${userLoginSession.userMasterKey ne null}"> 
-	            <li class="topMenuLine"></li>
-	            <li><div id="doLogout" style="cursor:pointer" class="topNavMenuLink btn" data-msg="로그아웃" >로그아웃</div></li>
-	            <li class="topMenuLine"></li> 
-	            <li><a href="${contextPath}/myClapp/myTicket">마이 클앱</a></li>
-	            <li class="topMenuLine"></li>
-	            <input type="hidden" name="userId" class="userId" value="${userLoginSession.userId}"/>
-	           <li>${userLoginSession.userName} 님, 환영합니다!</li>
-	          </c:if>
-	          <c:if test = "${userLoginSession.userMasterKey eq null}"> 
-	            <li class="topMenuLine"></li>
-	            <li><a class="topNavMenuLink" href="${contextPath}/members/login">로그인</a></li>
-	            <li class="topMenuLine"></li>
-	            <li><a class="topNavMenuLink" href="${contextPath}/members/memberJoin">클앱 가입</a></li>
-	          </c:if>
-	          </ul>
+              <ul>
+                  <c:if test = "${userLoginSession.userMasterKey ne null}">
+                      <li>${userLoginSession.userName} 님, 환영합니다!</li>
+                      <input type="hidden" name="userId" class="userId" value="${userLoginSession.userId}"/>
+                      <li class="topMenuLine"></li>
+                      <li><a href="${contextPath}/myClapp/myTicket">마이 클앱</a></li>
+                      <li class="topMenuLine"></li>
+                      <li><div id="doLogout" style="cursor:pointer" class="topNavMenuLink btn" data-msg="로그아웃" >로그아웃</div></li>
+                  </c:if>
+                  <c:if test = "${userLoginSession.userMasterKey eq null}">
+                      <li class="topMenuLine"></li>
+                      <li><a class="topNavMenuLink" href="${contextPath}/members/memberJoin">클앱 가입</a></li>
+                      <li class="topMenuLine"></li>
+                      <li><a class="topNavMenuLink" href="${contextPath}/members/login">로그인</a></li>
+                  </c:if>
+                  <li class="topMenuLine"></li>
+                  <li><a class="topNavMenuLink" href="${contextPath}/product/productList">상품 안내</a></li>
+                  <li class="topMenuLine"></li>
+                  <li><a class="topNavMenuLink" href="${contextPath}/introduction/supportCustomerList">고객 지원</a></li>
+              </ul>
           </div>
         </div>
       </div> <!-- .subTopContainer End -->
-     <div class="clear"></div>
+
+
       <div class="subGnbContainer">
         <div class="subGnbTopContainer">
           <div class="subGnbTopBox">
             <div class="subGnbTop">
               <ul>
-                <li class="smtGline mobileTesting"><a class="smtGRmt" href="${contextPath}/mobileTesting/mobileTestingMain/">클앱 테스팅</a></li>
-                <li class="smtGline clappTesting"><a class="smtGRTa" href="${contextPath}/clappTesting/autoMain">클앱 자동화</a></li>
-                <li class="smtGline clappConsulting"><a class="smtGRQa" href="${contextPath}/clappConsulting/consulting">클앱 컨설팅</a></li>
+                <li class="smtGline serviceinfo"><a class="smtGRsi" href="${contextPath}/serviceinfo/infoMain">서비스 소개</a></li>
+                <li class="smtGline mobileTesting"><a class="smtGRmt" href="${contextPath}/mobileTesting/mobileTestingMain/">수동 테스트</a></li>
+                <li class="smtGline clappTesting"><a class="smtGRTa" href="${contextPath}/clappTesting/autoMain">자동화 테스트</a></li>
                 <li class="smtGline trandReview"><a class="smtGRTr" href="${contextPath}/trandReview/trandReviewMain">트렌드 리뷰</a></li>
                 <li class="blank introduction"><a class="smtGRCi" href="${contextPath}/introduction/introductionMain">브랜드 클앱</a></li>
               </ul>
             </div>
-          </div>
-        </div>
-        </div>
+
+            <div>
+                <div class="subMTStartBox">
+                    <a href="#"><img src="${contextPath }/resources/images/gnb_start.png"  onclick="JnlpUtils.startTest()" onmouseover="this.src='${contextPath }/resources//images/gnb_start_r.png';" onMouseOut="this.src='${contextPath }/resources//images/gnb_start.png';" alt="시작하기" /></a>
+                </div>
+            </div>
+      </div>
+    </div>
+ </div> <!-- .subGnbContainer End -->
+</div> <!-- .subMenu End -->
+

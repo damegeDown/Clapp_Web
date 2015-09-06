@@ -43,9 +43,12 @@ $.fn.Menu = {
 			}
 			if(mainMenu && subMenu)
 				$("#"+mainMenu+",."+subMenu+",."+subMenu2).addClass("on").find("> ul").show();
+            console.log("subMenu"+subMenu);
+            console.log("mainMenu"+mainMenu);
 		};
 		var showGrantMenu = function(){
 			var permissionMaster = '${adminLoginSession.permissionMaster}';
+            var permissionMain = '${adminLoginSession.permissionMain}';
 			var permissionUser = '${adminLoginSession.permissionUser}';
 			var permissionPayment = '${adminLoginSession.permissionPayment}';
 			var permissionProduct = '${adminLoginSession.permissionProduct}';
@@ -53,7 +56,7 @@ $.fn.Menu = {
 			var permissionTrend = '${adminLoginSession.permissionTrend}';
 			var permissionEcrm = '${adminLoginSession.permissionEcrm}';
 			var permissionCustomer = '${adminLoginSession.permissionCustomer}';
-			var permissionObj = {"permissionMaster" : permissionMaster, "permissionUser" : permissionUser, "permissionPayment" : permissionPayment,
+			var permissionObj = {"permissionMaster" : permissionMaster,"permissionMain" : permissionMain, "permissionUser" : permissionUser, "permissionPayment" : permissionPayment,
 										"permissionProduct" : permissionProduct, "permissionDevice" : permissionDevice, "permissionTrend" : permissionTrend,
 										"permissionEcrm" : permissionEcrm, "permissionCustomer" : permissionCustomer};
 			$(".left-bar > ul > li").filter(function(index) {
@@ -79,7 +82,7 @@ $.fn.Menu = {
 			<a href="${contextPath }/admin/management/adminList">관리 마스터</a>
 			<ul style="display:none">
 				<li class="admin"><a href="${contextPath }/admin/management/adminList">관리자 설정</a></li> 
-				<li class="popup"><a href="${contextPath }/admin/management/popupList">메인 팝업 관리</a></li>
+				<%--<li class="popup"><a href="${contextPath }/admin/management/popupList">메인 팝업 관리</a></li>--%>
 				<li class="statistics">
 					<a href="${contextPath }/admin/statistics/naverAnalytics">분석 / 통계</a>
 					<ul style="display:none">
@@ -91,7 +94,7 @@ $.fn.Menu = {
 						<li class="mailReport"><a href="${contextPath }/admin/statistics/mailReport">- 수시 발송용/타켓메일</a></li>
 						<li class="surveyReport"><a href="${contextPath }/admin/ecrm/surveyList">- 설문</a></li> 
 						<li class="usedTicketReport"><a href="${contextPath }/admin/statistics/usedTicketReport">- 티켓사용내역</a></li>
-						<li class="ticketProductReport"><a href="${contextPath }/admin/statistics/ticketProductReport">- 티켓/상품적용 서비스</a></li>
+						<li class="ticketProductReport"><a href="${contextPath }/admin/statistics/ticketProductReport">- 상품관리</a></li>
 						<li class="mailInquiryReport"><a href="${contextPath }/admin/statistics/mailInquiryReport">- 이메일 문의/답변</a></li>
 						<li class="cableAdviceReprot"><a href="${contextPath }/admin/statistics/cableAdviceReprot">- 유선상담 내역</a></li>
 					</ul>	
@@ -99,6 +102,13 @@ $.fn.Menu = {
 					
 			</ul>
 		</li>
+        <li id="permissionMain">
+            <a href="${contextPath }/admin/management/popupList">메인 관리</a>
+            <ul style="display:none">
+                <li class="popup"><a href="${contextPath }/admin/management/popupList">팝업 관리</a></li>
+                <li class="popup"><a href="${contextPath }/admin/management/popupList">베너 관리</a></li>
+            </ul>
+        </li>
 		<li id="permissionUser">
 			<a href="${contextPath }/admin/member/memberList">회원 정보</a>
 			<ul style="display:none">
@@ -107,6 +117,7 @@ $.fn.Menu = {
 				<li class="dropOutUser"><a href="${contextPath }/admin/member/dropOutUserList">탈퇴계정 관리</a></li>
 			</ul>
 		</li>
+
 		<li id="permissionPayment">
 			<a href="${contextPath }/admin/payment/paymentWebList">결제 내역</a>
 			<ul style="display:none">

@@ -1,21 +1,15 @@
 package kr.co.clapp.service.customer.impl;
 
-import java.util.List;
-
+import kr.co.clapp.constants.CommonCode;
+import kr.co.clapp.dao.CustomerDAO;
+import kr.co.clapp.entities.*;
+import kr.co.clapp.service.customer.CustomerService;
+import kr.co.digigroove.commons.messages.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.co.clapp.constants.CommonCode;
-import kr.co.clapp.dao.CustomerDAO;
-import kr.co.clapp.entities.BoardNoticeEntity;
-import kr.co.clapp.entities.BoardQnaEntity;
-import kr.co.clapp.entities.CabledAdviceEntity;
-import kr.co.clapp.entities.PageEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
-import kr.co.clapp.entities.validation.FormInquireInfoEntity;
-import kr.co.clapp.service.customer.CustomerService;
-import kr.co.digigroove.commons.messages.Messages;
+import java.util.List;
 
 @Service
 @Transactional(readOnly=true)
@@ -26,7 +20,18 @@ public class CustomerServiceImpl implements CustomerService {
   
   @Autowired
   private Messages messages;
-  /**
+    /**
+     * 테스트신청
+     */
+//    @Override
+//    @Transactional(readOnly = false, rollbackFor = Exception.class)
+//    public int insertApplyForm(ApplyFormEntity applyFormEntity) throws Exception {
+//        int result = 0;
+//        result = customerDAO.insertApplyForm(applyFormEntity);
+//        return result;
+//    }
+
+    /**
    * 이메일 문의 목록
    */
   public ServiceInquiryEntity getServiceInquiryList(ServiceInquiryEntity serviceInquiryEntity) throws Exception{

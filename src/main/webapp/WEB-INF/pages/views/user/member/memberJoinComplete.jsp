@@ -18,14 +18,14 @@
       </div>
     </div> <!-- .subGnbContainer End -->
     <div class="subJoinFlowContainer">
-      <div class="subJoinFlowBox4">
-        <div class="subJoinFlowStepBox">
-          <span class="subJoinStep1">가입 유형</span>
-          <span class="subJoinStep2">약관 동의</span>
-          <span class="subJoinStep3">정보 입력</span>
-          <span class="subJoinStep4 sjsActive4">가입 완료</span>
+        <div class="subJoinFlowBox3">
+            <div class="subJoinFlowStepBox">
+                <span class="subJoinStep1">약관 동의</span>
+                <span class="subJoinStep2">정보 입력</span>
+                <span class="subJoinStep3 sjsActive3">가입 완료</span>
+            </div>
         </div>
-      </div>
+
     </div> <!-- .subJoinFlowContainer End -->
     <div class="subJoinMemberCompleteContainer">
       <div class="subJoinMemberCompleteBox">
@@ -41,7 +41,7 @@
               365일 언제 어디서나 쉽고 빠른 테스팅이 가능한 클앱의 회원이 되신 것을 환영합니다.
             </p>
             <p class="memberMessage3">
-              가입기념으로 클앱 테스팅 30분이 가능한 2티켓을 적용해 드렸습니다. 감사합니다!
+                가입 기념으로 클앱 서비스 이용이 가능한 무료체험권 60분을 적용해 드렸습니다. 감사합니다!
             </p>
           </div>
         </div>

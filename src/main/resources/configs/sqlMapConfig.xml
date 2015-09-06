@@ -21,6 +21,7 @@
     <typeAlias alias="boardEntity" type="kr.co.clapp.entities.BoardEntity"/>
     <typeAlias alias="ecrmEntity" type="kr.co.clapp.entities.EcrmEntity"/>
     <typeAlias alias="serviceInquiryEntity" type="kr.co.clapp.entities.ServiceInquiryEntity"/>
+    <typeAlias alias="applyFormEntity" type="kr.co.clapp.entities.ApplyFormEntity"/>
     <typeAlias alias="cabledAdviceEntity" type="kr.co.clapp.entities.CabledAdviceEntity"/>
     <typeAlias alias="boardNoticeEntity" type="kr.co.clapp.entities.BoardNoticeEntity"/>
     <typeAlias alias="boardQnaEntity" type="kr.co.clapp.entities.BoardQnaEntity"/>

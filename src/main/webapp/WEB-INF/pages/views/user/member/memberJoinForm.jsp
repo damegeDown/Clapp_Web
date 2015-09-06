@@ -335,12 +335,12 @@ var SelectUtils = (function() {
     </div>
   </div> <!-- .subGnbContainer End -->
   <div class="subJoinFlowContainer">
-    <div class="subJoinFlowBox3">
+    <div class="subJoinFlowBox2">
       <div class="subJoinFlowStepBox">
-        <span class="subJoinStep1">가입 유형</span>
-        <span class="subJoinStep2">약관 동의</span>
-        <span class="subJoinStep3 sjsActive3">정보 입력</span>
-        <span class="subJoinStep4">가입 완료</span>
+
+        <span class="subJoinStep1">약관 동의</span>
+        <span class="subJoinStep2 sjsActive2">정보 입력</span>
+        <span class="subJoinStep3">가입 완료</span>
       </div>
     </div>
   </div> <!-- .subJoinFlowContainer End -->

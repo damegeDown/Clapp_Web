@@ -297,8 +297,8 @@ public class MemberServiceImpl implements MemberService {
 			ticketEntity.setUserMasterKey(memberEntity.getUserMasterKey());
 			ticketEntity.setProductMasterKey(productEntity.getProductMasterKey());
 			ticketEntity.setProductName(productEntity.getProductName());
-			ticketEntity.setTicketAmount(2);
-			ticketEntity.setTicketAvilableAmount(2);
+			ticketEntity.setTicketAmount(12);
+			ticketEntity.setTicketAvilableAmount(12);
 			
 			Date d = new Date();
 			ticketEntity.setTicketStartExpirationDate(d);

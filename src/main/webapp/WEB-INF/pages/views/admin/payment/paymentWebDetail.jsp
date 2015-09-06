@@ -56,13 +56,13 @@
 	     <thead>
 	     	 <tr>
 	     		 <th>신청상품</th>
-	     		 <th>티켓</th>
+	     		 <th>시간</th>
      		 </tr>
 	     </thead>
     	 <tbody>
     	 	 <tr>
     	 		 <td>${paymentInfo.paymentProductName }</td>
-    	 		 <td>${paymentInfo.paymentTicketAmount }</td>
+    	 		 <td>${paymentInfo.paymentTicketAmount * 5 } 분</td>
     	 	 </tr>
     	 </tbody>
    	 </table>

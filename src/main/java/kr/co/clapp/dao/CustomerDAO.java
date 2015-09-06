@@ -3,13 +3,16 @@ package kr.co.clapp.dao;
 
 import java.util.List;
 
-import kr.co.clapp.entities.BoardNoticeEntity;
-import kr.co.clapp.entities.BoardQnaEntity;
-import kr.co.clapp.entities.CabledAdviceEntity;
-import kr.co.clapp.entities.ServiceInquiryEntity;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.entities.validation.FormInquireInfoEntity;
 
 public interface CustomerDAO {
+    /**
+     * 클앱테스트 신청
+     * @param applyFormEntity
+     * @return
+     */
+//    int insertApplyForm(ApplyFormEntity applyFormEntity);
 	/**
 	 * 이메일 문의 목록
 	 * @param serviceInquiryEntity

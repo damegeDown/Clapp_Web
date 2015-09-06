@@ -4,9 +4,17 @@ import kr.co.clapp.entities.BoardNoticeEntity;
 import kr.co.clapp.entities.BoardQnaEntity;
 import kr.co.clapp.entities.CabledAdviceEntity;
 import kr.co.clapp.entities.ServiceInquiryEntity;
+import kr.co.clapp.entities.ApplyFormEntity;
 import kr.co.clapp.entities.validation.FormInquireInfoEntity;
 
 public interface CustomerService {
+    /**
+     * 테스트 신청
+     * @param applyFormEntity
+     * @return
+     * @throws Exception
+     */
+//    int insertApplyForm(ApplyFormEntity applyFormEntity) throws Exception;
 	/**
 	 * 이메일 문의 목록
 	 * @param serviceInquiryEntity

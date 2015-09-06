@@ -148,7 +148,7 @@ public class ManagementController {
 			
 		//공통
 		commonCode.put("navigation", "메인 팝업 관리");// 현재 페이지 네비게이션
-		commonCode.put("mainMenu", "permissionMaster");									// left main menu 
+		commonCode.put("mainMenu", "permissionMain");									// left main menu
 		commonCode.put("subMenu", "popup");											// left sub menu
 		model.addAttribute("CommonCode", commonCode);
 		  

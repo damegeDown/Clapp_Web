@@ -78,7 +78,7 @@
 		<th class="al-center">신청상품</th>
 		<th>발행금액<br/>(vat제외, 원)</th>
 		<th>발행금액<br/>(vat포함, 원)</th>
-		<th>적용티켓</th>
+		<th>적용시간</th>
 		<th>이용현황</th>
     </tr>
     </thead>
@@ -105,7 +105,8 @@
 	        <td class="al-center">${paymentList.contractProductName }</td>
 	        <td><fmt:formatNumber value="${paymentList.contractNotVatTotalPrice}" type="number"/></td>
 	        <td><fmt:formatNumber value="${paymentList.contractTotalPrice}" type="number"/></td>
-	        <td><fmt:formatNumber value="${paymentList.contractTicketAmount}" type="number"/></td>
+	        <td><fmt:formatNumber value="${(paymentList.contractTicketAmount)*5}" type="number"/>분</td>
+
 	        <td>
 	        		${paymentList.contractStateText }
 	        		<c:if test="${paymentList.contractState == 4}">

@@ -16,8 +16,7 @@
 			<input type="button" class="authBtn"  onclick="certificationSubmit()" value="인증 확인"/>
 			<input type="button" class="authBtn"  onclick="closePopup('#popCertification')" value="취소"/>
 	</div>
-</div> 
- 
+</div>
 <script>
    
 /**
