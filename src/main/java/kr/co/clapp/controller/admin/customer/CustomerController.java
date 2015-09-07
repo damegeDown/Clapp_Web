@@ -21,19 +21,19 @@ import java.util.List;
 @RequestMapping(value="/admin/customer")
 public class CustomerController {
   private static final Logger logger = LoggerFactory.getLogger( CustomerController.class );
-  
+
   @Autowired
   private CommonService commonService;
   
   @Autowired 
   private CustomerService customerService;
-  
+
   HashMap<String, Object> commonCode  = new HashMap<String, Object>();
   
   CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
-  
+
   public CustomerController() {
-  
+
   }
   /**
    * 이메일 문의 목록
@@ -417,4 +417,32 @@ public class CustomerController {
 	model.addAttribute("navigation", navigation);
 	return "admin/customer/boardQnaModify";
   }
+    /**
+     * 테스트 대행 신청 목록
+     * @param applyFormEntity
+     * @param model
+     * @return
+     */
+    @RequestMapping("/testRequestList")
+    public String testRequestList(ApplyFormEntity applyFormEntity, Model model){
+        try{
+            //공통코드
+            CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
+            //공통코드 10개,20개,50개,100개씩보기
+            commonCodeEntity.setCodeMasterCode(CommonCode.SORT_LIST_SIZE);
+            //공통코드 10개,20개,50개,100개씩보기 코드
+            List<CommonCodeEntity> sortListSizeCode = commonService.getCommonCodeList(commonCodeEntity);
+
+
+            model.addAttribute("sortListSizeCode", sortListSizeCode);							//10개,20개,50개,100개씩보기 코드
+            //공통
+            commonCode.put("navigation", "테스팅 대행 신청관리");									// 현재 페이지 네비게이션
+            commonCode.put("mainMenu", "permissionCustomer");									// left main menu
+            commonCode.put("subMenu", "testRequestList");
+            model.addAttribute("CommonCode", commonCode);
+        } catch (Exception e) {
+            logger.error("CustomerController.serviceInquiryList:Failed" , e);
+        }
+        return "admin/customer/testRequestList";
+    }
 }

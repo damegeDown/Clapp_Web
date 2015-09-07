@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.ApplyFormDAO">
+    <insert id="insertApplyForm" parameterType="ApplyFormEntity" useGeneratedKeys="true" keyProperty="applyFormKey">
+        INSERT INTO apply_form
+        (
+            apply_email,
+            apply_insert_name,
+            apply_phone_number,
+            apply_contents,
+            apply_url,
+            apply_insert_date,
+            apply_title
+        )
+        values
+        (
+            #{inquiryEmail},
+            #{inquiryInsertName},
+            #{inquiryPhoneNumber},
+            #{applyFormSelect},
+            #{applyFormUrl},
+            NOW(),
+            ''
+        )
+    </insert>
+</mapper>

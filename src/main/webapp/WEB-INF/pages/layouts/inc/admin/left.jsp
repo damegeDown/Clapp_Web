@@ -128,11 +128,12 @@ $.fn.Menu = {
 			</ul>
 		</li>
 		<li id="permissionProduct">
-			<a href="${contextPath }/admin/ticket/userTicketUsedList">상품 ･ 티켓관리</a>
+			<a href="${contextPath }/admin/ticket/userTicketUsedList">상품 관리</a>
 			<ul style="display:none">
 				<!-- <li><a href="#">상품 관리(예정)</a></li> -->
-				<li class="userTicketUsed"><a href="${contextPath }/admin/ticket/userTicketUsedList">티켓 사용내역 관리</a></li>
-				<li class="ticketProductService"><a href="${contextPath }/admin/ticket/ticketProductServiceList">티켓/상품 적용 서비스</a></li>
+				<li class="userTicketUsed"><a href="${contextPath }/admin/ticket/userTicketUsedList">상품 사용내역 관리</a></li>
+				<li class="ticketProductService"><a href="${contextPath }/admin/ticket/ticketProductServiceList">상품 적용 서비스</a></li>
+                <li class="testRequestList"><a href="${contextPath }/admin/customer/testRequestList">테스팅 대행 신청관리</a></li>
 			</ul>
 		</li>
 		<li id="permissionDevice">
