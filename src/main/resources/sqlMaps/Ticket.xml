@@ -745,6 +745,7 @@
             vr.updt_dttm,
             vr.use_point,
             vr.status,
+
             <!-- FN_GET_COMMON_CODE_NAME('RESERVATION_STATUS',  vr.status) statusText, -->
             (
             CASE
@@ -1062,7 +1063,8 @@
             vr.reserve_time,
             '차감' ,
             use_point,
-            '' ticketAvilableAmount,
+        (select utm.ticket_avilable_amount from user_ticket_master utm where utm.user_ticket_master_key=vr.user_ticket_master_key) ticketAvilableAmount,
+--             '' ticketAvilableAmount,
             vr.start_dttm,
             vr.end_dttm,
             vr.product_name,
