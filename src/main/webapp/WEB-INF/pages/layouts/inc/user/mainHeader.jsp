@@ -38,7 +38,6 @@ $(function() {
 
                         <ul>
                             <c:if test = "${userLoginSession.userMasterKey ne null}">
-                                <li class="topMenuLine"></li>
                                 <li style="color: #000000;">${userLoginSession.userName} 님, 환영합니다!</li>
                                 <li class="topMenuLine"></li>
                                 <li><a class="topNavMenuLink2" href="${contextPath}/myClapp/myTicket">마이 클앱</a></li>
