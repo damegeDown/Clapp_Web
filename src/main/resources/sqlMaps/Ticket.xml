@@ -590,7 +590,7 @@
         AND
           um.use_yn = 'Y'
         ORDER BY
-          product_type asc, LEFT(ticket_end_expiration_date,10) DESC
+          product_type asc, LEFT(ticket_end_expiration_date,10) ASC
         LIMIT 1
     </select>
     <!-- //사용자 티켓 사용우선순위가 위인 티켓키 조회 -->
@@ -604,9 +604,11 @@
           user_master_key = #{userMasterKey}
         AND
           use_yn = 'Y'
-                   ORDER BY user_ticket_master_key Desc
-        <!-- ASC-->
-         limit 1
+        AND
+         user_ticket_master_key = #{userTicketMasterKey}
+                  <!-- ORDER BY user_ticket_master_key Desc
+
+         limit 1-->
     </update>
     <!-- //사용자 티켓 차감 처리 -->
     <!-- 사용자티켓 사용 히스토리 -->

@@ -211,6 +211,7 @@ public class ApiController {
                         if(usedTicketAmount >= 0) {
 							ticketEntity.setTicketAvilableAmount(usedTicketAmount);
 							ticketEntity.setUserMasterKey(ticketList.get(i).getUserMasterKey());
+                            ticketParam.setUserTicketMasterKey(userTicketMasterKey);//상품 타겟 추가
 							/** 티켓차감 */
 							if(ticketService.doUsedTicket(ticketEntity) > CommonCode.ZERO) {
 								/**티켓 사용 히스토리
