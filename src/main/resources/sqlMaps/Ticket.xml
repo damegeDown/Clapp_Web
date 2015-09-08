@@ -569,7 +569,8 @@
         SELECT
             um.user_ticket_master_key,
             um.user_master_key,
-            um.ticket_avilable_amount
+            um.ticket_avilable_amount,
+            um.product_master_key
         FROM
             USER_TICKET_MASTER um,
             PRODUCT_MASTER pm
