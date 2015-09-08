@@ -12,6 +12,7 @@ import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.service.payment.PaymentService;
 import kr.co.clapp.service.product.ProductService;
+import kr.co.clapp.service.ticket.TicketService;
 import kr.co.digigroove.commons.entities.SavedFileEntity;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.HashUtils;
@@ -53,6 +54,8 @@ public class MyClappRestController {
 	private MailingService mailingService;
     @Autowired
     private ApplyformService applyformService;
+    @Autowired
+    private TicketService ticketService;
 	public MyClappRestController() {
 	}
 	
@@ -112,22 +115,44 @@ public class MyClappRestController {
 		return result;
 	}
     /**
-
+     * 태스팅 신청 등록
      * @param applyFormEntity
      * @return
      */
     @RequestMapping(value = "/insertApplyForm", method = RequestMethod.POST)
-    public ResponseEntity insertApplyForm(ApplyFormEntity applyFormEntity,MultipartHttpServletRequest req){
-        ResponseEntity result= new ResponseEntity();
-        AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
-        try {
-            String resultMessage = messages.getMessage("insert.success");
-//            String resultCode = ResultCode.SUCCESS;
-//            result.setResultCode(resultCode);
+    public ResponseEntity insertApplyForm(
+            ApplyFormEntity applyFormEntity,
+            TicketEntity ticketEntity,
+            TicketEntity ticketParam,
+            ProductEntity productEntity,
+            ProductEntity productParm,
+            MemberEntity memberEntity,
+            HttpSession session,MultipartHttpServletRequest req){
 
-//          result.setResultURL("/myClapp/myTestRequestComplet");
+            ResponseEntity result= new ResponseEntity();
+            AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+            List<TicketEntity> ticketList = null;
+            int ticketProductMasterKey = 0;
+            String  productType= null;
+        try {
+
+            MemberEntity userInfo =  new MemberEntity();
+            userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
+            String resultMessage = messages.getMessage("insert.success");
+
+
+            memberEntity.setUserMasterKey(userInfo.getUserMasterKey());//멤버키 설정
+            ticketList = ticketService.getPrioritieTicketKey(memberEntity);//사용순위가 우선인 티켓 정보 가져온다
+            ticketProductMasterKey=ticketList.get(0).getProductMasterKey();//티켓 정보의 마스트 키 가져온다
+
+            productParm.setProductMasterKey(ticketProductMasterKey); // 상품 정복에 마스터키 전달
+            productEntity = productService.getProductInfo(productParm);//상품 정보 가져온다
+            productType = productEntity.getProductType(); //상품 type 값을 가져온다
+            applyFormEntity.setUserMasterKey(userInfo.getUserMasterKey()); //userMasterKey 값을 set
+            applyFormEntity.setApplyType(productType);
             applyformService.insertApplyForm(applyFormEntity);
-//          logger.debug("filename===={}",req.getFileNames().hasNext());
+//          logger.debug("filename===={}",);
+
             // 파일 업로드
             if(req.getFileNames().hasNext()) {
                 administrationFileEntity.setFileTargetKey(applyFormEntity.getApplyFormKey());

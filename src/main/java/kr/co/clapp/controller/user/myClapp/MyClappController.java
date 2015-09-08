@@ -320,9 +320,18 @@ public class MyClappController {
      * @return
      */
     @RequestMapping(value="/myTestRequest")
-    public String myTestRequest(ApplyFormEntity applyFormEntity,Model model) {
+    public String myTestRequest(
+            ApplyFormEntity applyFormEntity,
+            MemberEntity memberEntity,
+            HttpSession session,
+            Model model) {
 
         try {
+            MemberEntity userInfo =  new MemberEntity();
+            userInfo = (MemberEntity) session.getAttribute(CommonCode.Session.USER_LOGIN_SESSION);
+
+//            productEntity = productService.getProductInfo(productEntity);
+//            productEntity.setProductMasterKey();
 			/*공통코드*/
             CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
 			/*공통코드 핸드폰*/

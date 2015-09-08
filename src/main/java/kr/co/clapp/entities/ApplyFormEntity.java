@@ -21,48 +21,76 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
 		super(1L);
 	}
 	private int applyFormKey;
-	private String inquiryEmail;									    //연락받으실 이메일 주소
-	private String inquiryInsertName;								//등록자
-	private String inquiryPhoneNumber;								//전화번호
+	private String applyEmail;									    //연락받으실 이메일 주소
+	private String applyInsertName;								//등록자
+	private String applyPhoneNumber;								//전화번호
 	private String applyFormSelect;									//테스트 신청 구분
 	private String applyFormUrl;								     //테스트 URL
 	private Date applyInsertDate;									//등록일
-   // private String applyTitle;
+    private String applyTitle;                                      //제목
+//    private String applyID;                                         //아이디
+    private String applyType;                                       //상품타입
 
-	private List<ApplyFormEntity> applyFormList;
+	private List<ApplyFormEntity> testRequestList;
  	private int sortListSize;
-
+    private int userMasterKey;
 	private int totalCount;
 	private int applyCount;
 	private String fileName;
 	private String fileTarget;
 	private String fileSavedName; 
 	private String filePath;
-      
+
+//    public String getApplyID() { return  applyID;}
+//    public void setApplyID(String applyID) { this.applyID = applyID;}
+
+    public String getApplyType() { return  applyType;}
+    public void setApplyType(String applyType) { this.applyType = applyType;}
+
+
+    public int getUserMasterKey() {
+        return userMasterKey;
+    }
+    public void setUserMasterKey(int userMasterKey) {
+        this.userMasterKey = userMasterKey;
+    }
 	public int getApplyFormKey() {
 		return applyFormKey;
 	}
 	public void setApplyFormKey(int applyFormKey) {
 		this.applyFormKey = applyFormKey;
 	}
+    public List<ApplyFormEntity> getTestRequestList() {
+        return testRequestList;
+    }
+    public void setTestRequestList(List<ApplyFormEntity> testRequestList) {
+        this.testRequestList = testRequestList;
+    }
+    public String getApplyTitle() {
+        return applyTitle;
+    }
+    public void setApplyTitle(String applyTitle) {
+        this.applyTitle = applyTitle;
+    }
+    public String getApplyEmail() {
+        return applyEmail;
+    }
+    public void setApplyEmail(String applyEmail) {
+        this.applyEmail = applyEmail;
+    }
 
-	public String getInquiryEmail() {
-		return inquiryEmail;
-	}
-	public void setInquiryEmail(String inquiryEmail) {
-		this.inquiryEmail = inquiryEmail;
-	}
-	public String getInquiryInsertName() {
-		return inquiryInsertName;
-	}
-    public void setInquiryInsertName(String inquiryInsertName) {
-        this.inquiryInsertName = inquiryInsertName;
+    public String getApplyInsertName() {
+        return applyInsertName;
     }
-    public String getInquiryPhoneNumber() {
-        return inquiryPhoneNumber;
+    public void setApplyInsertName(String applyInsertName) {
+        this.applyInsertName = applyInsertName;
     }
-    public void setInquiryPhoneNumber(String inquiryPhoneNumber) {
-        this.inquiryPhoneNumber = inquiryPhoneNumber;
+
+    public String getApplyPhoneNumber() {
+        return applyPhoneNumber;
+    }
+    public void setApplyPhoneNumber(String applyPhoneNumber) {
+        this.applyPhoneNumber = applyPhoneNumber;
     }
 
     public String getApplyFormSelect() {

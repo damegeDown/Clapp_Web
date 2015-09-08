@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.clapp.dao.ApplyFormDAO">
-    <insert id="insertApplyForm" parameterType="ApplyFormEntity" useGeneratedKeys="true" keyProperty="applyFormKey">
+    <insert id="insertApplyForm" parameterType="applyFormEntity" useGeneratedKeys="true" keyProperty="applyFormKey">
         INSERT INTO apply_form
         (
             apply_email,
@@ -11,17 +11,27 @@
             apply_contents,
             apply_url,
             apply_insert_date,
-            apply_title
+            apply_title,
+            user_master_key,
+            apply_type
         )
         values
         (
-            #{inquiryEmail},
-            #{inquiryInsertName},
-            #{inquiryPhoneNumber},
+            #{applyEmail},
+            #{applyInsertName},
+            #{applyPhoneNumber},
             #{applyFormSelect},
             #{applyFormUrl},
             NOW(),
-            ''
+            '',
+            #{userMasterKey},
+            #{applyType}
         )
     </insert>
+    <select id="getTestRequestList" parameterType="applyFormEntity" resultType="applyFormEntity">
+        SELECT * FROM APPLY_FORM;
+    </select>
+    <select id="getTestRequestCount" parameterType="applyFormEntity" resultType="int">
+        select count(*) FROM APPLY_FORM;
+    </select>
 </mapper>
