@@ -1,4 +1,24 @@
 /**
+ *  테스팅 신청 리스트 함수
+ */
+$.fn.testRequestList = {
+    init : function() {
+        this.openDetail();          //상세페이지 이동
+        this.sortListSize();        //10개,20개,50개,100개씩 보기
+    },
+    openDetail : function() {
+        $(".testTitle").click(function() {
+            var applyFormKey = $(this).data("key");
+            location.href = "/admin/customer/testRequestList?applyFormKey="+applyFormKey;
+        });
+    },
+    sortListSize : function() {
+        $(".sortListSize").change(function() {
+            $("form#searchForm").submit();
+        });
+    }
+};
+/**
  * 이메일 문의 리스트 함수
  */
 $.fn.serviceInquiryList = {

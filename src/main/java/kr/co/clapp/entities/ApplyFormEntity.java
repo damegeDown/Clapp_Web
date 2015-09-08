@@ -28,8 +28,9 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
 	private String applyFormUrl;								     //테스트 URL
 	private Date applyInsertDate;									//등록일
     private String applyTitle;                                      //제목
-//    private String applyID;                                         //아이디
+    private String userId;                                         //아이디
     private String applyType;                                       //상품타입
+    private String applyContents;
 
 	private List<ApplyFormEntity> testRequestList;
  	private int sortListSize;
@@ -41,12 +42,13 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
 	private String fileSavedName; 
 	private String filePath;
 
-//    public String getApplyID() { return  applyID;}
-//    public void setApplyID(String applyID) { this.applyID = applyID;}
+    public String getUserId() { return  userId;}
+    public void setUserId(String userId) { this.userId = userId;}
 
+    public String getApplyContents() { return  applyContents;}
+    public void setApplyContents(String applyContents) { this.applyContents = applyContents;}
     public String getApplyType() { return  applyType;}
     public void setApplyType(String applyType) { this.applyType = applyType;}
-
 
     public int getUserMasterKey() {
         return userMasterKey;

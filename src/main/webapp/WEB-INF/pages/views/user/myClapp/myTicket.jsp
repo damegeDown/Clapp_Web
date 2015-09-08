@@ -78,7 +78,7 @@
 
 
                         <%--사용한 시간--%>
-                    <td>${(history.ticketAmount*5)-(history.ticketAvilableAmount*5)}</td>
+                    <td>${(history.ticketAmount*5)-(history.ticketAvilableAmount*5)}분</td>
                         <%--<td>${history.usePoint * -1}시간</td>--%>
                         <%--사용가능 시간--%>
                     <td>${history.ticketAvilableAmount * 5}분

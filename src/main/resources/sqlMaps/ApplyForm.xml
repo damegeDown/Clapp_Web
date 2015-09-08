@@ -29,7 +29,28 @@
         )
     </insert>
     <select id="getTestRequestList" parameterType="applyFormEntity" resultType="applyFormEntity">
-        SELECT * FROM APPLY_FORM;
+        SELECT a.apply_form_key,
+        a.apply_email,
+        a.apply_insert_name,
+        a.apply_phone_number,
+        a.apply_contents,
+        a.apply_url,
+        a.apply_insert_date,
+        (SELECT b.user_id
+        FROM user_master b
+        WHERE b.user_master_key = a.user_master_key)
+        AS user_id,
+        (SELECT CASE
+        WHEN a.apply_type = '3' THEN '시간이용권'
+        WHEN a.apply_type = '1' THEN '무료체험권'
+        WHEN a.apply_type = '9' THEN '클앱멤버십'
+        END)
+        AS apply_type
+        FROM apply_form a
+        ORDER BY
+      apply_insert_date DESC
+    LIMIT
+      #{rowStartNumber}, #{pageListSize}
     </select>
     <select id="getTestRequestCount" parameterType="applyFormEntity" resultType="int">
         select count(*) FROM APPLY_FORM;

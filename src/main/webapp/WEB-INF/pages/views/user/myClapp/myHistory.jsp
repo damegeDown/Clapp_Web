@@ -153,12 +153,12 @@
                         </td>
 						<td><fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${history.statusText}</td>
-						<td>${history.historyUsedTicketAmountText} 분</td>
+						<td>${history.historyUsedTicketAmountText} 분</td><!--적용시간-->
 						<td>
 							<%--&lt;%&ndash;${history.expirationDate }&ndash;%&gt;--%>
 							 <%--<fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>--%>
 							<%--<br/> ~ <fmt:formatDate value="${history.ticketEndExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>--%>
-                                    ${history.ticketAvilableAmount*5} 분
+                                    ${history.ticketAvilableAmount*5} 분 <!--적용 가능 시간-->
 						</td>
 						<td>
 						    ${history.serviceApplyReason }

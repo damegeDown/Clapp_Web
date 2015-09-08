@@ -2,6 +2,7 @@ package kr.co.clapp.controller.admin.customer;
 
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.entities.*;
+import kr.co.clapp.service.applyform.ApplyformService;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.customer.CustomerService;
 import org.slf4j.Logger;
@@ -28,7 +29,10 @@ public class CustomerController {
   @Autowired 
   private CustomerService customerService;
 
-  HashMap<String, Object> commonCode  = new HashMap<String, Object>();
+    @Autowired
+    private ApplyformService applyformService;
+
+    HashMap<String, Object> commonCode  = new HashMap<String, Object>();
   
   CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
 
@@ -432,14 +436,16 @@ public class CustomerController {
             commonCodeEntity.setCodeMasterCode(CommonCode.SORT_LIST_SIZE);
             //공통코드 10개,20개,50개,100개씩보기 코드
             List<CommonCodeEntity> sortListSizeCode = commonService.getCommonCodeList(commonCodeEntity);
-
-
+            applyFormEntity = applyformService.getTestRequestList(applyFormEntity);
+            int applyTotalCount = applyformService.getTestRequestCount(applyFormEntity);
             model.addAttribute("sortListSizeCode", sortListSizeCode);							//10개,20개,50개,100개씩보기 코드
             //공통
             commonCode.put("navigation", "테스팅 대행 신청관리");									// 현재 페이지 네비게이션
-            commonCode.put("mainMenu", "permissionCustomer");									// left main menu
+            commonCode.put("mainMenu", "permissionProduct");									// left main menu
             commonCode.put("subMenu", "testRequestList");
             model.addAttribute("CommonCode", commonCode);
+            model.addAttribute("applyFormEntity",applyFormEntity);
+            model.addAttribute("applyTotalCount",applyTotalCount);//신청 합계
         } catch (Exception e) {
             logger.error("CustomerController.serviceInquiryList:Failed" , e);
         }

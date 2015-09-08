@@ -42,5 +42,11 @@ public class ApplyformServiceimpl implements ApplyformService {
 
         return applyFormEntity;
     }
+    @Override
+    public int getTestRequestCount(
+		ApplyFormEntity applyFormEntity) throws Exception {
+	    int testRequestCount = applyFormDAO.getTestRequestCount(applyFormEntity);
+	    return testRequestCount;
+    }
 
 }

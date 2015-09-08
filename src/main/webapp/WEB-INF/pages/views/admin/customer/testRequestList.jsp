@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="Strings" uri="/WEB-INF/tlds/Strings.tld" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script type="text/javascript" src="${contextPath }/resources/js/customer.js"></script>
 <div>
     <h3 class="contents-title floatL">테스트 대행 신청관리(총 <span class="colorSkyBlue">10</span> 건 )</h3>
     <div style="clear:both;"></div>
@@ -49,15 +50,13 @@
         <div style="clear:both;"></div>
         <div style="width:100%;">
             <h3 class="floatL part-title">> 검색결과 :
-                <span class="colorSkyBlue">10</span> 건
+                <span class="colorSkyBlue">${applyTotalCount}</span> 건
             </h3>
             <div class=" floatR">
-                <select class="sel-w120 sortListSize" name="sortListSize">
-                    <option value="10" selected>10개씩 보기</option>
-                    <option value="20" >20개씩 보기</option>
-                    <option value="50" >50개씩 보기</option>
-                    <option value="100" >100개씩 보기</option>
-
+                <select class="sel-w100 sortListSize" name="sortListSize">
+                    <c:forEach items="${sortListSizeCode }" var="code">
+                        <option value="${code.commonCode }" <c:if test="${applyFormEntity.sortListSize eq code.commonCode }">selected</c:if>>${code.commonName }</option>
+                    </c:forEach>
                 </select>
             </div>
         </div>
@@ -77,158 +76,53 @@
         <col width="7%"/>
     </colgroup>
     <thead>
-    <tr>
-        <th>No.</th>
-        <th>이용상품</th>
-        <th>의뢰 테스트</th>
-        <th>회원 ID</th>
-        <th>메일 주소</th>
-        <th>이름</th>
-        <th>전화번호</th>
-        <th>신청일</th>
-        <th>결과 발송일</th>
-        <th>상태</th>
-    </tr>
+        <tr>
+            <th>No.</th>
+            <th>이용상품</th>
+            <th>의뢰 테스트</th>
+            <th>회원 ID</th>
+            <th>메일 주소</th>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>신청일</th>
+            <th>결과 발송일</th>
+            <th>상태</th>
+        </tr>
     </thead>
     <tbody>
-
-    <tr>
-        <td>10</td>
-        <td>무료체험권</td>
-        <td style="cursor:pointer" class="testTitle">앱설치 테스트</td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>대기</td>
-    </tr>
-
-    <tr>
-        <td>9</td>
-        <td>무료체험권</td>
-        <td style="cursor:pointer" class="testTitle">모바일웹 해상도 테스트</td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>대기</td>
-    </tr>
-
-    <tr>
-        <td>8</td>
-        <td>클앱 멤버십</td>
-        <td style="cursor:pointer" class="testTitle"><span class="testTitle" style="cursor:pointer">앱설치 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
-    <tr>
-        <td>7</td>
-        <td>클앱 멤버십</td>
-        <td style="cursor:pointer" class="testTitle"><span class="testTitle" style="cursor:pointer">모바일웹 해상도 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
-    <tr>
-        <td>6</td>
-        <td>시간 이용권</td>
-        <td style="cursor:pointer" class="testTitle"><span class="testTitle" style="cursor:pointer">앱설치 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
-    <tr>
-        <td>5</td>
-        <td>시간 이용권)</td>
-        <td style="cursor:pointer" class="testTitle" data-key="16"><span class="testTitle" style="cursor:pointer">모바일웹 해상도 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
-    <tr>
-        <td>4</td>
-        <td>시간 이용권</td>
-        <td style="cursor:pointer" class="testTitle"><span class="testTitle" style="cursor:pointer">앱설치 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
-    <tr>
-        <td>3</td>
-        <td>시간 이용권</td>
-        <td style="cursor:pointer" class="testTitle"><span class="testTitle" style="cursor:pointer">모바일웹 해상도 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
-    <tr>
-        <td>2</td>
-        <td>시간 이용권</td>
-        <td style="cursor:pointer" class="testTitle"><span class="testTitle" style="cursor:pointer">앱설치 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><p><a href="mailto:123@gmail.com">123@gmail.com</a></p></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
-    <tr>
-        <td>1</td>
-        <td>시간 이용권</td>
-        <td style="cursor:pointer" class="testTitle"><span class="testTitle" style="cursor:pointer">모바일웹 해상도 테스트</span></td>
-        <td>123@gmail.com</td>
-        <td><a href="mailto:123@gmail.com">123@gmail.com</a></td>
-        <td>김영희</td>
-        <td>010-1234-1234</td>
-        <td>2015/09/02</td>
-        <td>2015/09/03</td>
-        <td>완료</td>
-    </tr>
-
+        <c:forEach items="${applyFormEntity.testRequestList }" var="testRequestList" varStatus="i">
+        <tr>
+            <td>${applyFormEntity.dataSize-(applyFormEntity.pageListSize*(applyFormEntity.currentPage-1))-i.index}</td>
+            <td>${testRequestList.applyType}</td>
+            <td style="cursor:pointer" class="testTitle" data-key="${testRequestList.applyFormKey}">
+                <c:if test="${testRequestList.applyContents == 'test1'}">앱설치 테스트</c:if>
+                <c:if test="${testRequestList.applyContents == 'test2'}">의뢰 테스트</c:if>
+            </td>
+            <td>${testRequestList.userId}</td>
+            <td><p><a href="mailto:${testRequestList.applyEmail}">${testRequestList.applyEmail}</a></p></td>
+            <td>${testRequestList.applyInsertName}</td>
+            <td>${testRequestList.applyPhoneNumber}</td>
+            <td><fmt:formatDate pattern="yyyy/MM/dd" value="${testRequestList.applyInsertDate}" /></td>
+            <td>2015/09/03</td>
+            <td>대기</td>
+        </tr>
+        </c:forEach>
+        <c:if test="${applyFormEntity.testRequestList.size() < 1 }">
+            <tr>
+                <td colspan="8">+++조회된 내용이 없습니다.+++</td>
+            </tr>
+        </c:if>
     </tbody>
 </table>
 
 
-
 </div>
 <div class="paging-area">
-    <a class='paging-first' href='#'><img src='${contextPath }/resources/img/icon-first.gif'/></a><a class='paging-prev' href='#'><span><img src='${contextPath }/resources/img/icon-prev.gif'/></span></a><a class='on' href='#'><span><b>1</b></span></a><a class='paging-next' href='#'><span><img src='${contextPath }/resources/img/icon-next.gif'/></span></a><a class='paging-last' href='#'><span><img src='${contextPath }/resources/img/icon-last.gif'/></span></a>
+    <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/customer/testRequestList" pageNavigationEntity="${applyFormEntity}" />
+    <%--<a class='paging-first' href='#'><img src='${contextPath }/resources/img/icon-first.gif'/></a><a class='paging-prev' href='#'><span><img src='${contextPath }/resources/img/icon-prev.gif'/></span></a><a class='on' href='#'><span><b>1</b></span></a><a class='paging-next' href='#'><span><img src='${contextPath }/resources/img/icon-next.gif'/></span></a><a class='paging-last' href='#'><span><img src='${contextPath }/resources/img/icon-last.gif'/></span></a>--%>
 </div>
-</div>
+<script>
+    $(function() {
+        $.fn.testRequestList.init();
+    });
+</script>

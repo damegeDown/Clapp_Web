@@ -21,5 +21,6 @@ public interface ApplyformService {
      */
     ApplyFormEntity getTestRequestList(ApplyFormEntity applyFormEntity) throws Exception;
 
+    int getTestRequestCount(ApplyFormEntity applyFormEntity) throws  Exception;
 
 }
