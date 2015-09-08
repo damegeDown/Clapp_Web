@@ -201,7 +201,7 @@
 
             <div class="subTReqVOCFileContBox">
                 <div class="subTReqVOCFileInput">
-                    <input  type="text" id="fileName" name="fileName" class="MysicFileInput2" readonly value="파일선택"/>
+                    <input  type="text" id="fileName" name="fileName" class="MysicFileInput2" readonly />
                     <input type="button" value="찾아보기" class="sicFileBtn2" />
                     <input type="file" name="file" class="sicFile2" onChange="javascript: document.getElementById('fileName').value = this.value" />
                 </div>
@@ -245,7 +245,7 @@
             </div><!-- .subTReqVOCFileExplainTitBox End-->
             <div class="subTReqVOCFileExplainContBox">
                 <div class="subTReqVOCFileExplainCont">
-                    <input class="FileExplain" type="text" placeholder="20자 이내로 작성" />
+                    <input class="FileExplain" name="fileMemo" type="text" placeholder="20자 이내로 작성" />
                 </div>
             </div><!-- .subTReqVOCFileExplainContBox End-->
         </div><!-- .subTReqVOCFileExplainBox End -->
@@ -291,7 +291,7 @@
     <div class="subTReqInquireThreeContainer">
         <div class="subTReqIHCOneBox">
             <div class="subTReqIHCOneContBox">
-                <a href="#" onclick="formCheck();">
+                <a href="javascript:void(0);" onclick="applySubmit()">
                     <div class="subTReqIHCOneContBtn">
                         <%--<img src="${contextPath }/resources/images/itr_support_send.png" alt="" />--%>
                         <img src="${contextPath }/resources/images/itr_support_send.png" alt="신청" onMouseOver="this.src='${contextPath }/resources/images/itr_support_send_r.png';" onMouseOut="this.src='${contextPath }/resources/images/itr_support_send.png';" />
@@ -299,7 +299,7 @@
 
                     </div>
                 </a>
-                <div style="display:none" class="submitBtn" data-action="${contextPath}/myClapp/rest/insertApplyForm" data-msg="등록" data-id="false"></div>
+                <div style="display:none" class="submitBtn"   data-action="${contextPath}/myClapp/rest/insertApplyForm" data-msg="등록" data-id="false"></div>
             </div><!-- .subTReqITCOneContBox End-->
         </div><!-- .subTReqIHCOneBox End-->
     </div><!-- .subTReqInquireThreeContainer End-->
@@ -393,9 +393,9 @@
             alert("휴대폰 번호를 입력해 주세요.");
             return false;
         }
-        if(!$("textarea[name=applyContents]").val()) {
-            alert('문의하실 내용을 입력해 주세요.');
-            $("textarea[name=applyContents]").focus();
+        if(!$("input[name=fileMemo]").val()) {
+            alert('파일 설명을 입력해 주세요.');
+            $("input[name=fileMemo]").focus();
             return false;
         }
         // 확장자 체크
