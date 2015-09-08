@@ -6,13 +6,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${ contextPath }/resources/js/myClapp.js"></script>
-<script>
+<%--<script>--%>
 
-    var formCheck = function() {
+    <%--var formCheck = function() {--%>
 
-        $(".submitBtn").click();
-    }
-</script>
+        <%--$(".submitBtn").click();--%>
+    <%--}--%>
+<%--</script>--%>
 
 <div class="subJoinGnbBottomContainer">
     <div class="subJoinGnbBottomBg">
@@ -201,9 +201,9 @@
 
             <div class="subTReqVOCFileContBox">
                 <div class="subTReqVOCFileInput">
-                    <input  type="text" id="fileName" name="fileName" class="MysicFileInput2" readonly />
+                    <input  type="text" id="fileName" name="fileName" class="MysicFileInput2" readonly data-flag="off" />
                     <input type="button" value="찾아보기" class="sicFileBtn2" />
-                    <input type="file" name="file" class="sicFile2" onChange="javascript: document.getElementById('fileName').value = this.value" />
+                    <input type="file" name="file" class="sicFile2" data-flag="off" onChange="javascript: document.getElementById('fileName').value = this.value.replace('C:\\fakepath\\', '')" />
                 </div>
                 <div class="subTReqVOCFileInput2"> <p>(테스트 할 APK 파일을 등록해 주시기 바랍니다.)</p>
                 </div>
@@ -299,7 +299,7 @@
 
                     </div>
                 </a>
-                <div style="display:none" class="submitBtn"   data-action="${contextPath}/myClapp/rest/insertApplyForm" data-msg="등록" data-id="false"></div>
+                <div style="display:none" class="submitBtn"   data-action="${contextPath}/myClapp/rest/insertApplyForm" data-msg="등록" ></div>
             </div><!-- .subTReqITCOneContBox End-->
         </div><!-- .subTReqIHCOneBox End-->
     </div><!-- .subTReqInquireThreeContainer End-->
