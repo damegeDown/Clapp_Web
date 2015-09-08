@@ -590,7 +590,7 @@
         AND
           um.use_yn = 'Y'
         ORDER BY
-          product_type asc, LEFT(ticket_end_expiration_date,10) ASC
+          product_type asc, LEFT(ticket_end_expiration_date,10) DESC
         LIMIT 1
     </select>
     <!-- //사용자 티켓 사용우선순위가 위인 티켓키 조회 -->
