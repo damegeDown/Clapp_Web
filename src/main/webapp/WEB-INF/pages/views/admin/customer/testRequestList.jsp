@@ -7,7 +7,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${contextPath }/resources/js/customer.js"></script>
 <div>
-    <h3 class="contents-title floatL">테스트 대행 신청관리(총 <span class="colorSkyBlue">10</span> 건 )</h3>
+    <h3 class="contents-title floatL">테스트 대행 신청관리(총 <span class="colorSkyBlue">${applyTotalCount}</span> 건 )</h3>
     <div style="clear:both;"></div>
     <form id="searchForm" action="">
         <div class="search-box">
@@ -50,7 +50,7 @@
         <div style="clear:both;"></div>
         <div style="width:100%;">
             <h3 class="floatL part-title">> 검색결과 :
-                <span class="colorSkyBlue">${applyTotalCount}</span> 건
+                <span class="colorSkyBlue"></span> 건
             </h3>
             <div class=" floatR">
                 <select class="sel-w100 sortListSize" name="sortListSize">
