@@ -366,6 +366,7 @@
 	    UM.USER_MASTER_KEY = vum.user_master_key
     AND
       UM.USER_MASTER_KEY = #{userMasterKey}
+      order by vum.ticket_start_expiration_date asc limit 1
   </select>
   <!-- //회원 상세 -->
   
