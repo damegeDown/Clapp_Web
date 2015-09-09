@@ -77,9 +77,7 @@
 					</td>
 
 
-                        <%--사용한 시간--%>
-                    <td>${(history.ticketAmount*5)-(history.ticketAvilableAmount*5)}분</td>
-                        <%--<td>${history.usePoint * -1}시간</td>--%>
+
                         <%--사용가능 시간--%>
                     <td>${history.ticketAvilableAmount * 5}분
                             <%--<c:choose>--%>
@@ -88,6 +86,9 @@
                             <%--<c:when test="${history.expirationDate > 0}">300분/1일</c:when>--%>
                             <%--</c:choose>--%>
                     </td>
+                        <%--사용한 시간--%>
+                    <td>${(history.ticketAmount*5)-(history.ticketAvilableAmount*5)}분</td>
+                        <%--<td>${history.usePoint * -1}시간</td>--%>
 					<td>${history.useYn}</td>
 					<td><button class="goBtn" onclick="javascript:location.href='${contextPath }/myClapp/myHistory?userTicketMasterKey=${history.userTicketMasterKey}'">바로가기</button></td>
 					</tr>
