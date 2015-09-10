@@ -157,10 +157,12 @@ public class MyClappRestController {
             if(req.getFileNames().hasNext()) {
                 administrationFileEntity.setFileTargetKey(applyFormEntity.getApplyFormKey());
                 administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_APPLYFORM);
-                administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_Y);
+                administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
 
                 //파일 등록
+
                 this.saveFileForFormData(req, administrationFileEntity);
+//                this.removeFile(administrationFileEntity);
             }
             //result.setResultCode(resultCode);
             result.setResultMSG(resultMessage);
