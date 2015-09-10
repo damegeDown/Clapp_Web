@@ -47,14 +47,19 @@
       <tr class="productName">
         <th>적용상품명</th>
         <td>
-           <input type="text" name="serviceProductName" class="inactiveMode" readonly/>
-    	 	   	<select class="sel-w180" name="productMasterKey">
-		          <c:forEach items="${productInfo.productList }" var="code">
-					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>
-				 </c:forEach>
-	           </select>
-          &nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)
-        </td>
+           <div id="serviceProductName">
+               <select name="serviceProductName" class="serviceProductName">
+                   <option value="">선택</option>
+               </select>
+           </div>
+           <%--<input type="text" name="serviceProductName" class="inactiveMode" readonly/>--%>
+    	 	   	<%--<select class="sel-w180" name="productMasterKey">--%>
+		          <%--<c:forEach items="${productInfo.productList }" var="code">--%>
+					<%--<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>--%>
+				 <%--</c:forEach>--%>
+	           <%--</select>--%>
+          <%--&nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)--%>
+        <%--</td>--%>
      </tr>
      <tr>
        <th>계정당 적용시간</th>
@@ -98,6 +103,26 @@
 <!-- 회원 검색 팝업 -->
 <%@ include file="/WEB-INF/pages/views/popup/popupSearchUserId.jsp"%>
 <script>
+    //적용상품명 클릭시 상품 시작일 종료일 표시
+    $(".serviceProductName").change(function (){
+        var utMasterKey = $(".serviceProductName option:selected").val();
+        $.ajax({
+            url: "/admin/member/rest/selectProductList",
+            type: "post",
+            dataType: "json",
+            data: {userTicketMasterKey: utMasterKey},
+            success: function (data) {
+                var dataLen = data.dataList.length;
+
+                if (dataLen > 0) {
+                    for (var i = 0; i < dataLen; i++) {
+                        $("input[name=ticketStartExpirationDate]").val(data.dataList[i].ticketStartDate);
+                        $("input[name=ticketEndExpirationDate]").val(data.dataList[i].ticketEndDate);
+                    }
+                }
+            }
+        });
+    });
     //시간 입력 후 포커스 아웃시 실 DB 에 입력할 값을 티켓단위로 변경
     $("input[name=serviceApplyTicketAmount_]")
             .focusout(function() {

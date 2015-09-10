@@ -87,11 +87,23 @@ public class TicketEntity extends PageEntity implements Serializable{
 	private String os;						//OS
 	private String resolution;				//화면 사이즈
 	private String osVersion;				//os 버전
-
+    private String ticketStartDate;
+    private String ticketEndDate;
     private int useCount;
 	private int reservationWaitCount;	//예약대기 카운트 
 	private int reservationFinishCount; //사용종료 카운트
-	
+    public String getTicketStartDate() {
+        return ticketStartDate;
+    }
+    public void setTicketStartDate(String ticketStartDate) {
+        this.ticketStartDate = ticketStartDate;
+    }
+    public String getTicketEndDate() {
+        return ticketEndDate;
+    }
+    public void setTicketEndDate(String ticketEndDate) {
+        this.ticketEndDate = ticketEndDate;
+    }
 	public int getUserTicketUserdHistoryKey() {
 		return userTicketUserdHistoryKey;
 	}

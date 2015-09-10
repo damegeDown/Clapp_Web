@@ -6,12 +6,10 @@ import java.util.Map;
 
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.entities.DropOutUserEntity;
-import kr.co.clapp.entities.EcrmEntity;
-import kr.co.clapp.entities.MemberEntity;
-import kr.co.clapp.entities.ResponseEntity;
+import kr.co.clapp.entities.*;
 import kr.co.clapp.service.mailing.MailingService;
 import kr.co.clapp.service.member.MemberService;
+import kr.co.clapp.service.ticket.TicketService;
 import kr.co.digigroove.commons.messages.Messages;
 
 import org.slf4j.Logger;
@@ -38,6 +36,8 @@ public class MemberRestController {
   @Autowired
   private MailingService mailingService;
 
+     @Autowired
+     private TicketService ticketService;
 
   /**
    * 회원 수정
@@ -125,4 +125,21 @@ public class MemberRestController {
 	return result;
   }
  
+
+    /**
+     * 상품 목록 출력
+     * @param ticketEntity
+     * @return
+     */
+    @RequestMapping(value = "/selectProductList", method = RequestMethod.POST)
+    public Map<String, Object> getUserTicketProductList(TicketEntity ticketEntity) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            result.put("dataList", ticketService.getUserTicketProductList(ticketEntity));
+        } catch (Exception e) {
+            logger.error("MemberRestController.listOut:Faild" , e);
+        }
+        return result;
+    }
+
 }

@@ -76,6 +76,7 @@ public class TicketServiceImpl implements TicketService {
 		  
 		  List<String> userId = (List<String>) ticketEntity.getUserIdArr();
 		  //if(userId.size() < 1) userId.add(ticketEntity.getUserId());
+
 		  /** 개별 계정 부여시 */
 		  if(ticketEntity.getServiceTargetType().equals("4")) {
 			  for(int i = 0; i < userId.size(); i++ ) {
@@ -91,6 +92,7 @@ public class TicketServiceImpl implements TicketService {
 				 ticketDAO.insertServiceTicketHistory(ticketEntity);
 			  }
 		  } else {
+              /**개별 user_ticket_master_key 지정으로 교체 필요 [김지훈]**/
 			  /** update ticket for user_ticket_master */
 			  ticketDAO.modifyServiceTicketMaster(ticketEntity);
 			  /** insert ticket for user_ticket_history*/

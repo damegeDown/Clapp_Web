@@ -146,6 +146,7 @@ public class TicketController {
 		String submitType = "등록";
 		String submitAction = "admin/ticket/rest/insertTicketProductService";
 		ProductEntity productInfo = new ProductEntity();
+        List<TicketEntity> ticketProductList = null;
 		try {
 			//공통코드 
 			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
@@ -163,7 +164,10 @@ public class TicketController {
 			List<CommonCodeEntity> productTypeCode = commonService.getCommonCodeList(commonCodeEntity);
 			//상품정보
 			productInfo = productService.getProductList(productInfo);
-			
+			//보유상품 리스트
+//            int userMasterKey = 0; //선택되 회원의 userMasterKey 값을 받아온다
+//            ticketEntity.setUserMasterKey(userMasterKey);
+//            ticketProductList=ticketService.getUserTicketProductList(ticketEntity);
 			model.addAttribute("productInfo", productInfo);
 			model.addAttribute("ticketEntity", ticketEntity);														
 			model.addAttribute("userTypeCode", userTypeCode);														//공통코드 유저 일반,기업/단체 구분 코드
