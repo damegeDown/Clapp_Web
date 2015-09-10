@@ -1307,8 +1307,27 @@
         id = #{reservation_id}
     </select>
     <select id="getUserTicketProductList" parameterType="ticketEntity" resultType="ticketEntity">
-        SELECT * FROM USER_TICKET_MASTER
+        SELECT
+        user_ticket_master_key,
+        user_master_key,
+        product_master_key,
+        product_name,
+        payment_tid,
+        ticket_amount,
+        ticket_avilable_amount,
+        ticket_apply_date,
+        insert_date,
+        modify_date,
+        use_yn,
+        DATE_FORMAT(ticket_start_expiration_date, '%Y/%m/%d %H:%i') ticketStartDate,
+        DATE_FORMAT(ticket_end_expiration_date, '%Y/%m/%d %H:%i') ticketEndDate
+        FROM USER_TICKET_MASTER
+        <if test="userMasterKey != '' and userMasterKey != null">
         WHERE USER_MASTER_KEY=#{userMasterKey}
+        </if>
+        <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
+            WHERE USER_TICKET_MASTER_KEY=#{userTicketMasterKey}
+        </if>
         <if test="productMasterKey == 1 ">
           AND PRODUCT_MASTER_KEY in (15,16,17,18,19,20,21,22,23,24,25,26)
         </if>
