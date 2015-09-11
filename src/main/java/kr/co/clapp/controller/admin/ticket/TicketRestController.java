@@ -34,18 +34,21 @@ public class TicketRestController {
 	public ResponseEntity insertTicketProductService(TicketEntity ticketEntity) {
 		ResponseEntity result = new ResponseEntity();
 	  try {
-		int userTypeCount = 1;
+		int userTypeCount = 1;//상품 적용대상 사용자 타입 1.일반 2.기업
 		String resultCode = ResultCode.FAIL;
 		String resultMessage = messages.getMessage("insert.fail");
 		if(ticketEntity.getServiceTargetType().equals("4")) {
 		  ticketEntity.getServiceApplyTicketAmount();
+            ticketEntity.setUserTicketMasterKey(ticketEntity.getUserTicketMasterKey());
 		} else {
 		  userTypeCount = ticketService.getUserTypeCount(ticketEntity);
 		}
 		ticketEntity.setServiceApplyTicketTotalAmount(userTypeCount * ticketEntity.getServiceApplyTicketAmount());
+
+
 		if(ticketService.insertTicketProductService(ticketEntity) > CommonCode.ZERO) {
 		  resultCode = ResultCode.SUCCESS;
-		  resultMessage = messages.getMessage("insert.success"); 
+		  resultMessage = messages.getMessage("insert.success");
 		  result.setResultURL("/admin/ticket/ticketProductServiceList");
 		}
 		result.setResultCode(resultCode);
