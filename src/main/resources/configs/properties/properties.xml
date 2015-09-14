@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <util:properties id="dbConfig">
-        <prop key="url">jdbc:mysql://58.180.17.146.:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
+        <prop key="url">jdbc:mysql://127.0.0.1:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
         <prop key="username">Clapp</prop>
         <prop key="password">Clapp@015</prop>
         <prop key="db_driver">com.mysql.jdbc.Driver</prop>
@@ -12,7 +12,7 @@
 
 
     <util:properties id="fileConfig">
-        <prop key="filePath">g:\web\web_data\</prop>
+        <prop key="filePath">D:/web/web_data/</prop>
     </util:properties>
 
     <util:properties id="mailConfig">
@@ -26,11 +26,11 @@
     </util:properties>
 
     <util:properties id="pay_prop">
-         <prop key="platform">test</prop>
+        <prop key="platform">test</prop>
         <!--<prop key="platform">service</prop>-->
         <prop key="mid">clapp</prop>
         <prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3 </prop>
-        <prop key="configPath">g:\web\lgdacom</prop>
+        <prop key="configPath">D:/web/lgdacom</prop>
         <prop key="casnoteUrl">http://localhost:8080/myClapp/rest/responseVirtualAcct</prop>
     </util:properties>
     <util:properties id="snsConfig">

@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <util:properties id="dbConfig">
-        <prop key="url">jdbc:mysql://58.180.17.145:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
+        <prop key="url">jdbc:mysql://127.0.0.1:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
         <prop key="username">Clapp</prop>
         <prop key="password">Clapp@015</prop>
         <prop key="db_driver">com.mysql.jdbc.Driver</prop>
@@ -12,7 +12,7 @@
 
 
     <util:properties id="fileConfig">
-        <prop key="filePath">/home/web/web_data/</prop>
+        <prop key="filePath">D:/web/web_data/</prop>
     </util:properties>
 
     <util:properties id="mailConfig">
@@ -26,21 +26,21 @@
     </util:properties>
 
     <util:properties id="pay_prop">
-        <!-- <prop key="platform">test</prop> -->
-        <prop key="platform">service</prop>
+        <prop key="platform">test</prop>
+        <!--<prop key="platform">service</prop>-->
         <prop key="mid">clapp</prop>
         <prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3 </prop>
-        <prop key="configPath">/home/web/lgdacom</prop>
-        <prop key="casnoteUrl">https://www.clapp.co.kr/myClapp/rest/responseVirtualAcct</prop>
+        <prop key="configPath">D:/web/lgdacom</prop>
+        <prop key="casnoteUrl">http://localhost:8080/myClapp/rest/responseVirtualAcct</prop>
     </util:properties>
     <util:properties id="snsConfig">
-        <prop key="linkUrl">https://www.clapp.co.kr/trandReview/socialList</prop>
+        <prop key="linkUrl">http://localhost:8080/trandReview/socialList</prop>
         <!-- 페이스북 -->
         <!--<prop key="facebookLink">https://www.facebook.com/profile.php?id=100009049548425</prop>-->
         <prop key="facebookLink">https://www.facebook.com/clapp.co.kr</prop>
         <prop key="accessTocken">CAACEdEose0cBAMswp1ncb1H2Wmtwgw5FHLOCPa5ZBQ3AnZA29lkEUnr0Vx8lOPhfI5bLmbFfNwdxVGKp8S8LUsJzSAA8SWiy4v424YiuLcXxXFi8QTftZBRjONV9xw5mHjWHVEhjUTPz5UGZBrrh5kQZC0LVG7keyBMjrcCfZBZBraxTbRgPJDHKqHQq0qP2C7W2pZAXuyonIYjpb0OnIb3CeGM42ZCw3ZAEcZD</prop>
         <prop key="appId">1563873130519004</prop>
-        <prop key="imgPath">https://www.clapp.co.kr/common/imgView</prop>
+        <prop key="imgPath">http://localhost:8080/common/imgView</prop>
         <!-- 트위터 -->
         <prop key="twitterLink">https://twitter.com/dgdev0/status/</prop>
         <prop key="consumerKeyStr">PsJOhA67aGYxdwIejnCKh1cA2</prop>
