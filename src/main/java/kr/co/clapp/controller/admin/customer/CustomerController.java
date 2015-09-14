@@ -436,6 +436,10 @@ public class CustomerController {
             commonCodeEntity.setCodeMasterCode(CommonCode.SORT_LIST_SIZE);
             //공통코드 10개,20개,50개,100개씩보기 코드
             List<CommonCodeEntity> sortListSizeCode = commonService.getCommonCodeList(commonCodeEntity);
+            //공통코드 의뢰 분류
+            commonCodeEntity.setCodeMasterCode(CommonCode.TESTING_CATEGORY);
+            //공통코드 의뢰 분류 코드
+  	        List<CommonCodeEntity> applyCategoryCode = commonService.getCommonCodeList(commonCodeEntity);
             applyFormEntity = applyformService.getTestRequestList(applyFormEntity);
             int applyTotalCount = applyformService.getTestRequestCount(applyFormEntity);
             model.addAttribute("sortListSizeCode", sortListSizeCode);							//10개,20개,50개,100개씩보기 코드
@@ -446,9 +450,38 @@ public class CustomerController {
             model.addAttribute("CommonCode", commonCode);
             model.addAttribute("applyFormEntity",applyFormEntity);
             model.addAttribute("applyTotalCount",applyTotalCount);//신청 합계
+            model.addAttribute("applyCategoryCode",applyCategoryCode);
         } catch (Exception e) {
-            logger.error("CustomerController.serviceInquiryList:Failed" , e);
+            logger.error("CustomerController.testRequestList:Failed" , e);
         }
         return "admin/customer/testRequestList";
+    }
+    /**
+     * 테스트 대행 신청 상세
+     * @param applyFormEntity
+     * @param model
+     * @return
+     */
+    @RequestMapping("/testRequestDetail")
+    public String testRequestDetail(ApplyFormEntity applyFormEntity,ApplyFormEntity resultFile, Model model){
+//        ApplyFormEntity applyFormEntityInfo = null;
+
+        try{
+            applyFormEntity.setFileTarget(CommonCode.FILE_TARGET_APPLYFORM);
+            applyFormEntity.setApplyFormKey(applyFormEntity.getApplyFormKey());
+            applyFormEntity= applyformService.getTestRequestDetail(applyFormEntity);
+            model.addAttribute("applyFormDetail",applyFormEntity);
+
+            //결과파일 출력
+            resultFile.setFileTarget(CommonCode.FILE_TARGET_TESTINGRESULT);
+            resultFile.setApplyFormKey(applyFormEntity.getApplyFormKey());
+            resultFile= applyformService.getTestRequestDetail(resultFile);
+            model.addAttribute("resultFile",resultFile);
+
+            model.addAttribute("CommonCode", commonCode);
+        } catch (Exception e) {
+            logger.error("CustomerController.testRequestDetail:Failed" , e);
+        }
+        return "admin/customer/testRequestDetail";
     }
 }

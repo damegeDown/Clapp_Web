@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.clapp.dao.ApplyFormDAO">
+    <update id="testRequestUpdate" parameterType="applyFormEntity" useGeneratedKeys="true" keyProperty="applyFormKey">
+        <!-- result Type 0:대기 1:등록 2: 수정 등록-->
+        UPDATE apply_form
+        SET
+        result_date = NOW(),
+        result_type = 1
+        WHERE apply_form_key = #{applyFormKey}
+    </update>
     <insert id="insertApplyForm" parameterType="applyFormEntity" useGeneratedKeys="true" keyProperty="applyFormKey">
         INSERT INTO apply_form
         (
@@ -11,7 +19,7 @@
             apply_contents,
             apply_url,
             apply_insert_date,
-            apply_title,
+            file_memo,
             user_master_key,
             apply_type
         )
@@ -21,9 +29,9 @@
             #{applyInsertName},
             #{applyPhoneNumber},
             #{applyFormSelect},
-            #{applyFormUrl},
+            #{applyUrl},
             NOW(),
-            '',
+            #{fileMemo},
             #{userMasterKey},
             #{applyType}
         )
@@ -36,6 +44,61 @@
         a.apply_contents,
         a.apply_url,
         a.apply_insert_date,
+        a.file_memo,
+        a.result_type,
+        a.result_date,
+        (SELECT b.user_id
+        FROM user_master b
+        WHERE b.user_master_key = a.user_master_key
+        <if test="testSearchKeyValue1 != '' and testSearchKeyValue1 != null">
+            AND
+            b.user_id = #{testSearchKeyValue1}
+        </if>
+        )
+        AS user_id,
+        (SELECT CASE
+        WHEN a.apply_type = '3' THEN '시간이용권'
+        WHEN a.apply_type = '1' THEN '무료체험권'
+        WHEN a.apply_type = '9' THEN '클앱멤버십'
+        END)
+        AS apply_type
+        FROM apply_form a
+        WHERE
+        apply_insert_date IS NOT NULL
+        <if test="(startDate != '' and startDate != null) and (endDate != '' and endDate != null)">
+            and (a.apply_insert_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d') AND DATE_FORMAT(ADDDATE(#{endDate},+1), '%Y-%m-%d'))
+        </if>
+        <if test="testsearchKey1 != '' and testsearchKey1 != null">
+            AND
+            a.apply_type = #{testsearchKey1}
+        </if>
+        <if test="testsearchKey2 != '' and testsearchKey2 != null">
+            AND
+            a.apply_contents = #{testsearchKey2}
+        </if>
+        <if test="testSearchKeyValue2 != '' and testSearchKeyValue2 != null">
+            AND
+            a.apply_insert_name = #{testSearchKeyValue2}
+        </if>
+        ORDER BY
+      apply_insert_date DESC
+    LIMIT
+      #{rowStartNumber}, #{pageListSize}
+    </select>
+    <select id="getTestRequestCount" parameterType="applyFormEntity" resultType="int">
+        select count(*) FROM APPLY_FORM;
+    </select>
+    <select id="getTestRequestDetail" parameterType="applyFormEntity" resultType="applyFormEntity">
+        SELECT a.apply_form_key,
+        a.apply_email,
+        a.apply_insert_name,
+        a.apply_phone_number,
+        a.apply_contents,
+        a.apply_url,
+        a.apply_insert_date,
+        a.file_memo,
+        a.result_type,
+        a.result_date,
         (SELECT b.user_id
         FROM user_master b
         WHERE b.user_master_key = a.user_master_key)
@@ -45,14 +108,15 @@
         WHEN a.apply_type = '1' THEN '무료체험권'
         WHEN a.apply_type = '9' THEN '클앱멤버십'
         END)
-        AS apply_type
+        AS apply_type,
+        af.file_name,
+        af.file_saved_name,
+        af.file_path
         FROM apply_form a
-        ORDER BY
-      apply_insert_date DESC
-    LIMIT
-      #{rowStartNumber}, #{pageListSize}
-    </select>
-    <select id="getTestRequestCount" parameterType="applyFormEntity" resultType="int">
-        select count(*) FROM APPLY_FORM;
+        LEFT OUTER JOIN
+	    ADMINISTRATION_FILE af on a.apply_form_key = af.file_target_key
+        WHERE apply_insert_date IS NOT NULL
+        AND a.apply_form_key=#{applyFormKey}
+        AND af.file_target = #{fileTarget}
     </select>
 </mapper>

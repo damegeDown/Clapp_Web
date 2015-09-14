@@ -13,19 +13,19 @@
         <div class="search-box">
             <div class="marT-5">
                 <span class="span-w50" style="padding-left: 11px;">신청일</span>
-                <input type="text" id="from" class="date" name="startDate"  value=""/> ~ <input type="text" id="to" class="date" name="endDate" value=""/>
+                <input type="text" id="from" class="date" name="startDate"  value="${applyFormEntity.startDate}"/> ~ <input type="text" id="to" class="date" name="endDate" value="${applyFormEntity.endDate}"/>
                 <span class="span-w50" style="padding-left: 25px;">이용상품</span>
                 <select class="sel-w107" name="testsearchKey1">
-                    <option value="" >전체</option>
-                    <option value="1" >무료체험권</option>
-                    <option value="2" >시간이용권</option>
-                    <option value="2" >클앱멤버십</option>
+                    <option value="">전체</option>
+                    <c:forEach items="${applyCategoryCode }" var="code">
+                        <option value="${code.commonCode }" <c:if test="${applyFormEntity.testsearchKey1 eq code.commonCode }">selected</c:if>>${code.commonName }</option>
+                    </c:forEach>
                 </select>
                 <span class="span-w80" style="padding-left: 20px; text-align:center;">의뢰테스트</span>
                 <select class="sel-w160" name="testsearchKey2">
                     <option value="">전체</option>
-                    <option value="1" >앱설치 테스트</option>
-                    <option value="2" >모바일웹 해상도 테스트</option>
+                    <option value="test1" <c:if test="${applyFormEntity.testsearchKey2 eq 'test1' }">selected</c:if>>앱설치 테스트</option>
+                    <option value="test2" <c:if test="${applyFormEntity.testsearchKey2 eq 'test2'}">selected</c:if>>모바일웹 해상도 테스트</option>
                 </select>
                 <span class="span-w30" style="padding-left: 25px;">상태</span>
                 <select class="sel-w107" name="testsearchKey3">
@@ -36,9 +36,9 @@
             </div>
             <div class="marT-5">
                 <span class="span-w50" style="padding-left: 11px;">회원 ID</span>
-                <input type="text" class="inp-w200" name="testsearchKeyValue1" placeholder="sample@clapp.co.kr"/>
+                <input type="text" class="inp-w200" name="testSearchKeyValue1" placeholder="sample@clapp.co.kr"/>
                 <span class="span-w100" style="padding-left: 30px; padding-right: 7px;">이름/기업,단체명</span>
-                <input type="text" class="inp-w600" name="testsearchKeyValue2" placeholder="띄어쓰기 없이 입력 / 기업의 경우 (주) 빼고 입력"/>
+                <input type="text" class="inp-w600" name="testSearchKeyValue2" placeholder="띄어쓰기 없이 입력 / 기업의 경우 (주) 빼고 입력"/>
                 <span class="marL-15 span-w300"> </span>
                 <input type="submit" class="btn" value="검색"/>
                 <input type="reset" class="btn" value="초기화"/>
@@ -96,15 +96,18 @@
             <td>${testRequestList.applyType}</td>
             <td style="cursor:pointer" class="testTitle" data-key="${testRequestList.applyFormKey}">
                 <c:if test="${testRequestList.applyContents == 'test1'}">앱설치 테스트</c:if>
-                <c:if test="${testRequestList.applyContents == 'test2'}">의뢰 테스트</c:if>
+                <c:if test="${testRequestList.applyContents == 'test2'}">모바일 웹 해상도 테스트</c:if>
             </td>
             <td>${testRequestList.userId}</td>
             <td><p><a href="mailto:${testRequestList.applyEmail}">${testRequestList.applyEmail}</a></p></td>
             <td>${testRequestList.applyInsertName}</td>
             <td>${testRequestList.applyPhoneNumber}</td>
             <td><fmt:formatDate pattern="yyyy/MM/dd" value="${testRequestList.applyInsertDate}" /></td>
-            <td>2015/09/03</td>
-            <td>대기</td>
+            <td><fmt:formatDate pattern="yyyy/MM/dd" value="${testRequestList.resultDate}" /></td>
+            <td>
+                <c:if test="${testRequestList.resultType == 1}">완료</c:if>
+                <c:if test="${testRequestList.resultType != 1}">대기</c:if>
+            </td>
         </tr>
         </c:forEach>
         <c:if test="${applyFormEntity.testRequestList.size() < 1 }">

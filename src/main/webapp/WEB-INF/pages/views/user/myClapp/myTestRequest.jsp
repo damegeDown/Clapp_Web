@@ -223,7 +223,8 @@
                     <div class="subTReqVOCFileInput4_1"><p>http://</p></div>
                 </div>
                 <div class="subTRFCB2">
-                    <div class="subTReqVOCFileInput3"><input  type="text" id="TESTreq3" name="applyFormUrl" class="MysicFileInput3" value="url"/>
+                    <div class="subTReqVOCFileInput3"><input  type="text" id="TESTreq3" name="applyUrl" class="MysicFileInput3" />
+
                     </div>
                 </div>
                 <div class="subTRFCB3">
@@ -415,6 +416,9 @@
         if(!chkFlag){
             alert("개인정보 수집 및 이용에 동의 하여야 발송 가능합니다.");
             return false;
+        }
+        if(!$('#TESTreq3').val()){
+            $('#TESTreq3').val("NULL")
         }
         $(".submitBtn").click();
     }

@@ -4,6 +4,7 @@ package kr.co.clapp.controller.admin.customer;
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.constants.ResultCode;
 import kr.co.clapp.entities.*;
+import kr.co.clapp.service.applyform.ApplyformService;
 import kr.co.clapp.service.customer.CustomerService;
 import kr.co.clapp.service.file.AdministrationFileService;
 import kr.co.clapp.service.mailing.MailingService;
@@ -36,6 +37,9 @@ public class CustomerRestController {
 
 	@Autowired
 	AdministrationFileService administrationFileService;
+
+    @Autowired
+    ApplyformService applyformService;
 	
 	/**
 	 * 이메일 문의 답변 등록
@@ -373,12 +377,94 @@ public class CustomerRestController {
 	  }
 	  return result;
 	}
-	/**
-	 * 파일 저장
-	 * @param req
-	 * @param administrationFileEntity
-	 * @return
-	 */
+    /**
+     * 테스팅 결과 파일 등록
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/testRequestAdvice",  method = RequestMethod.POST)
+    public ResponseEntity testRequestUpdate(MultipartHttpServletRequest req){
+        ResponseEntity result = new ResponseEntity();
+        AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+        ApplyFormEntity applyFormEntity = new ApplyFormEntity();
+
+        try{
+
+            String resultMessage = messages.getMessage("insert.success");
+
+            // 파일 업로드
+            String applyFk=req.getParameter("applyFormKey");
+            String intFk=applyFk.trim().replaceAll(" ", "");//파라메터 문자열 공백제거
+            int formKey= Integer.parseInt(intFk);//정수형으로 변환
+
+            if(req.getFileNames().hasNext()) {
+                administrationFileEntity.setFileTargetKey(formKey);
+                administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_TESTINGRESULT);
+                administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+
+                //파일등록
+                this.saveFileForFormData(req, administrationFileEntity);
+                //파일업데이트 날짜 등록
+                applyFormEntity.setApplyFormKey(formKey);
+                applyformService.testRequestUpdate(applyFormEntity);
+            }
+            result.setResultMSG(resultMessage);
+            result.setResultURL("/admin/customer/testRequestList");
+        }catch (Exception e) {
+            logger.error("requestTestingResult.insertApplyForm:Faild" , e);
+            result.setResultCode(ResultCode.FAIL);
+            result.setResultMSG(messages.getMessage("insert.fail"));
+        }
+        return result;
+    }
+    /**
+     * 테스팅 결과 파일 수정
+     * @param req
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/testRequestFileUpdate",  method = RequestMethod.POST)
+    public ResponseEntity testRequestFileUpdate(MultipartHttpServletRequest req){
+        ResponseEntity result = new ResponseEntity();
+        AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+        ApplyFormEntity applyFormEntity = new ApplyFormEntity();
+        try{
+
+            String resultMessage = messages.getMessage("modify.success");
+
+            // 파일 업로드
+            String applyFk=req.getParameter("applyFormKey");
+            String intFk=applyFk.trim().replaceAll(" ", "");//파라메터 문자열 공백제거
+            int formKey= Integer.parseInt(intFk);//정수형으로 변환
+
+            if(req.getFileNames().hasNext()) {
+                administrationFileEntity.setFileTargetKey(formKey);
+                administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_TESTINGRESULT);
+                administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+                //기존파일 삭제
+//                this.removeFile(administrationFileEntity);
+                //파일등록
+                this.saveFileForFormData(req, administrationFileEntity);
+                //파일업데이트 날짜 등록
+                applyFormEntity.setApplyFormKey(formKey);
+                applyformService.testRequestUpdate(applyFormEntity);
+            }
+            result.setResultMSG(resultMessage);
+            result.setResultURL("/admin/customer/testRequestList");
+        }catch (Exception e) {
+            logger.error("requestTestingResultFile.modifyApplyForm:Faild" , e);
+            result.setResultCode(ResultCode.FAIL);
+            result.setResultMSG(messages.getMessage("modify.fail"));
+        }
+        return result;
+    }
+
+        /**
+         * 파일 저장
+         * @param req
+         * @param administrationFileEntity
+         * @return
+         */
 	public List<SavedFileEntity> saveFileForFormData(MultipartHttpServletRequest req, AdministrationFileEntity administrationFileEntity) {
 		List<SavedFileEntity> saveFileList = new ArrayList<SavedFileEntity>();
 		try {
@@ -393,7 +479,6 @@ public class CustomerRestController {
 	
 	/**
 	 * 파일 저장
-	 * @param req
 	 * @param administrationFileEntity
 	 * @return
 	 */

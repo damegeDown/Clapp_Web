@@ -21,6 +21,9 @@ public class ApplyformServiceimpl implements ApplyformService {
     private ApplyFormDAO applyFormDAO;
     @Autowired
     private Messages messages;
+    /**
+     * 테스팅 신청 등록
+     */
     @Override
     @Transactional(readOnly = false)
     public int insertApplyForm(ApplyFormEntity applyFormEntity) throws Exception {
@@ -28,7 +31,24 @@ public class ApplyformServiceimpl implements ApplyformService {
         int result = applyFormDAO.insertApplyForm(applyFormEntity);
         return result;
     }
-
+    /**
+     * 테스팅 결과 파일 업데이트
+     */
+    @Override
+    @Transactional(readOnly = false)
+    public int testRequestUpdate(ApplyFormEntity applyFormEntity) throws Exception{
+        int result = applyFormDAO.testRequestUpdate(applyFormEntity);
+        return result;
+    }
+    /**
+     * 테스팅 결과 파일 수정
+     */
+    @Override
+    @Transactional(readOnly = false)
+    public int testRequestFileUpdate(ApplyFormEntity applyFormEntity) throws Exception{
+        int result = applyFormDAO.testRequestUpdate(applyFormEntity);
+        return result;
+    }
     /**
      * 테스팅 신청 목록
      */
@@ -40,6 +60,10 @@ public class ApplyformServiceimpl implements ApplyformService {
         List<ApplyFormEntity> testRequestList =applyFormDAO.getTestRequestList(applyFormEntity);
         applyFormEntity.setTestRequestList(testRequestList);
 
+        return applyFormEntity;
+    }
+    public ApplyFormEntity getTestRequestDetail(ApplyFormEntity applyFormEntity)throws Exception{
+        applyFormEntity =applyFormDAO.getTestRequestDetail(applyFormEntity);
         return applyFormEntity;
     }
     @Override

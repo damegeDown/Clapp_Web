@@ -25,13 +25,18 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
 	private String applyInsertName;								//등록자
 	private String applyPhoneNumber;								//전화번호
 	private String applyFormSelect;									//테스트 신청 구분
-	private String applyFormUrl;								     //테스트 URL
+	private String applyUrl;								     //테스트 URL
 	private Date applyInsertDate;									//등록일
-    private String applyTitle;                                      //제목
+    private String fileMemo;                                      //제목
     private String userId;                                         //아이디
     private String applyType;                                       //상품타입
+    private Date resultDate; //테스팅 신청 파일 등록 수정일
+    private int resultType;  //테스팅 결과 출력 타입 0:미등록 1:등록 2:수정 등록
     private String applyContents;
-
+    private String testsearchKey1; //보유상품타입
+    private String testsearchKey2;
+    private String testSearchKeyValue1;
+    private String testSearchKeyValue2;
 	private List<ApplyFormEntity> testRequestList;
  	private int sortListSize;
     private int userMasterKey;
@@ -42,9 +47,34 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
 	private String fileSavedName; 
 	private String filePath;
 
+    public Date getResultDate() {
+        return resultDate;
+    }
+    public void setResultDate(Date resultDate) {
+        this.resultDate = resultDate;
+    }
+    public int getResultType() {
+        return resultType;
+    }
+    public void setResultType(int resultType) {
+        this.resultType = resultType;
+    }
+    public String getApplyUrl() {
+        return applyUrl;
+    }
+    public void setApplyUrl(String applyUrl) {
+        this.applyUrl = applyUrl;
+    }
     public String getUserId() { return  userId;}
     public void setUserId(String userId) { this.userId = userId;}
-
+    public String  getTestSearchKeyValue2() { return  testSearchKeyValue2;}
+    public void setTestSearchKeyValue2(String testSearchKeyValue2) { this.testSearchKeyValue2 = testSearchKeyValue2;}
+    public String  getTestSearchKeyValue1() { return  testSearchKeyValue1;}
+    public void setTestSearchKeyValue1(String testSearchKeyValue1) { this.testSearchKeyValue1 = testSearchKeyValue1;}
+    public String  getTestsearchKey2() { return  testsearchKey2;}
+    public void setTestsearchKey2(String testsearchKey2) { this.testsearchKey2 = testsearchKey2;}
+    public String  getTestsearchKey1() { return  testsearchKey1;}
+    public void setTestsearchKey1(String testsearchKey1) { this.testsearchKey1 = testsearchKey1;}
     public String getApplyContents() { return  applyContents;}
     public void setApplyContents(String applyContents) { this.applyContents = applyContents;}
     public String getApplyType() { return  applyType;}
@@ -68,11 +98,11 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
     public void setTestRequestList(List<ApplyFormEntity> testRequestList) {
         this.testRequestList = testRequestList;
     }
-    public String getApplyTitle() {
-        return applyTitle;
+    public String getFileMemo() {
+        return fileMemo;
     }
-    public void setApplyTitle(String applyTitle) {
-        this.applyTitle = applyTitle;
+    public void setFileMemo(String fileMemo) {
+        this.fileMemo = fileMemo;
     }
     public String getApplyEmail() {
         return applyEmail;
@@ -101,12 +131,7 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
     public void setApplyFormSelect(String applyFormSelect) {
         this.applyFormSelect = applyFormSelect;
     }
-    public String getApplyFormUrl() {
-        return applyFormUrl;
-    }
-    public void setApplyFormUrl(String applyFormUrl) {
-        this.applyFormUrl = applyFormUrl;
-    }
+
     public Date getApplyInsertDate() {
         return applyInsertDate;
     }

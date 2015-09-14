@@ -45,7 +45,7 @@
 			<mvc:exclude-mapping path="/admin/doLogin"/>
 			<mvc:exclude-mapping path="/admin/ecrm/mailCheck"/>
 			<mvc:exclude-mapping path="/admin/ecrm/rest/mailCheck/*"/>
-			<mvc:exclude-mapping path="/admin/ecrm/insertSurveyAnswer"/> 
+			<mvc:exclude-mapping path="/admin/ecrm/insertSurveyAnswer"/>
 			<mvc:exclude-mapping path="/admin/common/error"/>
 			<mvc:exclude-mapping path="/members/login*"/>
 			<mvc:exclude-mapping path="/myClapp/rest/responseVirtualAcct"/>

@@ -39,7 +39,8 @@ public class CommonCode {
 	public static final String FILE_TARGET_INQUIRY = "inquiry";								//상담 파일 저장 폴더
     public static final String FILE_TARGET_APPLYFORM = "applyform";							//테스트신청 파일 저장 폴더
 	public static final String FILE_TARGET_BOARD_TRAND = "boardTrand";						//트렌드리뷰 파일 저장 폴더 
-	public static final String FILE_TARGET_BOARD_SOCIAL_BLOG = "boardSocialBlog";			//소셜/블로그 파일 저장 폴더 
+	public static final String FILE_TARGET_BOARD_SOCIAL_BLOG = "boardSocialBlog";			//소셜/블로그 파일 저장 폴더
+    public static final String FILE_TARGET_TESTINGRESULT = "testingresult";			//테스팅 완료 파일 저장 폴더
 	public static final String FILE_THUMB_Y = "Y";									     	//파일 썸네일 생성여부 
 	public static final String FILE_THUMB_N = "N";									     	//파일 썸네일 생성여부 
 	public static final int FILE_THUMB_MAXDIM = 300;								   			//파일 썸네일 사이즈 
@@ -53,6 +54,7 @@ public class CommonCode {
 	public static final String NOTICE_OPEN = "NOTICE_OPEN";									//공통코드 공지사항 노출 여부
 	public static final String POINT_TEXT = "POINT_TEXT";									//공통코드 포인트 텍스트 타입
 	public static final String SERVICE_TARGET_TYPE = "SERVICE_TARGET_TYPE";					//회원타입 1: 회원전체, 2:일반 전체, 3:기업/단체 전체, 4:개별 계정
+    public static final String TESTING_CATEGORY = "TESTING_CATEGORY";						//테스팅 신청 의뢰 분류 코드
 	public static final String RESERVATION_STATUS = "RESERVATION_STATUS";		//예약 상태
 	public static final String PAYMENT_TYPE = "PAYMENT_TYPE";		//결제방법
 	public static final String QNA_CATEGORY = "QNA_CATEGORY";		//도움말 카테고리
