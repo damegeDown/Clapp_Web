@@ -9,7 +9,7 @@ $.fn.testRequestList = {
     openDetail : function() {
         $(".testTitle").click(function() {
             var applyFormKey = $(this).data("key");
-            location.href = "/admin/customer/testRequestList?applyFormKey="+applyFormKey;
+            location.href = "/admin/customer/testRequestDetail?applyFormKey="+applyFormKey;
         });
     },
     sortListSize : function() {
