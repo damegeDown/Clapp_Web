@@ -48,9 +48,10 @@
         <th>적용상품명</th>
         <td>
            <div id="serviceProductName">
-               <select name="serviceProductName" class="serviceProductName">
+               <select name="serviceProductSelect" class="serviceProductName">
                    <option value="">선택</option>
                </select>
+               <input type="hidden" name="serviceProductName">
            </div>
            <%--<input type="text" name="serviceProductName" class="inactiveMode" readonly/>--%>
     	 	   	<%--<select class="sel-w180" name="productMasterKey">--%>
@@ -106,6 +107,7 @@
     //적용상품명 클릭시 상품 시작일 종료일 표시
     $(".serviceProductName").change(function (){
         var utMasterKey = $(".serviceProductName option:selected").val();
+        $("input[name=userTicketMasterKey]").val(utMasterKey);
         $.ajax({
             url: "/admin/member/rest/selectProductList",
             type: "post",
@@ -118,6 +120,7 @@
                     for (var i = 0; i < dataLen; i++) {
                         $("input[name=ticketStartExpirationDate]").val(data.dataList[i].ticketStartDate);
                         $("input[name=ticketEndExpirationDate]").val(data.dataList[i].ticketEndDate);
+                        $("input[name=serviceProductName]").val(data.dataList[i].productName);
                     }
                 }
             }
