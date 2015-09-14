@@ -82,8 +82,8 @@ public class TicketServiceImpl implements TicketService {
 			  for(int i = 0; i < userId.size(); i++ ) {
 				  memberEntity.setUserId(userId.get(i));
 				  memberEntity = memberDAO.getUserInfoId(memberEntity);
-				  
-				  ticketEntity.setUserMasterKey(memberEntity.getUserMasterKey());
+
+				  ticketEntity.setUserMasterKey(memberEntity.getUserMasterKey());//userMasterKey 불러온다
 				  ticketEntity.setUserId(memberEntity.getUserId());
 				  ticketEntity.setUserType(memberEntity.getUserType());
 				  /** update ticket for user_ticket_master */
