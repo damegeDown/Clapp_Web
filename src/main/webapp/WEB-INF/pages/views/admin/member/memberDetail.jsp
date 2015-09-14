@@ -72,7 +72,7 @@
         </td>
        </tr>
        <tr>
-        <th>보유 시간</th>
+        <th>보유시간</th>
         <td>
           ${memberDetail.usedTicketAmount*5}분
           <a href="${contextPath}/admin/ticket/userTicketUsedList" class="btn-bottom-orenge" >상품관리 바로가기</a>
