@@ -72,10 +72,10 @@
         </td>
        </tr>
        <tr>
-        <th>보유 티켓수</th>
+        <th>보유 시간</th>
         <td>
-          ${memberDetail.usedTicketAmount}티켓
-          <a href="${contextPath}/admin/ticket/userTicketUsedList" class="btn-bottom-orenge" >티켓관리 바로가기</a>
+          ${memberDetail.usedTicketAmount*5}분
+          <a href="${contextPath}/admin/ticket/userTicketUsedList" class="btn-bottom-orenge" >상품관리 바로가기</a>
         </td>
        </tr>
        <tr>
