@@ -7,7 +7,7 @@ $.fn.testRequestList = {
         this.sortListSize();        //10개,20개,50개,100개씩 보기
     },
     openDetail : function() {
-        $(".testTitle").click(function() {
+        $(".board-list tr").click(function() {
             var applyFormKey = $(this).data("key");
             location.href = "/admin/customer/testRequestDetail?applyFormKey="+applyFormKey;
         });

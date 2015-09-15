@@ -6,7 +6,8 @@
 <%@ taglib prefix="Strings" uri="/WEB-INF/tlds/Strings.tld" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script type="text/javascript" src="${contextPath }/resources/js/customer.js"></script>
-<div>
+<div class="sub-content">
+    <div>
     <h3 class="contents-title floatL">테스트 대행 신청관리(총 <span class="colorSkyBlue">${applyTotalCount}</span> 건 )</h3>
     <div style="clear:both;"></div>
     <form id="searchForm" action="">
@@ -62,6 +63,7 @@
         </div>
     </form>
 </div>
+
 <table class="board-list">
     <colgroup>
         <col width="7%"/>
@@ -91,10 +93,10 @@
     </thead>
     <tbody>
         <c:forEach items="${applyFormEntity.testRequestList }" var="testRequestList" varStatus="i">
-        <tr>
+        <tr class="cursor" style="cursor:pointer" data-key="${testRequestList.applyFormKey}">
             <td>${applyFormEntity.dataSize-(applyFormEntity.pageListSize*(applyFormEntity.currentPage-1))-i.index}</td>
             <td>${testRequestList.applyType}</td>
-            <td style="cursor:pointer" class="testTitle" data-key="${testRequestList.applyFormKey}">
+            <td class="testTitle" >
                 <c:if test="${testRequestList.applyContents == 'test1'}">앱설치 테스트</c:if>
                 <c:if test="${testRequestList.applyContents == 'test2'}">모바일 웹 해상도 테스트</c:if>
             </td>
