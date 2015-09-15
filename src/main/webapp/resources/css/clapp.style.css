@@ -9815,16 +9815,18 @@ body {
     padding-top:20px;
     line-height: 25px;
 }
+
+/*브라우저*/
 .subNoticeContentFiveContainer {
     width: inherit;
-    height: 790px;
+    height: 1700px;
     display: block;
     background: #223750;
     border-bottom: 1px solid #294362;
 }
 .subNoticeContentFiveBox {
     width: 960px;
-    height: 720px;;
+    height: 1630px;
     display: block;
     margin: 0 auto;
     padding-top:35px;
@@ -9832,7 +9834,7 @@ body {
 }
 .subNoticeContentFiveItemBox1 {
     width: inherit;
-    height: 720px;
+    height: 1650px;
     display: block;
 }
 .subNoticeContentFiveTitle {
@@ -9847,7 +9849,7 @@ body {
 }
 .subNoticeContentFiveItem1 {
     width: 308px;
-    height: 720px;
+    height: 1620px;
     display: block;
     float: left;
     border-right: 1px solid #294362;
@@ -9858,14 +9860,14 @@ body {
 }
 .subNoticeContentFiveItem2 {
     width: 625px;
-    height: 720px;
+    height: 1620px;
     display: block;
     float: left;
     padding-left:25px;
 }
 .subNoticeCFiveBText {
     width:625px;
-    height:30px;
+    height:70px;
     margin-top: 5px;
 }
 .subNoticeCFiveBdot {
@@ -9880,11 +9882,30 @@ body {
     display: block;
     margin-left: 10px;
 }
-.subNoticeCFiveB2Text {
+/*.subNoticeCFiveB2Text {*/
+    /*width:625px;*/
+    /*height:665px;*/
+    /*margin-top: 7px;*/
+    /*background: #336fa2;*/
+/*}*/
+.subNoticeCFiveBText2 {
     width:625px;
-    height:665px;
-    margin-top: 7px;
+    height:240px;
+    margin-top: 35px;
+}
+.subNoticeCFiveBText2 p{
+    font-size: 18px;
+    color: #fff;
+    display: block;
+}
+.subNoticeCFiveB2Text3 {
+    width:625px;
+    height:580px;
     background: #336fa2;
+}
+.subNoticeCFiveimg2 {
+    text-align:center;
+    padding-top: 30px;
 }
 .subNoticeCFiveText2 {
     margin: 0;

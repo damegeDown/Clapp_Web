@@ -65,13 +65,13 @@
                     <span class="subNoticeCFourText2">컴퓨터의 사용자 계정(한글 또는 띄어쓰기, 특수문자 포함)에 따라 환경변수 설정이 필요합니다.</span>
                 </div>
                 <div class="subNoticeCFourB3Text">
-                        <span class="subNoticeCFourText3">1. 제어판>(우측상단)보기기준을  큰 아이콘 또는 작은 아이콘으로 설정<br>
-                        								  2. 시스템>(좌측 메뉴) 고급 시스템 설정 선택<br>
-                                                          3. 시스템 속성창에서 고급탭>환경변수 선택<br>
-                                                          4. (상단)사용자변수 TEMP, TMP의 %USERPROFILE%\AppData\Local\Temp를 <br>
+                        <span class="subNoticeCFourText3">1) 제어판>(우측상단)보기기준을  큰 아이콘 또는 작은 아이콘으로 설정<br>
+                        								  2) 시스템>(좌측 메뉴) 고급 시스템 설정 선택<br>
+                                                          3) 시스템 속성창에서 고급탭>환경변수 선택<br>
+                                                          4) (상단)사용자변수 TEMP, TMP의 %USERPROFILE%\AppData\Local\Temp를 <br>
                                                           　　편집 버튼을 클릭하여 C:\Windows\Temp로 변경 및 저장<br>
-                                                          5. 실행중인 브라우저를 모두 종료하고 재시작<br>
-                                                          6. 클앱 사이트 로그인 후 서비스 이용
+                                                          5) 실행중인 브라우저를 모두 종료하고 재시작<br>
+                                                          6) 클앱 사이트 로그인 후 서비스 이용
                         </span>
                 </div>
             </div>
@@ -83,12 +83,13 @@
     <div class="subNoticeContentFiveBox">
         <div class="subNoticeContentFiveItemBox1">
             <div class="subNoticeContentFiveItem1">
-                <p class="subNoticeContentFiveTitle">
-                    Chrome</p>
+                <p class="subNoticeContentFiveTitle">Chrome</p>
                 <div class="subNoticeContentFiveicon"><img src="${contextPath }/resources/images/chrome.png" width="76" height="76"></div>
             </div>
             <div class="subNoticeContentFiveItem2">
                 <div class="subNoticeCFiveBText">
+                    <p>1. 44버전 이하 설정 방법
+                    </p>
                     <div class="subNoticeCFiveBdot"><img src="${contextPath }/resources/images/dot.png" width="3" height="3" alt=""/></div>
                     <span class="subNoticeCFiveText"> 크롬에서 수동 테스트 프로그램을 실행하려면 NPAPI 사용 설정이 필요합니다.​</span>
                 </div>
@@ -104,11 +105,31 @@
                         </span>
                     <div class="subNoticeCFiveimg"><img src="${contextPath }/resources/images/system_n_i_1.png" width="533" height="376" alt=""/></div>
                 </div>
-
+                <div class="subNoticeCFiveBText2">
+                    <p>2. 45버전 이상 설정 방법
+                    </p>
+                    <div class="subNoticeCFiveBdot"><img src="${contextPath }/resources/images/dot.png" width="3" height="3" alt=""/></div>
+                    <span class="subNoticeCFiveText">2015년 9월 1일부터 구글 크롬에서 NPAPI 플러그인 지원을 중단하였습니다.​</span>
+                    <div class="subNoticeCFiveBdot"><img src="${contextPath }/resources/images/dot.png" width="3" height="3" alt=""/></div>
+                    <span class="subNoticeCFiveText">따라서 크롬 45버전부터는 클앱의 수동 테스트 프로그램의 자동 실행을 지원하지 않습니다.</span>
+                    <div class="subNoticeCFiveBdot"><img src="${contextPath }/resources/images/dot.png" width="3" height="3" alt=""/></div>
+                    <span class="subNoticeCFiveText">크롬 45버전 이상으로 업데이트 하신 분들은 아래 안내를 확인하시고 클앱 서비스를 이용해 주시<br>기 바랍니다.​</span>
+                    <div class="subNoticeCFiveBdot"><img src="${contextPath }/resources/images/dot.png" width="3" height="3" alt=""/></div>
+                    <span class="subNoticeCFiveText">향후 크롬 브라우저 이용자분들의 클앱 서비스 이용에 불편함이 없도록 지속적으로 개선하도록<br>노력하겠습니다.</span>
+                </div>
+                <div class="subNoticeCFiveB2Text3">
+                    <div class="subNoticeCFiveimg2"><img src="${contextPath }/resources/images/system_n_i_3.png"/></div>
+                        <span class="subNoticeCFiveText2">1. 로그인 후 [CLAPP 테스팅 시작]을 클릭<br>
+                        2. 크롬 브라우저 하단에 클앱 수동 테스트 프로그램  다운로드 확인<br>
+                        3. 다운로드 된 파일 클릭하여 수동 테스트 프로그램 실행
+                        </span>
+                        <span class="subNoticeCFiveText3">※ 번거로우시겠지만 크롬에서 클앱 서비스 이용 시 동일하게 실행되오니 참고 바랍니다.
+                        </span>
+                </div>
             </div>
         </div>
     </div>
-</div> <!-- .subContentFiveContainer End -->
+</div><!-- .subContentFiveContainer End -->
 
 <div class="subNoticeContentSixContainer">
     <div class="subNoticeContentSixBox">

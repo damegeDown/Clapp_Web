@@ -61,9 +61,9 @@ var goGuide = function() {
 	<div class="floatingFrame">
 		<div class="testing" style="display:none">
 			<div class="floatingMenu01 guide">
-				<%--<a href="# return false;" onclick="goGuide()">--%>
-                    <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
-				<%-- <a href="${contextPath }/guide/testingGuide1" onClick="mtPopup(this.href);return false;"> --%>
+				    <a href="# return false;" onclick="goGuide()">
+                    <%--<a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">--%>
+				 <%--<a href="${contextPath }/guide/testingGuide1" onClick="mtPopup(this.href);return false;">--%>
 					<span>이용 가이드</span>
 				</a>
 			</div>

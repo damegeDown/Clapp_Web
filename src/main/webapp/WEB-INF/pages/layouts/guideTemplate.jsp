@@ -22,6 +22,13 @@
 		$("."+select).addClass("mtGuideTabSelect");
 	});
 	</script>
+    <style type="text/css">
+
+        body{
+            overflow-x: hidden; overflow-y: scroll;
+        }
+
+    </style>
 </head>
 <body>
 	<div id="mtGuideWrap">
@@ -41,34 +48,53 @@
 		<div class="mtGuideTabContainer">
 			<div class="mtGuideTabBox">
 				<div class="mtGuideTab">
-					<a href="${contextPath }/guide/testingGuide1" class="mtGuideTab01">
-						<div class="testingGuide1">
-							<span>테스트 시작</span>
-						</div><!-- .mtGuideTab01 End -->
-					</a>
-					<a href="${contextPath }/guide/testingGuide2" class="mtGuideTab02">
-						<div class="testingGuide2">
-							<span>예약 기능</span>
-						</div><!-- .mtGuideTab02 End -->
-					</a>
-					<a href="${contextPath }/guide/testingGuide3" class="mtGuideTab03">
-						<div class="testingGuide3">
-							<span>디바이스 이용현황</span>
-						</div><!-- .mtGuideTab03 End -->
-					</a>
-					<a href="${contextPath }/guide/testingGuide4" class="mtGuideTab04">
-						<div class="testingGuide4">
-							<span>테스트 디바이스 화면</span>
-						</div><!-- .mtGuideTab04 End -->
-					</a>
-					<a href="${contextPath }/guide/testingGuide5" class="mtGuideTab05">
-						<div class="testingGuide5">
-							<span>디바이스 및 환경제어 기능</span>
-						</div><!-- .mtGuideTab05 End -->
-					</a>
+                    <a href="${contextPath }/guide/testingGuide1" class="mtGuideTab01">
+                        <div class="testingGuide1">
+                            <span>기본정보</span>
+                        </div><!-- .mtGuideTab01 End -->
+                    </a>
+
+                    <a href="${contextPath }/guide/testingGuide2" class="mtGuideTab02">
+                        <div class="testingGuide2">
+                            <span>시작하기</span>
+                        </div><!-- .mtGuideTab02 End -->
+                    </a>
+
+                    <a href="${contextPath }/guide/testingGuide3" class="mtGuideTab03">
+                        <div class="testingGuide3">
+                            <span>예약하기</span>
+                        </div><!-- .mtGuideTab03 End -->
+                    </a>
+
+                    <a href="${contextPath }/guide/testingGuide4" class="mtGuideTab04">
+                        <div class="testingGuide4">
+                            <span>디바이스 이용현황</span>
+                        </div><!-- .mtGuideTab04 End -->
+                    </a>
+
+                    <a href="${contextPath }/guide/testingGuide5" class="mtGuideTab05">
+                        <div class="testingGuide5">
+                            <span>테스트 디바이스 화면</span>
+                        </div><!-- .mtGuideTab05 End -->
+                    </a>
+
+                    <a href="${contextPath }/guide/testingGuide6" class="mtGuideTab05">
+                        <div class="testingGuide6">
+                            <span>디바이스 및 환경제어 기능</span>
+                        </div><!-- .mtGuideTab05 End -->
+                    </a>
+
 				</div><!-- .mtGuideTab End -->
 			</div><!-- .mtGuideTabBox -->
 		</div><!-- .mtGuideTabContainer End -->
+
 		<tiles:insertAttribute name="body"/>
+
+        <div class="mtGuideFloating">
+            <a href="#">
+                <img src="${contextPath }/resources/images/popup_guide_floating.png" onMouseOver="this.src='${contextPath }/resources/images/popup_guide_floating_r.png';" onMouseOut="this.src='${contextPath }/resources/images/popup_guide_floating.png';" alt="top" />
+            </a>
+        </div>
+    </div><!-- .mtGuideWrap End -->
 </body>
 </html>
