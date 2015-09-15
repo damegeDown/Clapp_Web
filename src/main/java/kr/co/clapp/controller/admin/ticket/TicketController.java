@@ -75,7 +75,7 @@ public class TicketController {
 	  		model.addAttribute("deviceMakerCodeNum", deviceMakerCodeNum);
 	  		model.addAttribute("sortListSizeCode", sortListSizeCode);
 			//공통
-			commonCode.put("navigation", "티켓 사용 내역 관리 ");									// 현재 페이지 네비게이션
+			commonCode.put("navigation", "상품 사용내역 관리 ");									// 현재 페이지 네비게이션
 			commonCode.put("mainMenu", "permissionProduct");									// left main menu 
 			commonCode.put("subMenu", "userTicketUsed");
 			model.addAttribute("CommonCode", commonCode);
@@ -125,7 +125,7 @@ public class TicketController {
 	  		model.addAttribute("productTypeCode", productTypeCode);								//공통코드 상품 타입 코드
 	  		model.addAttribute("sortListSizeCode", sortListSizeCode);								//공통코드 상품 타입 코드
 			//공통
-			commonCode.put("navigation", "티켓 상품 적용 서비스 ");									// 현재 페이지 네비게이션
+			commonCode.put("navigation", "상품 적용 서비스 ");									// 현재 페이지 네비게이션
 			commonCode.put("mainMenu", "permissionProduct");									// left main menu 
 			commonCode.put("subMenu", "ticketProductService");
 			model.addAttribute("CommonCode", commonCode);
@@ -142,7 +142,7 @@ public class TicketController {
    */
   @RequestMapping("/ticket/ticketProductServiceForm")
   public String ticketProductServiceForm(TicketEntity ticketEntity, Model model){
-	  	String navigation = "티켓 / 상품 적용 서비스 > 신규 적용";
+	  	String navigation = "상품 적용 서비스 > 신규 적용";
 		String submitType = "등록";
 		String submitAction = "admin/ticket/rest/insertTicketProductService";
 		ProductEntity productInfo = new ProductEntity();

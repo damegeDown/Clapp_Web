@@ -98,7 +98,7 @@ $(function() {
 		</tbody>
 	</table>
 	<div class="btn-area">
-  	<a href="${contextPath}/admin/ticket/ticketProductServiceForm" class="floatR btn-bottom-orenge"><span>티켓 서비스 신규 적용</span></a> 
+  	<a href="${contextPath}/admin/ticket/ticketProductServiceForm" class="floatR btn-bottom-orenge"><span>상품 서비스 신규 적용</span></a>
 	</div>
 	<div class="paging-area">
 	 <dgPageNav:PageNavigation pageParamName="currentPage" linkUrl="${contextPath}/admin/ticket/ticketProductServiceList" pageNavigationEntity="${ticketEntity}" /> 
