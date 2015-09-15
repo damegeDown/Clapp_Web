@@ -82,10 +82,10 @@
         <th>유료 상품 이용현황</th>
            <td>
                <c:choose>
-                   <c:when test='${memberDetail.productName ne "Free"}'>
+                   <c:when test='${memberDetail.productName ne "무료체험권"}'>
                        유료 상품 이용중
                    </c:when>
-                   <c:when test='${memberDetail.productName eq "Free"}'>
+                   <c:when test='${memberDetail.productName eq "무료체험권"}'>
                        무료 상품 이용중
                    </c:when>
                    <c:when test='${memberDetail.productName eq null}'>
