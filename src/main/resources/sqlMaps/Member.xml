@@ -443,7 +443,7 @@
       c.user_id,
       c.user_name,
       c.product_name,
-      c.user_type,
+
       DATE_FORMAT(
       c.ticket_start_expiration_date,
       '%Y/%m/%d %H:%i'
@@ -452,6 +452,7 @@
       c.ticket_end_expiration_date,
       '%Y/%m/%d %H:%i'
       ) ticketEndDate,
+      <if test="contractMasterKey > 0">
       (
       SELECT
       x.contract_master_key
@@ -461,12 +462,14 @@
       WHERE
       x.contract_master_key = y.contract_master_key
       AND x.user_master_key = c.user_master_key
-      <if test="contractMasterKey > 0">
+
           AND
           x.contract_master_key = #{contractMasterKey}
-      </if>
+
       ) contract_master_key,
-      c.user_ticket_master_key
+      c.user_ticket_master_key,
+      </if>
+      c.user_type
       FROM
       (
       SELECT
@@ -482,7 +485,7 @@
       user_master b,
       user_ticket_master a
       WHERE
-      a.user_master_key = b.user_master_key
+      b.user_master_key = a.user_master_key
       AND b.user_id LIKE '%${userId}%'
       AND a.use_yn = 'Y' order by a.user_ticket_master_key asc limit 1
       ) c

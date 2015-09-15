@@ -20,19 +20,19 @@
       <col width="830px"/>
     </colgroup>
     <tbody>
-      <tr>
-        <th>소셜 구분별 링크</th>
-        <td>
-	       	<label><input type="checkbox" name="facebookFlag" value="Y"> Facebook</label>  
-	       	<!-- <label><input type="checkbox" name="twitterFlag" value="Y" checked> Twitter</label>
-	       	<label><input type="checkbox" name="blogFlag" value="Y" checked> Blog</label> -->
-	       	<div style="margin:5px 0">
-		       	 <span style="display:hidden" id="facebookLoginBtn">
-		        	<fb:login-button scope="public_profile,email" onlogin="SnsUtils.checkLoginState();"></fb:login-button>
-		        </span>
-	        </div> 
-        </td>
-      </tr>
+      <%--<tr>--%>
+        <%--<th>소셜 구분별 링크</th>--%>
+        <%--<td>--%>
+	       	<%--<label><input type="checkbox" name="facebookFlag" value="Y"> Facebook</label>  --%>
+	       	<%--<!-- <label><input type="checkbox" name="twitterFlag" value="Y" checked> Twitter</label>--%>
+	       	<%--<label><input type="checkbox" name="blogFlag" value="Y" checked> Blog</label> -->--%>
+	       	<%--<div style="margin:5px 0">--%>
+		       	 <%--<span style="display:hidden" id="facebookLoginBtn">--%>
+		        	<%--<fb:login-button scope="public_profile,email" onlogin="SnsUtils.checkLoginState();"></fb:login-button>--%>
+		        <%--</span>--%>
+	        <%--</div> --%>
+        <%--</td>--%>
+      <%--</tr>--%>
       <tr>
         <th>제목</th>
         <td>

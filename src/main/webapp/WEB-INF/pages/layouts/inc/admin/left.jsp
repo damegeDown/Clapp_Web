@@ -146,7 +146,7 @@ $.fn.Menu = {
 			<a href="${contextPath }/admin/board/boardTrandList">트렌드 리뷰 관리</a>
 		  <ul style="display:none">
 		    <li class="trandBoard"><a href="${contextPath }/admin/board/boardTrandList">업계 동향/리뷰·전망/케이스 스터디 관리</a></li>
-		    <li class="socialBlogBoard"><a href="${contextPath }/admin/board/boardSocialBlogList">소셜·블로그 관리</a></li>
+		    <li class="socialBlogBoard"><a href="${contextPath }/admin/board/boardSocialBlogList">언론기사 관리</a></li>
 		  </ul>
 		</li>
 		<li id="ecrm">

@@ -73,7 +73,7 @@
 				<th>구분</th>
 				<th>이름/기업,단체명</th>
 				<th>사용일시</th>
-				<th class="al-right">사용 시간</th>
+				<th class="al-right">사용시간</th>
 				<th>사용 디바이스</th>
 			</tr>
 		</thead>

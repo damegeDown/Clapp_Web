@@ -160,7 +160,7 @@ public class BoardController {
   	  model.addAttribute("boardEntity", boardEntity);									
   	  model.addAttribute("sortListSizeCode", sortListSizeCode);									
   	  //공통
-  	  commonCode.put("navigation", "소셜 · 블로그 관리");// 현재 페이지 네비게이션
+  	  commonCode.put("navigation", "언론기사 관리");// 현재 페이지 네비게이션
   	  commonCode.put("mainMenu", "permissionTrend");									// left main menu 
   	  commonCode.put("subMenu", "socialBlogBoard");
   	  model.addAttribute("CommonCode", commonCode);
@@ -177,7 +177,7 @@ public class BoardController {
    */
   @RequestMapping("/boardSocialBlogDetail")
   public String boardSocialBlogDetail(BoardEntity boardEntity, Model model){
-  	String navigation = "소셜 · 블로그 관리 > 상세 보기";
+  	String navigation = "언론기사 보기 > 상세";
 	BoardEntity boardSocialBlogInfo = null;
 	try {
 	  boardSocialBlogInfo = boardService.getBoardSocialBlogDetail(boardEntity);
@@ -200,14 +200,14 @@ public class BoardController {
    */
   @RequestMapping("/boardSocialBlogForm")
   public String boardSocialBlogForm(BoardEntity boardEntity, Model model){
-  	String navigation = "소셜 · 블로그 > 게시물 등록";
+  	String navigation = "언론기사 관리 > 신규 등록";
 	String submitType = "등록";
 	String submitAction = "admin/board/rest/insertBoardSocialBlog";
 	BoardEntity boardSocialBlogInfo = null;
 	try {
 	  //공통코드 
 	  if(boardEntity.getBoardSocialBlogKey() > CommonCode.ZERO) {
-		navigation = "소셜 · 블로그 > 게시물 수정";
+		navigation = "언론기사 관리 > 수정";
 		submitType = "수정";
 		submitAction = "admin/board/rest/modifyBoardSocialBlog";
 		boardEntity.setFileType(CommonCode.FILE_ORI_TYPE);

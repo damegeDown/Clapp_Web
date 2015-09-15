@@ -1,6 +1,13 @@
 $.fn.boardSocialBlog = {
     init : function() {
         this.socialBlogTopOpen();      //상위 10 노출 디바이스 세팅
+        this.openDetail();
+    },
+    openDetail : function() {
+        $(".socialBlogTitle").click(function(){
+            var boardSocialBlogKey = $(this).data("key");
+            location.href = "/admin/board/boardSocialBlogDetail?boardSocialBlogKey="+boardSocialBlogKey;
+        });
     },
     socialBlogTopOpen : function() {
         $(".socialBlogTopOpen").click(function(){

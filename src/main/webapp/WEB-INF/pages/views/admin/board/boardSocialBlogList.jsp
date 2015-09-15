@@ -59,9 +59,9 @@
 				<th>선택</th>
 				<th>No.</th>
 				<th>제목</th>
-				<th>소셜 구분별</th>
+				<%--<th>소셜 구분별</th>--%>
 				<th>등록일시</th>
-				<th>삭제</th>
+				<%--<th>삭제</th>--%>
 			</tr>
 		</thead>
 		<tbody>
@@ -72,35 +72,19 @@
                 </td>
 				<td>${boardEntity.dataSize-(boardEntity.pageListSize*(boardEntity.currentPage-1))-i.index}</td> 
 				<td style="cursor:pointer" class="socialBlogTitle" data-key="${boardSocialBlogList.boardSocialBlogKey }">${boardSocialBlogList.socialBlogTitle}</td>
-				<td>
-					<c:if test="${boardSocialBlogList.facebookFlag eq 'Y' }">
-						<a href="${boardSocialBlogList.facebookLink }" target="_blank">
-							<img src="${contextPath}/resources/images/iconFacebook.png" style="width:30px">
-						</a>
-					</c:if> 
-					<c:if test="${boardSocialBlogList.twitterFlag eq 'Y' }">
-						<a href="${boardSocialBlogList.twitterLink }" target="_blank">
-							<img src="${contextPath}/resources/images/iconTwitter.png" style="width:30px">
-						</a>
-					</c:if>
-					<c:if test="${boardSocialBlogList.blogFlag eq 'Y' }">
-						<a href="${boardSocialBlogList.blogLink }" target="_blank">
-							<img src="${contextPath}/resources/images/iconBlog.png" style="width:30px">
-						</a>
-					</c:if>	
-				</td>
+				<%--5.--%>
 				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${boardSocialBlogList.socialBlogInsertDate }" /></td>
-				<td style="text-align:center">
-				<form id="deleteSocialForm">
-					<div class="floatR btn-bottom-gray submitBtn" 
-						data-id="${boardSocialBlogList.boardSocialBlogKey }"
-						data-type="ajax"
-						data-message="블로그 게시글을 삭제 하시겠습니까?"
-						data-action="${contextPath }/admin/board/rest/removeBoardSocialBlog">
-						
-					삭제</div>
-				</form>
-				</td>
+				<%--<td style="text-align:center">--%>
+				<%--<form id="deleteSocialForm">--%>
+					<%--<div class="floatR btn-bottom-gray submitBtn" --%>
+						<%--data-id="${boardSocialBlogList.boardSocialBlogKey }"--%>
+						<%--data-type="ajax"--%>
+						<%--data-message="블로그 게시글을 삭제 하시겠습니까?"--%>
+						<%--data-action="${contextPath }/admin/board/rest/removeBoardSocialBlog">--%>
+						<%----%>
+					<%--삭제</div>--%>
+				<%--</form>--%>
+				<%--</td>--%>
 			</tr>
 		</c:forEach>  
  		<c:if test="${boardEntity.boardSocialBlogList.size() < 1 }">
