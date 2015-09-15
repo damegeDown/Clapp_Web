@@ -223,8 +223,10 @@ public class PaymentController {
     List<String> companyNameList = commonService.searchCompanyName();
     //공통
     String navigation = "개별 계약 관리 > 계약 등록";
-    if(paymentEntity.getContractMasterKey() > CommonCode.ZERO) {
-      navigation = "개별 계약 관리 > 계약 수정";
+      if(paymentEntity.getReContract() > CommonCode.ZERO && paymentEntity.getContractMasterKey() > CommonCode.ZERO){
+          navigation = "개별 계약 관리 > 재계약 등록";
+      }else if(paymentEntity.getContractMasterKey() > CommonCode.ZERO) {
+        navigation = "개별 계약 관리 > 계약 수정";
     }
 	commonCode.put( "navigation", navigation);					// 현재 페이지 네비게이션
     commonCode.put( "mainMenu", "permissionPayment" );                      // left main menu
@@ -232,6 +234,7 @@ public class PaymentController {
 
     model.addAttribute( "CommonCode", commonCode );
     model.addAttribute( "companyNameList", companyNameList );
+      model.addAttribute("reContract",paymentEntity.getReContract());
 	return "admin/payment/paymentContractEdit";
   }
   

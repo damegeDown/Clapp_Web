@@ -94,7 +94,8 @@
    	 </table>
    	<div class="btn-area">
    		<c:set var="message" value="관리자 권한으로 '${paymentInfo.contractMasterKey }' 계약을 종료합니다. 관련된 계정 전체의 이용이 해지되오니 주의 바랍니다."/>
-    	<div class="floatL btn-bottom-orenge goListBtn">목록</div> 
+    	<div class="floatL btn-bottom-orenge goListBtn">목록</div>
+            <div class="btn-bottom-orenge reBtn">재계약</div>
 			<div class="btn-bottom-orenge editBtn">계약수정</div>	    
 			<div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/modifyContractState" data-message="${message }" data-type="ajax" data-id="${paymentInfo.contractMasterKey}">계약종료</div>	    
 	  </div>
@@ -111,5 +112,9 @@
 			var key = '${paymentInfo.contractMasterKey}';
 			location.href = "${contextPath }/admin/payment/paymentContractEdit?contractMasterKey="+key;
 		});
+        $(".reBtn").click(function() {
+            var key = '${paymentInfo.contractMasterKey}';
+            location.href = "${contextPath }/admin/payment/paymentContractEdit?contractMasterKey="+key+"&reContract=1";
+        });
 	});
 </script>

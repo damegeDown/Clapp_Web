@@ -153,8 +153,11 @@
    	<div class="btn-area">
     	<div class="floatL btn-bottom-orenge goListBtn">목록</div>
     	<c:choose>
+            <c:when test="${paymentInfo.contractMasterKey > 0 && reContract eq 1}">
+                <div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/modifyContract" data-msg="재계약등록">재계약 등록</div>
+            </c:when>
     		<c:when test="${paymentInfo.contractMasterKey > 0 }">
-					<div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/modifyContract" data-msg="계약수정">계약수정</div>	    
+					<div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/modifyContract" data-msg="계약수정">계약수정</div>
     		</c:when>
     		<c:otherwise>
     			<div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/insertContract" data-msg="계약등록">계약등록</div>

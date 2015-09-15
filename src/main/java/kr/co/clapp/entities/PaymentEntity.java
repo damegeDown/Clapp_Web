@@ -89,8 +89,9 @@ public class PaymentEntity extends PageEntity implements Serializable {
   private String contractUseCloseReason;     //이용 해지 사유
   private String contractOperatorName;       //담당자
   private Date	contractInsertDate;			 //등록일
-  private Date	contractUseCloseDate;			 //종료일
-  private String contractApplicant;             //신청인
+  private Date	contractUseCloseDate;		//종료일
+  private String contractApplicant;           //신청인
+    private int reContract;                  //재계약
 
   /* ContractUser */
   private String contractUserId;			 //계약자 아이디
@@ -162,6 +163,15 @@ public class PaymentEntity extends PageEntity implements Serializable {
     private	Date ticketStartExpirationDate;					//유효기간 시작일
     private	Date ticketEndExpirationDate;				//유효기간 종료일
     private int paymentCancelCount;
+
+
+    public int getReContract() {
+        return reContract;
+    }
+
+    public void setReContract(int reContract) {
+        this.reContract = reContract;
+    }
 
   public int getPaymentMasterKey() {
 	return paymentMasterKey;
