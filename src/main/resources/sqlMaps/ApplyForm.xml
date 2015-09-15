@@ -80,6 +80,14 @@
             AND
             a.apply_insert_name = #{testSearchKeyValue2}
         </if>
+        <if test="testsearchKey3 != '' and testsearchKey3 != null">
+            AND
+            a.result_type = #{testsearchKey3}
+        </if>
+        <if test="testsearchKey3 == null">
+            AND
+            a.result_type is null
+        </if>
         ORDER BY
       apply_insert_date DESC
     LIMIT
