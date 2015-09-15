@@ -85,7 +85,7 @@ $(function() {
 					<td>${ticketProductServiceList.serviceTargetName  }</td>
  					<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${ticketProductServiceList.serviceApplyDate }" /></td>
 					<td>${ticketProductServiceList.serviceProductName == null ? '-': ticketProductServiceList.serviceProductName }</td>
-					<td class="al-right">${ticketProductServiceList.serviceApplyTicketTotalAmount *5 } 분</td>
+					<td class="al-right">${ticketProductServiceList.serviceApplyTicketTotalAmount} 분</td>
 					<td>${ticketProductServiceList.serviceApplyReason }</td>
 					<td>${ticketProductServiceList.serviceApplyOperatorName }</td>
 				</tr>
