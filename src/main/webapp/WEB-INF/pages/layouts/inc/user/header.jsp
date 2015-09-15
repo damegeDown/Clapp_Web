@@ -55,7 +55,7 @@ $(function() {
             <li><div id="doLogout" style="cursor:pointer" class="topNavMenuLink btn" data-msg="로그아웃" >로그아웃</div></li>
         </c:if>
         <c:if test = "${userLoginSession.userMasterKey eq null}">
-            <li class="topMenuLine"></li>
+
             <li><a class="topNavMenuLink" href="${contextPath}/members/memberJoin">클앱 가입</a></li>
             <li class="topMenuLine"></li>
             <li><a class="topNavMenuLink" href="${contextPath}/members/login">로그인</a></li>
