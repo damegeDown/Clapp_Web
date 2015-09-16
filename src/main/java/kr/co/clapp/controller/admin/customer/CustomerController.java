@@ -467,17 +467,18 @@ public class CustomerController {
 //        ApplyFormEntity applyFormEntityInfo = null;
 
         try{
+
             applyFormEntity.setFileTarget(CommonCode.FILE_TARGET_APPLYFORM);
             applyFormEntity.setApplyFormKey(applyFormEntity.getApplyFormKey());
             applyFormEntity= applyformService.getTestRequestDetail(applyFormEntity);
-            model.addAttribute("applyFormDetail",applyFormEntity);
-
             //결과파일 출력
-            resultFile.setFileTarget(CommonCode.FILE_TARGET_TESTINGRESULT);
-            resultFile.setApplyFormKey(applyFormEntity.getApplyFormKey());
-            resultFile= applyformService.getTestRequestDetail(resultFile);
-            model.addAttribute("resultFile",resultFile);
-
+            if(applyFormEntity.getResultType() > CommonCode.ZERO) {
+                resultFile.setFileTarget(CommonCode.FILE_TARGET_TESTINGRESULT);
+                resultFile.setApplyFormKey(applyFormEntity.getApplyFormKey());
+                resultFile = applyformService.getTestRequestDetail(resultFile);
+                model.addAttribute("resultFile", resultFile);
+            }
+            model.addAttribute("applyFormDetail",applyFormEntity);
             model.addAttribute("CommonCode", commonCode);
         } catch (Exception e) {
             logger.error("CustomerController.testRequestDetail:Failed" , e);

@@ -31,7 +31,7 @@
                 <span class="span-w30" style="padding-left: 25px;">상태</span>
                 <select class="sel-w107" name="testsearchKey3">
                     <option value="">전체</option>
-                    <option value="0" >대기</option>
+                    <option value="2" >대기</option>
                     <option value="1" >완료</option>
                 </select>
             </div>

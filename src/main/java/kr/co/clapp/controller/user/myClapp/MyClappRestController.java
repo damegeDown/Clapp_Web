@@ -143,7 +143,7 @@ public class MyClappRestController {
 
             memberEntity.setUserMasterKey(userInfo.getUserMasterKey());//멤버키 설정
             ticketList = ticketService.getPrioritieTicketKey(memberEntity);//사용순위가 우선인 티켓 정보 가져온다
-            ticketProductMasterKey=ticketList.get(0).getProductMasterKey();//티켓 정보의 마스트 키 가져온다
+            ticketProductMasterKey=ticketList.get(0).getProductMasterKey();//티켓 정보의 마스터 키 가져온다
 
             productParm.setProductMasterKey(ticketProductMasterKey); // 상품 정복에 마스터키 전달
             productEntity = productService.getProductInfo(productParm);//상품 정보 가져온다

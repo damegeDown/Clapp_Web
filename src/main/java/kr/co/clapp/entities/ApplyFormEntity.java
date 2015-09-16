@@ -35,7 +35,7 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
     private String applyContents;
     private String testsearchKey1; //보유상품타입
     private String testsearchKey2;
-    private int testsearchKey3;
+    private String testsearchKey3;
     private String testSearchKeyValue1;
     private String testSearchKeyValue2;
 	private List<ApplyFormEntity> testRequestList;
@@ -48,10 +48,10 @@ public class ApplyFormEntity extends PageEntity implements Serializable{
 	private String fileSavedName; 
 	private String filePath;
 
-    public int getTestsearchKey3() {
+    public String getTestsearchKey3() {
         return testsearchKey3;
     }
-    public void setTestsearchKey3(int testsearchKey3) {
+    public void setTestsearchKey3(String testsearchKey3) {
         this.testsearchKey3 = testsearchKey3;
     }
     public Date getResultDate() {

@@ -21,7 +21,8 @@
             apply_insert_date,
             file_memo,
             user_master_key,
-            apply_type
+            apply_type,
+            result_type
         )
         values
         (
@@ -33,7 +34,8 @@
             NOW(),
             #{fileMemo},
             #{userMasterKey},
-            #{applyType}
+            #{applyType},
+            '2'
         )
     </insert>
     <select id="getTestRequestList" parameterType="applyFormEntity" resultType="applyFormEntity">
@@ -84,10 +86,6 @@
             AND
             a.result_type = #{testsearchKey3}
         </if>
-        <if test="testsearchKey3 == null">
-            AND
-            a.result_type is null
-        </if>
         ORDER BY
       apply_insert_date DESC
     LIMIT
@@ -125,6 +123,8 @@
 	    ADMINISTRATION_FILE af on a.apply_form_key = af.file_target_key
         WHERE apply_insert_date IS NOT NULL
         AND a.apply_form_key=#{applyFormKey}
-        AND af.file_target = #{fileTarget}
+        <if test="fileTarget != '' and fileTarget != null">
+         AND af.file_target = #{fileTarget}
+        </if>
     </select>
 </mapper>
