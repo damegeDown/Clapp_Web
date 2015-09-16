@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import sun.security.krb5.internal.EncTicketPart;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -420,8 +421,7 @@ public class PaymentServiceImpl implements PaymentService {
                         ticketInfo.setProductMasterKey(paymentEntity.getProductMasterKey());
                         ticketInfo.setProductName(paymentEntity.getPaymentProductName());
                         ticketInfo.setPaymentTid(paymentEntity.getPaymentTid());
-                        ticketInfo.setTicketAmount(paymentEntity.getPaymentTicketAmount());
-                        ticketInfo.setTicketAvilableAmount(paymentEntity.getPaymentTicketAmount());
+
                         if(paymentEntity.getProductExpirationDate() > 0) {
                             endDate = Utils.getAddNowDate(paymentParam.getProductExpirationDate());
                             ticketInfo.setTicketEndExpirationDate(endDate);
@@ -433,9 +433,33 @@ public class PaymentServiceImpl implements PaymentService {
 
                         /** 티켓 히스토리에 저장*/
                         //ticketDAO.insertUserTicketHistory(ticketInfo);
+
+                        /** 사용순위가 우선인 티겟 정보**/
+                        List<TicketEntity> ticketList = null;
+                        MemberEntity aprioritieTicketKey = new MemberEntity();
+                        aprioritieTicketKey.setUserMasterKey(paymentEntity.getUserMasterKey());
+                        ticketList = ticketDAO.getPrioritieTicketKey(aprioritieTicketKey);
+                        int ticketLen = ticketList.size();
+
+                        int priUserMasterKey = ticketList.get(0).getUserTicketMasterKey();//사용순위가 우선인 티켓 마스터 키
+                        int priAmountTicket = ticketList.get(0).getTicketAvilableAmount();//사용순위가 우선인 사용가능 티켓
+                        /** 저장될 티켓 수**/
+                        ticketInfo.setTicketAmount(paymentEntity.getPaymentTicketAmount());//구입시간
+                        ticketInfo.setTicketAvilableAmount(paymentEntity.getPaymentTicketAmount()+priAmountTicket);//사용가능
+
                         /** 티켓에 업데이트*/
                         ticketInfo.setUseYn("Y");
                         this.insertUserTicketMaster(ticketInfo);
+
+                        /** 기존 가용한 티켓 사용종료 처리*/
+                        if(ticketLen > CommonCode.ZERO) {
+                            TicketEntity ticketParam = new TicketEntity();
+                            ticketParam.setUserTicketMasterKey(priUserMasterKey);
+                            ticketParam.setUserMasterKey(paymentEntity.getUserMasterKey());
+                            ticketParam.setUseYn("N");
+                            ticketParam.setTicketAvilableAmount(CommonCode.ZERO);
+                            ticketDAO.modifyUserTicketMasterUse(ticketParam);
+                        }
 
                         /** 메일 발송 */
                         EcrmEntity ecrmEntity = new EcrmEntity();
