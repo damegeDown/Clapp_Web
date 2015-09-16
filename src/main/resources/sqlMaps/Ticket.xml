@@ -1020,7 +1020,7 @@
             ticket_apply_date ticketApplyDate,
             '적립' statusText,
 --             ticket_amount historyUsedTicketAmountText,
-            if(product_master_key = 1,ticket_amount,(ticket_amount*5)) historyUsedTicketAmountText,
+            if(product_master_key = 1,ticket_amount,ticket_amount) historyUsedTicketAmountText,
             ticket_avilable_amount ticketAvilableAmount,
             ticket_start_expiration_date ticketStartExpirationDate,
             ticket_end_expiration_date ticketEndExpirationDate,

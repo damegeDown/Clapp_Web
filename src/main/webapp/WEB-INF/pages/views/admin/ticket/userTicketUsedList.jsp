@@ -95,7 +95,7 @@
 					<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${userTicketUsedList.startDttm }" /> ~
 					<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${userTicketUsedList.endDttm }" />
 				</td>
-				<td class="al-right">${userTicketUsedList.usePoint*5} 분</td>
+				<td class="al-right">${userTicketUsedList.usePoint} 분</td>
 				<td><input type="hidden" name="deviceMakerCode" value="${userTicketUsedList.deviceMakerCode }"/>
 				${userTicketUsedList.deviceMakerCode }  /  ${userTicketUsedList.prodName }</td>
 			</tr>
