@@ -109,7 +109,7 @@ public class MyClappController {
             ticketProductList=ticketService.getUserTicketProductList(ticketParam);
             String productType= ticketProductList.get(0).getServiceTargetType();
             int productTypeInt= Integer.parseInt(productType);//정수형으로 변환
-            logger.debug("---------------{}",productType);
+
             if(pMasterKey >= 25){//클앱멤버십 결제요청시
                 if(productTypeInt ==3){
                     payErrMsg = "시간 이용권 사용중에는 멤버십 상품을 구입할 수 없습니다.";
@@ -124,7 +124,7 @@ public class MyClappController {
             }
             model.addAttribute("payErrMsg", payErrMsg);
             model.addAttribute("setProductType", pMasterKey);//클앱 멤버십 상품 중복 방지
-            logger.debug("---------------{}",payErrMsg);
+
 		} catch  (Exception e) {
 			  logger.error("MyClappController.payment:Faild" , e);
 		}

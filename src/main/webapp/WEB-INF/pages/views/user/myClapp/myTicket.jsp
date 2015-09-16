@@ -68,7 +68,7 @@
 						<%--~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd HH:mm"/>--%>
 					</td>
 					<td>
-                            ${(history.ticketAmount  * 5)}분
+                        ${(history.ticketAmount  * 5)}분
 						<%--<c:choose>--%>
 							<%--<c:when test="${history.expirationDate < 1}">${(ticketInfo.ticketAmount  *5)}</c:when>--%>
 							<%--&lt;%&ndash;<c:when test="${history.expirationDate > 0}">${history.expirationDate * 300}</c:when>&ndash;%&gt;--%>
@@ -78,8 +78,7 @@
 
 
                         <%--사용한 시간--%>
-                    <td>${(history.ticketAmount*5)-(history.ticketAvilableAmount*5)}분</td>
-                        <%--<td>${history.usePoint * -1}시간</td>--%>
+                    <td>${history.usePoint * -1}시간</td>
                         <%--사용가능 시간--%>
                     <td>${history.ticketAvilableAmount * 5}분
                             <%--<c:choose>--%>

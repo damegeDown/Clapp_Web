@@ -333,10 +333,10 @@ var PaymentUtils = (function() {
     var doPayment = function() {
 
 
-            <%--if('${payErrMsg}'){--%>
+            if('${payErrMsg}'){
                 alert('${payErrMsg}');
                 return false;
-//            }
+            }
 
 
         <%--if('${userLoginSession.userType}' == 2) {--%>

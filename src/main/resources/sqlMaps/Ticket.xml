@@ -494,7 +494,7 @@
           USER_TICKET_MASTER
         SET
           use_yn = #{useYn}
-        <if test="ticketAvilableAmount = 0">
+        <if test="ticketAvilableAmount == 0">
             ,ticket_avilable_amount =${ticketAvilableAmount}
         </if>
         ,modify_date = NOW()
