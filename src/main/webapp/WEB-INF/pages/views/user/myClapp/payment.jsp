@@ -333,21 +333,10 @@ var PaymentUtils = (function() {
     var doPayment = function() {
 
 
-            if('${listLn}' > 0){
-                if('${productInfo.productMasterKey}' >= 25){
-                   if('${setProductType}' >= 25){
-                        var msg = "클앱 멤버십 이용중에는 멤버십 상품을 추가 구입할 수 없습니다.";
-                    }else {
-                        var msg = "시간 이용권 사용중에는 멤버십 상품을 구입할 수 없습니다.";
-                    }
-                }else{
-                    var msg="멤버십 이용권 사용중에는시간 이용권 구입할 수 없습니다.";
-                }
-                alert(msg);
-
+            <%--if('${payErrMsg}'){--%>
+                alert('${payErrMsg}');
                 return false;
-
-            }
+//            }
 
 
         <%--if('${userLoginSession.userType}' == 2) {--%>

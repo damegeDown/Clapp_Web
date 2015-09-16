@@ -103,22 +103,28 @@ public class MyClappController {
             model.addAttribute("userInfo", userInfo);
 
             //클앱 맴버십 과 시간용권의 중복결제 방지
-
+            String payErrMsg = null;
             int pMasterKey = productEntity.getProductMasterKey(); //결제 요청된 상품 키
             ticketParam.setUserMasterKey(userInfo.getUserMasterKey());// user master key
-
-            if(pMasterKey >= 25){//클앱멤버십 결제요청시
-                ticketParam.setProductMasterKey(1);// 1값이 들어가면 in(15~24) where 절 만듬
-                ticketParam.setTicketProductServiceKey(pMasterKey);
-            }else if(pMasterKey >= 15 && pMasterKey <= 24){//시간이용권 요청시
-                ticketParam.setProductMasterKey(25);
-            }
-
             ticketProductList=ticketService.getUserTicketProductList(ticketParam);
-
-            logger.debug("{}",ticketProductList.size());
-            model.addAttribute("listLn", ticketProductList.size());
+            String productType= ticketProductList.get(0).getServiceTargetType();
+            int productTypeInt= Integer.parseInt(productType);//정수형으로 변환
+            logger.debug("---------------{}",productType);
+            if(pMasterKey >= 25){//클앱멤버십 결제요청시
+                if(productTypeInt ==3){
+                    payErrMsg = "시간 이용권 사용중에는 멤버십 상품을 구입할 수 없습니다.";
+                }
+                if(productTypeInt ==9){
+                    payErrMsg = "클앱 멤버십 이용중에는 멤버십 상품을 추가 구입할 수 없습니다.";
+                }
+            }else if(productTypeInt >= 15 && pMasterKey <= 24){//시간이용권 요청시
+                if(productTypeInt ==9){
+                    payErrMsg = "멤버십 이용권 사용중에는시간 이용권 구입할 수 없습니다.";
+                }
+            }
+            model.addAttribute("payErrMsg", payErrMsg);
             model.addAttribute("setProductType", pMasterKey);//클앱 멤버십 상품 중복 방지
+            logger.debug("---------------{}",payErrMsg);
 		} catch  (Exception e) {
 			  logger.error("MyClappController.payment:Faild" , e);
 		}

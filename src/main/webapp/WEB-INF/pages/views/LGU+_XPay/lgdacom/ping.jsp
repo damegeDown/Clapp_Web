@@ -3,7 +3,7 @@
 
 <%
 	//String configPath 	= "C:/lgdacom";	//LG유플러스에서 제공한 환경파일("/conf/lgdacom.conf") 위치 지정.	
-	String configPath 			  = "C:/Users/admin/Downloads/eGovFrameDev-3.2.0-64bit/web/lgdacom";
+	String configPath 			  = "D:/web/lgdacom";
 	
     /*
      * [LG유플러스 연결 확인 페이지]
