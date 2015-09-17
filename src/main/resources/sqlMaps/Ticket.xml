@@ -392,11 +392,14 @@
               <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
                  #{userIdArr}
               </foreach> -->
-                user_id = #{userId} and user_ticket_master_key=#{userTicketMasterKey}
+                user_id = #{userId}
+                <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
+                and user_ticket_master_key=#{userTicketMasterKey}
+                </if>
             </if>
         )
-        AND
-          use_yn = 'Y'
+        <!-- AND
+         use_yn = 'Y'-->
     </update>
     <!-- //서비스 티켓 적용 -->
     <update id="returnTicket" parameterType="ticketEntity">
@@ -1021,8 +1024,8 @@
         SELECT
             ticket_apply_date ticketApplyDate,
             '적립' statusText,
---             ticket_amount historyUsedTicketAmountText,
-            if(product_master_key = 1,ticket_amount,ticket_amount) historyUsedTicketAmountText,
+           <!-- ticket_amount historyUsedTicketAmountText,-->
+            if(product_master_key = 1, ticket_amount*5, ticket_amount*5) historyUsedTicketAmountText,
             ticket_avilable_amount ticketAvilableAmount,
             ticket_start_expiration_date ticketStartExpirationDate,
             ticket_end_expiration_date ticketEndExpirationDate,
@@ -1072,7 +1075,7 @@
             '차감' ,
             use_point,
         (select utm.ticket_avilable_amount from user_ticket_master utm where utm.user_ticket_master_key=vr.user_ticket_master_key) ticketAvilableAmount,
---             '' ticketAvilableAmount,
+            <!--'' ticketAvilableAmount,-->
             vr.start_dttm,
             vr.end_dttm,
             vr.product_name,
