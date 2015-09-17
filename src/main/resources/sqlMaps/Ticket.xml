@@ -608,8 +608,10 @@
           user_master_key = #{userMasterKey}
         AND
           use_yn = 'Y'
+        <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
         AND
          user_ticket_master_key = #{userTicketMasterKey}
+        </if>
                   <!-- ORDER BY user_ticket_master_key Desc
 
          limit 1-->
