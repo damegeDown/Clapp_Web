@@ -47,20 +47,20 @@
       <tr class="productName">
         <th>적용상품명</th>
         <td>
-           <div id="serviceProductName">
-               <select name="serviceProductSelect" class="serviceProductName">
-                   <option value="">선택</option>
-               </select>
-               <input type="hidden" name="serviceProductName">
-           </div>
-           <%--<input type="text" name="serviceProductName" class="inactiveMode" readonly/>--%>
-    	 	   	<%--<select class="sel-w180" name="productMasterKey">--%>
-		          <%--<c:forEach items="${productInfo.productList }" var="code">--%>
-					<%--<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>--%>
-				 <%--</c:forEach>--%>
-	           <%--</select>--%>
-          <%--&nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)--%>
-        <%--</td>--%>
+           <%--<div id="serviceProductName">--%>
+               <%--<select name="serviceProductSelect" class="serviceProductName">--%>
+                   <%--<option value="">선택</option>--%>
+               <%--</select>--%>
+               <%--<input type="hidden" name="serviceProductName">--%>
+           <%--</div>--%>
+           <input type="text" name="serviceProductName" class="inactiveMode" readonly/>
+    	 	   	<select class="sel-w180" name="productMasterKey">
+		          <c:forEach items="${productInfo.productList }" var="code">
+					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>
+				 </c:forEach>
+	           </select>
+          &nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)
+        </td>
      </tr>
      <tr>
        <th>계정당 적용시간</th>
@@ -71,7 +71,7 @@
      </tr>
      <tr>  
 	 	   <th>상품종료일자 지정</th>
-	 	   <td><input type="text" class="inactiveMode ticketStartExpirationDate" name="ticketStartExpirationDate" readonly/> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker"/></td>
+	 	   <td><input type="text" class="inactiveMode datetimepicker" name="ticketStartExpirationDate" /> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker"/></td>
 	 </tr>
      <tr>
        <th>적용사유</th>
