@@ -40,7 +40,7 @@
                 <li class="ftmLine"></li>
                 <%--<li><a href="./terms2.html">운영정책</a></li>--%>
                 <li class="ftmLine"></li>
-                <li><a href="${contextPath}/introduction/supportCustomerList">고객 지원</a></li>
+                <li><a href="${contextPath}/introduction/supportInquire">고객 지원</a></li>
                 <li class="ftmLine"></li>
                 <li><a href="${contextPath}/introduction/supportInquire?inquiryCategory=3">상품·제휴 문의</a></li>
             </ul>

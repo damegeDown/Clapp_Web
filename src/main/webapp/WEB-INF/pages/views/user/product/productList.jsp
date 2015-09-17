@@ -53,7 +53,7 @@
             <div class="subCISupportContentTabBox">
                 <div class="subCISupportContentTab01">
                     <a href="javascript:void(0)" class="tab">
-							<span class="subCISupportContentTab01Txt ">
+							<span class="subCISupportContentTab01Txt">
 								시간 이용권
 							</span>
                     </a>
@@ -727,11 +727,11 @@
     $(function(){
         $( '.tab' ).click( function() {
 //            console.log($(this).children().attr('class'));
-            var objvalue= $(this).children().attr('class');
             $('.tabContent').hide();
             $('.tab').children().removeClass('subCISupportContentTabHover')
-            $(this).children().addClass('subCISupportContentTabHover');
+            var objvalue= $(this).children().attr('class');
             $("#"+objvalue).show();
+            $(this).children().addClass('subCISupportContentTabHover');
         });
     });
 
