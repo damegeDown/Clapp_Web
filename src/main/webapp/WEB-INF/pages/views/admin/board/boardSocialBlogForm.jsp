@@ -96,16 +96,16 @@
 <div id="fb-root"></div>
 <script>
  function socialOnsubmit() {
-	 if(!$("input[name=facebookFlag]").is(":checked")) {
-		 alert("페이스북에 체크해주세요.");
-		 return false;
-	 }
-	 if($("input[name=facebookFlag]").is(":checked")) {
-		 if(!$("input[name=accessTocken]").val()) {
-			 alert("페이스북에 로그인해주세요.");
-			 return false;
-		 }
-	 }
+//	 if(!$("input[name=facebookFlag]").is(":checked")) {
+//		 alert("페이스북에 체크해주세요.");
+//		 return false;
+//	 }
+//	 if($("input[name=facebookFlag]").is(":checked")) {
+//		 if(!$("input[name=accessTocken]").val()) {
+//			 alert("페이스북에 로그인해주세요.");
+//			 return false;
+//		 }
+//	 }
 	 /* if($("input[name=twitterFlag]").is(":checked")) {
 		 //if(!$("input[name=accessTocken]").val()) {
 			 alert("트위터에 로그인해주세요.");
