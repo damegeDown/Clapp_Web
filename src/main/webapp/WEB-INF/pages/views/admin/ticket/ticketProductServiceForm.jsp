@@ -65,13 +65,14 @@
      <tr>
        <th>계정당 적용시간</th>
         <td>
-            <input type="text" class="inp-w160 serviceApplyTicketAmount_" name="serviceApplyTicketAmount_" placeholder="숫자만 입력"/>&nbsp;&nbsp;분 ( 반드시 1계정당 적용할 시간을 입력해 주세요. 5분 단위로만 적립/차감이 가능합니다. )
-            <input type="hidden" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>
+            <input type="text" class="inp-w160 serviceApplyTicketAmount_" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>&nbsp;&nbsp;분 ( 반드시 1계정당 적용할 시간을 입력해 주세요. 5분 단위로만 적립/차감이 가능합니다. )
+            <%--<input type="hidden" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>--%>
+            <input type="hidden" class="userMasterKey" name="userMasterKey" />
         </td>
      </tr>
      <tr>  
 	 	   <th>상품종료일자 지정</th>
-	 	   <td><input type="text" class="inactiveMode datetimepicker" name="ticketStartExpirationDate" /> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker"/></td>
+	 	   <td><input type="text" class="inactiveMode ticketStartExpirationDate datetimepicker" name="ticketStartExpirationDate" /> ~ <input type="text" name="ticketEndExpirationDate" class="inactiveMode datetimepicker"/></td>
 	 </tr>
      <tr>
        <th>적용사유</th>
