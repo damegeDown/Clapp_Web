@@ -117,7 +117,8 @@ public class MyClappController {
                 if(productTypeInt ==9){
                     payErrMsg = "클앱 멤버십 이용중에는 멤버십 상품을 추가 구입할 수 없습니다.";
                 }
-            }else if(productTypeInt >= 15 && pMasterKey <= 24){//시간이용권 요청시
+            }
+            if(pMasterKey >= 15 && pMasterKey <= 24){//시간이용권 요청시
                 if(productTypeInt ==9){
                     payErrMsg = "멤버십 이용권 사용중에는시간 이용권 구입할 수 없습니다.";
                 }
