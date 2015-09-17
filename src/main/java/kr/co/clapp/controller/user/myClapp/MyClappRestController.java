@@ -166,6 +166,7 @@ public class MyClappRestController {
             }
             //result.setResultCode(resultCode);
             result.setResultMSG(resultMessage);
+            result.setResultURL("/myClapp/myTestRequest");
         } catch (Exception e) {
             logger.error("MyClappRestController.insertApplyForm:Faild" , e);
             result.setResultCode(ResultCode.FAIL);
