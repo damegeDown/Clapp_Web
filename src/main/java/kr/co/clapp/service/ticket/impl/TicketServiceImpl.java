@@ -1,12 +1,5 @@
 package kr.co.clapp.service.ticket.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.dao.MemberDAO;
 import kr.co.clapp.dao.TicketDAO;
@@ -14,10 +7,15 @@ import kr.co.clapp.entities.MemberEntity;
 import kr.co.clapp.entities.PageEntity;
 import kr.co.clapp.entities.TicketEntity;
 import kr.co.clapp.service.ticket.TicketService;
-import kr.co.clapp.utils.Utils;
 import kr.co.digigroove.commons.messages.Messages;
 import kr.co.digigroove.commons.utils.DateUtils;
 import kr.co.digigroove.commons.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional(readOnly=true)
@@ -63,9 +61,11 @@ public class TicketServiceImpl implements TicketService {
 	int selectResult = 0;  
 	int ticket = 0;
 	int avilableTicket = 0;
+    String insertType = null;
 	Date endDate = null;
 	TicketEntity ticketInfo = new TicketEntity();
 	TicketEntity ticketParam = ticketEntity;
+    TicketEntity ticketNew = ticketEntity;
 	//소유한 티켓 정보를 불러온다.
 	ticketInfo = ticketDAO.selectTicketInfo(ticketParam); 
 	 
@@ -83,13 +83,32 @@ public class TicketServiceImpl implements TicketService {
 				  memberEntity.setUserId(userId.get(i));
 				  memberEntity = memberDAO.getUserInfoId(memberEntity);
 
-				  ticketEntity.setUserMasterKey(memberEntity.getUserMasterKey());//userMasterKey 불러온다
-				  ticketEntity.setUserId(memberEntity.getUserId());
-				  ticketEntity.setUserType(memberEntity.getUserType());
-				  /** update ticket for user_ticket_master */
-				  ticketDAO.modifyServiceTicketMaster(ticketEntity);
-				  /** insert ticket for user_ticket_history*/
-				 ticketDAO.insertServiceTicketHistory(ticketEntity);
+                  if(ticketEntity.getServiceRestType().equals("restNew")) {
+                      /**신규 티켓저장*/
+                      ticketNew.setUserMasterKey(ticketEntity.getUserMasterKey());
+                      ticketNew.setProductMasterKey(ticketEntity.getProductMasterKey());    //상품키
+                      ticketNew.setProductName(ticketEntity.getServiceProductName());        //상품이름
+                      ticketNew.setPaymentTid("");                                                            //tid
+                      ticketNew.setTicketAmount(ticketEntity.getServiceApplyTicketAmount());    //티켓수
+                      ticketNew.setTicketAvilableAmount(ticketEntity.getServiceApplyTicketAmount()); //사용가능 티켓
+                      ticketNew.setTicketStartExpirationDate(ticketEntity.getTicketStartExpirationDate());    //사용가능기한-시작
+                      ticketNew.setTicketEndExpirationDate(ticketEntity.getTicketEndExpirationDate());    //사용가능기한-종료
+                      ticketNew.setTicketApplyDate(DateUtils.getDate());
+                      ticketNew.setUseYn("Y");
+                      this.insertUserTicketMaster(ticketNew);
+                  }
+                  if(ticketEntity.getServiceRestType().equals("restUpdate")) {
+                      /** 티켓 히스토리에 저장*/
+//                    ticketEntity.setUserMasterKey(ticketEntity.getUserMasterKey());//userMasterKey 불러온다
+                      ticketEntity.setUserTicketMasterKey(ticketEntity.getUserTicketMasterKey());
+                      ticketEntity.setUserMasterKey(ticketEntity.getUserMasterKey());
+                      ticketEntity.setUserId(memberEntity.getUserId());
+                      ticketEntity.setUserType(memberEntity.getUserType());
+//				  /** update ticket for user_ticket_master */
+                      ticketDAO.modifyServiceTicketMaster(ticketEntity);
+                  }
+                  /** insert ticket for user_ticket_history*/
+                  ticketDAO.insertServiceTicketHistory(ticketEntity);
 			  }
 		  } else {
               /**개별 user_ticket_master_key 지정으로 교체 필요 [김지훈]**/

@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <util:properties id="dbConfig">
-        <prop key="url">jdbc:mysql://127.0.0.1:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
+        <prop key="url">jdbc:mysql://58.180.17.146:3306/clapp?useUnicode=true&amp;characterEncoding=utf8</prop>
         <prop key="username">Clapp</prop>
         <prop key="password">Clapp@015</prop>
         <prop key="db_driver">com.mysql.jdbc.Driver</prop>

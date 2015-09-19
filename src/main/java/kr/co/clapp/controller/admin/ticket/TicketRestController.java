@@ -40,6 +40,7 @@ public class TicketRestController {
 		if(ticketEntity.getServiceTargetType().equals("4")) {
 		  ticketEntity.getServiceApplyTicketAmount();
             ticketEntity.setUserTicketMasterKey(ticketEntity.getUserTicketMasterKey());
+            ticketEntity.setServiceRestType(ticketEntity.getServiceRestType());
 		} else {
 		  userTypeCount = ticketService.getUserTypeCount(ticketEntity);
 		}
