@@ -24,7 +24,6 @@ public class CommonCode {
 	public static final String BANNER_LINK_TYPE = "BANNER_LINK_TYPE";						//공통코드 배너링크타입
 	public static final String FILE_TARGET_BANNER = "banner";								//배너 파일 저장 폴더
 	// Banner Add End
-
 	public static final String USER_COMPANY_BUSINESS_TYPE = "USER_COMPANY_BUSINESS_TYPE";		//공통코드 업종
 	public static final String DROP_OUT_REASON = "DROP_OUT_REASON";							//공통코드 탈퇴사유
 	public static final String USER_COMPANY_GROUP_TYPE = "USER_COMPANY_GROUP_TYPE";			//공통코드 기업/단체 타입
