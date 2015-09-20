@@ -93,7 +93,7 @@ public class ManagementRestController {
 	
 	/**
 	 * 관리자 삭제
-	 * @param adminEntity
+	 * @RequestParam int
 	 * @return
 	 */
 	@RequestMapping(value = "/removeAdmin",  method = RequestMethod.POST)
@@ -195,4 +195,259 @@ public class ManagementRestController {
 	  }
 	  return result;
 	}
+	
+	// Banner Add Start
+
+	/**
+	 * 배너 등록
+	 * @param bannerEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/insertBanner",  method = RequestMethod.POST)
+	public ResponseEntity insertBanner(BannerEntity bannerEntity, HttpSession session, MultipartHttpServletRequest req) {
+		ResponseEntity result = new ResponseEntity();
+		AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+	  try {
+		String resultCode = ResultCode.FAIL;
+		String resultMessage = messages.getMessage("insert.fail");
+		
+		Object entity = session.getAttribute(CommonCode.Session.ADMIN_LOGIN_SESSION);
+		if (null != entity) {
+			AdminEntity admin = (AdminEntity)entity;
+			bannerEntity.setBannerInsertName(admin.getAdminName());
+		} else {
+			bannerEntity.setBannerInsertName("no name");
+		}
+		
+		if(bannerService.insertBanner(bannerEntity) > CommonCode.ZERO) {
+		  resultCode = ResultCode.SUCCESS;
+		  resultMessage = messages.getMessage("insert.success"); 
+		  result.setResultURL("/admin/management/bannerList");
+		// 파일 업로드
+		  if(req.getFileNames().hasNext()) {
+			  administrationFileEntity.setFileTargetKey(bannerEntity.getBannerInquiryKey());
+			  administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER);
+			  administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+			  //기존 파일 삭제 
+			  //this.removeFile(administrationFileEntity);
+			  this.saveFileForFormData(req, administrationFileEntity);
+		  }
+		}
+		result.setResultCode(resultCode);
+		result.setResultMSG(resultMessage); 
+	  } catch (Exception e) {
+		logger.error("ManagementRestController.insertBanner:Faild" , e);
+		result.setResultCode(ResultCode.FAIL);
+		result.setResultMSG(messages.getMessage("insert.fail"));
+	  }
+	  
+	  return result;
+	}
+	
+	public List<SavedFileEntity> saveFileForFormData(MultipartHttpServletRequest req, AdministrationFileEntity administrationFileEntity) {
+		List<SavedFileEntity> saveFileList = new ArrayList<SavedFileEntity>();
+		try {
+			administrationFileService.removeAdministrationFile(administrationFileEntity);
+			saveFileList = administrationFileService.saveFileForFormData(req, administrationFileEntity);
+		} catch (Exception e) {
+			logger.error("DeviceRestController.saveFileForFormData" , e);
+		}
+		
+		return saveFileList;
+	}
+
+	public void removeFile(AdministrationFileEntity administrationFileEntity) {
+		try {
+			administrationFileService.removeFile(administrationFileEntity);
+		} catch (Exception e) {
+			logger.error("DeviceRestController.removeFile" , e);
+		}
+		
+	}
+	/**
+	 * 배너 수정
+	 * @param bannerEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/modifyBanner",  method = RequestMethod.POST)
+	public ResponseEntity modifyBanner(BannerEntity bannerEntity, MultipartHttpServletRequest req) {
+		ResponseEntity result = new ResponseEntity();
+		AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+	  try {
+		String resultCode = ResultCode.FAIL;
+		String resultMessage = messages.getMessage("modify.fail");
+		if(bannerService.modifyBanner(bannerEntity) > CommonCode.ZERO) {
+		  resultCode = ResultCode.SUCCESS;
+		  resultMessage = messages.getMessage("modify.success");
+		  
+		// 파일 업로드
+		  if(req.getFileNames().hasNext()) {
+			  administrationFileEntity.setFileTargetKey(bannerEntity.getBannerInquiryKey());
+			  administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER);
+			  administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+			  //기존 파일 삭제 
+			  this.removeFile(administrationFileEntity);
+			  this.saveFileForFormData(req, administrationFileEntity);
+		  }
+		}
+		result.setResultCode(resultCode);
+		result.setResultMSG(resultMessage);
+		result.setResultURL("/admin/management/bannerList");
+	  } catch (Exception e) {
+		logger.error("ManagementRestController.modifyBanner:Faild" , e);
+		result.setResultCode(ResultCode.FAIL);
+		result.setResultMSG(messages.getMessage("modify.fail"));
+	  }
+	  return result;
+	}
+	
+	/**
+	 * 배너 종료
+	 * @param bannerEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/endBanner",  method = RequestMethod.POST)
+	public ResponseEntity endBanner(BannerEntity bannerEntity) {
+	ResponseEntity result = new ResponseEntity();
+	  try {
+		String resultCode = ResultCode.FAIL;
+		String resultMessage = messages.getMessage("end.fail");
+		if(bannerService.endBanner(bannerEntity) > CommonCode.ZERO) {
+			resultCode = ResultCode.SUCCESS;
+			resultMessage = messages.getMessage("end.success"); 
+		}
+		result.setResultCode(resultCode);
+		result.setResultMSG(resultMessage); 
+		result.setResultURL("/admin/management/bannerList");
+	  } catch (Exception e) {
+		logger.error("ManagementRestController.endBanner:Faild" , e);
+		result.setResultCode(ResultCode.FAIL);
+		result.setResultMSG(messages.getMessage("end.fail"));
+	  }
+	  return result;
+	}
+
+	/**
+	 * 배너 노출
+	 * @param bannerEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/bannerViewOn", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity bannerViewOn(@RequestBody BannerEntity bannerEntity) {
+		ResponseEntity result = new ResponseEntity();
+		try {
+			String resultCode = ResultCode.FAIL;
+			String resultMessage = messages.getMessage("insert.fail");
+
+
+			if(bannerService.bannerViewOn(bannerEntity) > CommonCode.ZERO) {
+				resultCode = ResultCode.SUCCESS;
+				resultMessage = messages.getMessage("insert.success");
+				result.setResultURL("/admin/management/bannerList");
+			}
+
+
+			result.setResultCode(resultCode);
+			result.setResultMSG(resultMessage);
+		} catch (Exception e) {
+			logger.error("ManagementRestController.bannerViewOn:Failed" , e);
+			result.setResultCode(ResultCode.FAIL);
+			result.setResultMSG(messages.getMessage("insert.fail"));
+		}
+		return result;
+	}
+
+	/**
+	 * 배너 비 노출
+	 * @param bannerEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/bannerViewOff", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity bannerViewOff(@RequestBody BannerEntity bannerEntity) {
+		ResponseEntity result = new ResponseEntity();
+		try {
+			String resultCode = ResultCode.FAIL;
+			String resultMessage = messages.getMessage("insert.fail");
+
+
+			if(bannerService.bannerViewOff(bannerEntity) > CommonCode.ZERO) {
+				resultCode = ResultCode.SUCCESS;
+				resultMessage = messages.getMessage("insert.success");
+				result.setResultURL("/admin/management/bannerList");
+			}
+
+
+			result.setResultCode(resultCode);
+			result.setResultMSG(resultMessage);
+		} catch (Exception e) {
+			logger.error("ManagementRestController.bannerViewOff:Failed" , e);
+			result.setResultCode(ResultCode.FAIL);
+			result.setResultMSG(messages.getMessage("insert.fail"));
+		}
+		return result;
+	}
+
+
+	/**
+	 * 배너 노출 업
+	 * @param bannerEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/bannerViewUp", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity bannerViewUp(@RequestBody BannerEntity bannerEntity) {
+		ResponseEntity result = new ResponseEntity();
+		try {
+
+			System.out.println("BannerViewUp.... Start...");
+
+			String resultCode = ResultCode.FAIL;
+			String resultMessage = messages.getMessage("insert.fail");
+
+			if(bannerService.bannerViewUp(bannerEntity) > CommonCode.ZERO) {
+				resultCode = ResultCode.SUCCESS;
+				resultMessage = messages.getMessage("insert.success");
+				result.setResultURL("/admin/management/bannerList");
+			}
+			result.setResultCode(resultCode);
+			result.setResultMSG(resultMessage);
+		} catch (Exception e) {
+			logger.error("ManagementRestController.bannerViewUp:Failed" , e);
+			result.setResultCode(ResultCode.FAIL);
+			result.setResultMSG(messages.getMessage("insert.fail"));
+		}
+		return result;
+	}
+
+	/**
+	 * 배너 노출 다운
+	 * @param bannerEntity
+	 * @return
+	 */
+	@RequestMapping(value = "/bannerViewDown", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity bannerViewDown(@RequestBody BannerEntity bannerEntity) {
+		ResponseEntity result = new ResponseEntity();
+		try {
+			String resultCode = ResultCode.FAIL;
+			String resultMessage = messages.getMessage("insert.fail");
+
+
+			if(bannerService.bannerViewDown(bannerEntity) > CommonCode.ZERO) {
+				resultCode = ResultCode.SUCCESS;
+				resultMessage = messages.getMessage("insert.success");
+				result.setResultURL("/admin/management/bannerList");
+			}
+
+
+			result.setResultCode(resultCode);
+			result.setResultMSG(resultMessage);
+		} catch (Exception e) {
+			logger.error("ManagementRestController.bannerViewDown:Failed" , e);
+			result.setResultCode(ResultCode.FAIL);
+			result.setResultMSG(messages.getMessage("insert.fail"));
+		}
+		return result;
+	}
+
+	// Banner Add End
+
 }
