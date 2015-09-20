@@ -6,7 +6,6 @@ import kr.co.clapp.entities.ResponseEntity;
 import kr.co.clapp.entities.TicketEntity;
 import kr.co.clapp.service.ticket.TicketService;
 import kr.co.digigroove.commons.messages.Messages;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +40,26 @@ public class TicketRestController {
 		  ticketEntity.getServiceApplyTicketAmount();
             ticketEntity.setUserTicketMasterKey(ticketEntity.getUserTicketMasterKey());
             ticketEntity.setServiceRestType(ticketEntity.getServiceRestType());
+            ticketEntity.setServiceApplyTicketAmount(ticketEntity.getServiceApplyTicketAmount());//적용시간
 		} else {
 		  userTypeCount = ticketService.getUserTypeCount(ticketEntity);
 		}
 		ticketEntity.setServiceApplyTicketTotalAmount(userTypeCount * ticketEntity.getServiceApplyTicketAmount());
 
+        if(ticketEntity.getServiceRestType().equals("restNew")) {
+            if(ticketService.insertTicketProductServiceNew(ticketEntity) > CommonCode.ZERO) {
+                resultCode = ResultCode.SUCCESS;
+                resultMessage = messages.getMessage("insert.success");
+                result.setResultURL("/admin/ticket/ticketProductServiceList");
+            }
+        }else{
+            if(ticketService.insertTicketProductService(ticketEntity) > CommonCode.ZERO) {
+                resultCode = ResultCode.SUCCESS;
+                resultMessage = messages.getMessage("insert.success");
+                result.setResultURL("/admin/ticket/ticketProductServiceList");
+            }
+        }
 
-		if(ticketService.insertTicketProductService(ticketEntity) > CommonCode.ZERO) {
-		  resultCode = ResultCode.SUCCESS;
-		  resultMessage = messages.getMessage("insert.success");
-		  result.setResultURL("/admin/ticket/ticketProductServiceList");
-		}
 		result.setResultCode(resultCode);
 		result.setResultMSG(resultMessage); 
 	  } catch (Exception e) {

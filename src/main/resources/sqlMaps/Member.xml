@@ -487,7 +487,8 @@
       WHERE
       b.user_master_key = a.user_master_key
       AND b.user_id LIKE '%${userId}%'
-      AND a.use_yn = 'Y' order by a.user_ticket_master_key asc limit 1
+      <!--AND a.use_yn = 'Y'-->
+      order by a.user_ticket_master_key asc limit 1
       ) c
 
 
