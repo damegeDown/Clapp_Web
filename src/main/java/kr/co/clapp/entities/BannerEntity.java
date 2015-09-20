@@ -8,7 +8,6 @@ public class BannerEntity extends PageEntity implements Serializable{
 
 	private static final long serialVersionUID =1L;
 
-
 	public BannerEntity() {
 		super(1L);
 	}
