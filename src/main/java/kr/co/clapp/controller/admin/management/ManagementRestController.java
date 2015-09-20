@@ -1,21 +1,28 @@
 package kr.co.clapp.controller.admin.management;
 
-import kr.co.clapp.constants.CommonCode;
-import kr.co.clapp.constants.ResultCode;
-import kr.co.clapp.entities.AdminEntity;
-import kr.co.clapp.entities.PopupEntity;
-import kr.co.clapp.entities.ResponseEntity;
-import kr.co.clapp.service.member.MemberService;
-import kr.co.clapp.service.popup.PopupService;
-import kr.co.digigroove.commons.messages.Messages;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import kr.co.clapp.constants.CommonCode;
+import kr.co.clapp.constants.ResultCode;
+import kr.co.clapp.entities.AdminEntity;
+import kr.co.clapp.entities.AdministrationFileEntity;
+import kr.co.clapp.entities.BannerEntity;
+import kr.co.clapp.entities.PopupEntity;
+import kr.co.clapp.entities.ResponseEntity;
+import kr.co.clapp.service.banner.BannerService;
+import kr.co.clapp.service.file.AdministrationFileService;
+import kr.co.clapp.service.member.MemberService;
+import kr.co.clapp.service.popup.PopupService;
+import kr.co.digigroove.commons.entities.SavedFileEntity;
+import kr.co.digigroove.commons.messages.Messages;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/management/rest")
@@ -31,12 +38,19 @@ public class ManagementRestController {
 	
 	@Autowired
 	private PopupService popupService;
+
+	// Banner Add Start
+	@Autowired
+	private BannerService bannerService;
+
+	@Autowired
+	AdministrationFileService administrationFileService;
+	// Banner Add End
+
+
 	/**
 	 * 관리자 등록
 	 * @param adminEntity
-	 * @param session
-	 * @param req
-	 * @param res
 	 * @return
 	 */
 	@RequestMapping(value = "/insertAdmin")
