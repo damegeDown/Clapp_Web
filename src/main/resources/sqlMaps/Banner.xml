@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.clapp.dao.BannerDAO">
+
+    <!-- 배너 리스트 -->
+    <select id="getBannerList" parameterType="bannerEntity" resultType="bannerEntity">
+        SELECT
+        BANNER_INQUIRY_KEY,
+        BANNER_VIEW_SEQ,
+        BANNER_TITLE,
+        BANNER_START_DATE,
+        BANNER_END_DATE,
+        IF((BANNER_LINK_TYPE) = '1','현재창','새창') BANNER_LINK_TYPE,
+        BANNER_LINK_URL,
+        IF((BANNER_STATUS) = '1','노출','비노출') BANNER_STATUS,
+        (SELECT COUNT(*)
+        FROM   BANNER_MASTER
+        WHERE  banner_status = '1'
+        ) AS BANNER_COUNT
+        FROM
+        BANNER_MASTER
+        WHERE
+        BANNER_INSERT_DATE IS NOT NULL
+        <choose>
+            <when test="searchValue != '' and searchValue != null">
+                AND
+                BANNER_STATUS = #{searchValue}
+            </when>
+        </choose>
+        ORDER BY
+        BANNER_VIEW_SEQ
+        LIMIT  #{rowStartNumber}, #{pageGroupSize}
+    </select>
+    <!-- //배너 리스트 -->
+
+    <!-- 배너 카운트 -->
+    <select id="getBannerCount" parameterType="bannerEntity" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        BANNER_MASTER
+        WHERE
+        BANNER_INSERT_DATE IS NOT NULL
+        <choose>
+            <when test="searchValue != '' and searchValue != null">
+                AND
+                BANNER_STATUS = #{searchValue}
+            </when>
+        </choose>
+    </select>
+    <!-- //배너 카운트 -->
+
+    <!-- 배너 상세 -->
+    <select id="getBannerDetail" parameterType="bannerEntity" resultType="bannerEntity">
+        SELECT
+        B.BANNER_INQUIRY_KEY,
+        B.BANNER_VIEW_SEQ,
+        B.BANNER_TITLE,
+        B.BANNER_START_DATE,
+        B.BANNER_END_DATE,
+        B.BANNER_STATUS,
+        B.BANNER_LINK_TYPE,
+        B.BANNER_LINK_URL,
+        B.BANNER_INSERT_NAME,
+        B.BANNER_INSERT_DATE,
+        F.FILE_SAVED_NAME,
+        F.FILE_NAME
+        FROM
+        BANNER_MASTER B
+        LEFT JOIN ADMINISTRATION_FILE F
+        ON B.BANNER_INQUIRY_KEY = F.FILE_TARGET_KEY
+        AND F.FILE_TARGET = 'banner'
+        WHERE
+        B.BANNER_INQUIRY_KEY = #{bannerInquiryKey}
+    </select>
+    <!-- //배너 상세 -->
+
+    <!-- 배너 등록 -->
+    <insert id="insertBanner" parameterType="bannerEntity" useGeneratedKeys="true" keyProperty="bannerInquiryKey">
+        INSERT INTO BANNER_MASTER (
+        BANNER_VIEW_SEQ,
+        BANNER_TITLE,
+        BANNER_START_DATE,
+        BANNER_END_DATE,
+        BANNER_STATUS,
+        BANNER_LINK_TYPE,
+        BANNER_LINK_URL,
+        BANNER_INSERT_NAME,
+        BANNER_INSERT_DATE
+        ) VALUES (
+        #{bannerViewSeq},
+        #{bannerTitle},
+        #{bannerStartDate},
+        #{bannerEndDate},
+        #{bannerStatus},
+        #{bannerLinkType},
+        #{bannerLinkUrl},
+        #{bannerInsertName},
+        NOW()
+        )
+    </insert>
+    <!-- //배너 등록 -->
+
+    <!-- 배너 수정 -->
+    <update id="modifyBanner" parameterType="bannerEntity">
+        UPDATE BANNER_MASTER SET
+        BANNER_VIEW_SEQ = #{bannerViewSeq},
+        BANNER_TITLE = #{bannerTitle},
+        BANNER_START_DATE = #{bannerStartDate},
+        BANNER_END_DATE = #{bannerEndDate},
+        BANNER_STATUS = #{bannerStatus},
+        BANNER_LINK_TYPE = #{bannerLinkType},
+        BANNER_LINK_URL = #{bannerLinkUrl}
+        WHERE
+        BANNER_INQUIRY_KEY = #{bannerInquiryKey}
+    </update>
+    <!-- //배너 수정 -->
+
+    <!-- 배너 종료 -->
+    <update id="endBanner" parameterType="bannerEntity">
+        UPDATE BANNER_MASTER SET
+        BANNER_END_DATE = NOW(),
+        BANNER_STATUS = '0'
+        WHERE
+        BANNER_INQUIRY_KEY = #{bannerInquiryKey}
+    </update>
+    <!-- //배너 종료 -->
+    <!-- 메인 배너 -->
+    <select id="getBannerMain" resultType="bannerEntity">
+        SELECT
+        BANNER.BANNER_LINK_URL,
+        BANNER.BANNER_LINK_TYPE,
+        F.FILE_SAVED_NAME
+        FROM
+        BANNER_MASTER BANNER
+        LEFT JOIN ADMINISTRATION_FILE F
+        ON BANNER.BANNER_INQUIRY_KEY = F.FILE_TARGET_KEY
+        AND F.FILE_TARGET = 'banner'
+        WHERE
+        BANNER.BANNER_INSERT_DATE IS NOT NULL
+        AND
+        BANNER.BANNER_STATUS = '1'
+        ORDER BY
+        BANNER.BANNER_VIEW_SEQ
+    </select>
+    <!--/ 메인 배너 -->
+
+    <!-- 배너 노출 -->
+    <update id="bannerViewOn" parameterType="bannerEntity">
+        UPDATE
+        BANNER_MASTER
+        SET
+        BANNER_STATUS = '1'
+        , BANNER_VIEW_SEQ = (SELECT BANNER_VIEW_SEQ FROM ((SELECT MAX(BANNER_VIEW_SEQ) + 1 AS BANNER_VIEW_SEQ FROM BANNER_MASTER) TMP))
+        WHERE
+        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+    </update>
+    <!--/ 배너 노출 -->
+
+    <!-- 배너 비 노출 -->
+    <update id="bannerViewOff" parameterType="bannerEntity">
+        UPDATE
+        BANNER_MASTER
+        SET
+        BANNER_STATUS = '0'
+        WHERE
+        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+    </update>
+    <!--/ 배너 비 노출 -->
+
+    <!-- 배너 노출 업 -->
+    <update id="bannerViewUp" parameterType="bannerEntity">
+        UPDATE
+        BANNER_MASTER
+        SET
+        BANNER_VIEW_SEQ = BANNER_VIEW_SEQ - 1
+        WHERE
+        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+    </update>
+    <!--/ 배너 노출 업 -->
+
+    <!-- 배너 비 노출 다운 -->
+    <update id="bannerViewDown" parameterType="bannerEntity">
+        UPDATE
+        BANNER_MASTER
+        SET
+        BANNER_VIEW_SEQ = BANNER_VIEW_SEQ + 1
+        WHERE
+        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+    </update>
+    <!--/ 배너 비 노출 다운 -->
+
+    <!-- 기존 배너 존재 시 반전 배너 노출 업 -->
+    <update id="bannerViewReverseUp" parameterType="bannerEntity">
+        UPDATE
+        BANNER_MASTER
+        SET
+        BANNER_VIEW_SEQ = BANNER_VIEW_SEQ - 1
+        WHERE
+        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+    </update>
+    <!--/ 배너 노출 업 -->
+
+    <!-- 기존 배너 존재 시 반전 배너 비 노출 다운 -->
+    <update id="bannerViewReverseDown" parameterType="bannerEntity">
+        UPDATE
+        BANNER_MASTER
+        SET
+        BANNER_VIEW_SEQ = BANNER_VIEW_SEQ + 1
+        WHERE
+        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+    </update>
+    <!--/ 배너 비 노출 다운 -->
+
+</mapper>
