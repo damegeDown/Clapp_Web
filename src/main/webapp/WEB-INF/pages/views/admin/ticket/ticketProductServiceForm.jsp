@@ -7,6 +7,7 @@
 <div class="sub-content">
 <form id="memberForm" enctype="multipart/form-data">
     <input type="hidden" name="userTicketMasterKey" data-flag="off" value="0"/>
+    <input type="hidden" name="userMasterKey" data-flag="off" value="0"/>
   <div> 
     <h3 class="contents-title floatL">${CommonCode.navigation }</h3>
     <div style="clear:both;"></div>
@@ -47,19 +48,27 @@
       <tr class="productName">
         <th>적용상품명</th>
         <td>
-           <%--<div id="serviceProductName">--%>
-               <%--<select name="serviceProductSelect" class="serviceProductName">--%>
-                   <%--<option value="">선택</option>--%>
-               <%--</select>--%>
-               <%--<input type="hidden" name="serviceProductName">--%>
-           <%--</div>--%>
-           <input type="text" name="serviceProductName" class="inactiveMode" readonly/>
-    	 	   	<select class="sel-w180" name="productMasterKey">
-		          <c:forEach items="${productInfo.productList }" var="code">
-					<option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>
-				 </c:forEach>
-	           </select>
-          &nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)
+           <p><label><input type="radio" class="inp-w40 serviceUpdateType" name="serviceUpdateType" value="1" /> 신규</label>
+            <label><input type="radio" class="inp-w40 serviceUpdateType" name="serviceUpdateType" value="2" /> 기존상품 수정</label></p>
+            <div class="appendTo">
+                <div class="ticketRestType"  id="restNew" style="display:none">
+                    <select class="sel-w180" name="productMasterKey" >
+                        <c:forEach items="${productInfo.productList }" var="code">
+                            <option value="${code.productMasterKey }" data-applyDate="${code.productExpirationDate }" >${code.productName }</option>
+                        </c:forEach>
+                    </select>
+                    &nbsp;&nbsp;사용자 단에 노출될 상품명 (별도 계약건에 한함)
+                </div>
+                <div class="ticketRestType" id="restUpdate" style="display:none">
+                    <div id="serviceProductName">
+                        <select name="serviceProductSelect" class="serviceProductName">
+                            <option value="">선택</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <input type="text" name="serviceProductName" class="inactiveMode" readonly/>
+            <input type="hidden" name="serviceRestType" />
         </td>
      </tr>
      <tr>
@@ -196,4 +205,32 @@
   $('.searchUserIdBtn').on('click',function() {
 	  $('.addUserIdBtn').show();
   });
+    var removeObj;
+    //3 tab
+    $(function(){
+        $( "input[name=serviceUpdateType]" ).click( function() {
+
+            if(removeObj){
+                removeObj.appendTo(".appendTo");
+                if ($(this).val() == 2) {
+                    removeObj = $("#restNew").detach();
+                    $("input[name=serviceRestType]").val("restUpdate");
+                } else {
+                    removeObj = $("#restUpdate").detach();
+                    $("input[name=serviceRestType]").val("restNew");
+                }
+//                removeObj=null;
+            }else {
+                $(".ticketRestType").show();
+                if ($(this).val() == 2) {
+                    removeObj = $("#restNew").detach();
+                    $("input[name=serviceRestType]").val("restUpdate");
+                } else {
+                    removeObj = $("#restUpdate").detach();
+                    $("input[name=serviceRestType]").val("restNew");
+                }
+            }
+
+        });
+    });
 </script>

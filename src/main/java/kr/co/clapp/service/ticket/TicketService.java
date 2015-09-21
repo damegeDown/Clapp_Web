@@ -20,6 +20,13 @@ public interface TicketService {
 	 * @throws Exception
 	 */
 	TicketEntity getTicketProductServiceList(TicketEntity ticketEntity) throws Exception;
+    /**
+     * 티켓 적용 서비스 신규 적용(new)
+     * @param ticketEntity
+     * @return
+     * @throws Exception
+     */
+    int insertTicketProductServiceNew(TicketEntity ticketEntity) throws Exception;
 	/**
 	 * 티켓 적용 서비스 신규 적용(등록)
 	 * @param ticketEntity

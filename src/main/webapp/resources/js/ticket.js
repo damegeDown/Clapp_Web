@@ -114,6 +114,7 @@ $.fn.Common = {
                             userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].userTicketMasterKey));
 
                             var uMasterKey = data.dataList[i].userMasterKey;
+                            $("input[name=userMasterKey]").val(uMasterKey);
                             $(".resultUserId").append(userListTrHtml);
                             $(".userMasterKey").val(uMasterKey);
                         }

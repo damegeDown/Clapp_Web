@@ -67,6 +67,7 @@ public class TicketEntity extends PageEntity implements Serializable{
 	private List<TicketEntity> historyList;
 	private int historyCount;
     private List<TicketEntity>  userTicketProductList;
+    private String serviceRestType;
 	/*reservation*/
 	private int id;								//키 
 	private int deviceId;					//디바이스키 
@@ -92,6 +93,12 @@ public class TicketEntity extends PageEntity implements Serializable{
     private int useCount;
 	private int reservationWaitCount;	//예약대기 카운트 
 	private int reservationFinishCount; //사용종료 카운트
+    public String getServiceRestType() {
+        return serviceRestType;
+    }
+    public void setServiceRestType(String serviceRestType) {
+        this.serviceRestType = serviceRestType;
+    }
     public String getTicketStartDate() {
         return ticketStartDate;
     }
