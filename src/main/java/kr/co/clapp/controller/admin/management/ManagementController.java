@@ -3,10 +3,8 @@ package kr.co.clapp.controller.admin.management;
 
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.entities.AdminEntity;
-import kr.co.clapp.entities.BannerEntity;
 import kr.co.clapp.entities.CommonCodeEntity;
 import kr.co.clapp.entities.PopupEntity;
-import kr.co.clapp.service.banner.BannerService;
 import kr.co.clapp.service.common.CommonService;
 import kr.co.clapp.service.member.MemberService;
 import kr.co.clapp.service.popup.PopupService;
@@ -32,10 +30,6 @@ public class ManagementController {
   private MemberService memberService;
   @Autowired
   private PopupService popupService;
-  // Banner Add Start
-  @Autowired
-  private BannerService bannerService;
-  // Banner Add End
   @Autowired
   private CommonService commonService;
 
@@ -226,123 +220,4 @@ public class ManagementController {
 		model.addAttribute("navigation", navigation);
 	  return "admin/management/popupModify";
   }
-
-  // Banner Add Start
-
-  /**
-   * 배너 목록
-   * @return
-   */
-  @RequestMapping("/bannerList")
-  public String bannerList(BannerEntity bannerEntity, Model model) {
-	  try{
-		bannerEntity = bannerService.getBannerList(bannerEntity);
-		//공통코드
-		CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
-		//공통코드 배너 진행여부
-		commonCodeEntity.setCodeMasterCode(CommonCode.BANNER_STATUS);
-		//공통코드 배너 진행여부 코드
-		List<CommonCodeEntity> bannerStatus = commonService.getCommonCodeList(commonCodeEntity);
-		
-		model.addAttribute("bannerEntity", bannerEntity);
-		model.addAttribute("bannerStatus", bannerStatus);
-
-		int bannnerViewCount = 0;
-
-		for (BannerEntity entity : bannerEntity.getBannerList() ) {
-			if ("노출".equals(entity.getBannerStatus())) {
-				bannnerViewCount++;
-			}
-		}
-
-
-		//공통
-		commonCode.put("navigation", "배너 관리 (노출 <span class='colorSkyBlue'> "+bannnerViewCount+"</span> 건)");	// 현재 페이지 네비게이션
-		commonCode.put("mainMenu", "permissionMain");									// left main menu
-		commonCode.put("subMenu", "banner");											// left sub menu
-		model.addAttribute("CommonCode", commonCode);
-		  
-	  } catch (Exception e) {
-		  logger.error("ManagementController.bannerList:Faild" , e);
-	  }
-    return "admin/management/bannerList";
-  }
-  /**
-   * 배너 상세
-   * @param bannerEntity
-   * @param model
-   * @return
-   */
-  @RequestMapping("/bannerDetail")
-  public String bannerDetail(BannerEntity bannerEntity, Model model){
-	  	String navigation = "배너 관리 > 상세화면";
-	  	BannerEntity bannerInfo = null;
-		try {
-		  //배너 상세
-		  if(bannerEntity.getBannerInquiryKey() > CommonCode.ZERO) {
-			  bannerInfo = bannerService.getBannerDetail(bannerEntity);
-		  }
-		  model.addAttribute("bannerDetail", bannerInfo);
-			
-		  //공통
-		  commonCode.put("navigation", navigation);	// 현재 페이지 네비게이션
-		  commonCode.put("mainMenu", "permissionMaster"); // left main menu 
-		  commonCode.put("subMenu", "banner");		// left sub menu
-		  model.addAttribute("CommonCode", commonCode);
-		} catch (Exception e) {
-		  logger.error("ManagementController.bannerDetail:Faild" , e);
-		}
-		model.addAttribute("navigation", navigation);
-	  return "admin/management/bannerDetail";
-  }
-  /**
-   * 배너 수정
-   * @param bannerEntity
-   * @param model
-   * @return
-   */
-  @RequestMapping("/bannerModify")
-  public String bannerModify(BannerEntity bannerEntity, Model model){
-	  	String navigation = "배너 관리 > 등록";
-		String submitType = "등록";
-		String submitAction = "admin/management/rest/insertBanner";
-		BannerEntity bannerInfo = null;
-		try {
-		  //배너 상세
-		  if(bannerEntity.getBannerInquiryKey() > CommonCode.ZERO) {
-			navigation = "배너 관리 > 수정";
-			submitType = "수정";
-			submitAction = "admin/management/rest/modifyBanner";
-			bannerInfo = bannerService.getBannerDetail(bannerEntity);
-		  }
-		  model.addAttribute("bannerDetail", bannerInfo);
-		  
-			//공통코드
-			CommonCodeEntity commonCodeEntity = new CommonCodeEntity();
-			//공통코드 배너 상태
-			commonCodeEntity.setCodeMasterCode(CommonCode.BANNER_STATUS);
-			//공통코드 배너 진행여부 코드
-			List<CommonCodeEntity> bannerStatus = commonService.getCommonCodeList(commonCodeEntity);
-			model.addAttribute("bannerStatus", bannerStatus);
-			
-			//공통코드 배너 진행여부
-			commonCodeEntity.setCodeMasterCode(CommonCode.BANNER_LINK_TYPE);
-			//공통코드 배너 진행여부 코드
-			List<CommonCodeEntity> bannerLinkType = commonService.getCommonCodeList(commonCodeEntity);
-			model.addAttribute("bannerLinkType", bannerLinkType);
-			
-		  //공통
-		  commonCode.put("navigation", navigation);	// 현재 페이지 네비게이션
-		  commonCode.put("submitType", submitType);
-		  commonCode.put("submitAction", submitAction);
-		  commonCode.put("mainMenu", "permissionMaster"); // left main menu 
-		  commonCode.put("subMenu", "banner");		// left sub menu
-		  model.addAttribute("CommonCode", commonCode);
-		} catch (Exception e) {
-		  logger.error("ManagementController.bannerList:Faild" , e);
-		}
-		model.addAttribute("navigation", navigation);
-	  return "admin/management/bannerModify";
-  }
-  // Banner Add End
 }

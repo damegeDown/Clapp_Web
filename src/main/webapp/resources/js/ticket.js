@@ -112,9 +112,11 @@ $.fn.Common = {
                             userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].ticketEndDate));
                             userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].contractMasterKey));
                             userListTrHtml.append($("<td style='display: none'></td>").html(data.dataList[i].userTicketMasterKey));
+
                             var uMasterKey = data.dataList[i].userMasterKey;
                             $("input[name=userMasterKey]").val(uMasterKey);
                             $(".resultUserId").append(userListTrHtml);
+                            $(".userMasterKey").val(uMasterKey);
                         }
                         // 복수 구매 정책으로인한 사용자의 사용중인 구매 목록 출력
                         $.ajax({

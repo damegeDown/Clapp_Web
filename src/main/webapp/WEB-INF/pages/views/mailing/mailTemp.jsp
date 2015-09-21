@@ -60,20 +60,24 @@ a:hover {
 			<!-- //메일 내용 -->
 		</div>
 		<div style="clear: both"></div>
-
-		<div style="width:701px;padding:20px; height:100px">
+		<div style="width:701px;padding:20px; height:200px">
 			<span style="float: left">
-				<a href="$contextPath/serviceinfo/infoMain/">
-					<img src="$contextPath/resources/images/ecrm_00_banner_service.png" width="334" height="94" border="0" alt="서비스 소개">
+				<a href="$contextPath/mobileTesting/mobileTestingMain/"> 
+					<img src="$contextPath/resources/images/ecrm_00_banner_testing.png" width="334" height="189" border="0" alt="클앱 테스팅">
 				</a>
 			</span> 
 			<span style="float: left;line-height:0.5px;">
-				<a href="$contextPath/product/productList">
-					<img src="$contextPath/resources/images/ecrm_00_banner_member.png" width="330" height="94" border="0" alt="클앱 멤버십">
+				<a href="$contextPath/clappTesting/autoMain">
+					<img src="$contextPath/resources/images/ecrm_00_banner_automation.png" width="330" height="97" border="0" alt="클앱 자동화">
+				</a>
+			</span> 
+			<span style="float: left">
+				<a href="$contextPath/clappConsulting/consulting">
+					<img src="$contextPath/resources/images/ecrm_00_banner_consulting.png" width="330" height="92" border="0" alt="클앱 컨설팅">
 				</a>
 			</span>
+			<div></div>
 		</div>
-
 		<div style="clear: both"></div>
 		<div style="width:701px">
 			<span style="float: left">
