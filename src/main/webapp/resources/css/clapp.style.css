@@ -8203,6 +8203,44 @@ body {
 }
 
 /*** Payment Style ***/
+/*추가*/
+.submemTtitleTxtBox2{
+    width:940px;
+    height:auto;
+    float: left;
+    display: block;
+}
+.submemTinfoTxt1_2 p{
+    width:940px;
+    height:235px;
+    font-size: 14px;
+    text-align:left;
+    color: #666666;
+    line-height:23px;
+}
+/*수정*/
+.submemTinfoTxt1{
+    width:940px;
+    height:auto;
+    float: left;
+    display: block;
+    font-size: 12px;
+    text-align:left;
+    color: #666666;
+    float: left;
+}
+.submemTinfoTxtBox3{
+    display: block;
+    width: 940px;
+    height:235px;
+    margin: 0 auto;
+}
+.submemTinfoTxt1_2 {
+    width:940px;
+    height:235px;
+    display:block;
+    float: left;
+}
 
 .paymentsProduct {
     width: 960px;

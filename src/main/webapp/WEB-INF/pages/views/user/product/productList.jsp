@@ -258,6 +258,78 @@
             </div>
         </div>
     </div>
+    <%--<div class="submemTinfocontent">--%>
+        <%--<div class="submemTcontentbg">--%>
+            <%--<div class="submemTcontent">--%>
+                <%--<div class="submemTtitleTxtBox">--%>
+                    <%--<div class="submemTtitleTxt">--%>
+                        <%--<span>모든 상품의 기능은 동일합니다.</span>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="submemTcontentBoxbg">--%>
+                <%--<div class="submemTcontentBox">--%>
+                    <%--<div class="submemTcontentTxtBox">--%>
+                        <%--<div class="submemTcontentTxt1">--%>
+                            <%--<span>전체 디바이스</span>--%>
+                        <%--</div>--%>
+                        <%--<a href="${contextPath }/clappTesting/autoDevice">--%>
+                            <%--<div class="submemTcontentTxtB1">--%>
+                                <%--<div class="submemTcontentTxt1_2">자세히 보기--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                        <%--</a>--%>
+                    <%--</div>--%>
+                    <%--<div class="submemTcontentTxtBox">--%>
+                        <%--<div class="submemTcontentTxt1">--%>
+                            <%--<span>수동&자동 테스트</span>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                    <%--<div class="submemTcontentTxtBox">--%>
+                        <%--<div class="submemTcontentTxt1">--%>
+                            <%--<span>앱 설치 및 모바일<br>해상도 테스트 대행</span>--%>
+                        <%--</div>--%>
+                        <%--<a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">--%>
+                            <%--<div class="submemTcontentTxtB2">--%>
+                                <%--<div class="submemTcontentTxt1_3">자세히 보기--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                        <%--</a>--%>
+                    <%--</div><div class="submemTcontentTxtBox">--%>
+                    <%--<div class="submemTcontentTxt1">--%>
+                        <%--<span>공유</span>--%>
+                    <%--</div>--%>
+                <%--</div><div class="submemTcontentTxtBox">--%>
+                    <%--<div class="submemTcontentTxt1">--%>
+                        <%--<span>예약</span>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="submemTinfoTxtBox">--%>
+                <%--<div class="submemTinfoTxt1">--%>
+                    <%--<span>※ 앱설치 및 모바일 해상도 테스트 대행은 유/무료 회원에 따라 테스트 실행 디바이스 대수가 다릅니다. (무료 회원 : 10대 / 유료 회원 : 전체 디바이스) </span>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="submemTinfoTxtBox2">--%>
+                <%--<div class="submemTinfoline">--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="submemTinfoTxtBox3">--%>
+                <%--<div class="submemTinfoTxt1_2">--%>
+                    <%--<p>- VAT 10% 포함 가격입니다. <br>--%>
+                        <%--- 5시간 이용권 구매 시 10%, 10시간 이용권 구매 시 25%가 할인됩니다. <br>--%>
+                        <%--- 상품 유효기간은 결제완료 시점부터 1년(365일) 입니다. <br>--%>
+                        <%--- 구매하신 상품은 마이클앱 > 이용현황 에서 확인 하실 수 있습니다. <br>--%>
+                        <%--- <span style="color: rgb(255, 0, 0);">구매 후 7일 이내에 클앱 사용 내역이 없을 경우 웹결제 상품에 한해서 청약철회가 가능합니다. </span><br>--%>
+                        <%--- 가상계좌 입금 결제 시 입금완료 확인된 후부터 상품 이용이 가능합니다. <br>--%>
+                        <%--- 테스트 프로그램 이용 시 java 최신 버전이 설치되어 있어야 합니다.  [<a href="http://java.com/ko/download/index.jsp" target="_blank">다운로드</a>] <br>--%>
+                        <%--- 무료 앱 인스톨 및 모바일웹 해상도 테스트는 회원의 요청이 있을 경우에 제공됩니다. (테스트 결과 리포트 포함)  <br>--%>
+                        <%--- 무료 체험권 이용자는 회원가입일로부터 30일 이내에 신청해야 무료 테스트 혜택을 이용하실 수 있습니다.  </p>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <div class="submemTinfocontent">
         <div class="submemTcontentbg">
             <div class="submemTcontent">
@@ -289,7 +361,7 @@
                         <div class="submemTcontentTxt1">
                             <span>앱 설치 및 모바일<br>해상도 테스트 대행</span>
                         </div>
-                        <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                        <a href="${contextPath }/myClapp/myTestRequest"  target="_blank">
                             <div class="submemTcontentTxtB2">
                                 <div class="submemTcontentTxt1_3">자세히 보기
                                 </div>
@@ -307,25 +379,28 @@
                 </div>
             </div>
             <div class="submemTinfoTxtBox">
-                <div class="submemTinfoTxt1">
-                    <span>※ 앱설치 및 모바일 해상도 테스트 대행은 유/무료 회원에 따라 테스트 실행 디바이스 대수가 다릅니다. (무료 회원 : 10대 / 유료 회원 : 전체 디바이스) </span>
+                <div class="submemTtitleTxtBox2">
+                    <div class="submemTinfoTxt1">
+                        <span>※ 앱설치 및 모바일 해상도 테스트 대행은 유/무료 회원에 따라 테스트 실행 디바이스 대수가 다릅니다. (무료 회원 : 10대 / 유료 회원 : 전체 디바이스) </span>
+                    </div>
                 </div>
-            </div>
-            <div class="submemTinfoTxtBox2">
-                <div class="submemTinfoline">
+                <div class="submemTinfoTxtBox2">
+                    <div class="submemTinfoline">
+                    </div>
                 </div>
-            </div>
-            <div class="submemTinfoTxtBox3">
-                <div class="submemTinfoTxt1_2">
-                    <p>- VAT 10% 포함 가격입니다. <br>
-                        - 5시간 이용권 구매 시 10%, 10시간 이용권 구매 시 25%가 할인됩니다. <br>
-                        - 상품 유효기간은 결제완료 시점부터 1년(365일) 입니다. <br>
-                        - 구매하신 상품은 마이클앱 > 이용현황 에서 확인 하실 수 있습니다. <br>
-                        - <span style="color: rgb(255, 0, 0);">구매 후 7일 이내에 클앱 사용 내역이 없을 경우 웹결제 상품에 한해서 청약철회가 가능합니다. </span><br>
-                        - 가상계좌 입금 결제 시 입금완료 확인된 후부터 상품 이용이 가능합니다. <br>
-                        - 테스트 프로그램 이용 시 java 최신 버전이 설치되어 있어야 합니다.  [<a href="http://java.com/ko/download/index.jsp" target="_blank">다운로드</a>] <br>
-                        - 무료 앱 인스톨 및 모바일웹 해상도 테스트는 회원의 요청이 있을 경우에 제공됩니다. (테스트 결과 리포트 포함)  <br>
-                        - 무료 체험권 이용자는 회원가입일로부터 30일 이내에 신청해야 무료 테스트 혜택을 이용하실 수 있습니다.  </p>
+                <div class="submemTinfoTxtBox3">
+                    <div class="submemTinfoTxt1_2">
+                        <p>- VAT 10% 포함 가격입니다. <br>
+                            - 5시간 이용권 구매 시 15%, 10시간 이용권 구매 시 25%가 할인됩니다. <br>
+                            - 상품 유효기간은 결제완료 시점부터 1년(365일) 입니다. <br>
+                            - 구매하신 상품은 마이클앱 > 이용현황 에서 확인 하실 수 있습니다. <br>
+                            - <span style="color: rgb(255, 0, 0);">구매 후 7일 이내에 클앱 사용 내역이 없을 경우 웹결제 상품에 한해서 청약철회가 가능합니다. </span><br>
+                            - 가상계좌 입금 결제 시 입금완료 확인된 후부터 상품 이용이 가능합니다. <br>
+                            - 테스트 프로그램 이용 시 java 최신 버전이 설치되어 있어야 합니다.  [<a href="http://java.com/ko/download/index.jsp" target="_blank">다운로드</a>] <br>
+                            - 무료 앱 인스톨 및 모바일웹 해상도 테스트는 회원의 요청이 있을 경우에 제공됩니다. (테스트 결과 리포트 포함)  <br>
+                            - 무료 체험권 이용자는 회원가입일로부터 30일 이내에 신청해야 무료 테스트 혜택을 이용하실 수 있습니다.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
