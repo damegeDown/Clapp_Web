@@ -106,7 +106,7 @@ $.fn.Menu = {
             <a href="${contextPath }/admin/management/popupList">메인 관리</a>
             <ul style="display:none">
                 <li class="popup"><a href="${contextPath }/admin/management/popupList">팝업 관리</a></li>
-				<li class="banner"><a href="${contextPath }/admin/management/bannerList">베너 관리</a></li>
+                <li class="banner"><a href="${contextPath }/admin/management/popupList">베너 관리</a></li>
             </ul>
         </li>
 		<li id="permissionUser">

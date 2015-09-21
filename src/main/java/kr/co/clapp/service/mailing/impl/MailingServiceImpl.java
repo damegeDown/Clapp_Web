@@ -446,7 +446,7 @@ public class MailingServiceImpl implements MailingService {
 		    mailSendInfo.setRecipient(recipient); //받는사람
 		    mailSendInfo.setSender(emailSender);//보내는 사람
 		    
-			String userName = ecrmEntity.getUserName();
+			String userName = "클앱담당자"; 
 			String productName = ecrmEntity.getProductName();
 			int ticketAmount = ecrmEntity.getTicketAmount();
 			Date expirationDate = ecrmEntity.getExpirationDate();
@@ -459,7 +459,7 @@ public class MailingServiceImpl implements MailingService {
 												.replace("$userName", userName)
 												.replace("$userId", recipient[0])
 												.replace("$productName", productName)
-												.replace("$ticketAmount", String.valueOf(ticketAmount*5))
+												.replace("$ticketAmount", String.valueOf(ticketAmount))
 												.replace("$expirationDate", sdf.format(expirationDate))
 												.replace("$paymentDate", sdf.format(new Date()))
 												.replace("$paymentAmount", String.valueOf(paymentAmount))
