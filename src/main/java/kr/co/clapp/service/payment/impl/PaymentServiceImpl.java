@@ -455,7 +455,7 @@ public class PaymentServiceImpl implements PaymentService {
                         }
                         /** 저장될 티켓 수**/
                         ticketInfo.setTicketAmount(paymentEntity.getPaymentTicketAmount());//구입시간
-                        ticketInfo.setTicketAvilableAmount(paymentEntity.getPaymentTicketAmount()+priAmountTicket);//사용가능
+                        ticketInfo.setTicketAvilableAmount(paymentEntity.getPaymentTicketAmount() + priAmountTicket);//사용가능
 
                         /** 티켓에 업데이트*/
                         ticketInfo.setUseYn("Y");
