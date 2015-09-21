@@ -465,7 +465,6 @@ public class PaymentServiceImpl implements PaymentService {
                         EcrmEntity ecrmEntity = new EcrmEntity();
                         ecrmEntity.setMailTitle("[Clapp] 결제가 정상적으로 완료되었습니다.");
                         ecrmEntity.setUserId(paymentEntity.getPaymentUserId());
-                        ecrmEntity.setUserName(paymentEntity.getPaymentName());
                         ecrmEntity.setProductName(paymentEntity.getPaymentProductName());
                         ecrmEntity.setTicketAmount(paymentEntity.getPaymentTicketAmount());
                         ecrmEntity.setExpirationDate(endDate);

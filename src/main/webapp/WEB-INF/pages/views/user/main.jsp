@@ -18,12 +18,12 @@ jQuery(document).ready(function(){
     jQuery('#responsive').change(function(){
         $('#responsive_wrapper').width(jQuery(this).val());
     });
-    $('#mainrolling').css('display','block');
+
 });
 </script>
 <style type="text/css">
     body{ margin:0; padding:0;}
-    #mainrolling{height:500px; margin:0; padding:0;display: none;}
+    #mainrolling{margin:0; padding:0;}
 </style>
 <%--<style type="text/css">--%>
     <%--* {--%>
@@ -209,32 +209,22 @@ jQuery(document).ready(function(){
 <%--</div>--%>
 <div class="area">
     <ul id="mainrolling">
-        <c:forEach items="${bannerEntity}" end="4" var="bannerList" varStatus="i">
-            <li>
-                <c:if test="${bannerList.bannerLinkType eq '0' }">
-                    <a href="${bannerList.bannerLinkUrl }" target="_blank"><img src="${contextPath}/common/imgView?fileType=${bannerList.fileTarget}&fileName=${bannerList.fileSavedName}" /></a>
-                </c:if>
-                <c:if test="${bannerList.bannerLinkType eq '1' }">
-                    <a href="${bannerList.bannerLinkUrl }" target="_self"><img src="${contextPath}/common/imgView?fileType=${bannerList.fileTarget}&fileName=${bannerList.fileSavedName}" /></a>
-                </c:if>
-            </li>
-        </c:forEach>
-        <%--<li style="background:url('${contextPath }/resources/images/main_1_bg.png')">--%>
-            <%--<img src="${contextPath }/resources/images/main_1.png" />--%>
-        <%--</li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_2_bg.png')">--%>
-            <%--<a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_2.png" /></a>--%>
-        <%--</li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_3_bg.png')"><img src="${contextPath }/resources/images/main_3.png" />--%>
-        <%--</li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_4_bg.png')">--%>
-            <%--<a href="${contextPath }/members/memberJoin"><img src="${contextPath }/resources/images/main_4.png" /></a></li>--%>
-        <%--</li>--%>
-        <%--<li  style="background:url('${contextPath }/resources/images/main_5_bg.png')">--%>
-            <%--<a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_5.png" /></a></li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_6_bg.png')">--%>
-            <%--<a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_6.png" /></a>--%>
-        <%--</li>--%>
+        <li style="background:url('${contextPath }/resources/images/main_1_bg.png')">
+            <img src="${contextPath }/resources/images/main_1.png" />
+        </li>
+        <li style="background:url('${contextPath }/resources/images/main_2_bg.png')">
+            <a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_2.png" /></a>
+        </li>
+        <li style="background:url('${contextPath }/resources/images/main_3_bg.png')"><img src="${contextPath }/resources/images/main_3.png" />
+        </li>
+        <li style="background:url('${contextPath }/resources/images/main_4_bg.png')">
+            <a href="${contextPath }/members/memberJoin"><img src="${contextPath }/resources/images/main_4.png" /></a></li>
+        </li>
+        <li  style="background:url('${contextPath }/resources/images/main_5_bg.png')">
+            <a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_5.png" /></a></li>
+        <li style="background:url('${contextPath }/resources/images/main_6_bg.png')">
+            <a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_6.png" /></a>
+        </li>
     </ul>
 </div>
 <%--<div class="slider">--%>
