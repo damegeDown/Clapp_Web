@@ -10,6 +10,7 @@
   <typeAliases>
     <typeAlias alias="adminEntity" type="kr.co.clapp.entities.AdminEntity"/>
     <typeAlias alias="popupEntity" type="kr.co.clapp.entities.PopupEntity"/>
+    <typeAlias alias="bannerEntity" type="kr.co.clapp.entities.BannerEntity"/>
     <typeAlias alias="memberEntity" type="kr.co.clapp.entities.MemberEntity"/>
     <typeAlias alias="commonCodeEntity" type="kr.co.clapp.entities.CommonCodeEntity"/>
     <typeAlias alias="statisticsEntity" type="kr.co.clapp.entities.StatisticsEntity"/>

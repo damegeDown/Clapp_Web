@@ -22,6 +22,10 @@
     <property name="configLocation" value="classpath:configs/sqlMapConfig.xml" />
     <property name="mapperLocations" value="classpath:sqlMaps/**/*.xml" />
   </bean>
+  <bean id="BannerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.clapp.dao.BannerDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
   <bean id="MemberDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
     <property name="mapperInterface" value="kr.co.clapp.dao.MemberDAO" />
     <property name="sqlSessionFactory" ref="sessionFactory" />
