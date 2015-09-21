@@ -60,6 +60,21 @@ a:hover {
 			<!-- //메일 내용 -->
 		</div>
 		<div style="clear: both"></div>
+
+		<div style="width:701px;padding:20px; height:100px">
+			<span style="float: left">
+				<a href="$contextPath/serviceinfo/infoMain/">
+					<img src="$contextPath/resources/images/ecrm_00_banner_service.png" width="334" height="94" border="0" alt="서비스 소개">
+				</a>
+			</span>
+			<span style="float: left;line-height:0.5px;">
+				<a href="$contextPath/product/productList">
+					<img src="$contextPath/resources/images/ecrm_00_banner_member.png" width="330" height="94" border="0" alt="클앱 멤버십">
+				</a>
+			</span>
+		</div>
+
+		<div style="clear: both"></div>
 		<div style="width:701px">
 			<span style="float: left"> 
 				<a href="$contextPath/">
