@@ -22,7 +22,7 @@ a:hover {
 </STYLE>
 </HEAD>
 <BODY>
-	<div style="width: 701px"> 
+	<div style="width: 701px; border-right:1px solid #202020; border-left:1px solid #202020;">
 		<div style="width:701px">
 			<span style="float: left">
 				<a href="$contextPath/"  style="background: url('$action')">
