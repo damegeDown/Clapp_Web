@@ -1341,5 +1341,6 @@
           AND PRODUCT_MASTER_KEY in (${productMasterKey})
         </if>
         AND USE_YN='Y'
+        AND ticket_end_expiration_date >= NOW();
     </select>
 </mapper>

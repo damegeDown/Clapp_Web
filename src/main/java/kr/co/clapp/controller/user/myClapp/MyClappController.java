@@ -104,27 +104,35 @@ public class MyClappController {
 
             //클앱 맴버십 과 시간용권의 중복결제 방지
             String payErrMsg = null;
+            String productType = "0";
+            int productTypeInt= 0;
             int pMasterKey = productEntity.getProductMasterKey(); //결제 요청된 상품 키
             ticketParam.setUserMasterKey(userInfo.getUserMasterKey());// user master key
             ticketProductList=ticketService.getUserTicketProductList(ticketParam);
-            String productType= ticketProductList.get(0).getServiceTargetType();
-            int productTypeInt= Integer.parseInt(productType);//정수형으로 변환
+            if(ticketProductList.size() > 0) {
+                productType = ticketProductList.get(0).getServiceTargetType();
+            }
+            productTypeInt= Integer.parseInt(productType);//정수형으로 변환
 
-            if(pMasterKey >= 25){//클앱멤버십 결제요청시
-                if(productTypeInt ==3){
-                    payErrMsg = "시간 이용권 사용중에는 멤버십 상품을 구입할 수 없습니다.";
+            if(pMasterKey > CommonCode.ZERO) {
+                if(pMasterKey >= 25){//클앱멤버십 결제요청시
+                    if(productTypeInt ==3){
+                        payErrMsg = "시간 이용권 사용중에는 멤버십 상품을 구입할 수 없습니다.";
+                    }
+                    if(productTypeInt ==9){
+                        payErrMsg = "클앱 멤버십 이용중에는 멤버십 상품을 추가 구입할 수 없습니다.";
+                    }
                 }
-                if(productTypeInt ==9){
-                    payErrMsg = "클앱 멤버십 이용중에는 멤버십 상품을 추가 구입할 수 없습니다.";
+                if(pMasterKey >= 15 && pMasterKey <= 24){//시간이용권 요청시
+                    if(productTypeInt ==9){
+                        payErrMsg = "멤버십 이용권 사용중에는시간 이용권 구입할 수 없습니다.";
+                    }
                 }
+
+
+                model.addAttribute("payErrMsg", payErrMsg);
+                model.addAttribute("setProductType", pMasterKey);//클앱 멤버십 상품 중복 방지
             }
-            if(pMasterKey >= 15 && pMasterKey <= 24){//시간이용권 요청시
-                if(productTypeInt ==9){
-                    payErrMsg = "멤버십 이용권 사용중에는시간 이용권 구입할 수 없습니다.";
-                }
-            }
-            model.addAttribute("payErrMsg", payErrMsg);
-            model.addAttribute("setProductType", pMasterKey);//클앱 멤버십 상품 중복 방지
 
 		} catch  (Exception e) {
 			  logger.error("MyClappController.payment:Faild" , e);

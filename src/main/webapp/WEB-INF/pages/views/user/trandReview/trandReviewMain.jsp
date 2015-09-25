@@ -17,7 +17,7 @@
                 <li></li>
                 <li class="smtgbItem2"><a href="${contextPath}/trandReview/caseList" class="smtGRTr">케이스 스터디</a></li>
                 <li></li>
-                <li class="smtgbItem2"><a href="${contextPath}/trandReview/socialList" class="smtGRTr">소셜 · 블로그</a></li>
+                <%--<li class="smtgbItem2"><a href="${contextPath}/trandReview/socialList" class="smtGRTr">소셜 · 블로그</a></li>--%>
               </ul>
             </div>
               <div class="subMTStartBox">
@@ -202,52 +202,52 @@
       </div><!-- .subTRReviewListContentBoxBg End -->
     </div><!-- .subTRReviewListContentOneContainer End -->
 
-    <div class="subTRReviewListContentThreeContainer">
-      <div class="subTRReviewListCHCBoxBg">
+    <%--<div class="subTRReviewListContentThreeContainer">--%>
+      <%--<div class="subTRReviewListCHCBoxBg">--%>
 
-        <div class="subTRReviewCHCTitleBox">
-          <div class="subTRReviewCHCTitle">
-            <span class="subTRReviewCHCTitleLine"></span>
+        <%--<div class="subTRReviewCHCTitleBox">--%>
+          <%--<div class="subTRReviewCHCTitle">--%>
+            <%--<span class="subTRReviewCHCTitleLine"></span>--%>
 
-            <div class="subTRReviewCHCTitleTxt">
-              <span>소셜 · 블로그</span>
-            </div><!-- subTRReviewContentImgBox End-->
-            <div class="subTRReviewCHCTitleMore">
-              <a href="${contextPath}/trandReview/socialList"><img src="${contextPath}/resources/images/contents_btn_more_board.png" alt="more" onMouseOver="this.src='${contextPath}/resources/images/contents_btn_more_board_r.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_more_board.png';" /></a>
-            </div><!-- subTRReviewContentImgBox End-->
-              
-          </div><!-- .subTRReviewTitle -->
-        </div><!-- .subTRReviewTitleBox End -->
-        
-        <!-- provide device List Start -->
-        <div class="subTRReviewCHCListBox">
-          <c:forEach items="${boardEntity.socialBlogList }" var="socialBlogList">
-          <div class="subTRReviewCHCList subTRReviewCHCListLine">
-            <div class="subTRReviewCHCListCols">
-              <div class="subTRReviewCHCImgBox">
-                <div class="subTRReviewCHCImg">
-                  <a href="#">
-                    <img src="${contextPath}/common/imgView?fileType=${socialBlogList.fileTarget}&fileName=${socialBlogList.fileSavedName}" style="max-width:80px;"/>
-                  </a>
-                </div>
-              </div><!-- .subTRReviewContentListRow End -->
-              <div class="subTRReviewCHCTextBox">
-                <div class="subTRReviewCHCText">
-                  <p>
-                    <a href="${socialBlogList.facebookLink }" target="_blank">
-                    ${socialBlogList.socialBlogTitle}</a>
-                  </p>
-                  <span>
-                    <fmt:formatDate value="${socialBlogList.socialBlogInsertDate}" pattern="yyyy년 MM월 dd일"/>
-                  </span>
-                </div>
-              </div><!-- .subTRReviewContentListRow End -->
-            </div><!-- .subTRReviewContentListCols -->
-          </div><!-- .subTRReviewContentList End -->
-        </c:forEach>
-        </div><!-- .subTRIndusrtyContentListBox End -->
+            <%--<div class="subTRReviewCHCTitleTxt">--%>
+              <%--<span>소셜 · 블로그</span>--%>
+            <%--</div><!-- subTRReviewContentImgBox End-->--%>
+            <%--<div class="subTRReviewCHCTitleMore">--%>
+              <%--<a href="${contextPath}/trandReview/socialList"><img src="${contextPath}/resources/images/contents_btn_more_board.png" alt="more" onMouseOver="this.src='${contextPath}/resources/images/contents_btn_more_board_r.png';" onMouseOut="this.src='${contextPath}/resources/images/contents_btn_more_board.png';" /></a>--%>
+            <%--</div><!-- subTRReviewContentImgBox End-->--%>
+              <%----%>
+          <%--</div><!-- .subTRReviewTitle -->--%>
+        <%--</div><!-- .subTRReviewTitleBox End -->--%>
+        <%----%>
+        <%--<!-- provide device List Start -->--%>
+        <%--<div class="subTRReviewCHCListBox">--%>
+          <%--<c:forEach items="${boardEntity.socialBlogList }" var="socialBlogList">--%>
+          <%--<div class="subTRReviewCHCList subTRReviewCHCListLine">--%>
+            <%--<div class="subTRReviewCHCListCols">--%>
+              <%--<div class="subTRReviewCHCImgBox">--%>
+                <%--<div class="subTRReviewCHCImg">--%>
+                  <%--<a href="#">--%>
+                    <%--<img src="${contextPath}/common/imgView?fileType=${socialBlogList.fileTarget}&fileName=${socialBlogList.fileSavedName}" style="max-width:80px;"/>--%>
+                  <%--</a>--%>
+                <%--</div>--%>
+              <%--</div><!-- .subTRReviewContentListRow End -->--%>
+              <%--<div class="subTRReviewCHCTextBox">--%>
+                <%--<div class="subTRReviewCHCText">--%>
+                  <%--<p>--%>
+                    <%--<a href="${socialBlogList.facebookLink }" target="_blank">--%>
+                    <%--${socialBlogList.socialBlogTitle}</a>--%>
+                  <%--</p>--%>
+                  <%--<span>--%>
+                    <%--<fmt:formatDate value="${socialBlogList.socialBlogInsertDate}" pattern="yyyy년 MM월 dd일"/>--%>
+                  <%--</span>--%>
+                <%--</div>--%>
+              <%--</div><!-- .subTRReviewContentListRow End -->--%>
+            <%--</div><!-- .subTRReviewContentListCols -->--%>
+          <%--</div><!-- .subTRReviewContentList End -->--%>
+        <%--</c:forEach>--%>
+        <%--</div><!-- .subTRIndusrtyContentListBox End -->--%>
 
-      </div><!-- .subTRReviewListContentBoxBg End -->
-    </div><!-- .subTRReviewListContentOneContainer End -->
+      <%--</div><!-- .subTRReviewListContentBoxBg End -->--%>
+    <%--</div><!-- .subTRReviewListContentOneContainer End -->--%>
     
   </body>
