@@ -1,9 +1,15 @@
 package kr.co.clapp.controller.admin.management;
 
+import kr.co.clapp.dao.AdministrationFileDAO;
+import kr.co.digigroove.commons.utils.FileUtils;
+import org.apache.commons.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.clapp.constants.CommonCode;
@@ -45,9 +51,13 @@ public class ManagementRestController {
 
 	@Autowired
 	AdministrationFileService administrationFileService;
-	// Banner Add End
-
-
+	
+	@Autowired
+	private AdministrationFileDAO administrationFileDAO;
+	
+	@Value("#{fileConfig['filePath']}")
+	private String filePath;
+	
 	/**
 	 * 관리자 등록
 	 * @param adminEntity
@@ -211,72 +221,67 @@ public class ManagementRestController {
 	}
 	
 	// Banner Add Start
-
 	/**
 	 * 배너 등록
 	 * @param bannerEntity
 	 * @return
 	 */
 	@RequestMapping(value = "/insertBanner",  method = RequestMethod.POST)
-	public ResponseEntity insertBanner(BannerEntity bannerEntity, HttpSession session, MultipartHttpServletRequest req) {
+	public ResponseEntity insertBanner(BannerEntity bannerEntity, HttpSession session, MultipartFile file, MultipartFile file_bg) {
 		ResponseEntity result = new ResponseEntity();
-		AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
-	  try {
-		String resultCode = ResultCode.FAIL;
-		String resultMessage = messages.getMessage("insert.fail");
-		
-		Object entity = session.getAttribute(CommonCode.Session.ADMIN_LOGIN_SESSION);
-		if (null != entity) {
-			AdminEntity admin = (AdminEntity)entity;
-			bannerEntity.setBannerInsertName(admin.getAdminName());
-		} else {
-			bannerEntity.setBannerInsertName("no name");
-		}
-		
-		if(bannerService.insertBanner(bannerEntity) > CommonCode.ZERO) {
-		  resultCode = ResultCode.SUCCESS;
-		  resultMessage = messages.getMessage("insert.success"); 
-		  result.setResultURL("/admin/management/bannerList");
-		// 파일 업로드
-		  if(req.getFileNames().hasNext()) {
-			  administrationFileEntity.setFileTargetKey(bannerEntity.getBannerInquiryKey());
-			  administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER);
-			  administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
-			  //기존 파일 삭제 
-			  //this.removeFile(administrationFileEntity);
-			  this.saveFileForFormData(req, administrationFileEntity);
-		  }
-		}
-		result.setResultCode(resultCode);
-		result.setResultMSG(resultMessage); 
-	  } catch (Exception e) {
-		logger.error("ManagementRestController.insertBanner:Faild" , e);
-		result.setResultCode(ResultCode.FAIL);
-		result.setResultMSG(messages.getMessage("insert.fail"));
-	  }
-	  
-	  return result;
-	}
-	
-	public List<SavedFileEntity> saveFileForFormData(MultipartHttpServletRequest req, AdministrationFileEntity administrationFileEntity) {
-		List<SavedFileEntity> saveFileList = new ArrayList<SavedFileEntity>();
 		try {
-			administrationFileService.removeAdministrationFile(administrationFileEntity);
-			saveFileList = administrationFileService.saveFileForFormData(req, administrationFileEntity);
+			String resultCode = ResultCode.FAIL;
+			String resultMessage = messages.getMessage("insert.fail");
+
+			Object entity = session.getAttribute(CommonCode.Session.ADMIN_LOGIN_SESSION);
+			if (null != entity) {
+				AdminEntity admin = (AdminEntity)entity;
+				bannerEntity.setBannerInsertName(admin.getAdminName());
+			} else {
+				bannerEntity.setBannerInsertName("no name");
+			}
+
+			if(bannerService.insertBanner(bannerEntity) > CommonCode.ZERO) {
+				resultCode = ResultCode.SUCCESS;
+				resultMessage = messages.getMessage("insert.success");
+				result.setResultURL("/admin/management/bannerList");
+				// 파일 업로드
+				if(null != file) {
+					AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+					administrationFileEntity.setFileTargetKey(bannerEntity.getBannerInquiryKey());
+					administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER);
+					administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+					this.saveFileForFormData(bannerEntity, file, administrationFileEntity);
+					// 배경 파일 업로드
+					if(null != file_bg) {
+						administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER_BG);
+						this.saveFileForFormData(bannerEntity, file_bg, administrationFileEntity);
+					}
+				}
+
+			}
+			result.setResultCode(resultCode);
+			result.setResultMSG(resultMessage);
 		} catch (Exception e) {
-			logger.error("DeviceRestController.saveFileForFormData" , e);
+			logger.error("ManagementRestController.insertBanner:Faild" , e);
+			result.setResultCode(ResultCode.FAIL);
+			result.setResultMSG(messages.getMessage("insert.fail"));
 		}
-		
-		return saveFileList;
+
+		return result;
 	}
 
+	/**
+	 * 파일 제거
+	 * @param administrationFileEntity
+	 */
 	public void removeFile(AdministrationFileEntity administrationFileEntity) {
 		try {
 			administrationFileService.removeFile(administrationFileEntity);
 		} catch (Exception e) {
-			logger.error("DeviceRestController.removeFile" , e);
+			logger.error("DeviceRestController.removeFile", e);
 		}
-		
+
 	}
 	/**
 	 * 배너 수정
@@ -284,37 +289,43 @@ public class ManagementRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/modifyBanner",  method = RequestMethod.POST)
-	public ResponseEntity modifyBanner(BannerEntity bannerEntity, MultipartHttpServletRequest req) {
+	public ResponseEntity modifyBanner(BannerEntity bannerEntity, MultipartFile file, MultipartFile file_bg) {
 		ResponseEntity result = new ResponseEntity();
-		AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
-	  try {
-		String resultCode = ResultCode.FAIL;
-		String resultMessage = messages.getMessage("modify.fail");
-		if(bannerService.modifyBanner(bannerEntity) > CommonCode.ZERO) {
-		  resultCode = ResultCode.SUCCESS;
-		  resultMessage = messages.getMessage("modify.success");
-		  
-		// 파일 업로드
-		  if(req.getFileNames().hasNext()) {
-			  administrationFileEntity.setFileTargetKey(bannerEntity.getBannerInquiryKey());
-			  administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER);
-			  administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
-			  //기존 파일 삭제 
-			  this.removeFile(administrationFileEntity);
-			  this.saveFileForFormData(req, administrationFileEntity);
-		  }
+		try {
+			String resultCode = ResultCode.FAIL;
+			String resultMessage = messages.getMessage("modify.fail");
+			if(bannerService.modifyBanner(bannerEntity) > CommonCode.ZERO) {
+				resultCode = ResultCode.SUCCESS;
+				resultMessage = messages.getMessage("modify.success");
+				// 파일 업로드
+				if(null != file) {
+					AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
+					administrationFileEntity.setFileTargetKey(bannerEntity.getBannerInquiryKey());
+					administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER);
+					administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+					//기존 파일 삭제
+					this.removeFile(administrationFileEntity);
+					this.saveFileForFormData(bannerEntity, file, administrationFileEntity);
+					// 배경 파일 업로드
+					if(null != file_bg) {
+						administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER_BG);
+						//기존 파일 삭제
+						this.removeFile(administrationFileEntity);
+						this.saveFileForFormData(bannerEntity, file_bg, administrationFileEntity);
+					}
+				}
+			}
+			result.setResultCode(resultCode);
+			result.setResultMSG(resultMessage);
+			result.setResultURL("/admin/management/bannerList");
+		} catch (Exception e) {
+			logger.error("ManagementRestController.modifyBanner:Faild" , e);
+			result.setResultCode(ResultCode.FAIL);
+			result.setResultMSG(messages.getMessage("modify.fail"));
 		}
-		result.setResultCode(resultCode);
-		result.setResultMSG(resultMessage);
-		result.setResultURL("/admin/management/bannerList");
-	  } catch (Exception e) {
-		logger.error("ManagementRestController.modifyBanner:Faild" , e);
-		result.setResultCode(ResultCode.FAIL);
-		result.setResultMSG(messages.getMessage("modify.fail"));
-	  }
-	  return result;
+		return result;
 	}
-	
+
 	/**
 	 * 배너 종료
 	 * @param bannerEntity
@@ -322,23 +333,86 @@ public class ManagementRestController {
 	 */
 	@RequestMapping(value = "/endBanner",  method = RequestMethod.POST)
 	public ResponseEntity endBanner(BannerEntity bannerEntity) {
-	ResponseEntity result = new ResponseEntity();
-	  try {
-		String resultCode = ResultCode.FAIL;
-		String resultMessage = messages.getMessage("end.fail");
-		if(bannerService.endBanner(bannerEntity) > CommonCode.ZERO) {
-			resultCode = ResultCode.SUCCESS;
-			resultMessage = messages.getMessage("end.success"); 
+		ResponseEntity result = new ResponseEntity();
+		try {
+			String resultCode = ResultCode.FAIL;
+			String resultMessage = messages.getMessage("end.fail");
+			if(bannerService.endBanner(bannerEntity) > CommonCode.ZERO) {
+				resultCode = ResultCode.SUCCESS;
+				resultMessage = messages.getMessage("end.success");
+			}
+			result.setResultCode(resultCode);
+			result.setResultMSG(resultMessage);
+			result.setResultURL("/admin/management/bannerList");
+		} catch (Exception e) {
+			logger.error("ManagementRestController.endBanner:Faild" , e);
+			result.setResultCode(ResultCode.FAIL);
+			result.setResultMSG(messages.getMessage("end.fail"));
 		}
-		result.setResultCode(resultCode);
-		result.setResultMSG(resultMessage); 
-		result.setResultURL("/admin/management/bannerList");
-	  } catch (Exception e) {
-		logger.error("ManagementRestController.endBanner:Faild" , e);
-		result.setResultCode(ResultCode.FAIL);
-		result.setResultMSG(messages.getMessage("end.fail"));
-	  }
-	  return result;
+		return result;
+	}
+
+	/**
+	 * 파일 저장 후 정보 리턴 (FormData)
+	 * @param bannerEntity
+	 * @param file
+	 * @param administrationFileEntity
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly=false, rollbackFor = Exception.class)
+	public void saveFileForFormData(BannerEntity bannerEntity, MultipartFile file, AdministrationFileEntity administrationFileEntity) throws Exception {
+		// Administration_file 에 저장될 이미지 정보
+		AdministrationFileEntity insertInfo = new AdministrationFileEntity();
+		List<AdministrationFileEntity> insertFileList = new ArrayList<AdministrationFileEntity>();
+		// 파일 경로
+		String path = filePath + administrationFileEntity.getFileTarget() + "/";
+
+		// 파일 제한
+		CommonCode.FileLimit fileLimit = administrationFileEntity.getFileLimit();
+		if (fileLimit != null && fileLimit.size < file.getSize()) throw new FileUploadException(fileLimit.text);
+		SavedFileEntity fileEntiry = FileUtils.saveFile(path, file);
+		insertInfo.setFileTargetKey(administrationFileEntity.getFileTargetKey());		//타켓 키
+		insertInfo.setFileTarget(administrationFileEntity.getFileTarget());				//타켓
+		insertInfo.setFileName(fileEntiry.getOriginalFileName());				//원본 이름
+		insertInfo.setFileSavedName(fileEntiry.getSavedFileName());			//저장 이름
+		insertInfo.setFilePath(fileEntiry.getSavedPath());					//경로
+		insertInfo.setFileExtension(fileEntiry.getSavedFileExtension());		//확장자
+		insertInfo.setFileSize((int)fileEntiry.getSavedFileSize());			//사이즈
+		insertInfo.setFileType(CommonCode.FILE_ORI_TYPE);								//타입 1: 일반, 2: 썸네일
+		insertFileList.add(insertInfo);
+
+		//일반 파일
+		administrationFileEntity.setSaveFileList(insertFileList);
+		this.insertSavedFileInfo(administrationFileEntity);
+
+	}
+
+	/**
+	 * 저장된 파일리스트 받아 DB에 저장
+	 * @param administrationFileEntity (targetType, targetKey, savedFileList)
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly=false, rollbackFor = Exception.class)
+	public int insertSavedFileInfo(AdministrationFileEntity administrationFileEntity) throws Exception {
+		int insertResult = CommonCode.ZERO;
+		for (AdministrationFileEntity savedFile : administrationFileEntity.getSaveFileList()) {
+			if (savedFile.getFileSize() > 0) {
+				insertResult += administrationFileDAO.insertAdministrationFile(savedFile);
+			}
+		}
+		return insertResult == administrationFileEntity.getSaveFileList().size() ? CommonCode.ONE : CommonCode.ZERO;
+	}
+	/**
+	 * 파일 삭제
+	 * @param administrationFileEntity
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly=false, rollbackFor = Exception.class)
+	public int removeAdministrationFile(AdministrationFileEntity administrationFileEntity) throws Exception {
+		return administrationFileDAO.removeAdministrationFile(administrationFileEntity);
 	}
 
 	/**

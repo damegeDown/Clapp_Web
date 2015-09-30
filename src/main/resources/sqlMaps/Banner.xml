@@ -54,27 +54,32 @@
     <!-- 배너 상세 -->
     <select id="getBannerDetail" parameterType="bannerEntity" resultType="bannerEntity">
         SELECT
-        B.BANNER_INQUIRY_KEY,
-        B.BANNER_VIEW_SEQ,
-        B.BANNER_TITLE,
-        B.BANNER_START_DATE,
-        B.BANNER_END_DATE,
-        B.BANNER_STATUS,
-        B.BANNER_LINK_TYPE,
-        B.BANNER_LINK_URL,
-        B.BANNER_INSERT_NAME,
-        B.BANNER_INSERT_DATE,
-        F.FILE_SAVED_NAME,
-        F.FILE_NAME
+          B.BANNER_INQUIRY_KEY,
+          B.BANNER_VIEW_SEQ,
+          B.BANNER_TITLE,
+          B.BANNER_START_DATE,
+          B.BANNER_END_DATE,
+          B.BANNER_STATUS,
+          B.BANNER_LINK_TYPE,
+          B.BANNER_LINK_URL,
+          B.BANNER_INSERT_NAME,
+          B.BANNER_INSERT_DATE,
+          F.FILE_SAVED_NAME,
+          F.FILE_NAME,
+          BGF.FILE_SAVED_NAME AS BG_FILE_SAVED_NAME,
+          BGF.FILE_NAME AS BG_FILE_NAME
         FROM
-        BANNER_MASTER B
-        LEFT JOIN ADMINISTRATION_FILE F
-        ON B.BANNER_INQUIRY_KEY = F.FILE_TARGET_KEY
-        AND F.FILE_TARGET = 'banner'
+          BANNER_MASTER B
+          LEFT JOIN ADMINISTRATION_FILE F
+          ON B.BANNER_INQUIRY_KEY = F.FILE_TARGET_KEY
+          AND F.FILE_TARGET = 'banner'
+          LEFT JOIN ADMINISTRATION_FILE BGF
+          ON B.BANNER_INQUIRY_KEY = BGF.FILE_TARGET_KEY
+          AND BGF.FILE_TARGET = 'banner_bg'
         WHERE
-        B.BANNER_INQUIRY_KEY = #{bannerInquiryKey}
-    </select>
-    <!-- //배너 상세 -->
+          B.BANNER_INQUIRY_KEY = #{bannerInquiryKey}
+      </select>
+        <!-- //배너 상세 -->
 
     <!-- 배너 등록 -->
     <insert id="insertBanner" parameterType="bannerEntity" useGeneratedKeys="true" keyProperty="bannerInquiryKey">
@@ -126,17 +131,22 @@
         BANNER_INQUIRY_KEY = #{bannerInquiryKey}
     </update>
     <!-- //배너 종료 -->
+
     <!-- 메인 배너 -->
     <select id="getBannerMain" resultType="bannerEntity">
         SELECT
         BANNER.BANNER_LINK_URL,
         BANNER.BANNER_LINK_TYPE,
-        F.FILE_SAVED_NAME
+        F.FILE_SAVED_NAME,
+        BGF.FILE_SAVED_NAME AS BG_FILE_SAVED_NAME
         FROM
         BANNER_MASTER BANNER
         LEFT JOIN ADMINISTRATION_FILE F
         ON BANNER.BANNER_INQUIRY_KEY = F.FILE_TARGET_KEY
         AND F.FILE_TARGET = 'banner'
+        LEFT JOIN ADMINISTRATION_FILE BGF
+        ON BANNER.BANNER_INQUIRY_KEY = BGF.FILE_TARGET_KEY
+        AND BGF.FILE_TARGET = 'banner_bg'
         WHERE
         BANNER.BANNER_INSERT_DATE IS NOT NULL
         AND

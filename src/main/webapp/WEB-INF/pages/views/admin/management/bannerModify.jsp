@@ -57,6 +57,16 @@
                 </td>
             </tr>
             <tr>
+                <th>배경 이미지</th><!-- lwj up -->
+                <td>
+                    <img id="bg_blah" src="${contextPath}/common/imgView?fileType=${bannerDetail.bgFileTarget}&fileName=${bannerDetail.bgFileSavedName}" style="max-width:800px"/>
+                    <input type="hidden" name="bgFileName" value="${bannerDetail.bgFileName }" data-flag="off"/>
+                    <input type="hidden" name="bgFileSavedName" value="${bannerDetail.bgFileSavedName }" data-flag="off"/>
+                    <div class="marT-5"><span>등록된 배경 이미지 : </span><a href="">${bannerDetail.bgFileName }</a></div>
+                    <div class="marT-5"><input type="file" name="file_bg" id="bgImgInp" data-flag="off"/></div>
+                </td>
+            </tr>
+            <tr>
                 <th>상태</th>
                 <td>
                     <select class="sel-w100 floatL" name="bannerStatus">
@@ -104,7 +114,7 @@
     </form>
 </div>
 <script>
-    $(function () {
+    $(function(){
         // $.fn.BannerDetail.init();
         // lwj up
         function readURL(input) {
@@ -122,9 +132,32 @@
         }//readURL()--
 
         //file 양식으로 이미지를 선택(값이 변경) 되었을때 처리하는 코드
-        $("#imgInp").change(function () {
+        $("#imgInp").change(function(){
             //alert(this.value); //선택한 이미지 경로 표시
             readURL(this);
         });
+
+        // lwj up
+        function bgReadURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+                reader.onload = function (e) {
+                    //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+                    $('#bg_blah').attr('src', e.target.result);
+                    //이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
+                    //(아래 코드에서 읽어들인 dataURL형식)
+                }
+                reader.readAsDataURL(input.files[0]);
+                //File내용을 읽어 dataURL형식의 문자열로 저장
+            }
+        }//readURL()--
+
+        //file 양식으로 이미지를 선택(값이 변경) 되었을때 처리하는 코드
+        $("#bgImgInp").change(function(){
+            //alert(this.value); //선택한 이미지 경로 표시
+            bgReadURL(this);
+        });
     })
+
+
 </script>

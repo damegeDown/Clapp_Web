@@ -22,8 +22,8 @@ a:hover {
 </STYLE>
 </HEAD>
 <BODY>
-	<div style="width: 701px"> 
-		<div style="width:701px">
+	<div style="width: 700px; border-right:1px solid #202020; border-left:1px solid #202020;">
+		<div style="width:701px;" >
 			<span style="float: left">
 				<a href="$contextPath/"  style="background: url('$action')">
 					<img src="$contextPath/resources/images/ecrm_00_kv_logo.png" border="0" alt="클앱 홈으로 이동" width="425" height="80">

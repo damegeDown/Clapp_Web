@@ -12,24 +12,45 @@ public class BannerEntity extends PageEntity implements Serializable{
 		super(1L);
 	}
 
-	private int bannerInquiryKey;			//¹è³Ê °íÀ¯
-	private int bannerViewSeq;				//¹è³Ê ¼ø¹ø
-	private String bannerTitle;				//¹è³Ê Á¦¸ñ
-	private Date bannerStartDate;			//¹è³Ê ½ÃÀÛ
-	private Date bannerEndDate;				//¹è³Ê Á¾·á
-	private String bannerStatus;			//¹è³Ê »óÅÂ
-	private String bannerLinkType;			//¹è³Ê ¿¬°á ±¸ºĞ
-	private String bannerLinkUrl;			//¹è³Ê ¿¬°á URL
-	private String bannerInsertName;		//¹è³Ê µî·Ï
-	private Date bannerInsertDate;			//¹è³Ê »ı¼ºÀÏ
-	private List<BannerEntity> bannerList;	//¹è³Ê ¸®½ºÆ®
-	private String bannerCount;				//¹è³Ê ÁøÇà Ä«¿îÆ®
+	private int bannerInquiryKey;			//ë°°ë„ˆ ê³ ìœ 
+	private int bannerViewSeq;				//ë°°ë„ˆ ìˆœë²ˆ
+	private String bannerTitle;				//ë°°ë„ˆ ì œëª©
+	private Date bannerStartDate;			//ë°°ë„ˆ ì‹œì‘
+	private Date bannerEndDate;				//ë°°ë„ˆ ì¢…ë£Œ
+	private String bannerStatus;			//ë°°ë„ˆ ìƒíƒœ
+	private String bannerLinkType;			//ë°°ë„ˆ ì—°ê²° êµ¬ë¶„
+	private String bannerLinkUrl;			//ë°°ë„ˆ ì—°ê²° URL
+	private String bannerInsertName;		//ë°°ë„ˆ ë“±ë¡
+	private Date bannerInsertDate;			//ë°°ë„ˆ ìƒì„±ì¼
+	private List<BannerEntity> bannerList;	//ë°°ë„ˆ ë¦¬ìŠ¤íŠ¸
+	private String bannerCount;				//ë°°ë„ˆ ì§„í–‰ ì¹´ìš´íŠ¸
 	private String fileName;
 	private String fileSavedName;
 	private String fileTarget = "banner";
+	private String bgFileName;
+	private String bgFileSavedName;
+	private String bgFileTarget = "banner_bg";
 	private String bannerKeyList;
-
-
+	
+	
+	public String getBgFileName() {
+		return bgFileName;
+	}
+	public void setBgFileName(String bgFileName) {
+		this.bgFileName = bgFileName;
+	}
+	public String getBgFileSavedName() {
+		return bgFileSavedName;
+	}
+	public void setBgFileSavedName(String bgFileSavedName) {
+		this.bgFileSavedName = bgFileSavedName;
+	}
+	public String getBgFileTarget() {
+		return bgFileTarget;
+	}
+	public void setBgFileTarget(String bgFileTarget) {
+		this.bgFileTarget = bgFileTarget;
+	}
 	public int getBannerInquiryKey() {
 		return bannerInquiryKey;
 	}
@@ -60,6 +81,7 @@ public class BannerEntity extends PageEntity implements Serializable{
 	public void setBannerTitle(String bannerTitle) {
 		this.bannerTitle = bannerTitle;
 	}
+	 
 	public Date getBannerStartDate() {
 		return bannerStartDate;
 	}

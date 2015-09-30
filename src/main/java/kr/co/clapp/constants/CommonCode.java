@@ -20,9 +20,8 @@ public class CommonCode {
 	public static final String USER_JOB_TYPE = "USER_JOB_TYPE";								//공통코드 직종
 	public static final String POPUP_OPEN = "POPUP_OPEN";									//공통코드 팝업진행여부
 	// Banner Add Start
-	public static final String BANNER_STATUS = "BANNER_STATUS";								//공통코드 배너상태
-	public static final String BANNER_LINK_TYPE = "BANNER_LINK_TYPE";						//공통코드 배너링크타입
-	public static final String FILE_TARGET_BANNER = "banner";								//배너 파일 저장 폴더
+	public static final String BANNER_STATUS = "BANNER_STATUS";									//공통코드 배너상태
+	public static final String BANNER_LINK_TYPE = "BANNER_LINK_TYPE";									//공통코드 배너상태
 	// Banner Add End
 	public static final String USER_COMPANY_BUSINESS_TYPE = "USER_COMPANY_BUSINESS_TYPE";		//공통코드 업종
 	public static final String DROP_OUT_REASON = "DROP_OUT_REASON";							//공통코드 탈퇴사유
@@ -43,7 +42,11 @@ public class CommonCode {
 	public static final String FILE_TARGET_DEVICE = "device";								//디바이스 파일 저장 폴더 
 	public static final String FILE_TARGET_INQUIRY = "inquiry";								//상담 파일 저장 폴더
     public static final String FILE_TARGET_APPLYFORM = "applyform";							//테스트신청 파일 저장 폴더
-	public static final String FILE_TARGET_BOARD_TRAND = "boardTrand";						//트렌드리뷰 파일 저장 폴더 
+	public static final String FILE_TARGET_BOARD_TRAND = "boardTrand";						//트렌드리뷰 파일 저장 폴더
+	// Banner Add Start
+	public static final String FILE_TARGET_BANNER = "banner";						//배너 파일 저장 폴더
+	public static final String FILE_TARGET_BANNER_BG = "banner_bg";						//배너 파일 저장 폴더
+	// Banner Add End
 	public static final String FILE_TARGET_BOARD_SOCIAL_BLOG = "boardSocialBlog";			//소셜/블로그 파일 저장 폴더
     public static final String FILE_TARGET_TESTINGRESULT = "testingresult";			//테스팅 완료 파일 저장 폴더
 	public static final String FILE_THUMB_Y = "Y";									     	//파일 썸네일 생성여부 

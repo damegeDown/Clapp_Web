@@ -53,7 +53,16 @@
        </td>
      </tr>
      <tr>
-       <th>상태</th>
+         <th>배경 이미지</th>
+         <td>
+             <img id="bg_blah" src="${contextPath}/common/imgView?fileType=${bannerDetail.bgFileTarget}&fileName=${bannerDetail.bgFileSavedName}" style="max-width:800px"/>
+             <input type="hidden" name="bgFileName" value="${bannerDetail.bgFileName }" data-flag="off"/>
+             <input type="hidden" name="bgFileSavedName" value="${bannerDetail.bgFileSavedName }" data-flag="off"/>
+             <div class="marT-5"><span>등록된 배경 이미지 : </span><a href="">${bannerDetail.bgFileName }</a></div>
+         </td>
+     </tr>
+     <tr>
+     <th>상태</th>
        <td>
          <input type="hidden" class="inp-w160" name="bannerStatus" value="${bannerDetail.bannerStatus}" placeholder="Width"/>
          <c:if test="${bannerDetail.bannerStatus eq '1'}">노출</c:if>
