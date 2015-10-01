@@ -99,7 +99,7 @@ public class TicketServiceImpl implements TicketService {
         return result;
     }
   /**
-   * 티켓 적용 서비스 신규 적용(등록)
+   * 티켓 적용 서비스 신규 적용(등록)[기존상품]
    */
   @Override
   @Transactional(readOnly = false, rollbackFor = Exception.class)
@@ -129,7 +129,7 @@ public class TicketServiceImpl implements TicketService {
 				  memberEntity.setUserId(userId.get(i));
 				  memberEntity = memberDAO.getUserInfoId(memberEntity);
 
-                  //ticketEntity.setUserMasterKey(ticketEntity.getUserMasterKey());//userMasterKey 불러온다
+                  ticketEntity.setUserMasterKey(ticketEntity.getUserMasterKey());//userMasterKey 불러온다
                   ticketEntity.setUserTicketMasterKey(ticketEntity.getUserTicketMasterKey());
                   ticketEntity.setUserMasterKey(ticketEntity.getUserMasterKey());
                   ticketEntity.setUserId(memberEntity.getUserId());

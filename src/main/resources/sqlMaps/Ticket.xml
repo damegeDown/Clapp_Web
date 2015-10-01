@@ -393,11 +393,12 @@
                  #{userIdArr}
               </foreach> -->
                 user_id = #{userId}
-                <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
-                and user_ticket_master_key=#{userTicketMasterKey}
-                </if>
+
             </if>
         )
+        <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
+            and user_ticket_master_key=#{userTicketMasterKey}
+        </if>
         <!-- AND
          use_yn = 'Y'-->
     </update>
