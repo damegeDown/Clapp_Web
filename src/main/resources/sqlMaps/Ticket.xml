@@ -1048,7 +1048,9 @@
                 if(service_apply_reason > 6, '반환','적립'),
                 '차감'
             ) AS statusText,
-            service_apply_ticket_amount historyUsedTicketAmountText,
+            <!--service_apply_ticket_amount historyUsedTicketAmountText,-->
+            IF(service_apply_reason > 6,service_apply_ticket_amount, service_apply_ticket_amount*5)
+            as historyUsedTicketAmountText,
             ut.ticket_avilable_amount ticketAvilableAmount,
             tr.ticket_start_expiration_date ticketStartExpirationDate,
             tr.ticket_end_expiration_date ticketEndExpirationDate,

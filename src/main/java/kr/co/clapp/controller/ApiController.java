@@ -307,7 +307,7 @@ public class ApiController {
 //                } else
 //
                 if (timeDiff >= 24) { //24시간전 100% 반환
-                    reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME) / 2;   //리턴 티켓
+                    reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME);   //리턴 티켓
                 } else if (timeDiff < 24) {  // 당일 불가
                     reservationTicketAmount = 0;
                 }

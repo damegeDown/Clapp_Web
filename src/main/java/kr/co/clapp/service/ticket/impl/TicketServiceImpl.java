@@ -53,7 +53,7 @@ public class TicketServiceImpl implements TicketService {
     return ticketEntity;
 	}
     /**
-     * 티켓 적용 서비스 신규 적용(등록)
+     * 티켓 적용 서비스 신규 적용 NEW(등록)
      */
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)
@@ -86,13 +86,16 @@ public class TicketServiceImpl implements TicketService {
             ticketParam2.setUseYn("N");
             ticketParam2.setTicketAvilableAmount(CommonCode.ZERO);
             ticketDAO.modifyUserTicketMasterUse(ticketParam2);
-
         }
         /** 저장될 티켓 수**/
         ticketEntity.setTicketAmount(ticketEntity.getServiceApplyTicketAmount());//구입시간
         ticketEntity.setTicketAvilableAmount(ticketEntity.getServiceApplyTicketAmount()+priAmountTicket);//사용가능
         ticketEntity.setUseYn("Y");
         int result = this.insertUserTicketMaster(ticketEntity);
+        int InsertResult = ticketDAO.insertTicketProductService(ticketEntity);
+        if(InsertResult > CommonCode.ZERO) {
+            ticketDAO.selectUserType(ticketEntity);
+        }
         return result;
     }
   /**
