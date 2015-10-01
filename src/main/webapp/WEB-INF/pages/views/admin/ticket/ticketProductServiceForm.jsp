@@ -74,8 +74,8 @@
      <tr>
        <th>계정당 적용시간</th>
         <td>
-            <input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount_" placeholder="숫자만 입력"/>&nbsp;&nbsp;분 ( 반드시 1계정당 적용할 시간을 입력해 주세요. 5분 단위로만 적립/차감이 가능합니다. )
-            <%--<input type="hidden" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>--%>
+            <%--<input type="text" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount_" placeholder="숫자만 입력"/>&nbsp;&nbsp;분 ( 반드시 1계정당 적용할 시간을 입력해 주세요. 5분 단위로만 적립/차감이 가능합니다. )--%>
+            <input type="hidden" class="inp-w160 serviceApplyTicketAmount" name="serviceApplyTicketAmount" placeholder="숫자만 입력"/>
             <input type="hidden" class="userMasterKey" name="userMasterKey" />
         </td>
      </tr>
