@@ -114,17 +114,27 @@
         WHEN a.apply_type = '1' THEN '무료체험권'
         WHEN a.apply_type = '9' THEN '클앱멤버십'
         END)
-        AS apply_type,
+        AS apply_type<!--,
         af.file_name,
         af.file_saved_name,
-        af.file_path
+        af.file_path-->
         FROM apply_form a
-        LEFT OUTER JOIN
-	    ADMINISTRATION_FILE af on a.apply_form_key = af.file_target_key
+        <!--LEFT OUTER JOIN
+	    ADMINISTRATION_FILE af on a.apply_form_key = af.file_target_key-->
         WHERE apply_insert_date IS NOT NULL
         AND a.apply_form_key=#{applyFormKey}
         <if test="fileTarget != '' and fileTarget != null">
          AND af.file_target = #{fileTarget}
         </if>
+    </select>
+    <select id="getTestRequestDetailFile" parameterType="applyFormEntity" resultType="applyFormEntity">
+        SELECT * from administration_file
+        WHERE file_target_key = #{applyFormKey}
+        AND file_target = 'applyform'
+    </select>
+    <select id="getTestRequestDetailFileResult" parameterType="applyFormEntity" resultType="applyFormEntity">
+        SELECT * from administration_file
+        WHERE file_target_key = #{applyFormKey}
+        AND file_target = 'testingresult'
     </select>
 </mapper>

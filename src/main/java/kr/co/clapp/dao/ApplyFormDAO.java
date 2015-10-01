@@ -23,4 +23,16 @@ public interface ApplyFormDAO {
      * @return
      */
     int testRequestUpdate(ApplyFormEntity applyFormEntity);
+    /**
+     * 테스팅 신청 파일
+     * @param applyFormEntity
+     * @return
+     */
+    ApplyFormEntity getTestRequestDetailFile(ApplyFormEntity applyFormEntity);
+    /**
+     * 테스팅 결과 파일
+     * @param applyFormEntity
+     * @return
+     */
+    ApplyFormEntity getTestRequestDetailFileResult(ApplyFormEntity applyFormEntity);
 }

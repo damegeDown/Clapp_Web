@@ -72,5 +72,13 @@ public class ApplyformServiceimpl implements ApplyformService {
 	    int testRequestCount = applyFormDAO.getTestRequestCount(applyFormEntity);
 	    return testRequestCount;
     }
+    public ApplyFormEntity getTestRequestDetailFile(ApplyFormEntity applyFormEntity) throws Exception{
+        applyFormEntity  =  applyFormDAO.getTestRequestDetailFile(applyFormEntity);
+        return  applyFormEntity;
+    }
+    public ApplyFormEntity getTestRequestDetailFileResult(ApplyFormEntity applyFormEntity) throws Exception{
+        applyFormEntity  =  applyFormDAO.getTestRequestDetailFileResult(applyFormEntity);
+        return  applyFormEntity;
+    }
 
 }

@@ -463,19 +463,26 @@ public class CustomerController {
      * @return
      */
     @RequestMapping("/testRequestDetail")
-    public String testRequestDetail(ApplyFormEntity applyFormEntity,ApplyFormEntity resultFile, Model model){
+    public String testRequestDetail(ApplyFormEntity applyFormEntity,ApplyFormEntity resultFile,ApplyFormEntity requestFile, Model model){
 //        ApplyFormEntity applyFormEntityInfo = null;
 
         try{
-
-            applyFormEntity.setFileTarget(CommonCode.FILE_TARGET_APPLYFORM);
+            int resultType = 0;
+            //applyFormEntity.setFileTarget(CommonCode.FILE_TARGET_APPLYFORM);
             applyFormEntity.setApplyFormKey(applyFormEntity.getApplyFormKey());
             applyFormEntity= applyformService.getTestRequestDetail(applyFormEntity);
-            //결과파일 출력
-            if(applyFormEntity.getResultType() > CommonCode.ZERO) {
-                resultFile.setFileTarget(CommonCode.FILE_TARGET_TESTINGRESULT);
-                resultFile.setApplyFormKey(applyFormEntity.getApplyFormKey());
-                resultFile = applyformService.getTestRequestDetail(resultFile);
+            //첨부파일 출력
+            String fileMemo =null;
+            fileMemo = applyFormEntity.getFileMemo();
+           if(!fileMemo.equals(null)){
+               requestFile =  applyformService.getTestRequestDetailFile(applyFormEntity);
+               model.addAttribute("applyFile", requestFile);
+           }
+            resultType = applyFormEntity.getResultType();
+            if( resultType ==1) {
+//                resultFile.setFileTarget(CommonCode.FILE_TARGET_TESTINGRESULT);
+//                resultFile.setApplyFormKey(applyFormEntity.getApplyFormKey());
+                resultFile = applyformService.getTestRequestDetailFileResult(applyFormEntity);
                 model.addAttribute("resultFile", resultFile);
             }
             model.addAttribute("applyFormDetail",applyFormEntity);

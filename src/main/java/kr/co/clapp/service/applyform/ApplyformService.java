@@ -37,4 +37,16 @@ public interface ApplyformService {
      * @return
      */
     int testRequestFileUpdate(ApplyFormEntity applyFormEntity)throws Exception;
+    /**
+     * 테스팅 신청 파일 출력
+     * @param applyFormEntity
+     * @return
+     */
+    ApplyFormEntity getTestRequestDetailFile(ApplyFormEntity applyFormEntity)throws Exception;
+    /**
+     * 테스팅 결과 파일 출력
+     * @param applyFormEntity
+     * @return
+     */
+    ApplyFormEntity getTestRequestDetailFileResult(ApplyFormEntity applyFormEntity)throws Exception;
 }

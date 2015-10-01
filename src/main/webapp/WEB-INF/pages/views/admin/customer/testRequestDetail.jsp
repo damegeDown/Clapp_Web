@@ -54,7 +54,7 @@
                 <td>
                     <div class="marT-5">앱설치 테스트</div>
                     <div class="marT-10">
-                        <p><a href="${contextPath}/common/fileDownload?path=applyform&orgFileName=${applyFormDetail.fileSavedName}">${applyFormDetail.fileName}</a></p>
+                        <p><a href="${contextPath}/common/fileDownload?path=applyform&orgFileName=${applyFile.fileSavedName}">${applyFile.fileName}</a></p>
                         <%--<a href="javascript:void(0)" onclick="autoJnlpDownload();">123.apk</a></div>--%>
                     </div>
                 </td>
