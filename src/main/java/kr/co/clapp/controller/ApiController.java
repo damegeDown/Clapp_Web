@@ -308,6 +308,7 @@ public class ApiController {
 //
                 if (timeDiff >= 24) { //24시간전 100% 반환
                     reservationTicketAmount = (reservation_time / CommonCode.TICKET_TIME);   //리턴 티켓
+//                    logger.debug("DAO============================{}",reservationTicketAmount);
                 } else if (timeDiff < 24) {  // 당일 불가
                     reservationTicketAmount = 0;
                 }
@@ -332,8 +333,8 @@ public class ApiController {
                     ticketEntity.setTicketEndExpirationDate(ticketInfo.getTicketEndExpirationDate());
                     ticketEntity.setServiceApplyOperatorName("system");
                     //티켓 반환으로 저장
-                    if (reservationTicketAmount > 0) ticketService.insertTicketProductService(ticketEntity);
-                    ticketService.returnTicket(ticketEntity);
+//                    if (reservationTicketAmount > 0) ticketService.insertTicketProductService(ticketEntity);
+                    //ticketService.returnTicket(ticketEntity);
 
                     apiEntity.setResultState(ResultCode.SUCCESS);
                     apiEntity.setReturnTicketAmount(reservationTicketAmount*CommonCode.TICKET_TIME);
