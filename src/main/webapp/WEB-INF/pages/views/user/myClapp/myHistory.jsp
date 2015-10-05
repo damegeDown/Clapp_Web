@@ -151,7 +151,7 @@
                         <td>
                             ${history.productName}
                         </td>
-						<td><fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td><fmt:formatDate value="${history.ticketApplyDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${history.statusText}</td>
 						<td>${history.historyUsedTicketAmountText} 분</td><!--적용시간-->
 						<td>
