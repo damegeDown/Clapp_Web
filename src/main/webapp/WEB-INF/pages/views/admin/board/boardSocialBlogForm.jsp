@@ -88,7 +88,7 @@
       <div class="floatR btn-bottom-orenge submitBtn" data-action="/admin/board/rest/removeBoardSocialBlog" data-type="ajax" data-id='${boardSocialBlogDetail.boardSocialBlogKey}' data-msg='삭제'>삭제</div>
     </c:if> 
     <div class="floatR btn-bottom-orenge onSubmitBtn" onclick="socialOnsubmit()">${CommonCode.submitType }</div>
-    <div style="display:none" class="submitBtn" data-action="${contextPath}/${CommonCode.submitAction}" data-msg="${CommonCode.submitType }"></div>
+    <div style="display:none" class="submitBtn" id="submitBtn" data-action="${contextPath}/${CommonCode.submitAction}" data-msg="${CommonCode.submitType }"></div>
   </div>
 	<input type="hidden" name="accessTocken" data-flag="off"/>
   </form>
@@ -112,7 +112,7 @@
 			 return false;
 		// }
 	 }  */
-	 $(".submitBtn").click();
+	 $("#submitBtn").click();
  }
  
 var SnsUtils = (function() {
