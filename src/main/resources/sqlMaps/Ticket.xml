@@ -545,7 +545,7 @@
             #{ticketAvilableAmount},
             #{ticketStartExpirationDate},
             #{ticketEndExpirationDate},
-            #{ticketApplyDate},
+            now(),
             now(),
             #{useYn}
         )
@@ -1124,6 +1124,7 @@
         </if>
         ORDER BY
         ticketApplyDate DESC
+        <!--ticketStartExpirationDate DESC-->
         LIMIT
         #{rowStartNumber}, #{pageListSize}
     </select>
