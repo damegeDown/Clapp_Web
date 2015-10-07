@@ -282,6 +282,7 @@ $.fn.BannerList = {
 				return false;
 			}
 			bannerKeyList.push(bannerKeyArr[0]);
+			bannerKeyList.push(parseInt(bannerKeyArr[1] ,10) - 1);
 
 			var bannerEntity = { bannerKeyList: bannerKeyList.toString()};
 
@@ -311,6 +312,7 @@ $.fn.BannerList = {
 			var bannerKeyArr = $(this).data("key").split('_');
 
 			bannerKeyList.push(bannerKeyArr[0]);
+			bannerKeyList.push(parseInt(bannerKeyArr[1] ,10) + 1);
 
 			var bannerEntity = { bannerKeyList: bannerKeyList.toString()};
 

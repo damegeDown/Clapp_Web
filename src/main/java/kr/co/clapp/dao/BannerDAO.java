@@ -67,29 +67,29 @@ public interface BannerDAO {
 
   /**
    * 배너 순서 업
-   * @param bannerEntity
+   * @param bannerKey
    * @return
    */
-  int bannerViewUp(BannerEntity bannerEntity);
+  int bannerViewUp(String bannerKey);
 
   /**
    * 배너 순서 다운
-   * @param bannerEntity
+   * @param bannerKey
    * @return
    */
-  int bannerViewDown(BannerEntity bannerEntity);
+  int bannerViewDown(String bannerKey);
 
   /**
    * 배너 순서 반전 업
-   * @param bannerEntity
+   * @param bannerKey
    * @return
    */
-  int bannerViewReverseUp(BannerEntity bannerEntity);
+  int bannerViewReverseUp(String bannerKey);
 
   /**
    * 배너 순서 반전 다운
-   * @param bannerEntity
+   * @param bannerKey
    * @return
    */
-  int bannerViewReverseDown(BannerEntity bannerEntity);
+  int bannerViewReverseDown(String bannerKey);
 }

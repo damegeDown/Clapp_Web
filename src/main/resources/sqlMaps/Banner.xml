@@ -180,46 +180,46 @@
     <!--/ 배너 비 노출 -->
 
     <!-- 배너 노출 업 -->
-    <update id="bannerViewUp" parameterType="bannerEntity">
+    <update id="bannerViewUp" parameterType="String">
         UPDATE
         BANNER_MASTER
         SET
         BANNER_VIEW_SEQ = BANNER_VIEW_SEQ - 1
         WHERE
-        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+        BANNER_INQUIRY_KEY = #{bannerKey}
     </update>
     <!--/ 배너 노출 업 -->
 
     <!-- 배너 비 노출 다운 -->
-    <update id="bannerViewDown" parameterType="bannerEntity">
+    <update id="bannerViewDown" parameterType="String">
         UPDATE
         BANNER_MASTER
         SET
         BANNER_VIEW_SEQ = BANNER_VIEW_SEQ + 1
         WHERE
-        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+        BANNER_INQUIRY_KEY = #{bannerKey}
     </update>
     <!--/ 배너 비 노출 다운 -->
 
     <!-- 기존 배너 존재 시 반전 배너 노출 업 -->
-    <update id="bannerViewReverseUp" parameterType="bannerEntity">
+    <update id="bannerViewReverseUp" parameterType="String">
         UPDATE
         BANNER_MASTER
         SET
         BANNER_VIEW_SEQ = BANNER_VIEW_SEQ - 1
         WHERE
-        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+        BANNER_INQUIRY_KEY = (SELECT * FROM (SELECT BANNER_INQUIRY_KEY FROM BANNER_MASTER WHERE BANNER_VIEW_SEQ = #{bannerKey} ) X)
     </update>
     <!--/ 배너 노출 업 -->
 
     <!-- 기존 배너 존재 시 반전 배너 비 노출 다운 -->
-    <update id="bannerViewReverseDown" parameterType="bannerEntity">
+    <update id="bannerViewReverseDown" parameterType="String">
         UPDATE
         BANNER_MASTER
         SET
         BANNER_VIEW_SEQ = BANNER_VIEW_SEQ + 1
         WHERE
-        BANNER_INQUIRY_KEY IN (${bannerKeyList})
+        BANNER_INQUIRY_KEY = (SELECT * FROM (SELECT BANNER_INQUIRY_KEY FROM BANNER_MASTER WHERE BANNER_VIEW_SEQ = #{bannerKey} ) X)
     </update>
     <!--/ 배너 비 노출 다운 -->
 

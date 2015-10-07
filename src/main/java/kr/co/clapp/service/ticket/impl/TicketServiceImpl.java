@@ -91,10 +91,10 @@ public class TicketServiceImpl implements TicketService {
         ticketEntity.setTicketAmount(ticketEntity.getServiceApplyTicketAmount());//구입시간
         ticketEntity.setTicketAvilableAmount(ticketEntity.getServiceApplyTicketAmount()+priAmountTicket);//사용가능
         ticketEntity.setUseYn("Y");
-        int result = this.insertUserTicketMaster(ticketEntity);
+        int result = ticketDAO.insertUserTicketMaster(ticketEntity);
         int InsertResult = ticketDAO.insertTicketProductService(ticketEntity);
         if(InsertResult > CommonCode.ZERO) {
-            ticketDAO.selectUserType(ticketEntity);
+           ticketDAO.selectUserType(ticketEntity);
         }
         return result;
     }

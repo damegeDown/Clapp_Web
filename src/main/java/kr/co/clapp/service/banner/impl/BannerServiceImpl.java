@@ -108,47 +108,15 @@ public List<BannerEntity> getBannerMain() throws Exception {
   @Transactional(readOnly = false, rollbackFor = Exception.class)
   public int bannerViewUp(BannerEntity bannerEntity) {
 
-    /*
-    int selectResult = 0;
-    int ticket = 0;
-    int avilableTicket = 0;
-    Date endDate = null;
-    TicketEntity ticketInfo = new TicketEntity();
-    TicketEntity ticketParam = ticketEntity;
-    //소유한 티켓 정보를 불러온다.
-    ticketInfo = ticketDAO.selectTicketInfo(ticketParam);
+    String[] splitParam = bannerEntity.getBannerKeyList().split(",");
 
-    int result = ticketDAO.insertTicketProductService(ticketEntity);
-    MemberEntity memberEntity = new MemberEntity();
+    int result = bannerDAO.bannerViewReverseDown(splitParam[1]);
+
     if(result > 0 ){
-      selectResult = ticketDAO.selectUserType(ticketEntity);
-
-      List<String> userId = (List<String>) ticketEntity.getUserIdArr();
-      //if(userId.size() < 1) userId.add(ticketEntity.getUserId());
-
-
-      if(ticketEntity.getServiceTargetType().equals("4")) {
-        for(int i = 0; i < userId.size(); i++ ) {
-          memberEntity.setUserId(userId.get(i));
-          memberEntity = memberDAO.getUserInfoId(memberEntity);
-
-          ticketEntity.setUserMasterKey(memberEntity.getUserMasterKey());//userMasterKey 불러온다
-          ticketEntity.setUserId(memberEntity.getUserId());
-          ticketEntity.setUserType(memberEntity.getUserType());
-
-          ticketDAO.modifyServiceTicketMaster(ticketEntity);
-          ticketDAO.insertServiceTicketHistory(ticketEntity);
-        }
-      } else {
-
-        ticketDAO.modifyServiceTicketMaster(ticketEntity);
-        ticketDAO.insertServiceTicketHistory(ticketEntity);
-      }
+      result = bannerDAO.bannerViewUp(splitParam[0]);
     }
-    return result > 0 ? selectResult : result;
-    */
 
-    return bannerDAO.bannerViewUp(bannerEntity);
+    return result;
   }
 
   /**
@@ -159,7 +127,16 @@ public List<BannerEntity> getBannerMain() throws Exception {
   @Override
   @Transactional(readOnly = false, rollbackFor = Exception.class)
   public int bannerViewDown(BannerEntity bannerEntity) {
-    return bannerDAO.bannerViewDown(bannerEntity);
+
+    String[] splitParam = bannerEntity.getBannerKeyList().split(",");
+
+    int result = bannerDAO.bannerViewReverseUp(splitParam[1]);
+
+    if(result > 0 ){
+      result = bannerDAO.bannerViewDown(splitParam[0]);
+    }
+
+    return result;
   }
 
 
