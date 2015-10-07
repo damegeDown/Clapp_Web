@@ -209,7 +209,7 @@
 <%--</div>--%>
 <div class="area">
     <ul id="mainrolling">
-        <c:forEach items="${bannerEntity}" end="4" var="bannerList" varStatus="i">
+        <c:forEach items="${bannerEntity}" end="9" var="bannerList" varStatus="i">
             <li style="background:url('${contextPath}/common/imgView?fileType=${bannerList.bgFileTarget}&fileName=${bannerList.bgFileSavedName}')">
                 <c:if test="${bannerList.bannerLinkType eq '0' }">
                     <a href="${bannerList.bannerLinkUrl }" target="_blank"><img src="${contextPath}/common/imgView?fileType=${bannerList.fileTarget}&fileName=${bannerList.fileSavedName}" /></a>
