@@ -274,7 +274,7 @@
 
 </form>
 <!--  UTF-8 인코딩 사용 시는 xpay.js 대신 xpay_utf-8.js 을  호출하시기 바랍니다.-->
-<script type="text/javascript" src="//xpay.uplus.co.kr<%="test".equals("${payLgdInfo.CST_PLATFORM}")?(request.getScheme().equals("https")?":7443":":7080"):""%>/xpay/js/xpay_ub_utf-8.js"></script>
+<script type="text/javascript" src="//xpay.uplus.co.kr<%="test".equals("${payLgdInfo.CST_PLATFORM}")?(request.getScheme().equals("https")?":7443":":7080"):""%>/xpay/js/xpay_utf-8.js"></script>
 <script>
 function PaymentOK(){
 
@@ -331,10 +331,11 @@ var PaymentUtils = (function() {
         location.href = contextPath+"/myClapp/payment?productMasterKey="+key;
     };
     var doPayment = function() {
+        var paErrMsg = null;
+        paErrMsg = '${payErrMsg}';
 
-
-            if('${payErrMsg}'){
-                alert('${payErrMsg}');
+            if(paErrMsg != "" && !paErrMsg != null){
+              //  alert('${payErrMsg}');
                 return false;
             }
 
