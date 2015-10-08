@@ -39,8 +39,8 @@ public class PaymentServiceImpl implements PaymentService {
     private ProductDAO productDAO;
     @Autowired
     private MailingService mailingService;
-    @Autowired
-    private PaymentService paymentService;
+//    @Autowired
+//    private PaymentService paymentService;
 
     @Value("#{pay_prop['configPath']}")
     private String configPath;
@@ -356,7 +356,7 @@ public class PaymentServiceImpl implements PaymentService {
                 //String DB_AMOUNT = "DB나 세션에서 가져온 금액"; //반드시 위변조가 불가능한 곳(DB나 세션)에서 금액을 가져오십시요.
                 //xpay.Set("LGD_AMOUNTCHECKYN", "Y");
                 //xpay.Set("LGD_AMOUNT", DB_AMOUNT);
-                xpay.Set("LGD_DISPLAY_BUYEREMAIL", "N");
+//                xpay.Set("LGD_DISPLAY_BUYEREMAIL", "N");
             } catch(Exception e) {
                 resultMsg = "LG유플러스 제공 API를 사용할 수 없습니다. 환경파일 설정을 확인해 주시기 바랍니다.";
                 resultMap.setResultCode(resultMsg);
