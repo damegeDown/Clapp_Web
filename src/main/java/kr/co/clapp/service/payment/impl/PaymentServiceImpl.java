@@ -39,6 +39,8 @@ public class PaymentServiceImpl implements PaymentService {
     private ProductDAO productDAO;
     @Autowired
     private MailingService mailingService;
+    @Autowired
+    private PaymentService paymentService;
 
     @Value("#{pay_prop['configPath']}")
     private String configPath;
@@ -354,6 +356,7 @@ public class PaymentServiceImpl implements PaymentService {
                 //String DB_AMOUNT = "DB나 세션에서 가져온 금액"; //반드시 위변조가 불가능한 곳(DB나 세션)에서 금액을 가져오십시요.
                 //xpay.Set("LGD_AMOUNTCHECKYN", "Y");
                 //xpay.Set("LGD_AMOUNT", DB_AMOUNT);
+                xpay.Set("LGD_DISPLAY_BUYEREMAIL", "N");
             } catch(Exception e) {
                 resultMsg = "LG유플러스 제공 API를 사용할 수 없습니다. 환경파일 설정을 확인해 주시기 바랍니다.";
                 resultMap.setResultCode(resultMsg);
@@ -424,7 +427,6 @@ public class PaymentServiceImpl implements PaymentService {
                     paymentEntity.setPayTypeCd("SC0040");
                     paymentEntity.setPayTypeNm("무통장입금");
                     paymentEntity.setPayDt(null);
-
                     paymentEntity.setCashReceiptNum(xpay.Response("LGD_CASHRECEIPTNUM",0));
                     paymentEntity.setCashReceiptSelfYn(xpay.Response("LGD_CASHRECEIPTSELFYN",0));
                     paymentEntity.setCashReceiptKind(xpay.Response("LGD_CASHRECEIPTKIND",0));
@@ -499,6 +501,25 @@ public class PaymentServiceImpl implements PaymentService {
                         ecrmEntity.setExpirationDate(endDate);
                         ecrmEntity.setPaymentAmount(paymentParam.getPaymentProductPrice());
                         mailingService.sendPaymentCardPhoneMail(ecrmEntity);
+                    }else {
+                        /**가상계좌 메일 발송 */
+                        EcrmEntity ecrmEntity = new EcrmEntity();
+                        ecrmEntity.setMailTitle("[Clapp] 결제가 정상적으로 완료되었습니다.");
+                        ecrmEntity.setUserId(paymentEntity.getPaymentUserId());
+                        ecrmEntity.setUserName(paymentEntity.getPaymentName());
+                        ecrmEntity.setProductName(paymentEntity.getPaymentProductName());
+                        ecrmEntity.setTicketAmount(paymentEntity.getPaymentTicketAmount());
+                        ecrmEntity.setExpirationDate(endDate);
+                        ecrmEntity.setPaymentAmount(paymentParam.getPaymentProductPrice());
+                        PaymentEntity paymentEcrm = new PaymentEntity();
+                        //입금정보 GET
+                        paymentEcrm.setPaymentMasterKey(masterKey);
+                        /*결제 정보*/
+                        PaymentEntity paymentInfo = paymentDAO.getPaymentInfo(paymentEcrm);
+
+                        ecrmEntity.setAccountNum(paymentInfo.getAccountNum());
+                        ecrmEntity.setFinanceName(paymentInfo.getFinanceName());
+                        mailingService.sendPaymentVirtualMail(ecrmEntity);
                     }
                     resultMap.setResultDATA(masterKey);
                     resultMap.setResultCode(CommonCode.SUCCESS);

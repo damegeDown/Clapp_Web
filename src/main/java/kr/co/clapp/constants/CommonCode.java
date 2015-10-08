@@ -75,7 +75,7 @@ public class CommonCode {
 		public final static int MAIL_DROPOUT_MEMBER = 3;			    // 회원 탈퇴
 		public final static int MAIL_TEMP_PASSWORD = 4;					// 임시 비밀번호 발송
 		public final static int MAIL_PAYMENT_CARD = 5;					// 유료 서비스 결제(카드,핸드폰)
-		public final static int MAIL_PAYMENT_VIRTUAL = 6;				// 유료 서비스 결제 (가상 계좌)
+		public final static int MAIL_PAYMENT_VIRTUAL = 22;				// 유료 서비스 결제 (가상 계좌)
 		public final static int MAIL_CANCEL_PAYMENT = 7;			    	// 결제 취소 
 		public final static int MAIL_END_RECEIPT_TERM = 8;				// 입금 기한 종료
 		public final static int MAIL_INQUIRY = 9;			   					// 고객문의 답변메일

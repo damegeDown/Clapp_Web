@@ -53,7 +53,7 @@ public interface MailingService {
    * 유료서비스 결제시(가상계좌)
    * @return
    */
-  int sendPaymentVirtualMail();
+  int sendPaymentVirtualMail(EcrmEntity ecrmEntity);
   
   /**
    * 결제 취소

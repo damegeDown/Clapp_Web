@@ -33,6 +33,9 @@
     String LGD_WINDOW_VER       = "2.5";                                                //결제창 버젼정보
     String LGD_BUYERID          = request.getParameter("LGD_BUYERID");       			//구매자 아이디
     String LGD_BUYERIP          = request.getParameter("LGD_BUYERIP");       			//구매자IP
+//    String LGD_FINACENAME          = request.getParameter("LGD_FINACENAME");       			//입금은행
+//    String LGD_ACCOUNTNUM          = request.getParameter("LGD_ACCOUNTNUM");       			//입금계좌
+
 
     /*
      * 가상계좌(무통장) 결제 연동을 하시는 경우 아래 LGD_CASNOTEURL 을 설정하여 주시기 바랍니다. 
@@ -198,8 +201,9 @@ function isActiveXOK(){
 <input type="hidden" name="LGD_VERSION"         		id="LGD_VERSION"		value="JSP_XPay_2.5">
 <input type="hidden" name="LGD_BUYERIP"                 id="LGD_BUYERIP"		value="<%= LGD_BUYERIP %>">           			<!-- 구매자IP -->
 <input type="hidden" name="LGD_BUYERID"                 id="LGD_BUYERID"		value="<%= LGD_BUYERID %>">           			<!-- 구매자ID -->
-
-
+<input type="hidden" name="LGD_DISPLAY_BUYEREMAIL"      id="LGD_DISPLAY_BUYEREMAIL"  value="N">                                 <!--가상계좌 이메일 결과 송신 방지-->
+<%--<input type="hidden" name="LGD_ACCOUNTNUM"              id="LGD_ACCOUNTNUM"  value="<%= LGD_ACCOUNTNUM %>">                   <!--계좌번호-->--%>
+<%--<input type="hidden" name="LGD_FINACENAME"              id="LGD_FINACENAME"  value="<%= LGD_FINACENAME %>">                   <!--입근은행-->--%>
 <!-- 가상계좌(무통장) 결제연동을 하시는 경우  할당/입금 결과를 통보받기 위해 반드시 LGD_CASNOTEURL 정보를 LG 유플러스에 전송해야 합니다 . -->
 <input type="hidden" name="LGD_CASNOTEURL"          id="LGD_CASNOTEURL"		value="<%= LGD_CASNOTEURL %>">                 <!-- 가상계좌 NOTEURL -->
 

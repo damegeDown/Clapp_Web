@@ -29,7 +29,8 @@ public class EcrmEntity extends PageEntity implements Serializable{
 	private Date mailSendDate;				// 발송일
 	private int mailTarget;					// 메일 대상 = 1:전체, 2:일반, 3:기업/ 단체
 	private String mailTargetText;			// 메일 대상 = 1:전체, 2:일반, 3:기업/ 단체
-
+    private String accountNum;           // 입금계좌
+    private String financeName;          // 입금은행
 	//MAIL_RECEPTION	
 	private String mailReceptionAddress;		// 수신인 주소
 	private String[] mailReceptionAddressArr;		// 수신인 주소
@@ -131,8 +132,21 @@ public class EcrmEntity extends PageEntity implements Serializable{
 	private Date expirationDate;
 	private Date paymentDate;
 	private int paymentAmount;
-	
-	public int getMailMasterKey() {
+
+
+    public String getAccountNum() {
+        return accountNum;
+    }
+    public void setAccountNum(String accountNum) {
+        this.accountNum = accountNum;
+    }
+    public String getFinanceName() {
+        return financeName;
+    }
+    public void setFinanceName(String financeName) {
+        this.financeName = financeName;
+    }
+    public int getMailMasterKey() {
 		return mailMasterKey;
 	}
 	public void setMailMasterKey(int mailMasterKey) {
