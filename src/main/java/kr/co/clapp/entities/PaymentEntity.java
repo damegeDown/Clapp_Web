@@ -149,7 +149,7 @@ public class PaymentEntity extends PageEntity implements Serializable {
 	private String cashReceiptSelfYn;	// LGD_CASHRECEIPTSelfYN.	현금영수증 자진발급제 유무
 	private String cashReceiptKind;		// LGD_CASHRECEIPTKIND.		현금영수증 종류. (0: 소득공제용, 1: 지출증빙용)
 	private String cashReceiptNum;		// LGD_CASHRECEIPTNUM.		현금영수증 승인번호(현금영수증 건이 아니거나 실패인경우 '0')
-	
+	private String lgdAuthData;         // lgdAuthData 카드전표용 해쉬데이터
 	/**
 	 * 무통장 추가 파라미터
 	 */
@@ -164,6 +164,13 @@ public class PaymentEntity extends PageEntity implements Serializable {
     private	Date ticketEndExpirationDate;				//유효기간 종료일
     private int paymentCancelCount;
 
+    public String getLgdAuthData() {
+        return lgdAuthData;
+    }
+
+    public void setLgdAuthData(String lgdAuthData) {
+        this.lgdAuthData = lgdAuthData;
+    }
 
     public int getReContract() {
         return reContract;
