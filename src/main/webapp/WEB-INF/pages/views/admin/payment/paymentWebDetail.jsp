@@ -90,7 +90,16 @@
     	 <tbody>
     	 	 <tr>
     	 		 <td>${paymentInfo.paymentOid }</td>
-    	 		 <td><input type="button" value="전표보기"/></td>
+    	 		 <td>
+                    <c:if test="${paymentInfo.payTypeCd eq  'SC0010' }" >
+                    <%--<input type="button" value="전표보기"/>--%>
+                    <a href="javascript:showReceiptByTID('tclapp', '${paymentInfo.paymentTid }','${authData}')">카드 영수증 출력</a>
+                    </c:if>
+                    <c:if test="${paymentInfo.payTypeCd eq  'SC0040' }" >
+                     <%--<input type="button" value="전표보기"/>--%>
+                     <a href="javascript:showReceiptByTID('clapp', '${paymentInfo.paymentOid }', '${paymentInfo.casSeqNo }','CAS','test')">현금 영수증 출력</a>
+                    </c:if>
+                 </td>
     	 		 <td>${paymentInfo.payDt }</td>
     	 		 <td>${paymentInfo.paymentTid }</td>
     	 		 <td><fmt:formatNumber value="${paymentInfo.paymentTotalPrice }" type="number"/></td>
