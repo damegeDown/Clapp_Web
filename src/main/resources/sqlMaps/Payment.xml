@@ -84,7 +84,7 @@
 	        FN_GET_VAT_EXCEPT_AMOUNT(pm.payment_total_price) payment_not_vat_total_price,
 	        pm.payment_total_price,
 	        pm.payment_start_date,
-	        pm.payment_end_date 
+	        pm.payment_end_date
 	    FROM
 	      PAYMENT_MASTER pm
        INNER JOIN
@@ -133,7 +133,8 @@
 			p.finance_name,
 			p.buyer,
 			FN_GET_COMMON_CODE_NAME('BILL_STATE',p.cash_receipt_self_yn) payment_bill_request_state,
-			p.cash_receipt_kind payment_purpose_type
+			p.cash_receipt_kind payment_purpose_type,
+            p.cas_seq_no
 		FROM
 			PAYMENT_MASTER pm ,
 			PAYMENT p

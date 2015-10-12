@@ -113,7 +113,28 @@ public class PayLgdInfo {
 		}
 		return strBuf.toString();
 	}
-	
+    /**authData**/
+    public String encryptAuthdata(String mid, String tid, String mertkey) throws NoSuchAlgorithmException {
+        StringBuffer sb = new StringBuffer();
+        sb.append(mid);
+        sb.append(tid);
+        sb.append(mertkey);
+
+        byte[] bNoti = sb.toString().getBytes();
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] digest = md.digest(bNoti);
+
+        StringBuffer strBuf = new StringBuffer();
+        for (int i=0 ; i < digest.length ; i++) {
+            int c = digest[i] & 0xff;
+            if (c <= 15){
+                strBuf.append("0");
+            }
+            strBuf.append(Integer.toHexString(c));
+        }
+
+        return strBuf.toString();
+    }
 	/**
 	 * 거래위변조방지 해쉬데이터 암호화
 	 * @return authData
