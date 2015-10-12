@@ -2,6 +2,7 @@ package kr.co.clapp.controller.admin.payment;
 
 import kr.co.clapp.constants.CommonCode;
 import kr.co.clapp.entities.CommonCodeEntity;
+import kr.co.clapp.entities.PayLgdInfo;
 import kr.co.clapp.entities.PaymentEntity;
 import kr.co.clapp.entities.ProductEntity;
 import kr.co.clapp.service.common.CommonService;
@@ -107,9 +108,14 @@ public class PaymentController {
   public String paymentWebDetail (PaymentEntity paymentEntity, Model model) {
 	try{
 	  PaymentEntity paymentInfo  = paymentService.getPaymentWebDetail( paymentEntity );
-	  model.addAttribute("paymentInfo", paymentInfo);
+        //authData 생성
+        PayLgdInfo payLgdInfo = new PayLgdInfo();
+        String tid = paymentInfo.getPaymentTid();
+        String authData = payLgdInfo.encryptAuthdata("tclapp", tid, "e4daafb91acda0a49719fd2fa0b7f4c3");
+	    model.addAttribute("paymentInfo", paymentInfo);
+        model.addAttribute("authData",authData);
 	  //공통
-      commonCode.put( "navigation", "웹 결제 관리 > 상세 보기" );			// 현재 페이지 네비게이션
+      commonCode.put("navigation", "웹 결제 관리 > 상세 보기");			// 현재 페이지 네비게이션
       commonCode.put( "mainMenu", "permissionPayment" );                      // left main menu
       commonCode.put( "subMenu", "paymentWeb" );                // left sub menu
       model.addAttribute( "CommonCode", commonCode );
