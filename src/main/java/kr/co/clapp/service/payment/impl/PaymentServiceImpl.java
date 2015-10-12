@@ -39,8 +39,6 @@ public class PaymentServiceImpl implements PaymentService {
     private ProductDAO productDAO;
     @Autowired
     private MailingService mailingService;
-//    @Autowired
-//    private PaymentService paymentService;
 
     @Value("#{pay_prop['configPath']}")
     private String configPath;
@@ -481,6 +479,7 @@ public class PaymentServiceImpl implements PaymentService {
                             ticketParam2.setUserMasterKey(paymentEntity.getUserMasterKey());
                             ticketParam2.setUseYn("N");
                             ticketParam2.setTicketAvilableAmount(CommonCode.ZERO);
+                            ticketInfo.setUserTicketMasterKey(priUserMasterKey);
                             ticketDAO.modifyUserTicketMasterUse(ticketParam2);
                         }
                         /** 저장될 티켓 수**/
@@ -621,8 +620,13 @@ public class PaymentServiceImpl implements PaymentService {
             ticketParam.setUseYn("Y");
         }
 		*/
-        ticketDAO.modifyUserTicketMasterUse(ticketParam);
 
+        ticketDAO.modifyUserTicketMasterUse(ticketParam);
+        if(ticketParam.getUserTicketMasterKey()>CommonCode.ZERO){
+            ticketParam.setUserTicketMasterKey(ticketParam.getUserTicketMasterKey());
+            ticketParam.setUseYn("N");
+            ticketDAO.modifyUserTicketMasterUse(ticketParam);
+        }
         ticketParam.setUseYn(useYn);
         result = ticketDAO.insertUserTicketMaster(ticketParam);
 
