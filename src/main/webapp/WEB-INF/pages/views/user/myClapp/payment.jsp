@@ -31,7 +31,7 @@
 <input type="hidden" name="productMasterKey" value="${productInfo.productMasterKey }"/>
 <input type="hidden" name="paymentUserId" value="${userInfo.userId}"/>
 <input type="hidden" name="productExpirationDate" value="${productInfo.productExpirationDate}"/>
-
+<input type="hidden" name="LGD_DISPLAY_BUYEREMAIL"      id="LGD_DISPLAY_BUYEREMAIL"  value="Y">                                 <!--가상계좌 이메일 결과 송신 방지-->
 <div class="subPayForm">
 	<div class="subPayFormSection">
 		<div class="subJoinFormRequiredTitleBox">
@@ -267,7 +267,7 @@
 	<div class="subJoinTermsPrivacyNextButtonBox2">
 			<img src="${contextPath }/resources/images/buttons_payment.png" onclick="PaymentOK()" onMouseOver="this.src='${contextPath }/resources/images/buttons_payment_r.png';" onMouseOut="this.src='${contextPath }/resources/images/buttons_payment.png';" alt="결제" />
 		<a href="${contextPath }/product/productList">
-			<img src="${contextPath }/resources/images/buttons_cancel.png" onMouseOver="this.src='${contextPath }/resources/imagbuttons_cancel_r.png'';" onMouseOut="this.src='${contextPath }/resources/images/buttons_cancel.png';"  alt="취소" />
+			<img src="${contextPath }/resources/images/buttons_cancel.png" onMouseOver="this.src='${contextPath }/resources/images/buttons_cancel_r.png'" onMouseOut="this.src='${contextPath }/resources/images/buttons_cancel.png';"  alt="취소" />
 		</a>
 	</div>
 </div>
@@ -338,6 +338,14 @@ var PaymentUtils = (function() {
               //  alert('${payErrMsg}');
                 return false;
             }
+            // 가상계좌 선택시 메일발송 내부 폼메일로 전환
+            $("input[name=LGD_CUSTOM_USABLEPAY]:checked").each(function() {
+                var test = $(this).val();
+                if(test ='SC0040'){
+                    $("input[name=LGD_DISPLAY_BUYEREMAIL]").val("N");
+                }
+            });
+
 
 
         <%--if('${userLoginSession.userType}' == 2) {--%>
