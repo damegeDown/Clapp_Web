@@ -410,7 +410,7 @@ public class PaymentServiceImpl implements PaymentService {
                 paymentEntity.setPaymentEndDate(endDate);
                 PayLgdInfo payLgdInfo = new PayLgdInfo();
                 String tid = xpay.Response("LGD_TID", 0);
-                String authData = payLgdInfo.encryptAuthdata("tclapp", tid, "e4daafb91acda0a49719fd2fa0b7f4c3"); //authData 설정
+//                String authData = payLgdInfo.encryptAuthdata("tclapp", tid, "e4daafb91acda0a49719fd2fa0b7f4c3"); //authData 설정
                 // 신용카드
                 if( "SC0010".equals(LGD_USABLEPAY) ) {
                     paymentEntity.setPaymentState(CommonCode.PayState.COMPLET);
@@ -420,7 +420,7 @@ public class PaymentServiceImpl implements PaymentService {
                     paymentEntity.setCardAcquirer(xpay.Response("LGD_CARDACQUIRER",0));
                     paymentEntity.setIsCardInterest(xpay.Response("LGD_CARDNOINTYN",0));
                     paymentEntity.setCardInstallMonth(xpay.Response("LGD_CARDINSTALLMONTH",0));
-                    paymentEntity.setAuthData(authData);
+//                    paymentEntity.setAuthData(authData);
                 }
                 // 무통장 입금
                 else if( "SC0040".equals(LGD_USABLEPAY) ) {
@@ -502,7 +502,6 @@ public class PaymentServiceImpl implements PaymentService {
                         ecrmEntity.setTicketAmount(paymentEntity.getPaymentTicketAmount());
                         ecrmEntity.setExpirationDate(endDate);
                         ecrmEntity.setPaymentAmount(paymentParam.getPaymentProductPrice());
-                        ecrmEntity.setMailAuthData(authData);
                         ecrmEntity.setPaymentMid(xpay.Response("LGD_MID",0));
                         ecrmEntity.setPaymentOid(xpay.Response("LGD_OID", 0));
                         mailingService.sendPaymentCardPhoneMail(ecrmEntity);
@@ -627,7 +626,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
 		*/
 
-        ticketDAO.modifyUserTicketMasterUse(ticketParam);
+//        ticketDAO.modifyUserTicketMasterUse(ticketParam);
         if(ticketParam.getUserTicketMasterKey()>CommonCode.ZERO){
             ticketParam.setUserTicketMasterKey(ticketParam.getUserTicketMasterKey());
             ticketParam.setUseYn("N");

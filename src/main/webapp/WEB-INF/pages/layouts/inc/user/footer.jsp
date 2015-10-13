@@ -118,7 +118,7 @@ var JnlpUtils = (function() {
             dFlag = 1;
         }
 
-        $.getJSON("//cmsdev.testforte.com:10010/test_base/jnlpDownload.do?callback=?&id="+userMasterKey+"&userKey="+userKey, function(data) {
+        $.getJSON("//system.clapp.co.kr/test_base/jnlpDownload.do?callback=?&id="+userMasterKey+"&userKey="+userKey, function(data) {
             if(data.result) {
                 if (dFlag == 1) {
                     //파일다운로드

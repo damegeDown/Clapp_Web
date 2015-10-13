@@ -29,7 +29,7 @@
         <prop key="platform">test</prop>
         <!--<prop key="platform">service</prop>-->
         <prop key="mid">clapp</prop>
-        <prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3 </prop>
+        <prop key="mertKey">e4daafb91acda0a49719fd2fa0b7f4c3</prop>
         <prop key="configPath">D:/web/lgdacom</prop>
         <prop key="casnoteUrl">http://localhost:8080/myClapp/rest/responseVirtualAcct</prop>
     </util:properties>

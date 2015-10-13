@@ -12,50 +12,39 @@
 	response.setHeader("returnURI", request.getRequestURI());
 	response.setContentType("text/html; charset=UTF-8");
 %>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-  <meta http-equiv="Content-Script-Type" content="text/javascript">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Testing Anywhere, CLAPP</title>
-  <link rel="shotcut icon" href="${contextPath }/resources/images/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/clapp.style.css" />
-  <link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/clapp.style_psy.css" />
-  <link rel="stylesheet" href="${contextPath }/resources/css/jquery/jquery-ui.min-1.11.2.css">
-  <link rel="stylesheet" href="${contextPath }/resources/css/jquery/jquery.datetimepicker.css">
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-ui.min-1.11.2.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.datetimepicker.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.form.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.blockUI.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.datePicker.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.monthpicker.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.watermark.min.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/common.js"></script>
-  <script type="text/javascript" src="${contextPath }/resources/js/clapp.js"></script>
-  <script>
-  	var contextPath = "${contextPath }";
-  </script>
-  <STYLE type=text/css>
-a, td {
-	color: #444444;
-	font-family: "gulim";
-	font-size: 12px;
-}
-
-a:link, a:visited, a:active {
-	color: #444444;
-	text-decoration: none;
-}
-
-a:hover {
-	color: #fe8500;
-	text-decoration: underline;
-}
-</STYLE>
-</head>
-<body>
+<!DOCTYPE HTML>
+<HTML><HEAD><TITLE>Testing Anywhere, CLAPP</TITLE>
+    <META content="text/html; charset=ks_c_5601-1987" http-equiv=Content-Type>
+    <STYLE type=text/css>
+        a, td { color: #444444; font-family: "gulim"; font-size: 12px; }
+        a:link, a:visited, a:active { color: #444444; text-decoration: none; }
+        a:hover { color: #fe8500; text-decoration: underline; }
+        img {display: block;}
+    </STYLE>
+</HEAD>
+<BODY>
+<table border="0" cellspacing="0" cellpadding="0" bgcolor="#F4F5F7">
+    <tr>
+        <td><img src="$contextPath/resources/images/ecrm_top.png" alt="" width="700" height="80" usemap="#Map"/></td>
+    </tr>
 	<tiles:insertAttribute name="body" />
-</body>
-</html>
+    <tr>
+        <td><img src="$contextPath/resources/images/ecrm_bottom.png" alt="" width="700" height="312" usemap="#Map2"/></td>
+    </tr>
+</table>
+
+<map name="Map">
+    <area shape="rect" coords="2,2,196,79" href="http://www.clapp.co.kr" target="_blank">
+    <area shape="rect" coords="426,36,488,79" href="http://www.clapp.co.kr" target="_blank">
+    <area shape="rect" coords="618,38,698,79" href="http://www.clapp.co.kr/introduction/supportCustomerList" target="_blank">
+    <area shape="rect" coords="486,37,554,80" href="http://www.clapp.co.kr/myClapp/myTicket" target="_blank">
+    <area shape="rect" coords="553,38,619,79" href="http://www.clapp.co.kr/product/productList" target="_blank">
+</map>
+
+<map name="Map2">
+    <area shape="rect" coords="19,25,351,119" href="http://www.clapp.co.kr/serviceinfo/infoMain" target="_blank">
+    <area shape="rect" coords="350,26,683,119" href="http://www.clapp.co.kr/product/productList" target="_blank">
+    <area shape="rect" coords="2,137,156,310" href="http://www.clapp.co.kr" target="_blank">
+    <area shape="rect" coords="155,137,698,222" href="http://www.clapp.co.kr/introduction/supportCustomerList" target="_blank">
+</map>
+</BODY></HTML>

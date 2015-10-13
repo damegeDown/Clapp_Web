@@ -463,7 +463,9 @@ public class MailingServiceImpl implements MailingService {
 												.replace("$expirationDate", sdf.format(expirationDate))
 												.replace("$paymentDate", sdf.format(new Date()))
 												.replace("$paymentAmount", String.valueOf(paymentAmount))
-												.replace("$contextPath", serviceURL);
+												.replace("$contextPath", serviceURL)
+                                                .replace("$paymentMid", ecrmEntity.getPaymentMid())
+                                                .replace("$paymentOid", ecrmEntity.getPaymentOid());
 //			if(!StringUtils.isEmpty(formRecruitInfoEntity.getFileName())) {
 //				mailContents.replace("$file",  formRecruitInfoEntity.getFileName());
 //			}
