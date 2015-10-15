@@ -206,7 +206,7 @@ public class ApiController {
 					if(ticketAvilableAmount > CommonCode.ZERO) {
 						/** 사용가능한 티켓에 사용티켓을 빼서 남은 티켓을 구한다. */
 					    usedTicketAmount = ticketAvilableAmount - reservationTicketAmount;
-                      //  logger.debug("{}", "ticket master key = " + ticketList.get(i).getUserTicketMasterKey());
+//                        logger.debug("{}", "ticket master key = " + ticketList.get(i).getUserTicketMasterKey());
 
                         if(usedTicketAmount >= 0) {
 							ticketEntity.setTicketAvilableAmount(usedTicketAmount);

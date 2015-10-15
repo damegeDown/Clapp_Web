@@ -566,8 +566,9 @@
         AND
         IF(ticket_end_expiration_date IS NULL, NOW(), LEFT(ticket_end_expiration_date,10))
         )
-        AND
-          USE_YN  ='Y'
+       <!-- AND
+          USE_YN  ='Y'-->
+        order by user_ticket_master_key desc limit 1
 
     </select>
     <!-- //사용가능 티켓수 조회 -->
@@ -610,15 +611,17 @@
           ticket_avilable_amount = #{ticketAvilableAmount}
         WHERE
           user_master_key = #{userMasterKey}
-        AND
-          use_yn = 'Y'
+        <!--AND
+          use_yn = 'Y'-->
         <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
         AND
          user_ticket_master_key = #{userTicketMasterKey}
         </if>
-                  <!-- ORDER BY user_ticket_master_key Desc
 
-         limit 1-->
+         ORDER BY user_ticket_master_key Desc
+
+         limit 1
+
     </update>
     <!-- //사용자 티켓 차감 처리 -->
     <!-- 사용자티켓 사용 히스토리 -->
