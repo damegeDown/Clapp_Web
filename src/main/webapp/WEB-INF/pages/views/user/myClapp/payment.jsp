@@ -335,7 +335,7 @@ var PaymentUtils = (function() {
         paErrMsg = '${payErrMsg}';
 
             if(paErrMsg != "" && !paErrMsg != null){
-              //  alert('${payErrMsg}');
+                alert('${payErrMsg}');
                 return false;
             }
             // 가상계좌 선택시 메일발송 내부 폼메일로 전환
