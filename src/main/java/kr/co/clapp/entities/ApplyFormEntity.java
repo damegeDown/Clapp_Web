@@ -7,16 +7,6 @@ import java.util.List;
 public class ApplyFormEntity extends PageEntity implements Serializable{
 
 	private static final long serialVersionUID =1L;
-//
-//             `apply_form_key` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'pk',
-//            `apply_email` varchar(100) NOT NULL COMMENT '연락받으실 이메일 주소',
-//            `apply_insert_name` varchar(100) NOT NULL COMMENT '의뢰구분',
-//            `apply_phone_number` char(13) NOT NULL,
-//             `apply_contents` text NOT NULL COMMENT '문의 내용',
-//            `apply_url` varchar(100) NOT NULL COMMENT 'URL입력',
-//            `apply_insert_date` datetime NOT NULL COMMENT '등록일',
-//            `apply_title` varchar(100) NOT NULL COMMENT '제목',
-
 	public ApplyFormEntity() {
 		super(1L);
 	}

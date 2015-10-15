@@ -37,7 +37,7 @@
             </div>
             <div class="marT-5">
                 <span class="span-w50" style="padding-left: 11px;">회원 ID</span>
-                <input type="text" class="inp-w200" name="testSearchKeyValue1" placeholder="sample@clapp.co.kr"/>
+                <input type="text" class="inp-w200" name="testSearchKeyValue1" placeholder="sample@clapp.co.kr" value="${applyFormEntity.testSearchKeyValue1}"/>
                 <span class="span-w100" style="padding-left: 30px; padding-right: 7px;">이름/기업,단체명</span>
                 <input type="text" class="inp-w600" name="testSearchKeyValue2" placeholder="띄어쓰기 없이 입력 / 기업의 경우 (주) 빼고 입력"/>
                 <span class="marL-15 span-w300"> </span>
