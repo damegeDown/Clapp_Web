@@ -31,7 +31,7 @@
 <input type="hidden" name="productMasterKey" value="${productInfo.productMasterKey }"/>
 <input type="hidden" name="paymentUserId" value="${userInfo.userId}"/>
 <input type="hidden" name="productExpirationDate" value="${productInfo.productExpirationDate}"/>
-<input type="hidden" name="LGD_DISPLAY_BUYEREMAIL"      id="LGD_DISPLAY_BUYEREMAIL"  value="N">                                 <!--가상계좌 이메일 결과 송신 방지-->
+<%--<input type="hidden" name="LGD_DISPLAY_BUYEREMAIL"      id="LGD_DISPLAY_BUYEREMAIL"  value="Y">                                 <!--가상계좌 이메일 결과 송신 방지-->--%>
 <div class="subPayForm">
 	<div class="subPayFormSection">
 		<div class="subJoinFormRequiredTitleBox">
@@ -338,13 +338,13 @@ var PaymentUtils = (function() {
                 alert('${payErrMsg}');
                 return false;
             }
-            // 가상계좌 선택시 메일발송 내부 폼메일로 전환
-            $("input[name=LGD_CUSTOM_USABLEPAY]:checked").each(function() {
-                var test = $(this).val();
-                if(test ='SC0040'){
-                    $("input[name=LGD_DISPLAY_BUYEREMAIL]").val("N");
-                }
-            });
+//            // 가상계좌 선택시 메일발송 내부 폼메일로 전환
+//            $("input[name=LGD_CUSTOM_USABLEPAY]:checked").each(function() {
+//                var test = $(this).val();
+//                if(test ='SC0040'){
+//                    $("input[name=LGD_DISPLAY_BUYEREMAIL]").val("N");
+//                }
+//            });
 
 
 

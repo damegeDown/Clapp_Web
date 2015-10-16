@@ -25,6 +25,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -35,6 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MailingServiceImpl implements MailingService {
 	private static final Logger logger = LoggerFactory.getLogger(MailingServiceImpl.class);
 	private SimpleDateFormat sdf = new SimpleDateFormat(CommonCode.DatePattern.KOREAN, Locale.KOREAN);
+    private NumberFormat nf = NumberFormat.getNumberInstance();
 	@Value("#{mailConfig['serviceUrl']}")
 	private String serviceURL;
 	@Value("#{mailConfig['emailSender']}")
@@ -452,20 +454,20 @@ public class MailingServiceImpl implements MailingService {
 			Date expirationDate = ecrmEntity.getExpirationDate();
 			Date paymentDate = ecrmEntity.getPaymentDate();
 			int paymentAmount = ecrmEntity.getPaymentAmount();
-			
+//			String paymentAmountValueOf = String.valueOf(paymentAmount);
 			ecrmEntity.setMailType(CommonCode.MailType.MAIL_PAYMENT_CARD);
-			String mailContents = this.getMailTemp(ecrmEntity)
+              String mailContents = this.getMailTemp(ecrmEntity)
 											.getMailTempContents()
 												.replace("$userName", userName)
-												.replace("$userId", recipient[0])
-												.replace("$productName", productName)
-												.replace("$ticketAmount", String.valueOf(ticketAmount*5))
+                      .replace("$userId", recipient[0])
+                      .replace("$productName", productName)
+												.replace("$ticketAmount", String.valueOf(ticketAmount * 5))
 												.replace("$expirationDate", sdf.format(expirationDate))
-												.replace("$paymentDate", sdf.format(new Date()))
-												.replace("$paymentAmount", String.valueOf(paymentAmount))
-												.replace("$contextPath", serviceURL)
-                                                .replace("$paymentMid", ecrmEntity.getPaymentMid())
-                                                .replace("$paymentOid", ecrmEntity.getPaymentOid());
+                      .replace("$paymentDate", sdf.format(new Date()))
+                      .replace("$paymentAmount", nf.format(paymentAmount))
+                      .replace("$contextPath", serviceURL)
+                      .replace("$paymentMid", ecrmEntity.getPaymentMid())
+                      .replace("$paymentOid", ecrmEntity.getPaymentOid());
 //			if(!StringUtils.isEmpty(formRecruitInfoEntity.getFileName())) {
 //				mailContents.replace("$file",  formRecruitInfoEntity.getFileName());
 //			}
@@ -533,7 +535,7 @@ public class MailingServiceImpl implements MailingService {
                     .replace("$ticketAmount", String.valueOf(ticketAmount*5))
                     .replace("$expirationDate", sdf.format(expirationDate))
                     .replace("$paymentDate", sdf.format(new Date()))
-                    .replace("$paymentAmount", String.valueOf(paymentAmount))
+                    .replace("$paymentAmount", nf.format(paymentAmount))
                     .replace("$contextPath", serviceURL)
                     .replace("$accountNum", accountNum)
                     .replace("$financeName", financeName);

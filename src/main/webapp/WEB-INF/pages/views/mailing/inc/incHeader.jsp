@@ -1,40 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
+
+<!DOCTYPE HTML>
 <HTML><HEAD><TITLE>Testing Anywhere, CLAPP</TITLE>
-<META content="text/html; charset=ks_c_5601-1987" http-equiv=Content-Type>
-<STYLE type=text/css> 
-a, td { color: #444444; font-family: "gulim"; font-size: 12px; }
-a:link, a:visited, a:active { color: #444444; text-decoration: none; }
-a:hover { color: #fe8500; text-decoration: underline; }
-</STYLE>
+    <META content="text/html; charset=ks_c_5601-1987" http-equiv=Content-Type>
+    <STYLE type=text/css>
+        a, td { color: #444444; font-family: "gulim"; font-size: 12px; }
+        a:link, a:visited, a:active { color: #444444; text-decoration: none; }
+        a:hover { color: #fe8500; text-decoration: underline; }
+        img {display: block;}
+    </STYLE>
 </HEAD>
 <BODY>
-<TABLE border="0" cellSpacing="0" cellPadding="0" width="701">
-  <TBODY>
-  <TR>
-    <TD></TD></TR>
-  <TR><!-- 상단 로고 & 메뉴 시작 -->
-    <TD>
-      <TABLE border="0" cellSpacing="0" cellPadding="0" width="701">
-        <TBODY>
-        <TR>
-          <TD vAlign="bottom"><table width="701" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td width="425" rowspan="2"><a href="./index.html"><img src="${contextPath }/resources/images/ecrm_00_kv_logo.png" border="0" alt="클앱 홈으로 이동" width="425" height="80"></a></td>
-              <td colspan="4"><img src="${contextPath }/resources/images/ecrm_00_kv_topimg.png" border="0" width="276" height="41" /></td>
-            </tr>
-            <tr>
-              <td width="62"><a href="./index.html"><img src="${contextPath }/resources/images/ecrm_00_kv_gohome.png" border="0" width="62" height="39" alt="클앱 홈으로 이동"></a></td>
-              <td width="65"><a href="./myclapp.html"><img src="${contextPath }/resources/images/ecrm_00_kv_myclapp.png" border="0" width="65" height="39" alt="마이 클앱"></a></td>
-              <td width="62"><a href="./payment_guide.html"><img src="${contextPath }/resources/images/ecrm_00_kv_product.png" border="0" width="62" height="39" alt="상품 안내"></a></td>
-              <td width="87"><a href="./support_customer_list.html"><img src="${contextPath }/resources/images/ecrm_00_kv_support.png" border="0" width="87" height="39" alt="고객 지원"></a></td>
-            </tr>
-          </table></TD>
-        </TR></TBODY></TABLE>
-      <!-- 상단 로고 & 메뉴 끝 --></TD></TR>
-  <TR><!-- 메일 콘텐츠 시작 -->
+<table border="0" cellspacing="0" cellpadding="0" bgcolor="#F4F5F7">
+    <tr>
+        <td><img src="$contextPath/resources/images/ecrm_top.png" alt="" width="700" height="80" border="0" usemap="#Map"/></td>
+    </tr>
+    <tr>
+        <td style="padding-top:30px; padding-bottom:30px; text-align:center;">
+            <table width="630" align="center" border="0" cellspacing="0" cellpadding="0" style="background:#fff;">
+                <tr>
+                    <td style="TEXT-ALIGN: left; PADDING-BOTTOM: 20px; LINE-HEIGHT: 21px; PADDING-LEFT: 25px; PADDING-RIGHT: 15px; FONT-FAMILY: gulim,굴림; COLOR: #444; FONT-SIZE: 12px; PADDING-TOP: 20px"><B>
+                        <FONT color=#3369d8>
+                            <SPAN style="FONT-SIZE: 14px;">$userName </SPAN></FONT>
+                        <SPAN style="FONT-SIZE: 14px;">회원님,</SPAN></B><BR><BR>
+                        신청하신 유료 서비스의 결제가 정상적으로 완료되어, 서비스 이용이 가능합니다.<BR>
+                        상세 내역은 아래와 같습니다.
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="PADDING-BOTTOM: 0px; PADDING-LEFT: 35px; PADDING-RIGHT: 35px; PADDING-TOP: 0px;">
 
                  
