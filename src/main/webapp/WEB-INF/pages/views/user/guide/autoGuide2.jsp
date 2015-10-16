@@ -75,13 +75,13 @@
                 </div><!-- .maGuide02CTCContTwoBox End -->
                 <div class="maGuide02CTCContTwoBox2">
                     <div class="maGuide02CTCContTwoimg">
-                        <img src="images/popup_tag_cont_01.png"></div>
+                        <img src="${contextPath }/resources/images/popup_tag_cont_01.png"></div>
                     <div class="maGuide02CTCContTwoimg2">
-                        <img src="images/popup_tag_cont_02.png"></div>
+                        <img src="${contextPath }/resources/images/popup_tag_cont_02.png"></div>
                     <div class="maGuide02CTCContTwoimg3">
-                        <img src="images/popup_tag_cont_03.png"></div>
+                        <img src="${contextPath }/resources/images/popup_tag_cont_03.png"></div>
                     <div class="maGuide02CTCContTwoimg4">
-                        <img src="images/popup_tag_cont_04.png"></div>
+                        <img src="${contextPath }/resources/images/popup_tag_cont_04.png"></div>
                 </div>
             </div><!-- .maGuide02CTCContTwo End -->
 
@@ -111,7 +111,7 @@
             </div><!-- .maGuide02CTCContThreeBox End -->
             <div class="maGuide02CTCContThreeBox2">
                 <div class="maGuide02CTCContThreeimg">
-                    <img src="images/popup_tag_cont_05.png"></div>
+                    <img src="${contextPath }/resources/images/popup_tag_cont_05.png"></div>
             </div>
             <div class="maGuide02CTCContFourBox">
                 <div class="maGuide02CTCContFourNum">
@@ -148,7 +148,7 @@
             </div><!-- .maGuide02CTCContFourBox End -->
             <div class="maGuide02CTCContFourBox2">
                 <div class="maGuide02CTCContFourimg">
-                    <img src="images/popup_tag_cont_06.png"></div>
+                    <img src="${contextPath }/resources/images/popup_tag_cont_06.png"></div>
             </div>
         </div>
     </div>
