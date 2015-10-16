@@ -330,7 +330,7 @@
                 <div class="subMTContentEightItem2TitleBox">
                     <span class="sMTCEItem2Title">상세 이용<br />가이드</span>
                 </div>
-                <div class="subMTContentEightItem2TextBox">
+                <div class="subMTContentEightItem2TextBox2">
                     <div class="sMTCEItemsText2Box">
                         <a href="/guide/testingGuide1">
                             <div class="sMTCEItems2Text1Box">

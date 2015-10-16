@@ -32,6 +32,7 @@
 	<script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery.watermark.min.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/common.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script language="JavaScript" src="http://pgweb.uplus.co.kr:7085/WEB_SERVER/js/receipt_link.js"></script>
 	<script type="text/javascript">
 		var contextPath = "${contextPath}";
 	</script>

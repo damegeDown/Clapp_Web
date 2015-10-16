@@ -5241,7 +5241,7 @@
     display: block;
     height: inherit;
 }
-.subMTContentEightItem2TitleBox, .subMTContentEightItem2TextBox {
+.subMTContentEightItem2TitleBox, .subMTContentEightItem2TextBox,.subMTContentEightItem2TextBox2 {
     float: left;
     display: block;
     height: inherit;
@@ -5249,7 +5249,7 @@
 .subMTContentEightItem1TitleBox, .subMTContentEightItem2TitleBox {
     width: 138px;
 }
-.subMTContentEightItem1TextBox, .subMTContentEightItem2TextBox {
+.subMTContentEightItem1TextBox, .subMTContentEightItem2TextBox,.subMTContentEightItem2TextBox2{
     width: 342px;
     display: block;
 }
@@ -5305,6 +5305,11 @@
 .subMTContentEightItem2TextBox {
     display: block;
     background: url('./../images/smtce-Item2bg.png') no-repeat;
+    background-position: right 38px;
+}
+.subMTContentEightItem2TextBox2 {
+    display: block;
+    background: url('./../images/smtce-Item2bg2.png') no-repeat;
     background-position: right 38px;
 }
 .sMTCEItems2Text1Box {

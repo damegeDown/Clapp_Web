@@ -3040,6 +3040,8 @@ body {
     margin-left: 55px;
     margin-top: -55px;
 }
+
+
 .subMTHeaderGraphicContainer {
     width: inherit;
     height: 400px;
@@ -4097,18 +4099,11 @@ body {
     display: block;
     height: inherit;
 }
-.subMTContentEightItem2TitleBox, .subMTContentEightItem2TextBox {
-    float: left;
-    display: block;
-    height: inherit;
-}
+
 .subMTContentEightItem1TitleBox, .subMTContentEightItem2TitleBox {
     width: 138px;
 }
-.subMTContentEightItem1TextBox, .subMTContentEightItem2TextBox {
-    width: 342px;
-    display: block;
-}
+
 .sMTCEItem1Title, .sMTCEItem2Title {
     font-size: 24px;
     font-weight: 700;
@@ -4158,11 +4153,7 @@ body {
     margin-top: 26px;
     margin-left: 8px;
 }
-.subMTContentEightItem2TextBox {
-    display: block;
-    /*background: url('./../images/smtce-Item2bg.png') no-repeat;*/
-    /*background-position: right center;*/
-}
+
 .sMTCEItems2Text1Box {
     width: 330px;
     height: 40px;

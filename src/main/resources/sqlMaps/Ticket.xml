@@ -586,14 +586,15 @@
           um.product_master_key = pm.product_master_key
         AND
           um.user_master_key = #{userMasterKey}
-        AND
+        <!--AND
         (
         LEFT(NOW(),10)
         BETWEEN
         LEFT(ticket_start_expiration_date,10)
         AND
           IF(ticket_end_expiration_date IS NULL, NOW(), LEFT(ticket_end_expiration_date,10))
-        )
+        )-->
+        and ticket_end_expiration_date > now()
         AND
           um.ticket_avilable_amount > 0
         AND

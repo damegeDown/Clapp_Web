@@ -111,7 +111,7 @@ public class PaymentController {
         //authData 생성
         PayLgdInfo payLgdInfo = new PayLgdInfo();
         String tid = paymentInfo.getPaymentTid();
-        String authData = payLgdInfo.encryptAuthdata("clapp", tid, "e4daafb91acda0a49719fd2fa0b7f4c3");
+        String authData = payLgdInfo.encryptAuthdata("tclapp", tid, "e4daafb91acda0a49719fd2fa0b7f4c3");
 	    model.addAttribute("paymentInfo", paymentInfo);
         model.addAttribute("authData",authData);
 	  //공통
