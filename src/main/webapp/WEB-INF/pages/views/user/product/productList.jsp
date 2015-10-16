@@ -651,7 +651,8 @@
                             </div>
                         </div>
                         <div class="subcontbtnBox">
-                            <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                            <%--<a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">--%>
+                                <a href="${contextPath }/myClapp/myTestRequest">
                                 <div class="subcontbtnBoxbg">
                                     <div class="subcontbtnTxt">
                                         <span>신청하기</span>
