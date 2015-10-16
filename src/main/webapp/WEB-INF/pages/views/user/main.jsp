@@ -357,7 +357,7 @@ $(this).next().css("background","url(images/slider_btn_play.png)");
                         <li class="mGnbSub5-2"><a href="${contextPath}/introduction/newsArticleList">언론 기사</a></li>
                         <li class="mGnbSub5-3"><a href="${contextPath}/introduction/personRecruit">인재 채용</a></li>
                         <li class="mGnbSub5-4"><a href="${contextPath}/introduction/cooperation">고객·협력사</a></li>
-                        <li class="mGnbSub5-4"><a href="${contextPath}/introduction/supportCustomerList">고객 지원</a></li>
+                        <li class="mGnbSub5-4"><a href="${contextPath}/introduction/supportInquire">고객 지원</a></li>
                     </ul>
                 </li>
             </ul>
