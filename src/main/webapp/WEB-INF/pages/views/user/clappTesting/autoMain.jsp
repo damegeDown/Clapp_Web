@@ -214,7 +214,7 @@
             <div class="subMTContentEightItem2TextBox">
                 <div class="sMTCEItemsText2Box">
 
-                    <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                    <a href="/autoGuide/autoGuide1">
                         <div class="sMTCEItems2Text1Box">
                             <p class="sMTCEItems2Text1">
                                 Over View
@@ -222,7 +222,7 @@
                         </div>
                     </a>
 
-                    <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                    <a href="/autoGuide/autoGuide2">
                         <div class="sMTCEItems2Text2Box">
                             <p class="sMTCEItems2Text2">
                                 프로그램 시작하기
@@ -230,7 +230,7 @@
                         </div>
                     </a>
 
-                    <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                    <a href="/autoGuide/autoGuide3">
                         <div class="sMTCEItems2Text3Box">
                             <p class="sMTCEItems2Text3">
                                 주요 기능
@@ -238,7 +238,7 @@
                         </div>
                     </a>
 
-                    <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                    <a href="/autoGuide/autoGuide4">
                         <div class="sMTCEItems2Text4Box">
                             <p class="sMTCEItems2Text4">
                                 Memory Leak Test
@@ -246,7 +246,7 @@
                         </div>
                     </a>
 
-                    <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                    <a href="/autoGuide/autoGuide5">
                         <div class="sMTCEItems2Text5Box">
                             <p class="sMTCEItems2Text5">
                                 Script Test

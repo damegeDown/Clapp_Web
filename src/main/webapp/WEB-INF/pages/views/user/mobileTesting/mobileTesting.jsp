@@ -332,41 +332,49 @@
                 </div>
                 <div class="subMTContentEightItem2TextBox">
                     <div class="sMTCEItemsText2Box">
-                        <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                        <a href="/guide/testingGuide1">
                             <div class="sMTCEItems2Text1Box">
                                 <p class="sMTCEItems2Text1">
-                                    테스트 시작
+                                    기본 정보
                                 </p>
                             </div>
                         </a>
 
-                        <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                        <a href="/guide/testingGuide2">
                             <div class="sMTCEItems2Text2Box">
                                 <p class="sMTCEItems2Text2">
-                                    예약 기능
+                                    시작 하기
                                 </p>
                             </div>
                         </a>
 
-                        <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
+                        <a href="/guide/testingGuide3">
                             <div class="sMTCEItems2Text3Box">
                                 <p class="sMTCEItems2Text3">
+                                    예약 하기
+                                </p>
+                            </div>
+                        </a>
+
+                        <a href="/guide/testingGuide4">
+                            <div class="sMTCEItems2Text4Box">
+                                <p class="sMTCEItems2Text4">
                                     디바이스 이용현황
                                 </p>
                             </div>
                         </a>
 
-                        <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
-                            <div class="sMTCEItems2Text4Box">
-                                <p class="sMTCEItems2Text4">
+                        <a href="/guide/testingGuide5">
+                            <div class="sMTCEItems2Text5Box">
+                                <p class="sMTCEItems2Text5">
                                     테스트 디바이스 화면
                                 </p>
                             </div>
                         </a>
 
-                        <a href="${contextPath }/popup/noticePopup" onClick="itrPopup(this.href,'pop2');return false;">
-                            <div class="sMTCEItems2Text5Box">
-                                <p class="sMTCEItems2Text5">
+                        <a href="/guide/testingGuide6">
+                            <div class="sMTCEItems2Text6Box">
+                                <p class="sMTCEItems2Text6">
                                     디바이스 및 환경제어 기능
                                 </p>
                             </div>
