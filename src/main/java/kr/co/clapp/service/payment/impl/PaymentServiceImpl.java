@@ -306,8 +306,8 @@ public class PaymentServiceImpl implements PaymentService {
                         ticketDAO.modifyUserTicketMasterUse(ticketParam2);
                     }
                     /** 저장될 티켓 수**/
-                    ticketInfo.setTicketAmount(paymentEntity.getPaymentTicketAmount());//구입시간
-                    ticketInfo.setTicketAvilableAmount(paymentEntity.getPaymentTicketAmount() + priAmountTicket);//사용가능
+                    ticketInfo.setTicketAmount(paymentEntity.getContractTicketAmount());//구입시간
+                    ticketInfo.setTicketAvilableAmount(paymentEntity.getContractTicketAmount() + priAmountTicket);//사용가능
 
                     /** 티켓에 업데이트*/
                     ticketInfo.setUseYn("Y");
@@ -638,8 +638,6 @@ public class PaymentServiceImpl implements PaymentService {
         avilableTicket = ticketParam.getTicketAvilableAmount();
         ticketParam.setTicketAmount(ticket);
         ticketParam.setTicketAvilableAmount(avilableTicket);
-        logger.debug("================================={}",ticket);
-        logger.debug("================================={}",avilableTicket);
         /** 5/12 티켓 마스터 수정 형식에서 전체적으로 추가하는 방식으로 변경 */
         /** 기존 사용하던 티켓은 미사용으로 변경
          * 새로 저장일 때만 기존 마스터 사용여부를 N 으로 변경한다
