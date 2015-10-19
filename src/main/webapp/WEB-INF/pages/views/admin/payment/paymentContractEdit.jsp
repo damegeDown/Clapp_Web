@@ -130,7 +130,7 @@
     	 	 <tr>
     	 	   <th>적용시간</th>
     	 	   <td>
-                   <input type="text" name="contractTicketAmount_h" value="${paymentInfo.contractTicketAmount}" readonly />분
+                   <input type="text" name="contractTicketAmount_h" value="${paymentInfo.contractTicketAmount*5}" readonly />분
                    <input type="hidden" name="contractTicketAmount" value="${paymentInfo.contractTicketAmount}" placeholder="숫자만 입력" data-format="num" />
                </td>
     	 	 </tr>
@@ -154,7 +154,7 @@
     	<div class="floatL btn-bottom-orenge goListBtn">목록</div>
     	<c:choose>
             <c:when test="${paymentInfo.contractMasterKey > 0 && reContract eq 1}">
-                <div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/modifyContract" data-msg="재계약등록">재계약 등록</div>
+                <div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/insertContract" data-msg="재계약등록">재계약 등록</div>
             </c:when>
     		<c:when test="${paymentInfo.contractMasterKey > 0 }">
 					<div class="btn-bottom-orenge submitBtn" data-action="${contextPath }/admin/payment/rest/modifyContract" data-msg="계약수정">계약수정</div>
