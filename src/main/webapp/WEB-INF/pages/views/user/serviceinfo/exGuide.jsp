@@ -123,8 +123,8 @@
                         2. 크롬 브라우저 하단에 클앱 수동 테스트 프로그램  다운로드 확인<br>
                         3. 다운로드 된 파일 클릭하여 수동 테스트 프로그램 실행
                         </span>
-                        <%--<span class="subNoticeCFiveText3">※ 번거로우시겠지만 크롬에서 클앱 서비스 이용 시 동일하게 실행되오니 참고 바랍니다.--%>
-                        <%--</span>--%>
+                    <%--<span class="subNoticeCFiveText3">※ 번거로우시겠지만 크롬에서 클앱 서비스 이용 시 동일하게 실행되오니 참고 바랍니다.--%>
+                    <%--</span>--%>
                 </div>
             </div>
         </div>
@@ -165,7 +165,7 @@
             </div>
         </div>
         <div class="NoticebNoticeCTContentSButtonBox">
-            <div class="NoticebNoticeCTbutton1"><a href="${contextPath }/introduction/supportCustomerList"><img src="${contextPath }/resources/images/system_btn_1.png" alt="고객지원 바로가기" onMouseOver="this.src='${contextPath }/resources/images/system_btn_1_r.png';" onMouseOut="this.src='${contextPath }/resources/images/system_btn_1.png';" /></a></div>
+            <div class="NoticebNoticeCTbutton1"><a href="${contextPath }/introduction/supportInquire"><img src="${contextPath }/resources/images/system_btn_1.png" alt="고객지원 바로가기" onMouseOver="this.src='${contextPath }/resources/images/system_btn_1_r.png';" onMouseOut="this.src='${contextPath }/resources/images/system_btn_1.png';" /></a></div>
             <div class="NoticebNoticeCTbutton2"><a href="${contextPath }/introduction/supportQnaList"><img src="${contextPath }/resources/images/system_btn_2.png" alt="도움말 더보기" onMouseOver="this.src='${contextPath }/resources/images/system_btn_2_r.png';" onMouseOut="this.src='${contextPath }/resources/images/system_btn_2.png';" /></a></div>
         </div>
     </div>
