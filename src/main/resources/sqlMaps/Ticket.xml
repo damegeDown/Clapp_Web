@@ -1078,7 +1078,7 @@
         UNION ALL
 
         SELECT
-            vr.reserve_time,
+            vr.reg_dttm,
             '차감' ,
             use_point,
         (select utm.ticket_avilable_amount from user_ticket_master utm where utm.user_ticket_master_key=vr.user_ticket_master_key) ticketAvilableAmount,
