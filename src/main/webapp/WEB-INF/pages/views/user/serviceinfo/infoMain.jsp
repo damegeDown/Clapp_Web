@@ -212,7 +212,7 @@
             <div class="subSIiconNinebgBox">
                 <div class="subSIiconNineTextBox">
                     <div class="subSIContentNineItem1Title">
-                        <span> 디바이스 1대 가격으로<br>60대의 테스트 디바이스<br>확보</span>
+                        <span> 디바이스 1대 가격으로<br>클앱 보유 전체 디바이스<br>확보</span>
                     </div>
                     <div class="subSIContentNineItem2Title">
                         <span> 나만의<br>테스트 센터 구축</span>
@@ -220,7 +220,7 @@
                 </div>
                 <div class="subSIiconNineTextBox2">
                     <div class="subSIContentNineItem3Title">
-                        <span> 디바이스 1대 가격으로<br>60대의 테스트 디바이스<br>확보</span>
+                        <span>모바일 테스팅 환경<br>구축으로 개발 프로젝트 <br>신뢰성 향상</span>
                     </div>
                     <div class="subSIContentNineItem4Title">
                         <span> 개발에만 집중,<br>테스트는 클앱이!!</span>
