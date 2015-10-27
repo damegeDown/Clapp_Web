@@ -534,7 +534,7 @@ public class PaymentServiceImpl implements PaymentService {
                     }else {
                         /**가상계좌 메일 발송 */
                         EcrmEntity ecrmEntity = new EcrmEntity();
-                        ecrmEntity.setMailTitle("[Clapp] 결제가 정상적으로 완료되었습니다.");
+                        ecrmEntity.setMailTitle("[CLAPP] 결제대금을 입금하실 가상계좌가 발급되었습니다.");
                         ecrmEntity.setUserId(paymentEntity.getPaymentUserId());
                         ecrmEntity.setUserName(paymentEntity.getPaymentName());
                         ecrmEntity.setProductName(paymentEntity.getPaymentProductName());

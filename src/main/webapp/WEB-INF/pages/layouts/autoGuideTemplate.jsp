@@ -70,5 +70,10 @@
 			</div><!-- .mtGuideTabBoxAuto -->
 		</div><!-- .mtGuideTabContainerAuto End -->
 		<tiles:insertAttribute name="body"/>
+        <div class="mtGuideFloating">
+            <a href="#atGuideWrap">
+                <img src="${contextPath }/resources/images/popup_guide_floating.png" onMouseOver="this.src='${contextPath }/resources/images/popup_guide_floating_r.png';" onMouseOut="this.src='${contextPath }/resources/images/popup_guide_floating.png';" alt="top" />
+            </a>
+        </div>
 </body>
 </html>

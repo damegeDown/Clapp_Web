@@ -54,7 +54,9 @@ var goGuide = function() {
 		window.open(contextPath+"/guide/testingGuide1",'이용 가이드','width=910,height=600,scrollbars=yes,resizeable=no,left=150,top=150');
 	} else if(url.indexOf("autoMain") != -1){
 		window.open(contextPath+"/autoGuide/autoGuide1",'이용 가이드','width=910,height=600,scrollbars=yes,resizeable=no,left=150,top=150');
-	} 
+    } else if(url.indexOf("testingDevice") != -1) {
+        window.open(contextPath+"/guide/testingGuide1",'이용 가이드','width=910,height=600,scrollbars=yes,resizeable=no,left=150,top=150');
+    }
 }
 </script>
 <div class="floating" style="display:none;">

@@ -590,7 +590,8 @@ public class MailingServiceImpl implements MailingService {
 			Date mailSendStartDate = DateUtils.getDate(sendMailStartDates, CommonCode.DatePattern.DASH_TIME);
 		    // Info
 		    mailSendInfo.setSubject(ecrmEntity.getMailTitle());
-		    mailSendInfo.setEmailForm(emailTemp);
+//		    mailSendInfo.setEmailForm(emailTemp);
+              mailSendInfo.setEmailForm("mailSubTemp.jsp");
 		    String[] recipient = ecrmEntity.getMailReceptionAddress().split(",");
 		    mailSendInfo.setRecipient(recipient);  
 		    mailSendInfo.setSentDate(ecrmEntity.getMailSendDate());
