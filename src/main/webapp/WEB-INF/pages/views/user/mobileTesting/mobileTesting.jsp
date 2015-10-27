@@ -12,6 +12,9 @@
         location.href = contextPath + "/common/fileDownload?path=download&orgFileName="+orgFileName;
 
     };
+    function mtPopup(linkUrl){
+        window.open(linkUrl,'이용 가이드','width=910,height=600,scrollbars=yes,resizeable=no,left=150,top=150');
+    }
 </script>
 <style>
     .frame {overflow: hidden; position: relative;}
@@ -332,7 +335,7 @@
                 </div>
                 <div class="subMTContentEightItem2TextBox2">
                     <div class="sMTCEItemsText2Box">
-                        <a href="/guide/testingGuide1">
+                        <a href="/guide/testingGuide1" onClick="mtPopup(this.href); return false;">
                             <div class="sMTCEItems2Text1Box">
                                 <p class="sMTCEItems2Text1">
                                     기본 정보
@@ -340,7 +343,7 @@
                             </div>
                         </a>
 
-                        <a href="/guide/testingGuide2">
+                        <a href="/guide/testingGuide2" onClick="mtPopup(this.href); return false;">
                             <div class="sMTCEItems2Text2Box">
                                 <p class="sMTCEItems2Text2">
                                     시작 하기
@@ -348,7 +351,7 @@
                             </div>
                         </a>
 
-                        <a href="/guide/testingGuide3">
+                        <a href="/guide/testingGuide3" onClick="mtPopup(this.href); return false;">
                             <div class="sMTCEItems2Text3Box">
                                 <p class="sMTCEItems2Text3">
                                     예약 하기
@@ -356,7 +359,7 @@
                             </div>
                         </a>
 
-                        <a href="/guide/testingGuide4">
+                        <a href="/guide/testingGuide4" onClick="mtPopup(this.href); return false;">
                             <div class="sMTCEItems2Text4Box">
                                 <p class="sMTCEItems2Text4">
                                     디바이스 이용현황
@@ -364,7 +367,7 @@
                             </div>
                         </a>
 
-                        <a href="/guide/testingGuide5">
+                        <a href="/guide/testingGuide5" onClick="mtPopup(this.href); return false;">
                             <div class="sMTCEItems2Text5Box">
                                 <p class="sMTCEItems2Text5">
                                     테스트 디바이스 화면
@@ -372,7 +375,7 @@
                             </div>
                         </a>
 
-                        <a href="/guide/testingGuide6">
+                        <a href="/guide/testingGuide6" onClick="mtPopup(this.href); return false;">
                             <div class="sMTCEItems2Text6Box">
                                 <p class="sMTCEItems2Text6">
                                     디바이스 및 환경제어 기능
