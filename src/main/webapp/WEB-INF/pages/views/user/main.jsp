@@ -25,188 +25,6 @@
     body{ margin:0; padding:0;}
     #mainrolling{height:500px; margin:0; padding:0;display: none;}
 </style>
-<%--<style type="text/css">--%>
-<%--* {--%>
-<%--margin:0;--%>
-<%--padding:0;--%>
-<%--list-style:none;--%>
-<%--font-family: 	'Nanum Gothic' !important;--%>
-<%--}--%>
-<%--body {--%>
-<%--background:#fff;--%>
-<%--font:normal 12px/22px  Arial, Helvetica, sans-serif;--%>
-<%--width:100%;--%>
-<%--}--%>
-<%--img {--%>
-<%--border:0;--%>
-<%--}--%>
-<%--#footer {--%>
-<%--text-align:center;--%>
-<%--}--%>
-<%--.slider {--%>
-<%--width:100%;--%>
-<%--height:500px;--%>
-<%--position:relative;--%>
-<%--overflow:hidden;--%>
-<%--background:#fff;--%>
-<%--text-align:center;--%>
-<%--}--%>
-<%--.slider {--%>
-<%--width:100%;--%>
-<%--overflow:hidden;--%>
-<%--}--%>
-<%--.bd {--%>
-<%--width:100%;--%>
-<%--}--%>
-<%--.bd ul{--%>
-<%--}--%>
-<%--.bd li {--%>
-<%--width:100%;--%>
-<%--margin: 0 auto;--%>
-<%--overflow:hidden;--%>
-<%--}--%>
-<%--.bd li img {--%>
-<%--display:block;--%>
-<%--width:1400px;--%>
-<%--height:500px;--%>
-<%--margin: 0 auto;--%>
-<%--overflow:hidden;--%>
-<%--}--%>
-<%--.main1 {--%>
-<%--background: url('${contextPath }/resources/images/main_1_bg.png') repeat-x;--%>
-<%--}--%>
-<%--.main2 {--%>
-<%--background: url('${contextPath }/resources/images/main_2_bg.png') repeat-x;--%>
-<%--}--%>
-<%--.main3 {--%>
-<%--background: url('${contextPath }/resources/images/main_3_bg.png') repeat-x;--%>
-<%--}--%>
-<%--.main4 {--%>
-<%--background: url('${contextPath }/resources/images/main_4_bg.png') repeat-x;--%>
-<%--}--%>
-<%--.main5 {--%>
-<%--background: url('${contextPath }/resources/images/main_5_bg.png') repeat-x;--%>
-<%--}--%>
-<%--.main6 {--%>
-<%--background: url('${contextPath }/resources/images/main_6_bg.png') repeat-x;--%>
-<%--}--%>
-
-<%--.slider .hd {--%>
-<%--position: absolute;--%>
-<%--width: 100%;--%>
-<%--z-index: 1;--%>
-<%--height: 23px;--%>
-<%--bottom: 21px;--%>
-<%--text-align: center;--%>
-<%--float: left;--%>
-<%--}--%>
-<%--.slider .hd li {--%>
-<%--display:inline-block;--%>
-<%--zoom:1;--%>
-<%--width:23px;--%>
-<%--height:68px;--%>
-<%--line-height:200px;--%>
-<%--overflow:hidden;--%>
-<%--background:url('${contextPath }/resources/images/slider-btn.png') 0 0px no-repeat;--%>
-<%--margin:5px;--%>
-<%--cursor:pointer;--%>
-<%--filter:alpha(opacity=0.6);--%>
-<%--opacity:0.6;--%>
-<%--}--%>
-<%--.slider .hd li.on {--%>
-<%--background-position:0 0;--%>
-<%--filter:alpha(opacity=100);--%>
-<%--opacity:1;--%>
-<%--}--%>
-<%--.slider .pnBtn {--%>
-<%--position:absolute;--%>
-<%--z-index:1;--%>
-<%--top:0;--%>
-<%--width:100%;--%>
-<%--height:500px;--%>
-<%--cursor:pointer;--%>
-<%--}--%>
-<%--.slider .pnBtn .arrow {--%>
-<%--display:none;--%>
-<%--position:absolute;--%>
-<%--top:0;--%>
-<%--z-index:1;--%>
-<%--width:60px;--%>
-<%--height:500px;--%>
-<%--}--%>
-<%--.slider .pnBtn .arrow:hover {--%>
-<%--filter:alpha(opacity=60);--%>
-<%--opacity:0.6;--%>
-<%--}--%>
-<%--.slider .prev .arrow {--%>
-<%--right:0;--%>
-<%--background:url('${contextPath }/resources/images/slider-arrow.png') -120px 0 no-repeat;--%>
-<%--}--%>
-<%--.slider .next .arrow {--%>
-<%--left:0;--%>
-<%--background:url('${contextPath }/resources/images/slider-arrow.png') 0 0 no-repeat;--%>
-<%--}--%>
-<%--.input_chk{--%>
-<%--position:relative;--%>
-<%--}--%>
-<%--.input_chk .stop {--%>
-<%--display:none;--%>
-<%--position:absolute;--%>
-<%--right:0;--%>
-<%--}--%>
-<%--.pasue-check{--%>
-<%--width: 1px;--%>
-<%--position: absolute;--%>
-<%--left: 0;--%>
-<%--right: 0;--%>
-<%--margin-left: auto;--%>
-<%--margin-right: auto;--%>
-<%--}--%>
-<%--.pasue-label{--%>
-<%--display: inline-table;--%>
-<%--width:22px;--%>
-<%--height:24px;--%>
-<%--text-align: center;--%>
-<%--vertical-align: middle;--%>
-<%--}--%>
-
-<%--</style>--%>
-<%--<style type="text/css">--%>
-<%--* {padding:0; margin:0;}--%>
-<%--a {font-size:12px; text-decoration:none; padding:0; margin:0}--%>
-<%--li {list-style:none; padding:0; margin:0}--%>
-<%--img {vertical-align:top; padding:0; margin:0}--%>
-
-<%--.area {width:100%; margin:0 auto; text-align:center; position:relative;}--%>
-<%--.area .screen {width:100%; overflow:hidden; position:relative;}--%>
-<%--.area .screen .imgs {width:300%; height:500px; position:relative; left:-100%;}--%>
-<%--.area .screen .imgs li {width:33.34%; position:absolute; left:33.33%; display:none;}--%>
-<%--.area .screen .imgs li:first-child {display:block;}--%>
-
-<%--.area .navi {position:absolute; left:50%; width: 960px; margin-left:-480px; bottom:15px; overflow:hidden;}--%>
-<%--.area .navi a {width:24px; height:24px;  margin-right:8px; display:inline-block; background: url('${contextPath }/resources/images/icon02.png') no-repeat; vertical-align:top;}--%>
-<%--.area .navi a.on {background: url('${contextPath }/resources/images/icon01.png') no-repeat;}--%>
-
-<%--.main1 {background: url('${contextPath }/resources/images/main_1_bg.png') repeat-x;}--%>
-<%--.main2 {background: url('${contextPath }/resources/images/main_2_bg.png') repeat-x;}--%>
-<%--.main3 {background: url('${contextPath }/resources/images/main_3_bg.png') repeat-x;}--%>
-<%--.main4 {background: url('${contextPath }/resources/images/main_4_bg.png') repeat-x;}--%>
-<%--.main5 {background: url('${contextPath }/resources/images/main_5_bg.png') repeat-x;}--%>
-<%--.main6 {background: url('${contextPath }/resources/images/main_6_bg.png') repeat-x;}--%>
-<%--</style>--%>
-<%--<div class="area">--%>
-<%--<div class="screen">--%>
-<%--<ul class="imgs" style="left: -1505px;">--%>
-<%--<li class="main1" style="display: none; left: 1505px;"><img src="${contextPath }/resources/images/main_1.png" alt=""></li>--%>
-<%--<li class="main2" style="display: block; left: 1505px;"><a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_2.png" alt=""></a></li>--%>
-<%--<li class="main3" style="display: none; left: 1505px;"><img src="${contextPath }/resources/images/main_3.png" alt=""></li>--%>
-<%--<li class="main4" style="display: none; left: 1505px;"><a href="${contextPath }/members/memberJoin"><img src="${contextPath }/resources/images/main_4.png" alt=""></a></li>--%>
-<%--<li class="main5" style="display: none; left: 1505px;"><a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_5.png" alt=""></a></li>--%>
-<%--<li class="main6" style="display: none; left: 1505px;"><a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_6.png" alt=""></a></li>--%>
-<%--</ul>--%>
-<%--</div>--%>
-<%--<div class="navi"></div>--%>
-<%--</div>--%>
 <div class="area">
     <ul id="mainrolling">
         <c:forEach items="${bannerEntity}" end="9" var="bannerList" varStatus="i">
@@ -219,63 +37,12 @@
                 </c:if>
             </li>
         </c:forEach>
-        <%--<li style="background:url('${contextPath }/resources/images/main_1_bg.png')">--%>
-        <%--<img src="${contextPath }/resources/images/main_1.png" />--%>
-        <%--</li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_2_bg.png')">--%>
-        <%--<a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_2.png" /></a>--%>
-        <%--</li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_3_bg.png')"><img src="${contextPath }/resources/images/main_3.png" />--%>
-        <%--</li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_4_bg.png')">--%>
-        <%--<a href="${contextPath }/members/memberJoin"><img src="${contextPath }/resources/images/main_4.png" /></a></li>--%>
-        <%--</li>--%>
-        <%--<li  style="background:url('${contextPath }/resources/images/main_5_bg.png')">--%>
-        <%--<a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_5.png" /></a></li>--%>
-        <%--<li style="background:url('${contextPath }/resources/images/main_6_bg.png')">--%>
-        <%--<a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_6.png" /></a>--%>
-        <%--</li>--%>
+
     </ul>
 </div>
-<%--<div class="slider">--%>
-<%--<div class="bd">--%>
-<%--<ul>--%>
-<%--<li class="main2"><a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_2.png" /></a></li>--%>
-<%--<li class="main3"><img src="${contextPath }/resources/images/main_3.png" /></li>--%>
-<%--<li class="main4"><a href="${contextPath }/members/memberJoin"><img src="${contextPath }/resources/images/main_4.png" /></a></li>--%>
-<%--<li class="main5"><a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_5.png" /></a></li>--%>
-<%--<li class="main6"><a href="${contextPath }/product/productList"><img src="${contextPath }/resources/images/main_6.png" /></a></li>--%>
-<%--<li class="main1"><img src="${contextPath }/resources/images/main_1.png" /></li>--%>
-<%--</ul>--%>
-<%--</div>--%>
-<%--<div class="hd">--%>
-<%--<input type="checkbox" id="pasue" class="pasue-check">--%>
-<%--<label for="pasue" class="pasue-label" style="position: relative; top: -58px;"></label>--%>
-<%--<ul style="display: inline-block;"><li class="on">1</li><li class="">2</li><li class="">3</li></ul>--%>
-<%--</div>--%>
-<%--</div>--%>
-<script type="text/javascript">
-    //    jQuery(".slider .bd li").first().before( jQuery(".slider .bd li").last() );
-    //    jQuery(".slider").hover(function(){
-    //        jQuery(this).find(".arrow").stop(true,true).fadeIn(300)
-    //    },function(){
-    //        jQuery(this).find(".arrow").fadeOut(300) });
-    //    jQuery(".slider").slide(
-    //            { titCell:".hd ul", mainCell:".bd ul", effect:"leftLoop",autoPlay:true, vis:3,autoPage:true, trigger:"click"}
-    //    );
 
-    //$(document).ready(function(){
-    //    $('.area').bannerSlider({
-    //        imgs	: $('.area .imgs'),
-    //        prev	: $('.area .btn_prev'),
-    //        next	: $('.area .btn_next'),
-    //        navi	: $('.area .navi'),
-    //        type	: 'slide',
-    //        auto	: true,
-    //        delay	: 5000,
-    //        speed	: 500
-    //    });
-    //});
+<script type="text/javascript">
+
 
     function itrPopup(linkUrl,num){
         console.log(linkUrl);
@@ -287,18 +54,7 @@
             window.open(linkUrl, "startpop", "width=400, height=248, scrollbars=no, resizable=no ,status=no ,toolbar=no");
         }
     }
-</script><!--
-<script>
-$(document).ready(function(){
-$('#pasue').on('change',function(e){
-if($(this).prop('checked')){
-$(this).next().css("background","url(images/slider_btn_stop.png)");
-}else{
-$(this).next().css("background","url(images/slider_btn_play.png)");
-}
-});
-});
-</script>-->
+</script>
 
 
 <div id="wrapBgGnb">
@@ -406,7 +162,7 @@ $(this).next().css("background","url(images/slider_btn_play.png)");
                     <span class="mSliderTitle">디바이스<br>전체보기</span>
                 </div>
                 <div class="mSliderControlBox2">
-                    <span class="mSliderMore"><a href="http://www.clapp.co.kr/mobileTesting/testingDevice"><img src="${contextPath }/resources/images/main_btn_device_more.png" alt="디바이스 더보기" onMouseOver="this.src='${contextPath }/resources/images/main_btn_device_more_r.png';" onMouseOut="this.src='${contextPath }/resources/images/main_btn_device_more.png';" /></a></span>
+                    <span class="mSliderMore"><a href="${contextPath }/mobileTesting/testingDevice"><img src="${contextPath }/resources/images/main_btn_device_more.png" alt="디바이스 더보기" onMouseOver="this.src='${contextPath }/resources/images/main_btn_device_more_r.png';" onMouseOut="this.src='${contextPath }/resources/images/main_btn_device_more.png';" /></a></span>
                 </div>
             </div>
         </div>
