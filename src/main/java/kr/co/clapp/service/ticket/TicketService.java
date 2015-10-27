@@ -62,6 +62,12 @@ public interface TicketService {
 	 * @return
 	 */
 	List<TicketEntity> getPrioritieTicketKey(MemberEntity memberEntity);
+    /**
+     * 사용자 티켓 사용우선수위 위인 티켓키를 불러온다.(테스팅신청)
+     * @param memberEntity
+     * @return
+     */
+    List<TicketEntity> getPrioritieTicketKey2(MemberEntity memberEntity);
 	/**
 	 * 사용자 티켓 차감
 	 * @param ticketEntity

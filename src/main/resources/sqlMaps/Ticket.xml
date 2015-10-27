@@ -603,6 +603,22 @@
           product_type asc, LEFT(ticket_end_expiration_date,10) ASC
         LIMIT 1
     </select>
+    <select id="getPrioritieTicketKey2" parameterType="memberEntity" resultType="ticketEntity">
+         SELECT
+        um.user_ticket_master_key,
+        um.user_master_key,
+        um.ticket_avilable_amount,
+        um.product_master_key
+        FROM
+        USER_TICKET_MASTER um,
+        PRODUCT_MASTER pm
+        WHERE
+        um.product_master_key = pm.product_master_key
+        AND
+        um.user_master_key = #{userMasterKey}
+        order by user_ticket_master_key desc
+
+    </select>
     <!-- //사용자 티켓 사용우선순위가 위인 티켓키 조회 -->
     <!-- 사용자 티켓 차감 /반환 처리 -->
     <update id="doUsedTicket" parameterType="ticketEntity">

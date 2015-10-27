@@ -92,10 +92,10 @@ public class TicketServiceImpl implements TicketService {
         ticketEntity.setTicketAvilableAmount(ticketEntity.getServiceApplyTicketAmount()+priAmountTicket);//사용가능
         ticketEntity.setUseYn("Y");
         int result = ticketDAO.insertUserTicketMaster(ticketEntity);
-        int InsertResult = ticketDAO.insertTicketProductService(ticketEntity);
-        if(InsertResult > CommonCode.ZERO) {
-           ticketDAO.selectUserType(ticketEntity);
-        }
+//        int InsertResult = ticketDAO.insertTicketProductService(ticketEntity);
+//        if(InsertResult > CommonCode.ZERO) {
+//           ticketDAO.selectUserType(ticketEntity);
+//        }
         return result;
     }
   /**
@@ -200,6 +200,13 @@ public class TicketServiceImpl implements TicketService {
 	public List<TicketEntity> getPrioritieTicketKey(MemberEntity memberEntity) {
 		return ticketDAO.getPrioritieTicketKey(memberEntity);
 	}
+    /**
+     * 사용자 티켓 사용 우선순위 위인 티켓키(테스팅 신청)
+     */
+    @Override
+    public List<TicketEntity> getPrioritieTicketKey2(MemberEntity memberEntity) {
+        return ticketDAO.getPrioritieTicketKey2(memberEntity);
+    }
     @Override
     public List<TicketEntity> getUserTicketProductList(TicketEntity ticketEntity){
         return ticketDAO.getUserTicketProductList(ticketEntity);
