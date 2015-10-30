@@ -318,6 +318,8 @@ public class ApiController {
                 usedTicketAmount = ticketAvilableAmount + reservationTicketAmount;
                 ticketEntity.setTicketAvilableAmount(usedTicketAmount);
                 ticketEntity.setUserMasterKey(user_id);
+                if(usedTicketAmount > CommonCode.ZERO)ticketEntity.setUseYn("YY");
+
                 /** 티켓반환 */
                 if (ticketService.doUsedTicket(ticketEntity) > CommonCode.ZERO) {
                     List<String> userIdArr = new ArrayList<String>();
