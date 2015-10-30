@@ -31,7 +31,13 @@ public class BannerEntity extends PageEntity implements Serializable{
 	private String bgFileSavedName;
 	private String bgFileTarget = "banner_bg";
 	private String bannerKeyList;
-	
+    private String thumbYn;
+    public String getThumbYn() {
+        return thumbYn;
+    }
+    public void setThumbYn(String thumbYn) {
+        this.thumbYn = thumbYn;
+    }
 	
 	public String getBgFileName() {
 		return bgFileName;

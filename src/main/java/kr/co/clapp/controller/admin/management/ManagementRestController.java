@@ -289,7 +289,7 @@ public class ManagementRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/modifyBanner",  method = RequestMethod.POST)
-	public ResponseEntity modifyBanner(BannerEntity bannerEntity, MultipartFile file, MultipartFile file_bg) {
+	public ResponseEntity modifyBanner(BannerEntity bannerEntity,MultipartHttpServletRequest req, MultipartFile file, MultipartFile file_bg) {
 		ResponseEntity result = new ResponseEntity();
 		try {
 			String resultCode = ResultCode.FAIL;
@@ -298,21 +298,24 @@ public class ManagementRestController {
 				resultCode = ResultCode.SUCCESS;
 				resultMessage = messages.getMessage("modify.success");
 				// 파일 업로드
-				if(null != file) {
+                if(req.getFileNames().hasNext()) {
+//				if(null != file) {
 					AdministrationFileEntity administrationFileEntity = new AdministrationFileEntity();
 					administrationFileEntity.setFileTargetKey(bannerEntity.getBannerInquiryKey());
 					administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER);
 					administrationFileEntity.setThumbYn(CommonCode.FILE_THUMB_N);
+                    administrationFileEntity.setFileSavedName(bannerEntity.getFileSavedName());
 					//기존 파일 삭제
 					this.removeFile(administrationFileEntity);
 					this.saveFileForFormData(bannerEntity, file, administrationFileEntity);
 					// 배경 파일 업로드
-					if(null != file_bg) {
-						administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER_BG);
-						//기존 파일 삭제
-						this.removeFile(administrationFileEntity);
-						this.saveFileForFormData(bannerEntity, file_bg, administrationFileEntity);
-					}
+
+//					if(null != file_bg) {
+//						administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER_BG);
+//						//기존 파일 삭제
+//						this.removeFile(administrationFileEntity);
+//						this.saveFileForFormData(bannerEntity, file_bg, administrationFileEntity);
+//					}
 				}
 			}
 			result.setResultCode(resultCode);
@@ -365,6 +368,7 @@ public class ManagementRestController {
 		// Administration_file 에 저장될 이미지 정보
 		AdministrationFileEntity insertInfo = new AdministrationFileEntity();
 		List<AdministrationFileEntity> insertFileList = new ArrayList<AdministrationFileEntity>();
+        administrationFileService.removeAdministrationFile(administrationFileEntity);
 		// 파일 경로
 		String path = filePath + administrationFileEntity.getFileTarget() + "/";
 
