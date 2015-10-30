@@ -154,6 +154,15 @@
                     WHERE
                       um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
                 )
+        WHEN 5 THEN
+        (
+        SELECT
+        um.USER_ID
+        FROM
+        USER_MASTER um
+        WHERE
+        um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
+        )
                 ELSE
                   SERVICE_TARGET_NAME
                 END AS USER_ID
@@ -178,6 +187,25 @@
                 AND
                 TPAS.SERVICE_TARGET_NAME = #{searchValue3}
             </if>
+
+        <!--union all
+
+        SELECT '',
+        ticket_apply_date,
+        product_name,
+        ticket_amount,
+        ticket_avilable_amount,
+        FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON', payment_tid),
+        '',
+        '관리자',
+        '개별' SERVICE_TARGET_TYPE,
+        '관리자' SERVICE_TARGET_NAME,
+        ticket_apply_date SERVICE_INSERT_DATE,
+        (SELECT um.USER_ID
+        FROM USER_MASTER um WHERE um.USER_MASTER_KEY = user_ticket_master.USER_MASTER_KEY)
+        USER_ID
+        FROM user_ticket_master
+        WHERE payment_tid   IN (1, 2, 3, 4, 5, 6)-->
         )a
         WHERE
           SERVICE_INSERT_DATE IS NOT NULL
@@ -235,6 +263,15 @@
             WHERE
               um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
             )
+        WHEN 5 THEN
+        (
+        SELECT
+        um.USER_ID
+        FROM
+        USER_MASTER um
+        WHERE
+        um.USER_MASTER_KEY = ASU.USER_MASTER_KEY
+        )
             ELSE
               SERVICE_TARGET_NAME
             END AS USER_ID
@@ -301,6 +338,9 @@
                 <when test='serviceTargetType == 3'>
                     '기업/단체 전체',
                 </when>
+                <when test='serviceTargetType == 5'>
+                    '신규 서비스 등록',
+                </when>
                 <otherwise>
                     #{serviceTargetName},
                 </otherwise>
@@ -343,7 +383,7 @@
         <if test="serviceTargetType == 3">
             UM.USER_TYPE = '2'
         </if>
-        <if test="serviceTargetType == 4" >
+        <if test="serviceTargetType == 4 or serviceTargetType == 5 " >
             UM.USER_ID in
             <foreach item="userIdArr" index="index" collection="userIdArr" open="(" separator="," close=")">
                 #{userIdArr}
@@ -603,22 +643,7 @@
           product_type asc, LEFT(ticket_end_expiration_date,10) ASC
         LIMIT 1
     </select>
-    <select id="getPrioritieTicketKey2" parameterType="memberEntity" resultType="ticketEntity">
-         SELECT
-        um.user_ticket_master_key,
-        um.user_master_key,
-        um.ticket_avilable_amount,
-        um.product_master_key
-        FROM
-        USER_TICKET_MASTER um,
-        PRODUCT_MASTER pm
-        WHERE
-        um.product_master_key = pm.product_master_key
-        AND
-        um.user_master_key = #{userMasterKey}
-        order by user_ticket_master_key desc
 
-    </select>
     <!-- //사용자 티켓 사용우선순위가 위인 티켓키 조회 -->
     <!-- 사용자 티켓 차감 /반환 처리 -->
     <update id="doUsedTicket" parameterType="ticketEntity">
@@ -626,10 +651,13 @@
           USER_TICKET_MASTER
         SET
           ticket_avilable_amount = #{ticketAvilableAmount}
+        <if test="useYn =='YY' ">
+         , use_yn = 'Y'
+        </if>
         WHERE
           user_master_key = #{userMasterKey}
-        <!--AND
-          use_yn = 'Y'-->
+
+
         <if test="userTicketMasterKey != '' and userTicketMasterKey != null">
         AND
          user_ticket_master_key = #{userTicketMasterKey}
@@ -1051,7 +1079,8 @@
             ticket_start_expiration_date ticketStartExpirationDate,
             ticket_end_expiration_date ticketEndExpirationDate,
             product_name productName,
-            if(product_master_key = 1, '가입이벤트','상품구매') service_apply_reason,
+        if(product_master_key = 1, '가입이벤트',if(payment_tid in(1,2,3,4,5,6),FN_GET_COMMON_CODE_NAME('SERVICE_APPLY_REASON',
+        payment_tid),'상품구매')) service_apply_reason,
             '' service_apply_reason_detail ,
             user_master_key,
             user_ticket_master_key
@@ -1087,6 +1116,7 @@
             TICKET_PRODUCT_APPLY_SERVICE tr
         INNER JOIN
           APPLY_SERVICE_USER au on tr.ticket_product_service_key = au.ticket_product_service_key
+          and tr.service_target_type =4
         LEFT OUTER JOIN
           USER_TICKET_MASTER ut on tr.user_ticket_master_key = ut.user_ticket_master_key
         WHERE au.user_master_key = #{userMasterKey}
@@ -1210,27 +1240,38 @@
           uth.target_key > 0
         ORDER BY
 	   		uth.ticket_start_expiration_date desc-->
-        SELECT
-            uth.user_ticket_master_key,
-            uth.user_master_key,
-            uth.product_master_key,
-            uth.ticket_amount,
-            uth.product_name,
-            uth.ticket_avilable_amount,
-            uth.ticket_start_expiration_date,
-            uth.ticket_end_expiration_date,
-            uth.ticket_apply_date,
-            uth.insert_date,
-            if(use_yn = 'N' , 0, TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now())) as expirationDate,
-            (ifnull((select sum(vr.use_point) FROM VIEW_RESERVATIONS AS vr WHERE vr.user_id = uth.user_master_key AND vr.user_ticket_master_key = uth.user_ticket_master_key), 0)) as usePoint,
-            <!--uth.ticket_amount - uth.ticket_avilable_amount usePoint,-->
-            if(uth.ticket_avilable_amount > 0,
-                if(use_yn = 'Y' and TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()) > 0,
-                  if(TO_DAYS(uth.ticket_start_expiration_date) - TO_DAYS(now()) > 0,
-                    '사용대기', '사용중'),
-                  '사용종료'), '사용종료') useYn
-        FROM
-          USER_TICKET_MASTER uth
+
+        SELECT uth.user_ticket_master_key,
+        uth.user_master_key,
+        uth.product_master_key,
+        uth.ticket_amount,
+        uth.product_name,
+        uth.ticket_avilable_amount,
+        uth.ticket_start_expiration_date,
+        uth.ticket_end_expiration_date,
+        uth.ticket_apply_date,
+        uth.insert_date,
+        if(use_yn = 'N',
+        0,
+        TO_DAYS(uth.ticket_end_expiration_date) - TO_DAYS(now()))
+        AS expirationDate,
+        (ifnull(
+        (SELECT sum(vr.use_point)
+        FROM VIEW_RESERVATIONS AS vr
+        WHERE     vr.user_id = uth.user_master_key
+        AND vr.user_ticket_master_key = uth.user_ticket_master_key),
+        0))
+        AS usePoint,
+        if(
+        uth.ticket_avilable_amount > 0,
+        if(use_yn = 'Y' AND uth.ticket_end_expiration_date > now(),if(
+        TIMESTAMPDIFF(MINUTE, uth.ticket_end_expiration_date, now()) >
+        0,
+        '사용대기',
+        '사용중'),
+        '사용종료'),
+        '사용종료') useYn
+        FROM USER_TICKET_MASTER uth
         WHERE
           user_master_key = #{userMasterKey}
         <if test="productMasterKey != '' and productMasterKey != null">
