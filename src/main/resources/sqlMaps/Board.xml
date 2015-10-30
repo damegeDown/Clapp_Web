@@ -332,12 +332,14 @@
   <update id="modifyBoardSocialBlog" parameterType="boardEntity">
     UPDATE BOARD_SOCIAL_BLOG SET 
       SOCIAL_BLOG_TITLE = #{socialBlogTitle},
-      SOCIAL_BLOG_CONTENT = #{socialBlogContent}
+      SOCIAL_BLOG_CONTENT = #{socialBlogContent},
+      SOCIAL_LINK =#{socialLink},
+      SOCIAL_ORIGIN =#{socialOrigin}
     WHERE
       BOARD_SOCIAL_BLOG_KEY = #{boardSocialBlogKey}
   </update>
   <!-- //소셜 블로그 게시판 수정 -->
-   <!-- 소셜 블로그 게시판 수정 -->
+   <!-- 소셜 블로그 게시판 수정 20151029-->
   <update id="modifyBoardSocialBlogFlag" parameterType="boardEntity">
     UPDATE BOARD_SOCIAL_BLOG SET 
       facebook_flag = #{facebookFlag},

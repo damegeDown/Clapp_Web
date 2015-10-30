@@ -36,7 +36,7 @@
       <tr>
         <th>제목</th>
         <td>
-          <input type="text" class="inp-w810" name="socialBlogTitle" placeholder="40자 이내" value="${boardSocialBlogDetail.socialBlogTitle}"/>
+          <input type="text" class="inp-w810" name="socialBlogTitle" placeholder="100자 이내" value="${boardSocialBlogDetail.socialBlogTitle}"/>
         </td>
       </tr>
       <tr>
@@ -65,7 +65,7 @@
           <th>출처 / 링크</th>
           <td>
               <input type="text" name="socialOrigin" placeholder="출처" value="${boardSocialBlogDetail.socialOrigin}"/> / 링크 : http://
-              <input type="text" class="inp-w600" name="socialLink" placeholder="40자 이내" value="${boardSocialBlogDetail.socialLink}"/>
+              <input type="text" id ="TESTreq3" class="inp-w600" name="socialLink" placeholder="40자 이내" value="${boardSocialBlogDetail.socialLink}"/>
           </td>
       </tr>
       <tr>
@@ -112,6 +112,17 @@
 			 return false;
 		// }
 	 }  */
+     /**url검증**/
+     if(!$('#TESTreq3').val()){
+         $('#TESTreq3').val("test.com")
+     }else {
+         var re_url = /^(https?:\/\/)?([a-z\d\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/; // URL 검사식
+         if (re_url.test($('#TESTreq3').val()) != true) { // URL 검사
+             alert('유효한 웹 사이트 주소를 입력해 주세요.');
+             url.focus();
+             return false;
+         }
+     }
 	 $("#submitBtn").click();
  }
  
