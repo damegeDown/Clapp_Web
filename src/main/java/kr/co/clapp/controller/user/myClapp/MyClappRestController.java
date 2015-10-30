@@ -142,16 +142,23 @@ public class MyClappRestController {
 
 
             memberEntity.setUserMasterKey(userInfo.getUserMasterKey());//멤버키 설정
-            ticketList = ticketService.getPrioritieTicketKey2(memberEntity);//사용순위가 우선인 티켓 정보 가져온다
-            ticketProductMasterKey=ticketList.get(0).getProductMasterKey();//티켓 정보의 마스터 키 가져온다
+            ticketList = ticketService.getPrioritieTicketKey(memberEntity);//사용순위가 우선인 티켓 정보 가져온다
+            if(ticketList.size() > CommonCode.FAIL_NO) {
+                ticketProductMasterKey = ticketList.get(0).getProductMasterKey();//티켓 정보의 마스터 키 가져온다
+                productParm.setProductMasterKey(ticketProductMasterKey); // 상품 정복에 마스터키 전달
+                productEntity = productService.getProductInfo(productParm);//상품 정보 가져온다
+                productType = productEntity.getProductType(); //상품 type 값을 가져온다
+                applyFormEntity.setUserMasterKey(userInfo.getUserMasterKey()); //userMasterKey 값을 set
+                applyFormEntity.setApplyType(productType);
+                applyformService.insertApplyForm(applyFormEntity);
 
-            productParm.setProductMasterKey(ticketProductMasterKey); // 상품 정복에 마스터키 전달
-            productEntity = productService.getProductInfo(productParm);//상품 정보 가져온다
-            productType = productEntity.getProductType(); //상품 type 값을 가져온다
-            applyFormEntity.setUserMasterKey(userInfo.getUserMasterKey()); //userMasterKey 값을 set
-            applyFormEntity.setApplyType(productType);
-            applyformService.insertApplyForm(applyFormEntity);
-//          logger.debug("filename===={}",);
+            }else{
+                resultMessage = messages.getMessage("insert.faile.pay");
+                result.setResultMSG(resultMessage);
+                result.setResultURL("/myClapp/myTestRequest");
+            }
+
+
 
             // 파일 업로드
             if(req.getFileNames().hasNext()) {
