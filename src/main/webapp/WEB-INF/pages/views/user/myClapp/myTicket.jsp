@@ -64,7 +64,7 @@
 				<tr>
 					<td> ${history.productName} </td>
 					<td>
-						<fmt:formatDate value="${history.ticketStartExpirationDate}" pattern="yyyy-MM-dd HH:mm"/>
+						<fmt:formatDate value="${history.ticketApplyDate}" pattern="yyyy-MM-dd HH:mm"/>
 						<%--~ <fmt:formatDate value="${history.ticketEndExpirationDate }" pattern="yyyy-MM-dd HH:mm"/>--%>
 					</td>
 					<td>
