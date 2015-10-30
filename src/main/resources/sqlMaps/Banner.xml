@@ -131,7 +131,10 @@
         BANNER_INQUIRY_KEY = #{bannerInquiryKey}
     </update>
     <!-- //배너 종료 -->
-
+    <!-- 노출 가능한 배너 수-->
+    <select id="getBannerMainFalseCount" parameterType="bannerEntity" resultType="int">
+        select count(*) from BANNER_MASTER where BANNER_STATUS='1'
+    </select>
     <!-- 메인 배너 -->
     <select id="getBannerMain" resultType="bannerEntity">
         SELECT
@@ -162,7 +165,7 @@
         BANNER_MASTER
         SET
         BANNER_STATUS = '1'
-        , BANNER_VIEW_SEQ = (SELECT BANNER_VIEW_SEQ FROM ((SELECT MAX(BANNER_VIEW_SEQ) + 1 AS BANNER_VIEW_SEQ FROM BANNER_MASTER) TMP))
+      <!--  , BANNER_VIEW_SEQ = (SELECT BANNER_VIEW_SEQ FROM ((SELECT MAX(BANNER_VIEW_SEQ) + 1 AS BANNER_VIEW_SEQ FROM BANNER_MASTER) TMP))-->
         WHERE
         BANNER_INQUIRY_KEY IN (${bannerKeyList})
     </update>

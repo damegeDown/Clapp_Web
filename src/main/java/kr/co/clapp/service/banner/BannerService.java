@@ -1,8 +1,8 @@
 package kr.co.clapp.service.banner;
 
-import java.util.List;
-
 import kr.co.clapp.entities.BannerEntity;
+
+import java.util.List;
 
 public interface BannerService {
 
@@ -72,5 +72,6 @@ public interface BannerService {
    * @return
    */
   int bannerViewDown(BannerEntity bannerEntity);
+
 }
 

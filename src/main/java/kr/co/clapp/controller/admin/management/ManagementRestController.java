@@ -1,6 +1,7 @@
 package kr.co.clapp.controller.admin.management;
 
 import kr.co.clapp.dao.AdministrationFileDAO;
+import kr.co.clapp.dao.BannerDAO;
 import kr.co.digigroove.commons.utils.FileUtils;
 import org.apache.commons.fileupload.FileUploadException;
 import org.slf4j.Logger;
@@ -57,6 +58,9 @@ public class ManagementRestController {
 	
 	@Value("#{fileConfig['filePath']}")
 	private String filePath;
+
+    @Autowired
+    private BannerDAO bannerDAO;
 	
 	/**
 	 * 관리자 등록
@@ -461,7 +465,13 @@ public class ManagementRestController {
 			String resultCode = ResultCode.FAIL;
 			String resultMessage = messages.getMessage("insert.fail");
 
-
+            logger.debug("=========================={}",bannerDAO.getBannerMainFalseCount(bannerEntity));
+            if(bannerDAO.getBannerMainFalseCount(bannerEntity) <= 1){
+                result.setResultCode(ResultCode.FAIL);
+                result.setResultMSG(messages.getMessage("insert.fail.banner"));
+                result.setResultURL("/admin/management/bannerList");
+                return result;
+            }
 			if(bannerService.bannerViewOff(bannerEntity) > CommonCode.ZERO) {
 				resultCode = ResultCode.SUCCESS;
 				resultMessage = messages.getMessage("insert.success");

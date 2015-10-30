@@ -1,8 +1,8 @@
 package kr.co.clapp.dao;
 
-import java.util.List;
-
 import kr.co.clapp.entities.BannerEntity;
+
+import java.util.List;
 
 public interface BannerDAO {
   
@@ -18,6 +18,12 @@ public interface BannerDAO {
    * @return
    */
   int getBannerCount(BannerEntity bannerEntity);
+    /**
+     * 노출 가능한 배너 목록 카운트
+     * @param bannerEntity
+     * @return
+     */
+    int getBannerMainFalseCount(BannerEntity bannerEntity);
   /**
    * 배너 상세
    * @param bannerEntity
