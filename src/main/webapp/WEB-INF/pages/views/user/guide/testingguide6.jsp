@@ -18,7 +18,6 @@
             <img src="${contextPath }/resources/images/popup_mtg_control_jnlp_01.png" width="195" height="332" alt=""/> </div>
     </div><!-- .mtGuide01COCMainBox End -->
 </div><!-- .mtGuide01ContentOneContainer End -->
-
 <div class="mtGuide06ContentTwoContainer">
     <div class="mtGuide06CTCBox01">
         <div class="mtGuide06CTCContBox">
@@ -145,10 +144,6 @@
         </div>
     </div>
 </div><!-- .mtGuide01ContentTwoContainer End -->
-
-
-
-
 <div class="mtGuide06ContentThreeContainer">
     <div class="mtGuide06CHCMainBox">
         <div class="mtGuide06CHCMainImg">
@@ -171,18 +166,20 @@
                 </div>
                 <div class="mtGuide06CFCContOneDesc">
                     <p>
-                        디바이스 내의 키보드를 이용하지 않고, 텍스트를 입력할 수<br /> 있는기능으로 메시지, 익스플로어 검색창, 메모 등의 각종<br /> 입력란에 포커스를 위치 후 텍스트 박스를 통해 작성하면<br /> 됩니다.
+                        디바이스 내의 키보드를 이용하지 않고, 텍스트를 입력할 수<br /> 있는 기능으로 메시지, 익스플로어 검색창, 메모 등의 각종<br /> 입력란에 포커스를 위치 후 텍스트 박스를 통해 작성하면<br /> 됩니다.
                     </p>
                 </div>
                 <div class="mtGuide06CFCContOneCont">
                     <ul>
                         <li><span>&middot;</span>메뉴 선택 시 문자를 입력할 수 있는 창이 표시됩니다.</li>
-                        <li><span>&middot;</span>디바이스가 텍스트 입력 상태일 경우에만 동작하며 문자를 <Br />&nbsp;&nbsp;&nbsp;키보드로 입력하여 디바이스에 전달할 수 있습니다.</li>
+                        <li><span>&middot;</span>디바이스가 텍스트 입력 상태일 경우에만 동작하며 문자를 <BR />&nbsp;&nbsp;&nbsp;키보드로 입력하여 디바이스에 전달할 수 있습니다.</li>
                         <li><span>&middot;</span>입력 상태가 아닐 경우에는 어떠한 동작도 하지 않습니다.</li>
                         <li><span>&middot;</span>300 bytes 까지 입력 가능합니다.</li>
                     </ul>
                 </div>
             </div><!-- .mtGuide01CFCContOneBox End -->
+
+
             <div class="mtGuide06CFCContTwoBox">
                 <div class="mtGuide06CTCContOneNum">
                     <img src="${contextPath }/resources/images/popup_mtg_num_02.png" alt="02">
@@ -208,6 +205,8 @@
 
         </div>
     </div>
+
+
     <div class="mtGuide06CFCOneImg">
         <img src="${contextPath }/resources/images/popup_mtg_control_jnlp_06.png" width="371px" height="334px" alt="" />
     </div>
@@ -221,242 +220,5 @@
             </div>
         </div>
 
-    </div>
-</div><!-- .mtGuide01ContentTwoContainer End -->
-
-
-
-
-
-
-
-<div class="mtGuide06ContentFiveContainer">
-    <div class="mtGuide06CVCMainBox">
-        <div class="mtGuide06CVCMainImg">
-            <img src="${contextPath }/resources/images/popup_mtg_control_jnlp_08.png" alt="" />
-        </div>
-    </div><!-- .mtGuide06COCMainBox End -->
-</div><!-- .mtGuide06ContentOneContainer End -->
-
-<div class="mtGuide06ContentSixContainer">
-    <div class="mtGuide06CSCBox01">
-        <div class="mtGuide06CSCContBox">
-            <div class="mtGuide06CSCContOneBox1">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_01.png" alt="01">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								스크린샷하기
-							</span>
-                </div>
-                <div class="mtGuide06CSCContOneDesc">
-                    <p>
-                        디바이스의 현재 사용 화면을 캡쳐하여 다운로드 받습니다.
-                    </p>
-                </div>
-                <div class="mtGuide06CSCContOneCont">
-                    <ul>
-                        <li><span>&middot;</span>메뉴 선택 시 화면 캡쳐를 저장할 수 있는 창이 표시됩니다.</li>
-                        <li><span>&middot;</span>“Browse”를 선택하여 파일을 저장할 폴더를 선택합니다.</li>
-                        <li><span>&middot;</span>“Folder”를 선택하여 지정된 폴더를 여실 수 있습니다.</li>
-                        <li><span>&middot;</span>“Capture”를 선택하시면 디바이스 화면이 캡쳐 됩니다.</li>
-                        <li><span>&middot;</span>캡쳐된 이미지는 “Open”으로 보실 수 있습니다.</li>
-                    </ul>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-            <div class="mtGuide06CSCContOneBox">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_02.png" alt="02">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								녹화하기
-							</span>
-                </div>
-                <div class="mtGuide06CSCContTwoDesc">
-                    <p>
-                        디바이스의 화면을 동영상으로 녹화 합니다. 녹화 아이콘은 <br/>녹화 시작을, 녹화 중 STOP 아이콘을 선택 시에는 종료 됨과<br /> 동시에 로컬 컴퓨터로 저장됩니다.
-                    </p>
-                </div>
-                <div class="mtGuide06CSCContTwoCont">
-                    <ul>
-                        <li><span>&middot;</span>선택 시 동영상 녹화를 실행할 수 있는 창이 표시됩니다.</li>
-                        <li><span>&middot;</span>"Browse”를 선택하여 파일을 저장할 폴더를 선택합니다.</li>
-                        <li><span>&middot;</span>“Folder”를 선택하여 지정된 폴더를 여실 수 있습니다.</li>
-                        <li><span>&middot;</span>“Record”를 선택하시면 디바이스 화면이 녹화 됩니다.</li>
-                        <li><span>&middot;</span>녹화 중 “Stop”을 선택하면 동영상 파일이 저장됩니다.</li>
-                        <li><span>&middot;</span>진행 바를 통해 동영상 파일 다운로드상황을 확인하실 수 <br />&nbsp;&nbsp;&nbsp;있습니다.</li>
-                        <li><span>&middot;</span>파일은 “MP4”로 저장되며 저장된 파일은 “Open”으로 <br />&nbsp;&nbsp;&nbsp;실행하실 수 있습니다.</li>
-                    </ul>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-            <div class="mtGuide06CSCContOneBox">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_03.png" alt="03">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								가로/세로 전환
-							</span>
-                </div>
-                <div class="mtGuide06CSCContThreeDesc">
-                    <p>
-                        디바이스의 방향을 Portrait/Landscape 상태로 전환 합니다.
-                    </p>
-                </div>
-                <div class="mtGuide06CSCContThreeCont">
-                    <ul>
-                        <li><span>&middot;</span>휴대폰의 기본 모드는 Portrait이며, 태블릿은 Landscape <br />&nbsp;&nbsp;&nbsp;모드 입니다. 현재 상태에서 다른 방향으로 전환 합니다.</li>
-                        <li><span>&middot;</span>디바이스의 자동회전 기능이 활성화 되어야 정상 동작 합니다.</li>
-                        <li><span>&middot;</span>선택 시 디바이스가 회전하며 화면에 표시됩니다.</li>
-                    </ul>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-            <div class="mtGuide06CSCContOneBox">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_04.png" alt="04">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								크기 조정
-							</span>
-                </div>
-                <div class="mtGuide06CSCContFourDesc">
-                    <p>
-                        디바이스 창의 크기를 조정합니다.
-                    </p>
-                </div>
-                <div class="mtGuide06CSCContFourCont">
-                    <ul>
-                        <li><span>&middot;</span>기본 : 디바이스 크기를 기본 크기로 변경합니다.</li>
-                        <li><span>&middot;</span>화면 맞춤 : 디바이스 크기를 PC의 해상도 크기로 변경합니다.</li>
-                    </ul>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-            <div class="mtGuide06CSCContOneBox">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_05.png" alt="05">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								슬립모드 깨우기
-							</span>
-                </div>
-                <div class="mtGuide06CSCContFiveDesc">
-                    <p>
-                        디바이스의 슬립모드를 해제 합니다.
-                    </p>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-        </div>
-    </div>
-    <div class="mtGuide06CFCBox02">
-        <div class="mtGuide06CSCImgOneBox01">
-            <div class="mtGuide06CFCOneImg">
-                <img src="${contextPath }/resources/images/popup_mtg_control_jnlp_09.png" alt="" />
-            </div>
-        </div>
-        <div class="mtGuide06CSCImgTwoBox02">
-            <div class="mtGuide06CFCThreeImg">
-                <img src="${contextPath }/resources/images/popup_mtg_control_jnlp_10.png" alt="" align="right" />
-            </div>
-        </div>
-    </div>
-</div><!-- .mtGuide01ContentTwoContainer End -->
-
-
-
-
-
-<div class="mtGuide06ContentSevenContainer">
-    <div class="mtGuide06CECMainBox">
-        <div class="mtGuide06CECMainImg">
-            <img src="${contextPath }/resources/images/popup_mtg_control_jnlp_11.png" alt="" />
-        </div>
-    </div><!-- .mtGuide01COCMainBox End -->
-</div><!-- .mtGuide01ContentOneContainer End -->
-
-<div class="mtGuide06ContentEightContainer">
-    <div class="mtGuide06CGCBox01">
-        <div class="mtGuide06CGCContBox">
-            <div class="mtGuide06CSCContOneBox1">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_01.png" alt="01">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								맨 위로 올리기
-							</span>
-                </div>
-                <div class="mtGuide06CGCContOneDesc">
-                    <p>
-                        실행 시 체크 여부에 따라 디바이스를 모니터 상단에<br /> 위치하도록 설정할 수 있습니다.
-                    </p>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-            <div class="mtGuide06CSCContOneBox">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_02.png" alt="02">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								테두리 숨기기
-							</span>
-                </div>
-                <div class="mtGuide06CGCContTwoDesc">
-                    <p>
-                        디바이스 창의 테두리와 메뉴를 제거합니다.<br />제거된 메뉴는 마우스 우클릭을 통해 표시되는 팝업 메뉴에서 접근할 수 있습니다.
-                    </p>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-            <div class="mtGuide06CSCContOneBox">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_03.png" alt="03">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								사운드 켜기/끄기
-
-							</span>
-                </div>
-                <div class="mtGuide06CGCContThreeDesc">
-                    <p>
-                        디바이스의 사운드를 On/Off 합니다.
-                    </p>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-            <div class="mtGuide06CSCContOneBox">
-                <div class="mtGuide06CTCContOneNum">
-                    <img src="${contextPath }/resources/images/popup_mtg_num_04.png" alt="04">
-                </div>
-                <div class="mtGuide06CTCContOneTit">
-							<span>
-								화질 조정
-							</span>
-                </div>
-                <div class="mtGuide06CGCContFourDesc">
-                    <p>
-                        사용자의 시스템 환경과 네트워크 환경을 고려하여 영상<br /> 품질을 조절합니다.<br />사용자의 시스템 환경과 네트워크 환경에 따라서 화면 반응<br /> 속도가 변할 수 있습니다.
-                    </p>
-                </div>
-                <div class="mtGuide06CGCContFourCont">
-                    <ul>
-                        <li><span>&middot;</span>선택 시 디바이스 팝업 창이 발생합니다.</li>
-                        <li><span>&middot;</span>디바이스에서 전달되는 영상의 품질을 변경합니다.</li>
-                        <li><span>&middot;</span>High Quality : 고품질의 영상은 반응 속도를 <br />&nbsp;&nbsp;&nbsp;느리게 할 수 있습니다.</li>
-                        <li><span>&middot;</span>Low Quality : 저사양의 사용자는 영상 품질을 낮춰 반응 속도를 <br />&nbsp;&nbsp;&nbsp;올립니다.</li>
-                    </ul>
-                </div>
-            </div><!-- .mtGuide01CTCContOneBox End -->
-
-        </div>
-    </div>
-    <div class="mtGuide06CGCBox02">
-        <div class="mtGuide06CGCImgOneBox01">
-            <div class="mtGuide06CGCOneImg">
-                <img src="${contextPath }/resources/images/popup_mtg_control_jnlp_12.png" alt="" />
-            </div>
-        </div>
     </div>
 </div><!-- .mtGuide01ContentTwoContainer End -->
