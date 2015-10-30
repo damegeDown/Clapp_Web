@@ -310,12 +310,12 @@ public class ManagementRestController {
 					this.saveFileForFormData(bannerEntity, file, administrationFileEntity);
 					// 배경 파일 업로드
 
-//					if(null != file_bg) {
-//						administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER_BG);
-//						//기존 파일 삭제
-//						this.removeFile(administrationFileEntity);
-//						this.saveFileForFormData(bannerEntity, file_bg, administrationFileEntity);
-//					}
+					if(null != file_bg) {
+						administrationFileEntity.setFileTarget(CommonCode.FILE_TARGET_BANNER_BG);
+						//기존 파일 삭제
+						this.removeFile(administrationFileEntity);
+						this.saveFileForFormData(bannerEntity, file_bg, administrationFileEntity);
+					}
 				}
 			}
 			result.setResultCode(resultCode);
