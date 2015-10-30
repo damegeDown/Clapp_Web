@@ -464,8 +464,6 @@ public class ManagementRestController {
 		try {
 			String resultCode = ResultCode.FAIL;
 			String resultMessage = messages.getMessage("insert.fail");
-
-            logger.debug("=========================={}",bannerDAO.getBannerMainFalseCount(bannerEntity));
             if(bannerDAO.getBannerMainFalseCount(bannerEntity) <= 1){
                 result.setResultCode(ResultCode.FAIL);
                 result.setResultMSG(messages.getMessage("insert.fail.banner"));
